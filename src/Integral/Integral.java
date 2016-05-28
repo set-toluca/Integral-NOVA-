@@ -493,7 +493,7 @@ public class Integral extends javax.swing.JFrame {
 
         p_usuario.setBackground(new java.awt.Color(2, 135, 242));
 
-        t_bienvenido.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        t_bienvenido.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         t_bienvenido.setForeground(new java.awt.Color(255, 255, 255));
         t_bienvenido.setText("Bienvenido:");
 
@@ -505,7 +505,7 @@ public class Integral extends javax.swing.JFrame {
         t_periodo.setForeground(new java.awt.Color(255, 255, 255));
         t_periodo.setText("jLabel2");
 
-        t_bienvenido1.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        t_bienvenido1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         t_bienvenido1.setForeground(new java.awt.Color(255, 255, 255));
         t_bienvenido1.setText("Periodo:");
 
