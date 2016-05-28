@@ -291,10 +291,8 @@ public class EliminaPedido extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Eliminación de Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
         setLayout(new java.awt.BorderLayout());
 
-        jPanel4.setBackground(new java.awt.Color(2, 135, 242));
-
         l_busca.setFont(new java.awt.Font("Arial", 0, 9)); // NOI18N
-        l_busca.setForeground(new java.awt.Color(255, 255, 255));
+        l_busca.setForeground(new java.awt.Color(2, 135, 242));
         l_busca.setText("Buscar:");
 
         b_busca.setIcon(new ImageIcon("imagenes/buscar1.png"));
@@ -318,7 +316,7 @@ public class EliminaPedido extends javax.swing.JPanel {
         });
 
         r_autorizar.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        r_autorizar.setForeground(new java.awt.Color(254, 254, 254));
+        r_autorizar.setForeground(new java.awt.Color(2, 135, 242));
         r_autorizar.setText("Autorizacion 1");
         r_autorizar.setEnabled(false);
         r_autorizar.addActionListener(new java.awt.event.ActionListener() {
@@ -328,7 +326,7 @@ public class EliminaPedido extends javax.swing.JPanel {
         });
 
         r_autorizar2.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        r_autorizar2.setForeground(new java.awt.Color(254, 254, 254));
+        r_autorizar2.setForeground(new java.awt.Color(2, 135, 242));
         r_autorizar2.setText("Autorizacion 2");
         r_autorizar2.setEnabled(false);
 
