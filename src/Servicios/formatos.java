@@ -916,6 +916,7 @@ public class formatos extends javax.swing.JPanel {
             stamp.close();
             PDF reporte = new PDF();
             reporte.visualizar("reportes/"+ ord.getIdOrden() +"/"+ valor +"TiempoEntrega.pdf");
+            reporte.cerrar();
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(this, "No se pudo realizar el reporte si el archivo esta abierto");
@@ -997,6 +998,7 @@ public class formatos extends javax.swing.JPanel {
             stamp.close();
             PDF reporte = new PDF();
             reporte.visualizar("reportes/"+ord.getIdOrden()+"/"+valor+"NotificacionPromesaAxa.pdf");
+            reporte.cerrar();
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(this, "No se pudo realizar el reporte si el archivo esta abierto");
@@ -1116,9 +1118,8 @@ public class formatos extends javax.swing.JPanel {
                 
             reporte.finTexto();
            
-            reporte.cerrar();
             reporte.visualizar("reportes/"+ord.getIdOrden()+"/"+valor+"CartaFechapromesa.pdf");
-           
+           reporte.cerrar();
         }catch(Exception e)
         {
             System.out.println(e);
@@ -1204,6 +1205,7 @@ public class formatos extends javax.swing.JPanel {
             stamp.close();
             PDF reporte = new PDF();
             reporte.visualizar("reportes/"+ord.getIdOrden()+"/"+valor+"HojaSatisfaccion.pdf");
+            reporte.cerrar();
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(this, "No se pudo realizar el reporte si el archivo esta abierto");
@@ -1278,6 +1280,7 @@ public class formatos extends javax.swing.JPanel {
             stamp.close();
             PDF reporte = new PDF();
             reporte.visualizar("reportes/"+ord.getIdOrden()+"/"+valor+"EncuentaServicio.pdf");
+            reporte.cerrar();
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(this, "No se pudo realizar el reporte si el archivo esta abierto");
@@ -1361,6 +1364,7 @@ public class formatos extends javax.swing.JPanel {
             stamp.close();
             PDF reporte = new PDF();
             reporte.visualizar("reportes/"+ord.getIdOrden()+"/"+valor+"CompromisoAxa.pdf");
+            reporte.cerrar();
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(this, "No se pudo realizar el reporte si el archivo esta abierto");
@@ -1450,6 +1454,7 @@ public class formatos extends javax.swing.JPanel {
             stamp.close();
             PDF reporte = new PDF();
             reporte.visualizar("reportes/"+ord.getIdOrden()+"/"+valor+"FiniquitoAxa.pdf");
+            reporte.cerrar();
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(this, "No se pudo realizar el reporte si el archivo esta abierto");
