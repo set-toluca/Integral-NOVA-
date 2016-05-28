@@ -446,6 +446,8 @@ public class EliminaPedido extends javax.swing.JPanel {
 
         add(jPanel4, java.awt.BorderLayout.PAGE_END);
 
+        scroll.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(2, 135, 242)));
+
         t_datos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
