@@ -76,13 +76,10 @@ public class Formatos {
         h.session(sessionPrograma);
         session = HibernateUtil.getSessionFactory().openSession();
         ord=(Orden)session.get(Orden.class, ord.getIdOrden());
-        //factura=(Factura)session.get(Factura.class, factura.getIdFactura());
         try
         {
             DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.00");
             formatoPorcentaje.setMinimumFractionDigits(2);
-
-            //session.beginTransaction().begin();
             BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
 
             PDF reporte = new PDF();
@@ -99,10 +96,7 @@ public class Formatos {
             int derecha=Element.ALIGN_RIGHT;
             float tam[]=new float[]{40,40,350,70,70};
             PdfPTable tabla=reporte.crearTabla(5, tam, 100, Element.ALIGN_LEFT);
-
-            //Pedido ord = (Pedido)session.get(Pedido.class, Integer.parseInt(this.no_ped));
             cabeceraPre(reporte, bf, tabla);
-
             Partida[] cuentas =(Partida[]) session.createCriteria(Partida.class).add(Restrictions.eq("ordenByIdOrden.idOrden", ord.getIdOrden())).add(Restrictions.eq("facturado", true)).add(Restrictions.eq("incluida", false)).addOrder(Order.asc("idEvaluacion")).addOrder(Order.asc("subPartida")).list().toArray(new Partida[0]);
             Partida[] enlazadas =(Partida[]) session.createCriteria(Partida.class).add(Restrictions.eq("ordenByEnlazada.idOrden", ord.getIdOrden())).add(Restrictions.eq("facturado", true)).addOrder(Order.asc("idEvaluacion")).addOrder(Order.asc("subPartida")).list().toArray(new Partida[0]);
             Adicionales[] externas = (Adicionales[])session.createCriteria(Adicionales.class).add(Restrictions.eq("orden.idOrden", ord.getIdOrden())).addOrder(Order.asc("idAdicionales")).list().toArray(new Adicionales[0]);
@@ -717,7 +711,7 @@ public class Formatos {
                 reporte.estatusAutoriza("","");
                 if(ped.getTipoPedido().compareToIgnoreCase("Externo")==0)
                     cabeceraCompraExDCG(reporte, bf, tabla, ped, tipo);
-                if(ped.getTipoPedido().compareToIgnoreCase("Adicional")==0)
+                if(ped.getTipoPedido().compareToIgnoreCase("Directo")==0)
                     cabeceraCompraDCG(reporte, bf, tabla, ped, tipo);
 
                 PartidaExterna[] cuentas =(PartidaExterna[]) session.createCriteria(PartidaExterna.class).
@@ -822,7 +816,7 @@ public class Formatos {
                     reporte.estatusAutoriza("","       NO AUTORIZADO");
                 if(ped.getTipoPedido().compareToIgnoreCase("Externo")==0)
                     cabeceraCompraEx(reporte, bf, tabla, ped);
-                if(ped.getTipoPedido().compareToIgnoreCase("Adicional")==0)
+                if(ped.getTipoPedido().compareToIgnoreCase("Directo")==0)
                     cabeceraCompra(reporte, bf, tabla, ped);
 
                 PartidaExterna[] cuentas =(PartidaExterna[]) session.createCriteria(PartidaExterna.class).

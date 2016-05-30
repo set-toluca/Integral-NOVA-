@@ -81,7 +81,6 @@ public class nuevoPedido extends javax.swing.JPanel {
     public Proveedor provf_act=null;
     public Partida [] part_act=null;
     MyModel model;
-    //private Session session;
     String sessionPrograma="";
     Herramientas h;
     int menu;
@@ -172,6 +171,7 @@ public class nuevoPedido extends javax.swing.JPanel {
         t_id_comprador = new javax.swing.JTextField();
         t_id_aseguradora = new javax.swing.JTextField();
         t_clave = new javax.swing.JTextField();
+        t_proveedor = new javax.swing.JTextField();
         p_centro = new javax.swing.JScrollPane();
         t_datos = new javax.swing.JTable();
         p_abajo = new javax.swing.JPanel();
@@ -226,7 +226,6 @@ public class nuevoPedido extends javax.swing.JPanel {
         b_aseguradora = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        t_proveedor = new javax.swing.JTextField();
         b_proveedor = new javax.swing.JButton();
         l_nombre_aseguradora = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -595,9 +594,16 @@ public class nuevoPedido extends javax.swing.JPanel {
         t_clave.setDisabledTextColor(new java.awt.Color(2, 38, 253));
         t_clave.setEnabled(false);
 
+        t_proveedor.setEditable(false);
+        t_proveedor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_proveedor.setDisabledTextColor(new java.awt.Color(2, 38, 253));
+        t_proveedor.setEnabled(false);
+
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Nuevo Pedido", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
         setLayout(new java.awt.BorderLayout());
+
+        p_centro.setBorder(null);
 
         t_datos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -624,7 +630,7 @@ public class nuevoPedido extends javax.swing.JPanel {
         l_busca.setText("Buscar:");
 
         b_busca.setBackground(new java.awt.Color(2, 135, 242));
-        b_busca.setIcon(new ImageIcon("imagenes/buscar1.png"));
+        b_busca.setIcon(new ImageIcon("imagenes/buscar.png"));
         b_busca.setToolTipText("Busca un pedido");
         b_busca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -753,7 +759,8 @@ public class nuevoPedido extends javax.swing.JPanel {
         l_notas.setText("Notas:");
 
         t_notas.setColumns(20);
-        t_notas.setRows(5);
+        t_notas.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        t_notas.setRows(3);
         jScrollPane2.setViewportView(t_notas);
 
         javax.swing.GroupLayout p_abajoLayout = new javax.swing.GroupLayout(p_abajo);
@@ -781,13 +788,12 @@ public class nuevoPedido extends javax.swing.JPanel {
                         .addComponent(b_pedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(b_ocompra)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
                 .addComponent(l_notas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         p_abajoLayout.setVerticalGroup(
             p_abajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -840,6 +846,7 @@ public class nuevoPedido extends javax.swing.JPanel {
         });
 
         t_pedido.setEditable(false);
+        t_pedido.setBackground(new java.awt.Color(255, 255, 255));
         t_pedido.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         t_pedido.setDisabledTextColor(new java.awt.Color(2, 38, 253));
         t_pedido.setEnabled(false);
@@ -875,10 +882,10 @@ public class nuevoPedido extends javax.swing.JPanel {
         });
 
         t_plazo.setEditable(false);
+        t_plazo.setBackground(new java.awt.Color(255, 255, 255));
         t_plazo.setText("DD-MM-YYYY");
-        t_plazo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_plazo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_plazo.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_plazo.setEnabled(false);
         t_plazo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 t_plazoActionPerformed(evt);
@@ -886,6 +893,7 @@ public class nuevoPedido extends javax.swing.JPanel {
         });
 
         t_nombre_comprador.setEditable(false);
+        t_nombre_comprador.setBackground(new java.awt.Color(255, 255, 255));
         t_nombre_comprador.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_nombre_comprador.setDisabledTextColor(new java.awt.Color(2, 38, 253));
 
@@ -963,9 +971,9 @@ public class nuevoPedido extends javax.swing.JPanel {
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Orden", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 11))); // NOI18N
 
         t_orden.setEditable(false);
+        t_orden.setBackground(new java.awt.Color(255, 255, 255));
         t_orden.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_orden.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_orden.setEnabled(false);
 
         b_orden.setBackground(new java.awt.Color(2, 135, 242));
         b_orden.setText("Orden:");
@@ -976,9 +984,10 @@ public class nuevoPedido extends javax.swing.JPanel {
             }
         });
 
+        t_tipo.setEditable(false);
+        t_tipo.setBackground(new java.awt.Color(255, 255, 255));
         t_tipo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_tipo.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_tipo.setEnabled(false);
 
         b_tipo.setBackground(new java.awt.Color(2, 135, 242));
         b_tipo.setText("Tipo:");
@@ -990,10 +999,10 @@ public class nuevoPedido extends javax.swing.JPanel {
             }
         });
 
-        t_marca.setBackground(new java.awt.Color(204, 255, 255));
+        t_marca.setEditable(false);
+        t_marca.setBackground(new java.awt.Color(255, 255, 255));
         t_marca.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_marca.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_marca.setEnabled(false);
 
         b_marca.setBackground(new java.awt.Color(2, 135, 242));
         b_marca.setText("Marca:");
@@ -1011,9 +1020,10 @@ public class nuevoPedido extends javax.swing.JPanel {
         l_modelo.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_modelo.setText("Modelo:");
 
+        t_modelo.setEditable(false);
+        t_modelo.setBackground(new java.awt.Color(255, 255, 255));
         t_modelo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_modelo.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_modelo.setEnabled(false);
         t_modelo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 t_modeloKeyTyped(evt);
@@ -1024,6 +1034,7 @@ public class nuevoPedido extends javax.swing.JPanel {
         jLabel4.setText("Siniestro:");
 
         t_siniestro.setEditable(false);
+        t_siniestro.setBackground(new java.awt.Color(255, 255, 255));
         t_siniestro.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_siniestro.setDisabledTextColor(new java.awt.Color(2, 38, 253));
         t_siniestro.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1035,13 +1046,15 @@ public class nuevoPedido extends javax.swing.JPanel {
         l_asegurado.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_asegurado.setText("Asegurado:");
 
+        t_asegurado.setEditable(false);
+        t_asegurado.setBackground(new java.awt.Color(255, 255, 255));
         t_asegurado.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_asegurado.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_asegurado.setEnabled(false);
 
+        t_aseguradora.setEditable(false);
+        t_aseguradora.setBackground(new java.awt.Color(255, 255, 255));
         t_aseguradora.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_aseguradora.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_aseguradora.setEnabled(false);
 
         b_aseguradora.setBackground(new java.awt.Color(2, 135, 242));
         b_aseguradora.setText("Compañia:");
@@ -1132,13 +1145,8 @@ public class nuevoPedido extends javax.swing.JPanel {
         jPanel4.setBackground(new java.awt.Color(254, 254, 254));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Proveedor", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 11))); // NOI18N
 
-        t_proveedor.setEditable(false);
-        t_proveedor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        t_proveedor.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_proveedor.setEnabled(false);
-
         b_proveedor.setBackground(new java.awt.Color(2, 135, 242));
-        b_proveedor.setIcon(new ImageIcon("imagenes/buscar1.png"));
+        b_proveedor.setIcon(new ImageIcon("imagenes/buscar.png"));
         b_proveedor.setToolTipText("Busca proveedor");
         b_proveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1156,9 +1164,7 @@ public class nuevoPedido extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(l_nombre_aseguradora, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(l_nombre_aseguradora, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(b_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1166,14 +1172,12 @@ public class nuevoPedido extends javax.swing.JPanel {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(t_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(l_nombre_aseguradora, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(b_proveedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addComponent(b_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addComponent(l_nombre_aseguradora, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.NORTH);
@@ -1184,13 +1188,15 @@ public class nuevoPedido extends javax.swing.JPanel {
         l_nombre.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_nombre.setText("Nombre:");
 
+        t_nombre.setEditable(false);
+        t_nombre.setBackground(new java.awt.Color(255, 255, 255));
         t_nombre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_nombre.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_nombre.setEnabled(false);
 
+        t_direccion.setEditable(false);
+        t_direccion.setBackground(new java.awt.Color(255, 255, 255));
         t_direccion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_direccion.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_direccion.setEnabled(false);
 
         l_direccion.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_direccion.setText("Dirección:");
@@ -1198,20 +1204,23 @@ public class nuevoPedido extends javax.swing.JPanel {
         l_colonia.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_colonia.setText("Colonia:");
 
+        t_colonia.setEditable(false);
+        t_colonia.setBackground(new java.awt.Color(255, 255, 255));
         t_colonia.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_colonia.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_colonia.setEnabled(false);
 
         l_poblacion.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_poblacion.setText("Población:");
 
+        t_poblacion.setEditable(false);
+        t_poblacion.setBackground(new java.awt.Color(255, 255, 255));
         t_poblacion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_poblacion.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_poblacion.setEnabled(false);
 
+        t_cp.setEditable(false);
+        t_cp.setBackground(new java.awt.Color(255, 255, 255));
         t_cp.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_cp.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_cp.setEnabled(false);
 
         l_cp.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_cp.setText("C.P.:");
@@ -1219,12 +1228,13 @@ public class nuevoPedido extends javax.swing.JPanel {
         l_rfc.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_rfc.setText("R.F.C.:");
 
+        t_rfc.setEditable(false);
+        t_rfc.setBackground(new java.awt.Color(255, 255, 255));
         t_rfc.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_rfc.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_rfc.setEnabled(false);
 
         b_proveedorf.setBackground(new java.awt.Color(2, 135, 242));
-        b_proveedorf.setIcon(new ImageIcon("imagenes/buscar1.png"));
+        b_proveedorf.setIcon(new ImageIcon("imagenes/buscar.png"));
         b_proveedorf.setToolTipText("Busca un proveedor");
         b_proveedorf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1296,7 +1306,7 @@ public class nuevoPedido extends javax.swing.JPanel {
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(l_poblacion)
                         .addComponent(t_poblacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel6, java.awt.BorderLayout.CENTER);
@@ -1395,8 +1405,6 @@ public class nuevoPedido extends javax.swing.JPanel {
                                     this.model.addRow(vector);
                                     model.setCeldaEditable(t_datos.getRowCount()-1, 2, true);
                                 }
-                                //else
-                                    //JOptionPane.showMessageDialog(null, "¡No se pueden agregar pedidos duplicados!");
                             }
                             sumaTotales();
                             formatoTabla();
@@ -1568,125 +1576,120 @@ public class nuevoPedido extends javax.swing.JPanel {
                         {
                             if(t_datos.getRowCount()!=0)
                             {
-                                //if(consultaLista()==true)
-                                //{
-                                    //validamos que las compras sean menor al 70% del valor en vales
-                                    Session session1 = HibernateUtil.getSessionFactory().openSession();
-                                    session1.beginTransaction().begin();
-                                    this.orden_act=(Orden)session1.get(Orden.class, orden_act.getIdOrden());
-                                    if(orden_act!=null)
+                                //validamos que las compras sean menor al 70% del valor en vales
+                                Session session1 = HibernateUtil.getSessionFactory().openSession();
+                                session1.beginTransaction().begin();
+                                this.orden_act=(Orden)session1.get(Orden.class, orden_act.getIdOrden());
+                                if(orden_act!=null)
+                                {
+                                    Partida[] partidas=(Partida[])orden_act.getPartidasForIdOrden().toArray(new Partida[0]);
+                                    double suma=0d;
+                                    for(int p=0; p<partidas.length; p++)
                                     {
-                                        Partida[] partidas=(Partida[])orden_act.getPartidasForIdOrden().toArray(new Partida[0]);
-                                        double suma=0d;
-                                        for(int p=0; p<partidas.length; p++)
+                                        if(partidas[p].getPedido()!=null)
                                         {
-                                            if(partidas[p].getPedido()!=null)
-                                            {
-                                                suma+=Math.round(partidas[p].getCantPcp()*partidas[p].getPcp());
-                                            }
+                                            suma+=Math.round(partidas[p].getCantPcp()*partidas[p].getPcp());
                                         }
-                                        if(orden_act.getPedidos().size()>0)
-                                        {
-                                            Pedido [] adicionales=(Pedido[])orden_act.getPedidos().toArray(new Pedido[0]);
-                                            if(adicionales.length>0)
-                                            {
-                                                for(int a=0; a<adicionales.length; a++)
-                                                {
-                                                    PartidaExterna[] pe = (PartidaExterna[])adicionales[a].getPartidaExternas().toArray(new PartidaExterna[0]);
-                                                    for(int b=0; b<pe.length; b++)
-                                                    {
-                                                        suma+=Math.round(pe[b].getCantidad()*pe[b].getCosto());
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        compra=new BigDecimal(suma);
                                     }
-                                    
-                                    if(session1!=null)
-                                        if(session1.isOpen())
-                                            session1.close();
-                                    if(orden_act!=null)
+                                    if(orden_act.getPedidos().size()>0)
                                     {
-                                        Double misVales=orden_act.getVales();
-                                        Double compras=compra.doubleValue();
-                                        boolean permiso=true;
-                                        if(misVales>0.0d)
+                                        Pedido [] adicionales=(Pedido[])orden_act.getPedidos().toArray(new Pedido[0]);
+                                        if(adicionales.length>0)
                                         {
-                                            Double setenta = misVales*0.7;
-                                            Double total=((Number)t_subtotal.getValue()).doubleValue();
-                                            Double totalNeto=(total+compras);
-                                            if(setenta <= totalNeto)
+                                            for(int a=0; a<adicionales.length; a++)
                                             {
-                                                if(misVales >= totalNeto)
+                                                PartidaExterna[] pe = (PartidaExterna[])adicionales[a].getPartidaExternas().toArray(new PartidaExterna[0]);
+                                                for(int b=0; b<pe.length; b++)
                                                 {
-                                                    usrAut1=null;
-                                                    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-                                                    autorizar1.setSize(284, 177);
-                                                    autorizar1.setLocation((d.width/2)-(autorizar1.getWidth()/2), (d.height/2)-(autorizar1.getHeight()/2));
-                                                    t_user1.setText("");
-                                                    t_clave1.setText("");
-                                                    autorizar1.setVisible(true);
-                                                    if(usrAut1==null)
-                                                        permiso=false;//no se autoriza
-                                                }
-                                                else
-                                                {
-                                                    usrAut2=null;
-                                                    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-                                                    autorizar2.setSize(284, 177);
-                                                    autorizar2.setLocation((d.width/2)-(autorizar2.getWidth()/2), (d.height/2)-(autorizar2.getHeight()/2));
-                                                    t_user2.setText("");
-                                                    t_clave2.setText("");
-                                                    autorizar2.setVisible(true);
-                                                    if(usrAut2==null)
-                                                        permiso=false;//no se autoriza
+                                                    suma+=Math.round(pe[b].getCantidad()*pe[b].getCosto());
                                                 }
                                             }
                                         }
-                                        if(permiso==true)
+                                    }
+                                    compra=new BigDecimal(suma);
+                                }
+
+                                if(session1!=null)
+                                    if(session1.isOpen())
+                                        session1.close();
+                                if(orden_act!=null)
+                                {
+                                    Double misVales=orden_act.getVales();
+                                    Double compras=compra.doubleValue();
+                                    boolean permiso=true;
+                                    if(misVales>0.0d)
+                                    {
+                                        Double setenta = misVales*0.7;
+                                        Double total=((Number)t_subtotal.getValue()).doubleValue();
+                                        Double totalNeto=(total+compras);
+                                        if(setenta <= totalNeto)
                                         {
-                                            Pedido pedido = new Pedido();
-                                            if(t_clave.getText().compareTo("")!=0)
-                                                pedido.setProveedorByIdEmpresa(provf_act);
-                                            if(t_proveedor.getText().compareTo("")!=0)
-                                                pedido.setProveedorByIdProveedor(prov_act);
-                                            pedido.setUsuarioByIdUsuario(usr);
-                                            Date fecha_pedido = new Date();
-                                            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                                            String valor=dateFormat.format(fecha_pedido);
-                                            String [] fecha = valor.split("-");
-                                            String [] hora=fecha[2].split(":");
-                                            String [] aux=hora[0].split(" ");
-                                            fecha[2]=aux[0];
-                                            hora[0]=aux[1];
-                                            Calendar calendario = Calendar.getInstance();
-                                            calendario.set(
-                                                    Integer.parseInt(fecha[2]), 
-                                                    Integer.parseInt(fecha[1])-1, 
-                                                    Integer.parseInt(fecha[0]), 
-                                                    Integer.parseInt(hora[0]), 
-                                                    Integer.parseInt(hora[1]), 
-                                                    Integer.parseInt(hora[2]));
-                                            pedido.setFechaPedido(calendario.getTime());
-                                            if(t_notas.getText().compareTo("")!=0)
-                                                pedido.setNotas(t_notas.getText());
-                                            pedido.setTipoPedido(c_tipo.getSelectedItem().toString());
-                                            Integer respuesta=guardarPedido(pedido);
-                                            if(respuesta!=null)
+                                            if(misVales >= totalNeto)
                                             {
-                                                t_pedido.setText(""+respuesta);
-                                                envia(""+respuesta);
-                                                JOptionPane.showMessageDialog(null, "Pedido almacenado con la clave:  " +respuesta);
-                                                estadoBotones();
+                                                usrAut1=null;
+                                                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                                                autorizar1.setSize(284, 177);
+                                                autorizar1.setLocation((d.width/2)-(autorizar1.getWidth()/2), (d.height/2)-(autorizar1.getHeight()/2));
+                                                t_user1.setText("");
+                                                t_clave1.setText("");
+                                                autorizar1.setVisible(true);
+                                                if(usrAut1==null)
+                                                    permiso=false;//no se autoriza
                                             }
                                             else
-                                                b_guardar.requestFocus();
+                                            {
+                                                usrAut2=null;
+                                                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                                                autorizar2.setSize(284, 177);
+                                                autorizar2.setLocation((d.width/2)-(autorizar2.getWidth()/2), (d.height/2)-(autorizar2.getHeight()/2));
+                                                t_user2.setText("");
+                                                t_clave2.setText("");
+                                                autorizar2.setVisible(true);
+                                                if(usrAut2==null)
+                                                    permiso=false;//no se autoriza
+                                            }
                                         }
                                     }
-                                /*}
-                                else
-                                    JOptionPane.showMessageDialog(null, "No se puede almacenar ya que una partida contiene 0.00");*/
+                                    if(permiso==true)
+                                    {
+                                        Pedido pedido = new Pedido();
+                                        if(t_clave.getText().compareTo("")!=0)
+                                            pedido.setProveedorByIdEmpresa(provf_act);
+                                        if(t_proveedor.getText().compareTo("")!=0)
+                                            pedido.setProveedorByIdProveedor(prov_act);
+                                        pedido.setUsuarioByIdUsuario(usr);
+                                        Date fecha_pedido = new Date();
+                                        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                                        String valor=dateFormat.format(fecha_pedido);
+                                        String [] fecha = valor.split("-");
+                                        String [] hora=fecha[2].split(":");
+                                        String [] aux=hora[0].split(" ");
+                                        fecha[2]=aux[0];
+                                        hora[0]=aux[1];
+                                        Calendar calendario = Calendar.getInstance();
+                                        calendario.set(
+                                                Integer.parseInt(fecha[2]), 
+                                                Integer.parseInt(fecha[1])-1, 
+                                                Integer.parseInt(fecha[0]), 
+                                                Integer.parseInt(hora[0]), 
+                                                Integer.parseInt(hora[1]), 
+                                                Integer.parseInt(hora[2]));
+                                        pedido.setFechaPedido(calendario.getTime());
+                                        if(t_notas.getText().compareTo("")!=0)
+                                            pedido.setNotas(t_notas.getText());
+                                        pedido.setTipoPedido(c_tipo.getSelectedItem().toString());
+                                        Integer respuesta=guardarPedido(pedido);
+                                        if(respuesta!=null)
+                                        {
+                                            t_pedido.setText(""+respuesta);
+                                            envia(""+respuesta);
+                                            JOptionPane.showMessageDialog(null, "Pedido almacenado con la clave:  " +respuesta);
+                                            estadoBotones();
+                                        }
+                                        else
+                                            b_guardar.requestFocus();
+                                    }
+                                }
                             }
                             else
                                 JOptionPane.showMessageDialog(null, "Selecciona algunos pedidos");
@@ -1761,148 +1764,148 @@ public class nuevoPedido extends javax.swing.JPanel {
                 {
                     usrA=null;
                     Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-                    autorizar3.setSize(284, 177);
+                    /*autorizar3.setSize(284, 177);
                     autorizar3.setLocation((d.width/2)-(autorizar3.getWidth()/2), (d.height/3)-(autorizar3.getHeight()/3));
                     t_user3.setText("");
                     t_clave3.setText("");
                     autorizar3.setVisible(true);
                     if(usrA!=null)
-                    {
-                    //validamos que las compras sean menor al 70% del valor en vales
-                                    Session session1 = HibernateUtil.getSessionFactory().openSession();
-                                    session1.beginTransaction().begin();
-                                    this.orden_act=(Orden)session1.get(Orden.class, orden_act.getIdOrden());
-                                    if(orden_act!=null)
+                    {*/
+                        //validamos que las compras sean menor al 70% del valor en vales
+                        Session session1 = HibernateUtil.getSessionFactory().openSession();
+                        session1.beginTransaction().begin();
+                        this.orden_act=(Orden)session1.get(Orden.class, orden_act.getIdOrden());
+                        if(orden_act!=null)
+                        {
+                            Partida[] partidas=(Partida[])orden_act.getPartidasForIdOrden().toArray(new Partida[0]);
+                            double suma=0d;
+                            for(int p=0; p<partidas.length; p++)
+                            {
+                                if(partidas[p].getPedido()!=null)
+                                {
+                                    suma+=Math.round(partidas[p].getCantPcp()*partidas[p].getPcp());
+                                }
+                            }
+                            if(orden_act.getPedidos().size()>0)
+                            {
+                                Pedido [] adicionales=(Pedido[])orden_act.getPedidos().toArray(new Pedido[0]);
+                                if(adicionales.length>0)
+                                {
+                                    for(int a=0; a<adicionales.length; a++)
                                     {
-                                        Partida[] partidas=(Partida[])orden_act.getPartidasForIdOrden().toArray(new Partida[0]);
-                                        double suma=0d;
-                                        for(int p=0; p<partidas.length; p++)
+                                        PartidaExterna[] pe = (PartidaExterna[])adicionales[a].getPartidaExternas().toArray(new PartidaExterna[0]);
+                                        for(int b=0; b<pe.length; b++)
                                         {
-                                            if(partidas[p].getPedido()!=null)
-                                            {
-                                                suma+=Math.round(partidas[p].getCantPcp()*partidas[p].getPcp());
-                                            }
-                                        }
-                                        if(orden_act.getPedidos().size()>0)
-                                        {
-                                            Pedido [] adicionales=(Pedido[])orden_act.getPedidos().toArray(new Pedido[0]);
-                                            if(adicionales.length>0)
-                                            {
-                                                for(int a=0; a<adicionales.length; a++)
-                                                {
-                                                    PartidaExterna[] pe = (PartidaExterna[])adicionales[a].getPartidaExternas().toArray(new PartidaExterna[0]);
-                                                    for(int b=0; b<pe.length; b++)
-                                                    {
-                                                        suma+=Math.round(pe[b].getCantidad()*pe[b].getCosto());
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        compra=new BigDecimal(suma);
-                                    }
-                                    
-                                    if(session1!=null)
-                                        if(session1.isOpen())
-                                            session1.close();
-                                    if(orden_act!=null)
-                                    {
-                                        Double misVales=orden_act.getVales();
-                                        Double compras=compra.doubleValue();
-                                        boolean permiso=true;
-                                        if(misVales>0.0d)
-                                        {
-                                            Double setenta = misVales*0.7;
-                                            Double total=((Number)t_subtotal.getValue()).doubleValue();
-                                            Double totalNeto=(total+compras);
-                                            if(setenta <= totalNeto)
-                                            {
-                                                if(misVales >= totalNeto)
-                                                {
-                                                    usrAut1=null;
-                                                    d = Toolkit.getDefaultToolkit().getScreenSize();
-                                                    autorizar1.setSize(284, 177);
-                                                    autorizar1.setLocation((d.width/2)-(autorizar1.getWidth()/2), (d.height/2)-(autorizar1.getHeight()/2));
-                                                    t_user1.setText("");
-                                                    t_clave1.setText("");
-                                                    autorizar1.setVisible(true);
-                                                    if(usrAut1==null)
-                                                        permiso=false;//no se autoriza
-                                                }
-                                                else
-                                                {
-                                                    usrAut2=null;
-                                                    d = Toolkit.getDefaultToolkit().getScreenSize();
-                                                    autorizar2.setSize(284, 177);
-                                                    autorizar2.setLocation((d.width/2)-(autorizar2.getWidth()/2), (d.height/2)-(autorizar2.getHeight()/2));
-                                                    t_user2.setText("");
-                                                    t_clave2.setText("");
-                                                    autorizar2.setVisible(true);
-                                                    if(usrAut2==null)
-                                                        permiso=false;//no se autoriza
-                                                }
-                                            }
-                                        }
-                                        if(permiso==true)
-                                        {
-                                            if(t_id_comprador.getText().compareTo("")!=0)
-                                            {
-                                                for(int ren=0; ren<t_datos.getRowCount(); ren++)
-                                                {
-                                                    if(t_datos.getValueAt(ren, 4).toString().compareTo("")==0 )
-                                                    {
-                                                        DefaultTableModel model = (DefaultTableModel) t_datos.getModel();
-                                                        model.removeRow(ren);
-                                                        ren--;
-                                                    }
-                                                }
-                                                if(t_datos.getRowCount()!=0)
-                                                {
-                                                    Pedido pedido = new Pedido();
-                                                    if(t_clave.getText().compareTo("")!=0)
-                                                        pedido.setProveedorByIdEmpresa(provf_act);
-                                                    if(t_proveedor.getText().compareTo("")!=0)
-                                                        pedido.setProveedorByIdProveedor(prov_act);
-                                                    pedido.setUsuarioByIdUsuario(usr);
-                                                    Date fecha_pedido = new Date();
-                                                    DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                                                    String valor=dateFormat.format(fecha_pedido);
-                                                    String [] fecha = valor.split("-");
-                                                    String [] hora=fecha[2].split(":");
-                                                    String [] aux=hora[0].split(" ");
-                                                    fecha[2]=aux[0];
-                                                    hora[0]=aux[1];
-                                                    Calendar calendario = Calendar.getInstance();
-                                                    calendario.set(
-                                                            Integer.parseInt(fecha[2]), 
-                                                            Integer.parseInt(fecha[1])-1, 
-                                                            Integer.parseInt(fecha[0]), 
-                                                            Integer.parseInt(hora[0]), 
-                                                            Integer.parseInt(hora[1]), 
-                                                            Integer.parseInt(hora[2]));
-                                                    pedido.setFechaPedido(calendario.getTime());
-                                                    if(this.t_folio_externo.getText().compareTo("")!=0)
-                                                        pedido.setIdExterno(this.t_folio_externo.getText());
-                                                    if(t_notas.getText().compareTo("")!=0)
-                                                        pedido.setNotas(t_notas.getText());
-                                                    pedido.setTipoPedido(c_tipo.getSelectedItem().toString());
-                                                    Integer respuesta=guardarPedido(pedido);
-                                                    if(respuesta!=null)
-                                                    {
-                                                        t_pedido.setText(""+respuesta);
-                                                        JOptionPane.showMessageDialog(null, "Pedido almacenado con la clave:  " +respuesta);
-                                                        estadoBotones();
-                                                    }
-                                                    else
-                                                        b_guardar.requestFocus();
-                                                }
-                                                else
-                                                    JOptionPane.showMessageDialog(null, "Selecciona algunos pedidos");
-                                            }
-                                            else
-                                                JOptionPane.showMessageDialog(null, "Selecciona el nombre del comprador");
+                                            suma+=Math.round(pe[b].getCantidad()*pe[b].getCosto());
                                         }
                                     }
-                    }
+                                }
+                            }
+                            compra=new BigDecimal(suma);
+                        }
+
+                        if(session1!=null)
+                            if(session1.isOpen())
+                                session1.close();
+                        if(orden_act!=null)
+                        {
+                            Double misVales=orden_act.getVales();
+                            Double compras=compra.doubleValue();
+                            boolean permiso=true;
+                            if(misVales>0.0d)
+                            {
+                                Double setenta = misVales*0.7;
+                                Double total=((Number)t_subtotal.getValue()).doubleValue();
+                                Double totalNeto=(total+compras);
+                                if(setenta <= totalNeto)
+                                {
+                                    if(misVales >= totalNeto)
+                                    {
+                                        usrAut1=null;
+                                        d = Toolkit.getDefaultToolkit().getScreenSize();
+                                        autorizar1.setSize(284, 177);
+                                        autorizar1.setLocation((d.width/2)-(autorizar1.getWidth()/2), (d.height/2)-(autorizar1.getHeight()/2));
+                                        t_user1.setText("");
+                                        t_clave1.setText("");
+                                        autorizar1.setVisible(true);
+                                        if(usrAut1==null)
+                                            permiso=false;//no se autoriza
+                                    }
+                                    else
+                                    {
+                                        usrAut2=null;
+                                        d = Toolkit.getDefaultToolkit().getScreenSize();
+                                        autorizar2.setSize(284, 177);
+                                        autorizar2.setLocation((d.width/2)-(autorizar2.getWidth()/2), (d.height/2)-(autorizar2.getHeight()/2));
+                                        t_user2.setText("");
+                                        t_clave2.setText("");
+                                        autorizar2.setVisible(true);
+                                        if(usrAut2==null)
+                                            permiso=false;//no se autoriza
+                                    }
+                                }
+                            }
+                            if(permiso==true)
+                            {
+                                if(t_id_comprador.getText().compareTo("")!=0)
+                                {
+                                    for(int ren=0; ren<t_datos.getRowCount(); ren++)
+                                    {
+                                        if(t_datos.getValueAt(ren, 4).toString().compareTo("")==0 )
+                                        {
+                                            DefaultTableModel model = (DefaultTableModel) t_datos.getModel();
+                                            model.removeRow(ren);
+                                            ren--;
+                                        }
+                                    }
+                                    if(t_datos.getRowCount()!=0)
+                                    {
+                                        Pedido pedido = new Pedido();
+                                        if(t_clave.getText().compareTo("")!=0)
+                                            pedido.setProveedorByIdEmpresa(provf_act);
+                                        if(t_proveedor.getText().compareTo("")!=0)
+                                            pedido.setProveedorByIdProveedor(prov_act);
+                                        pedido.setUsuarioByIdUsuario(usr);
+                                        Date fecha_pedido = new Date();
+                                        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                                        String valor=dateFormat.format(fecha_pedido);
+                                        String [] fecha = valor.split("-");
+                                        String [] hora=fecha[2].split(":");
+                                        String [] aux=hora[0].split(" ");
+                                        fecha[2]=aux[0];
+                                        hora[0]=aux[1];
+                                        Calendar calendario = Calendar.getInstance();
+                                        calendario.set(
+                                                Integer.parseInt(fecha[2]), 
+                                                Integer.parseInt(fecha[1])-1, 
+                                                Integer.parseInt(fecha[0]), 
+                                                Integer.parseInt(hora[0]), 
+                                                Integer.parseInt(hora[1]), 
+                                                Integer.parseInt(hora[2]));
+                                        pedido.setFechaPedido(calendario.getTime());
+                                        if(this.t_folio_externo.getText().compareTo("")!=0)
+                                            pedido.setIdExterno(this.t_folio_externo.getText());
+                                        if(t_notas.getText().compareTo("")!=0)
+                                            pedido.setNotas(t_notas.getText());
+                                        pedido.setTipoPedido(c_tipo.getSelectedItem().toString());
+                                        Integer respuesta=guardarPedido(pedido);
+                                        if(respuesta!=null)
+                                        {
+                                            t_pedido.setText(""+respuesta);
+                                            JOptionPane.showMessageDialog(null, "Pedido almacenado con la clave:  " +respuesta);
+                                            estadoBotones();
+                                        }
+                                        else
+                                            b_guardar.requestFocus();
+                                    }
+                                    else
+                                        JOptionPane.showMessageDialog(null, "Selecciona algunos pedidos");
+                                }
+                                else
+                                    JOptionPane.showMessageDialog(null, "Selecciona el nombre del comprador");
+                            }
+                        }
+                    //}
                 }
             }
             else
@@ -1969,7 +1972,7 @@ public class nuevoPedido extends javax.swing.JPanel {
         b_proveedorf.setEnabled(true);
         b_mas.setEnabled(true);
         b_menos.setEnabled(true);
-        t_notas.setEnabled(true);
+        t_notas.setEditable(true);
         t_datos.setEnabled(true);
         b_pedido.setEnabled(false);
         b_ocompra.setEnabled(false);
@@ -2239,7 +2242,7 @@ public class nuevoPedido extends javax.swing.JPanel {
         if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
         {
             datos_unidad("", "", "", "", "", "","","", "");
-            this.t_folio_externo.setEnabled(false);
+            this.t_folio_externo.setEditable(false);
             this.t_id_comprador.setText("");
             this.t_nombre_comprador.setText("");
             this.b_comprador.setEnabled(true);
@@ -2247,19 +2250,19 @@ public class nuevoPedido extends javax.swing.JPanel {
             this.b_orden.setEnabled(true);
             this.b_tipo.setEnabled(false);
             this.b_marca.setEnabled(false);
-            this.t_modelo.setEnabled(false);
-            //this.t_serie.setEnabled(false);
+            this.t_modelo.setEditable(false);
+            
             this.b_aseguradora.setEnabled(false);
             this.t_siniestro.setEditable(false);
-            this.t_asegurado.setEnabled(false);
-            this.t_folio_externo.setEnabled(false);
+            this.t_asegurado.setEditable(false);
+            this.t_folio_externo.setEditable(false);
             this.t_folio_externo.setText("");
             this.b_calendario.setEnabled(false);
         }
         if(c_tipo.getSelectedItem().toString().compareTo("Externo")==0)
         {
             datos_unidad("", "", "", "", "", "","","", "");
-            this.t_folio_externo.setEnabled(true);
+            this.t_folio_externo.setEditable(true);
             this.t_id_comprador.setText("");
             this.t_nombre_comprador.setText("");
             this.b_comprador.setEnabled(true);
@@ -2268,12 +2271,11 @@ public class nuevoPedido extends javax.swing.JPanel {
             this.b_orden.setEnabled(false);
             this.b_tipo.setEnabled(true);
             this.b_marca.setEnabled(true);
-            this.t_modelo.setEnabled(true);
-            //this.t_serie.setEnabled(true);
+            this.t_modelo.setEditable(true);
             this.b_aseguradora.setEnabled(true);
             this.t_siniestro.setEditable(true);
-            this.t_asegurado.setEnabled(true);
-            this.t_folio_externo.setEnabled(true);
+            this.t_asegurado.setEditable(true);
+            this.t_folio_externo.setEditable(true);
             this.t_folio_externo.setText("");
             this.b_calendario.setEnabled(false);
             
@@ -2281,7 +2283,7 @@ public class nuevoPedido extends javax.swing.JPanel {
         if(c_tipo.getSelectedItem().toString().compareTo("Directo")==0)
         {
                 datos_unidad("", "", "", "", "", "","","", "");
-                this.t_folio_externo.setEnabled(false);
+                this.t_folio_externo.setEditable(false);
                 this.t_id_comprador.setText("");
                 this.t_nombre_comprador.setText("");
                 this.b_comprador.setEnabled(true);
@@ -2289,15 +2291,12 @@ public class nuevoPedido extends javax.swing.JPanel {
                 this.b_orden.setEnabled(true);
                 this.b_tipo.setEnabled(false);
                 this.b_marca.setEnabled(false);
-                this.t_modelo.setEnabled(false);
+                this.t_modelo.setEditable(false);
                 this.b_aseguradora.setEnabled(false);
-                this.t_siniestro.setEnabled(false);
-                this.t_asegurado.setEnabled(false);
-                this.t_folio_externo.setEnabled(false);
+                this.t_siniestro.setEditable(false);
+                this.t_asegurado.setEditable(false);
+                this.t_folio_externo.setEditable(false);
                 this.t_folio_externo.setText("");
-                //this.b_partida.setEnabled(true);
-                //this.t_nombre_partida.setText("");
-                //this.t_id_partida.setText("");
                 this.b_calendario.setEnabled(false);
 
         }
@@ -2893,13 +2892,6 @@ public class nuevoPedido extends javax.swing.JPanel {
                     break;
                 case 2://no parte
                     column.setPreferredWidth(100);
-                    /*if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
-                    {
-                        DefaultCellEditor miEditor = new DefaultCellEditor(numeros);
-                        miEditor.setClickCountToStart(2);
-                        column.setCellEditor(miEditor); 
-                        //column.setCellRenderer(tcr);
-                    }*/
                     break;
                 case 3:
                     column.setPreferredWidth(20);
@@ -3046,8 +3038,6 @@ public class nuevoPedido extends javax.swing.JPanel {
                     for(int ren=0; ren<t_datos.getRowCount(); ren++)
                     {
                         PartidaExterna px=new PartidaExterna();
-                        /*px.setPartida(t_datos.getValueAt(ren, 0).toString());
-                        px.setIdValuacion(t_datos.getValueAt(ren, 1).toString());*/
                         px.setNoParte(t_datos.getValueAt(ren, 2).toString());
                         px.setDescripcion(t_datos.getValueAt(ren, 4).toString());
                         px.setFacturado(false);
@@ -3073,8 +3063,6 @@ public class nuevoPedido extends javax.swing.JPanel {
                         obj.agregaPartidaExterna(px);
                     }
 
-                    //Partida p1=(Partida)session.get(Partida.class, Integer.parseInt(t_id_partida.getText()));
-                    //obj.setPartida(p1);
                     obj.setOrden(orden_act);
                     obj.setEmpleado(emp);
                     session.update(obj);
@@ -3234,18 +3222,6 @@ public class nuevoPedido extends javax.swing.JPanel {
                         }
                     }
                     break;
-                    /*if(value!=null)
-                    {
-                        if(((String)value).compareTo("S/N")==0)
-                            vector.setElementAt("", col);
-                        else
-                            vector.setElementAt(((String)value).toUpperCase(), col);
-                    }
-                    else
-                        vector.setElementAt("", col);
-                    this.dataVector.setElementAt(vector, row);
-                    fireTableCellUpdated(row, col);
-                    break;*/
                 case 4://descripcion
                     if(value!=null)
                         vector.setElementAt(((String)value).toUpperCase(), col);
@@ -3479,7 +3455,6 @@ public class nuevoPedido extends javax.swing.JPanel {
         
         public void setCeldaEditable(int fila, int columna,  boolean editable)
         {
-            //this.celdaEditable[ columna ][ fila ] = editable;
             List aux=(List)celdaEditable.get(fila);
             aux.set(columna, editable);
         }
@@ -3495,35 +3470,26 @@ public class nuevoPedido extends javax.swing.JPanel {
         }
         
     }
-    /*private boolean consultaLista()
-    {
-        for(int ren=0; ren<t_datos.getRowCount(); ren++)
-        {
-            if((double)t_datos.getValueAt(ren, 7)==0.00 ||(double)t_datos.getValueAt(ren, 8)==0.00)
-                return false;
-        }
-        return true;
-    }*/
     void estadoBotones()
     {
         this.c_tipo.setEnabled(false);
         t_plazo.setEnabled(false);
         b_calendario.setEnabled(false); 
-        t_folio_externo.setEnabled(false);
+        t_folio_externo.setEditable(false);
         b_comprador.setEnabled(false);
         b_orden.setEnabled(false);
         b_tipo.setEnabled(false);
         b_marca.setEnabled(false);
-        t_modelo.setEnabled(false);
-        t_siniestro.setEnabled(false);
-        t_asegurado.setEnabled(false);
+        t_modelo.setEditable(false);
+        t_siniestro.setEditable(false);
+        t_asegurado.setEditable(false);
         b_aseguradora.setEnabled(false);
         b_proveedor.setEnabled(false);
         b_proveedorf.setEnabled(false);
         t_datos.setEnabled(false);
         b_mas.setEnabled(false);
         b_menos.setEnabled(false);
-        t_notas.setEnabled(false);
+        t_notas.setEditable(false);
         
         b_guardar.setEnabled(false);
         b_nuevo_pedido.setEnabled(true);

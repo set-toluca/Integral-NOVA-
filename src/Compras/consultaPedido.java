@@ -123,12 +123,15 @@ public class consultaPedido extends javax.swing.JPanel {
         t_user = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         b_autorizar = new javax.swing.JButton();
+        t_id_comprador = new javax.swing.JTextField();
+        t_id_aseguradora = new javax.swing.JTextField();
+        t_proveedor = new javax.swing.JTextField();
+        t_clave = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         l_busca = new javax.swing.JLabel();
         b_busca = new javax.swing.JButton();
         t_busca = new javax.swing.JTextField();
         r_autorizar = new javax.swing.JRadioButton();
-        r_autorizar2 = new javax.swing.JRadioButton();
         b_pedidos = new javax.swing.JButton();
         b_compra = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -148,18 +151,14 @@ public class consultaPedido extends javax.swing.JPanel {
         p_interno_centro = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         c_tipo = new javax.swing.JComboBox();
-        l_pedido = new javax.swing.JLabel();
         t_pedido = new javax.swing.JTextField();
-        l_fecha = new javax.swing.JLabel();
         t_fecha = new javax.swing.JTextField();
         t_folio_externo = new javax.swing.JTextField();
         l_pedido1 = new javax.swing.JLabel();
         t_plazo = new javax.swing.JTextField();
         l_plazo = new javax.swing.JLabel();
         l_nombre1 = new javax.swing.JLabel();
-        t_id_comprador = new javax.swing.JTextField();
         t_nombre_comprador = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -177,14 +176,9 @@ public class consultaPedido extends javax.swing.JPanel {
         l_asegurado = new javax.swing.JLabel();
         t_asegurado = new javax.swing.JTextField();
         l_aseguradora = new javax.swing.JLabel();
-        t_id_aseguradora = new javax.swing.JTextField();
         t_aseguradora = new javax.swing.JTextField();
-        t_nombre_partida = new javax.swing.JTextField();
-        t_id_partida = new javax.swing.JTextField();
-        l_nombre2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        t_proveedor = new javax.swing.JTextField();
         l_proveedor = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         l_nombre = new javax.swing.JLabel();
@@ -199,8 +193,6 @@ public class consultaPedido extends javax.swing.JPanel {
         l_cp = new javax.swing.JLabel();
         l_rfc = new javax.swing.JLabel();
         t_rfc = new javax.swing.JTextField();
-        t_clave = new javax.swing.JTextField();
-        l_clave = new javax.swing.JLabel();
 
         autorizarCosto.setModalExclusionType(null);
         autorizarCosto.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
@@ -278,17 +270,34 @@ public class consultaPedido extends javax.swing.JPanel {
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
         );
 
+        t_id_comprador.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_id_comprador.setDisabledTextColor(new java.awt.Color(2, 38, 253));
+        t_id_comprador.setEnabled(false);
+
+        t_id_aseguradora.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_id_aseguradora.setDisabledTextColor(new java.awt.Color(2, 38, 253));
+        t_id_aseguradora.setEnabled(false);
+
+        t_proveedor.setEditable(false);
+        t_proveedor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_proveedor.setDisabledTextColor(new java.awt.Color(2, 38, 253));
+        t_proveedor.setEnabled(false);
+
+        t_clave.setEditable(false);
+        t_clave.setBackground(new java.awt.Color(255, 255, 255));
+        t_clave.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        t_clave.setDisabledTextColor(new java.awt.Color(2, 38, 253));
+
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Autorización de Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
         setLayout(new java.awt.BorderLayout());
 
-        jPanel4.setBackground(new java.awt.Color(2, 135, 242));
-
         l_busca.setFont(new java.awt.Font("Arial", 0, 9)); // NOI18N
-        l_busca.setForeground(new java.awt.Color(255, 255, 255));
         l_busca.setText("Buscar:");
 
-        b_busca.setIcon(new ImageIcon("imagenes/buscar1.png"));
+        b_busca.setBackground(new java.awt.Color(90, 66, 126));
+        b_busca.setForeground(new java.awt.Color(255, 255, 255));
+        b_busca.setIcon(new ImageIcon("imagenes/buscar.png"));
         b_busca.setToolTipText("Busca una partida");
         b_busca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -309,7 +318,6 @@ public class consultaPedido extends javax.swing.JPanel {
             }
         });
 
-        r_autorizar.setForeground(new java.awt.Color(254, 254, 254));
         r_autorizar.setText("Autorizacion 1");
         r_autorizar.setEnabled(false);
         r_autorizar.addActionListener(new java.awt.event.ActionListener() {
@@ -318,16 +326,8 @@ public class consultaPedido extends javax.swing.JPanel {
             }
         });
 
-        r_autorizar2.setForeground(new java.awt.Color(254, 254, 254));
-        r_autorizar2.setText("Autorizacion 2");
-        r_autorizar2.setEnabled(false);
-        r_autorizar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                r_autorizar2ActionPerformed(evt);
-            }
-        });
-
-        b_pedidos.setIcon(new ImageIcon("imagenes/nuevo.png"));
+        b_pedidos.setBackground(new java.awt.Color(90, 66, 126));
+        b_pedidos.setForeground(new java.awt.Color(255, 255, 255));
         b_pedidos.setText("Pedido");
         b_pedidos.setEnabled(false);
         b_pedidos.addActionListener(new java.awt.event.ActionListener() {
@@ -336,7 +336,8 @@ public class consultaPedido extends javax.swing.JPanel {
             }
         });
 
-        b_compra.setIcon(new ImageIcon("imagenes/nuevo.png"));
+        b_compra.setBackground(new java.awt.Color(90, 66, 126));
+        b_compra.setForeground(new java.awt.Color(255, 255, 255));
         b_compra.setText("Ord. de Compra");
         b_compra.setEnabled(false);
         b_compra.addActionListener(new java.awt.event.ActionListener() {
@@ -392,12 +393,12 @@ public class consultaPedido extends javax.swing.JPanel {
 
         t_notas.setEditable(false);
         t_notas.setColumns(20);
-        t_notas.setRows(5);
+        t_notas.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        t_notas.setRows(3);
         jScrollPane2.setViewportView(t_notas);
 
         l_notas.setBackground(new java.awt.Color(254, 254, 254));
         l_notas.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        l_notas.setForeground(new java.awt.Color(254, 254, 254));
         l_notas.setText("Notas:");
 
         b_menos.setBackground(new java.awt.Color(90, 66, 126));
@@ -417,7 +418,8 @@ public class consultaPedido extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(b_menos, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(l_busca)
                         .addGap(18, 18, 18)
                         .addComponent(t_busca, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -426,15 +428,12 @@ public class consultaPedido extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(b_pedidos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(b_compra))
+                        .addComponent(b_compra)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
+                        .addComponent(l_notas))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(b_menos, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
                         .addComponent(r_autorizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(r_autorizar2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
-                .addComponent(l_notas)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -445,33 +444,33 @@ public class consultaPedido extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(l_notas)
-                            .addGap(31, 31, 31))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(l_notas, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(r_autorizar)
-                                    .addComponent(r_autorizar2))
-                                .addGap(14, 14, 14))
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(t_busca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(l_busca))
+                            .addComponent(b_busca, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(b_pedidos)
+                                .addComponent(b_compra)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(b_menos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)))
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(t_busca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(l_busca)))
-                    .addComponent(b_busca, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(b_pedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(b_compra, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(4, 4, 4)
+                                .addComponent(r_autorizar)
+                                .addGap(8, 8, 8))
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(jPanel4, java.awt.BorderLayout.PAGE_END);
+
+        scroll.setBorder(null);
 
         t_datos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -500,20 +499,14 @@ public class consultaPedido extends javax.swing.JPanel {
         jPanel12.setBackground(new java.awt.Color(254, 254, 254));
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Pedido", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 11))); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        jLabel3.setText("Tipo de Pedido:");
-
         c_tipo.setFont(new java.awt.Font("Droid Sans", 0, 10)); // NOI18N
-        c_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Interno", "Externo", "Adicional" }));
+        c_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Directo", "Valuacion", "Externo" }));
         c_tipo.setEnabled(false);
         c_tipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 c_tipoActionPerformed(evt);
             }
         });
-
-        l_pedido.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        l_pedido.setText("No:");
 
         t_pedido.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         t_pedido.setDisabledTextColor(new java.awt.Color(2, 38, 253));
@@ -528,50 +521,47 @@ public class consultaPedido extends javax.swing.JPanel {
             }
         });
 
-        l_fecha.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        l_fecha.setText("Fecha:");
-
         t_fecha.setEditable(false);
+        t_fecha.setBackground(new java.awt.Color(255, 255, 255));
         t_fecha.setText("DD-MM-YYYY HH:MM:SS");
         t_fecha.setToolTipText("fecha de pedido");
-        t_fecha.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_fecha.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_fecha.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_fecha.setEnabled(false);
 
-        t_folio_externo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_folio_externo.setEditable(false);
+        t_folio_externo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_folio_externo.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_folio_externo.setEnabled(false);
 
         l_pedido1.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        l_pedido1.setText("Folio externo:");
+        l_pedido1.setText("N° externo:");
 
         t_plazo.setEditable(false);
+        t_plazo.setBackground(new java.awt.Color(255, 255, 255));
         t_plazo.setText("DD-MM-YYYY");
-        t_plazo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_plazo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_plazo.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_plazo.setEnabled(false);
 
         l_plazo.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_plazo.setText("Plazo:");
 
         l_nombre1.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        l_nombre1.setText("comprador:");
+        l_nombre1.setText("Comprador:");
 
-        t_id_comprador.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        t_id_comprador.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_id_comprador.setEnabled(false);
-
-        t_nombre_comprador.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_nombre_comprador.setEditable(false);
+        t_nombre_comprador.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_nombre_comprador.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_nombre_comprador.setEnabled(false);
 
-        jButton1.setIcon(new ImageIcon("imagenes/buscar1.png"));
+        jButton1.setBackground(new java.awt.Color(90, 66, 126));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Pedido:");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(90, 66, 126));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("OK");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -587,77 +577,49 @@ public class consultaPedido extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(c_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(t_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(c_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(l_pedido1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_folio_externo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 9, Short.MAX_VALUE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
-                                .addComponent(l_nombre1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(t_id_comprador))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
-                                .addComponent(l_plazo)
-                                .addGap(7, 7, 7)
-                                .addComponent(t_plazo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(t_nombre_comprador))
-                            .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addComponent(l_pedido1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel12Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(l_pedido)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(t_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel12Layout.createSequentialGroup()
-                                        .addComponent(t_folio_externo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                                        .addComponent(l_fecha)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(t_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                        .addComponent(l_plazo)
+                        .addGap(7, 7, 7)
+                        .addComponent(t_plazo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(l_nombre1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_nombre_comprador)))
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(c_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(l_pedido)
-                            .addComponent(t_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2)))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(t_plazo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(l_plazo))
-                            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(l_pedido1)
-                                .addComponent(t_folio_externo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(l_nombre1)
-                            .addComponent(t_id_comprador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(t_nombre_comprador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(l_fecha)
-                        .addComponent(t_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(t_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(c_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(l_pedido1)
+                    .addComponent(t_folio_externo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(t_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(t_plazo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(l_plazo)
+                    .addComponent(l_nombre1)
+                    .addComponent(t_nombre_comprador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel12, java.awt.BorderLayout.NORTH);
@@ -669,31 +631,29 @@ public class consultaPedido extends javax.swing.JPanel {
         l_orden.setText("Orden:");
 
         t_orden.setEditable(false);
-        t_orden.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_orden.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_orden.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_orden.setEnabled(false);
 
         l_tipo.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_tipo.setText("Tipo:");
 
-        t_tipo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_tipo.setEditable(false);
+        t_tipo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_tipo.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_tipo.setEnabled(false);
 
         jLabel21.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel21.setText("Marca:");
 
-        t_marca.setBackground(new java.awt.Color(204, 255, 255));
-        t_marca.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_marca.setEditable(false);
+        t_marca.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_marca.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_marca.setEnabled(false);
 
         l_modelo.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_modelo.setText("Modelo:");
 
-        t_modelo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_modelo.setEditable(false);
+        t_modelo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_modelo.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_modelo.setEnabled(false);
         t_modelo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 t_modeloKeyTyped(evt);
@@ -703,9 +663,9 @@ public class consultaPedido extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel4.setText("Siniestro:");
 
-        t_siniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_siniestro.setEditable(false);
+        t_siniestro.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_siniestro.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_siniestro.setEnabled(false);
         t_siniestro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 t_siniestroKeyTyped(evt);
@@ -715,31 +675,16 @@ public class consultaPedido extends javax.swing.JPanel {
         l_asegurado.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_asegurado.setText("Asegurado:");
 
-        t_asegurado.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_asegurado.setEditable(false);
+        t_asegurado.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_asegurado.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_asegurado.setEnabled(false);
 
         l_aseguradora.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_aseguradora.setText("Compañía:");
 
-        t_id_aseguradora.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        t_id_aseguradora.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_id_aseguradora.setEnabled(false);
-
-        t_aseguradora.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_aseguradora.setEditable(false);
+        t_aseguradora.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_aseguradora.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_aseguradora.setEnabled(false);
-
-        t_nombre_partida.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        t_nombre_partida.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_nombre_partida.setEnabled(false);
-
-        t_id_partida.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        t_id_partida.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_id_partida.setEnabled(false);
-
-        l_nombre2.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        l_nombre2.setText("Partida:");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -755,7 +700,7 @@ public class consultaPedido extends javax.swing.JPanel {
                         .addGap(41, 41, 41)
                         .addComponent(l_tipo)
                         .addGap(6, 6, 6)
-                        .addComponent(t_tipo, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                        .addComponent(t_tipo, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
                         .addGap(41, 41, 41)
                         .addComponent(jLabel21)
                         .addGap(6, 6, 6)
@@ -774,16 +719,8 @@ public class consultaPedido extends javax.swing.JPanel {
                         .addComponent(t_asegurado))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(l_aseguradora)
-                        .addGap(6, 6, 6)
-                        .addComponent(t_id_aseguradora, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_aseguradora))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(l_nombre2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_id_partida, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(t_nombre_partida)))
+                        .addComponent(t_aseguradora)))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -817,14 +754,8 @@ public class consultaPedido extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_aseguradora)
-                    .addComponent(t_id_aseguradora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(t_aseguradora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(l_nombre2)
-                    .addComponent(t_id_partida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(t_nombre_partida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(4, 4, 4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel8, java.awt.BorderLayout.CENTER);
@@ -837,15 +768,9 @@ public class consultaPedido extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(254, 254, 254));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Proveedor", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 11))); // NOI18N
 
-        t_proveedor.setEditable(false);
-        t_proveedor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        t_proveedor.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_proveedor.setEnabled(false);
-
+        l_proveedor.setBackground(new java.awt.Color(255, 255, 255));
         l_proveedor.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        l_proveedor.setForeground(new java.awt.Color(2, 38, 253));
         l_proveedor.setText("SELECCIONE UN PROVEEDOR");
-        l_proveedor.setEnabled(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -853,18 +778,14 @@ public class consultaPedido extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(l_proveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                .addGap(41, 41, 41)
-                .addComponent(t_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(l_proveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(t_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(l_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(l_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
@@ -876,13 +797,13 @@ public class consultaPedido extends javax.swing.JPanel {
         l_nombre.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_nombre.setText("Nombre:");
 
-        t_nombre.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_nombre.setEditable(false);
+        t_nombre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_nombre.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_nombre.setEnabled(false);
 
-        t_direccion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_direccion.setEditable(false);
+        t_direccion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_direccion.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_direccion.setEnabled(false);
 
         l_direccion.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_direccion.setText("Dirección:");
@@ -890,20 +811,20 @@ public class consultaPedido extends javax.swing.JPanel {
         l_colonia.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_colonia.setText("Colonia:");
 
-        t_colonia.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_colonia.setEditable(false);
+        t_colonia.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_colonia.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_colonia.setEnabled(false);
 
         l_poblacion.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_poblacion.setText("Población:");
 
-        t_poblacion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_poblacion.setEditable(false);
+        t_poblacion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_poblacion.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_poblacion.setEnabled(false);
 
-        t_cp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_cp.setEditable(false);
+        t_cp.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_cp.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_cp.setEnabled(false);
 
         l_cp.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_cp.setText("C.P.:");
@@ -911,17 +832,9 @@ public class consultaPedido extends javax.swing.JPanel {
         l_rfc.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_rfc.setText("R.F.C.:");
 
-        t_rfc.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_rfc.setEditable(false);
+        t_rfc.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_rfc.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_rfc.setEnabled(false);
-
-        t_clave.setEditable(false);
-        t_clave.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        t_clave.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_clave.setEnabled(false);
-
-        l_clave.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        l_clave.setText("Clave:");
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -931,25 +844,6 @@ public class consultaPedido extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(l_rfc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_rfc, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(l_cp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_cp, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
-                        .addComponent(l_clave)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(l_colonia)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(l_direccion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_direccion))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(l_nombre)
                         .addGap(21, 21, 21)
                         .addComponent(t_nombre))
@@ -957,8 +851,24 @@ public class consultaPedido extends javax.swing.JPanel {
                         .addComponent(l_poblacion)
                         .addGap(9, 9, 9)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(t_poblacion)
-                            .addComponent(t_colonia))))
+                            .addComponent(t_colonia)
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addComponent(t_poblacion, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(l_rfc)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(t_rfc, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(l_direccion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_direccion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(l_cp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_cp, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(l_colonia)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
@@ -971,24 +881,23 @@ public class consultaPedido extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(l_direccion, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(t_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(t_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(l_cp)
+                        .addComponent(t_cp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_colonia)
                     .addComponent(t_colonia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(l_poblacion)
-                    .addComponent(t_poblacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(l_rfc)
-                    .addComponent(t_rfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(l_cp)
-                    .addComponent(t_cp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(l_clave)
-                    .addComponent(t_clave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(l_rfc)
+                        .addComponent(t_rfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(l_poblacion)
+                        .addComponent(t_poblacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel13, java.awt.BorderLayout.CENTER);
@@ -1020,8 +929,8 @@ public class consultaPedido extends javax.swing.JPanel {
             f1=new Formatos(this.usr, this.sessionPrograma, null, t_pedido.getText());
         else
             f1=new Formatos(this.usr, this.sessionPrograma, this.orden_act, t_pedido.getText());
-            
-        if(this.c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+
+        if(this.c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
             f1.pedidos();
         else
             f1.pedidosExternos(Integer.parseInt(this.t_pedido.getText()));
@@ -1029,7 +938,7 @@ public class consultaPedido extends javax.swing.JPanel {
 
     private void b_compraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_compraActionPerformed
         Formatos f1;
-        if(this.c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+        if(this.c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
         {
             f1=new Formatos(this.usr, this.sessionPrograma, this.orden_act, t_pedido.getText());
             f1.ordenCompra();
@@ -1114,24 +1023,16 @@ public class consultaPedido extends javax.swing.JPanel {
                 usr = (Usuario)session.get(Usuario.class, usr.getIdUsuario());
                 if(usr.getAutorizarPedidos()==true)
                 {
-                    if(pedido.getUsuarioByAutorizo2()==null || pedido.getUsuarioByAutorizo2().getIdUsuario().compareTo(usr.getIdUsuario())!=0)
-                    {
-                        pedido.setUsuarioByAutorizo(usr);
-                        session.beginTransaction().commit();
-                        busca();
-                        this.b_compra.setEnabled(true);
-                        this.b_pedidos.setEnabled(true);
-                        session = HibernateUtil.getSessionFactory().openSession();
-                        usr = (Usuario)session.get(Usuario.class, usr.getIdUsuario());
-                        r_autorizar.setText(usr.getEmpleado().getNombre());
-                        JOptionPane.showMessageDialog(this, "El pedido fue autorizado con exito");
-                        session.close();
-                    }
-                    else
-                    {
-                        this.r_autorizar.setSelected(false);
-                        JOptionPane.showMessageDialog(this, "El mismo usuario no puede autorizar 2 veces");
-                    }
+                    pedido.setUsuarioByAutorizo(usr);
+                    session.beginTransaction().commit();
+                    busca();
+                    this.b_compra.setEnabled(true);
+                    this.b_pedidos.setEnabled(true);
+                    session = HibernateUtil.getSessionFactory().openSession();
+                    usr = (Usuario)session.get(Usuario.class, usr.getIdUsuario());
+                    r_autorizar.setText(usr.getEmpleado().getNombre());
+                    JOptionPane.showMessageDialog(this, "El pedido fue autorizado con exito");
+                    session.close();
                 }
                 else
                 {
@@ -1195,96 +1096,6 @@ public class consultaPedido extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_r_autorizarActionPerformed
-
-    private void r_autorizar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r_autorizar2ActionPerformed
-        // TODO add your handling code here:
-        if(this.r_autorizar2.isSelected()==true)
-        {
-            session = HibernateUtil.getSessionFactory().openSession();
-            try
-            {
-                session.beginTransaction().begin();
-                pedido = (Pedido)session.get(Pedido.class, Integer.parseInt(t_pedido.getText()));
-                usr = (Usuario)session.get(Usuario.class, usr.getIdUsuario());
-                if(usr.getAutorizarPedidos()==true)
-                {
-                    if(pedido.getUsuarioByAutorizo()==null || pedido.getUsuarioByAutorizo().getIdUsuario().compareTo(usr.getIdUsuario())!=0)
-                    {
-                        pedido.setUsuarioByAutorizo2(usr);
-                        session.beginTransaction().commit();
-                        this.b_compra.setEnabled(true);
-                        this.b_pedidos.setEnabled(true);
-                        r_autorizar2.setText(usr.getEmpleado().getNombre());
-                        JOptionPane.showMessageDialog(this, "El pedido fue autorizado con exito");
-                    }
-                    else
-                    {
-                        r_autorizar2.setSelected(false);
-                        JOptionPane.showMessageDialog(this, "El mismo usuario no puede autorizar 2 veces");
-                    }
-                }
-                else
-                {
-                    r_autorizar2.setSelected(false);
-                    JOptionPane.showMessageDialog(this, "Acceso denegado");
-                }
-            }catch(Exception e)
-            {
-                e.printStackTrace();
-                r_autorizar2.setSelected(false);
-                session.beginTransaction().rollback();
-                JOptionPane.showMessageDialog(this, "Error al autorizar el pedido.");
-            }
-            finally
-            {
-                if(session.isOpen()==true)
-                    session.close();
-            }
-        }
-        else//chacar si ya se recibio productos no quitar*******************
-        {
-            session = HibernateUtil.getSessionFactory().openSession();
-            try
-            {
-                session.beginTransaction().begin();
-                pedido = (Pedido)session.get(Pedido.class, Integer.parseInt(t_pedido.getText()));
-                usr = (Usuario)session.get(Usuario.class, usr.getIdUsuario());
-                if(pedido.getAlmacens().size()==0)
-                {
-                    if(usr.getAutorizarPedidos()==true && pedido.getUsuarioByAutorizo2().getIdUsuario().compareTo(usr.getIdUsuario())==0)
-                    {
-                        pedido.setUsuarioByAutorizo2(null);
-                        session.beginTransaction().commit();
-                        r_autorizar2.setText("Autorizacion 2");
-                        this.b_compra.setEnabled(true);
-                        this.b_pedidos.setEnabled(true);
-                        JOptionPane.showMessageDialog(this, "Se eliminó la autorización del pedido con exito");
-                    }
-                    else
-                    {
-                        r_autorizar2.setSelected(true);
-                        JOptionPane.showMessageDialog(this, "Acceso denegado");
-                    }
-                }
-                else
-                {
-                    r_autorizar2.setSelected(true);
-                    JOptionPane.showMessageDialog(this, "El pedido ya tiene movimientos en el almacen");
-                }
-            }catch(Exception e)
-            {
-                e.printStackTrace();
-                r_autorizar2.setSelected(true);
-                session.beginTransaction().rollback();
-                JOptionPane.showMessageDialog(this, "Error al al quitar la autorización del pedido.");
-            }
-            finally
-            {
-                if(session.isOpen()==true)
-                session.close();
-            }
-        }
-    }//GEN-LAST:event_r_autorizar2ActionPerformed
 
     private void c_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_tipoActionPerformed
 
@@ -1411,7 +1222,6 @@ public class consultaPedido extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
@@ -1426,19 +1236,15 @@ public class consultaPedido extends javax.swing.JPanel {
     private javax.swing.JLabel l_asegurado;
     private javax.swing.JLabel l_aseguradora;
     private javax.swing.JLabel l_busca;
-    private javax.swing.JLabel l_clave;
     private javax.swing.JLabel l_colonia;
     private javax.swing.JLabel l_cp;
     private javax.swing.JLabel l_direccion;
-    private javax.swing.JLabel l_fecha;
     private javax.swing.JLabel l_iva;
     private javax.swing.JLabel l_modelo;
     private javax.swing.JLabel l_nombre;
     private javax.swing.JLabel l_nombre1;
-    private javax.swing.JLabel l_nombre2;
     private javax.swing.JLabel l_notas;
     private javax.swing.JLabel l_orden;
-    private javax.swing.JLabel l_pedido;
     private javax.swing.JLabel l_pedido1;
     private javax.swing.JLabel l_plazo;
     private javax.swing.JLabel l_poblacion;
@@ -1450,7 +1256,6 @@ public class consultaPedido extends javax.swing.JPanel {
     private javax.swing.JPanel p_arriba;
     private javax.swing.JPanel p_interno_centro;
     private javax.swing.JRadioButton r_autorizar;
-    private javax.swing.JRadioButton r_autorizar2;
     private javax.swing.JScrollPane scroll;
     private javax.swing.JFormattedTextField t_IVA;
     private javax.swing.JTextField t_asegurado;
@@ -1466,12 +1271,10 @@ public class consultaPedido extends javax.swing.JPanel {
     private javax.swing.JTextField t_folio_externo;
     private javax.swing.JTextField t_id_aseguradora;
     private javax.swing.JTextField t_id_comprador;
-    private javax.swing.JTextField t_id_partida;
     private javax.swing.JTextField t_marca;
     private javax.swing.JTextField t_modelo;
     private javax.swing.JTextField t_nombre;
     private javax.swing.JTextField t_nombre_comprador;
-    private javax.swing.JTextField t_nombre_partida;
     private javax.swing.JTextArea t_notas;
     private javax.swing.JTextField t_orden;
     private javax.swing.JTextField t_pedido;
@@ -1581,7 +1384,8 @@ public class consultaPedido extends javax.swing.JPanel {
         {
             b_menos.setEnabled(true);
             r_autorizar.setEnabled(true);
-            r_autorizar2.setEnabled(true);
+            b_pedidos.setEnabled(true);
+            b_compra.setEnabled(true);
             h= new Herramientas(usr, menu);
             h.session(sessionPrograma);
             h.desbloqueaOrden();
@@ -1610,12 +1414,8 @@ public class consultaPedido extends javax.swing.JPanel {
                 this.t_siniestro.setText("");
                 this.t_asegurado.setText("");
                 this.t_folio_externo.setText("");
-                this.t_id_partida.setText("");
-                this.t_nombre_partida.setText("");
                 r_autorizar.setSelected(true);
-                r_autorizar2.setSelected(true);
                 r_autorizar.setText("Autorizacion 1");
-                r_autorizar2.setText("Autorizacion 2");
                 
                 session.beginTransaction().begin();
                 pedido = (Pedido)session.get(Pedido.class, pedido.getIdPedido());
@@ -1660,7 +1460,7 @@ public class consultaPedido extends javax.swing.JPanel {
                 //************cargamos datos de la orden***********************
                 if(part.length>0)
                 {
-                    c_tipo.setSelectedItem("Interno");
+                    c_tipo.setSelectedItem("Valuacion");
                     resp=h.estadoOrden(part[0].getOrdenByIdOrden());
                     orden_act=part[0].getOrdenByIdOrden();
                     t_tipo.setText(part[0].getOrdenByIdOrden().getTipo().getTipoNombre());
@@ -1719,40 +1519,25 @@ public class consultaPedido extends javax.swing.JPanel {
                     }
                     else
                     {
-                        //if(pedido.getPartida()!=nul)
-                        //{
-                            c_tipo.setSelectedItem("Adicional");
-                            orden_act=pedido.getOrden();
-                            orden_act=(Orden)session.get(Orden.class, orden_act.getIdOrden());
-                            resp=h.estadoOrden(orden_act);
-                            t_orden.setText(""+orden_act.getIdOrden());
-                            t_tipo.setText(orden_act.getTipo().getTipoNombre());
-                            t_marca.setText(orden_act.getMarca().getIdMarca());
-                            t_modelo.setText(""+orden_act.getModelo());
-                            t_id_aseguradora.setText(""+orden_act.getCompania().getIdCompania());
-                            t_aseguradora.setText(orden_act.getCompania().getNombre());
-                            if(orden_act.getSiniestro()!=null)
-                                t_siniestro.setText(orden_act.getSiniestro());
-                            else
-                                t_siniestro.setText("");
-                            t_asegurado.setText(orden_act.getClientes().getNombre());
-                            t_folio_externo.setText("");
-                            t_id_partida.setText("");//+pedido.getPartida().getIdPartida());
-                            t_nombre_partida.setText("");//pedido.getPartida().getCatalogo().getNombre());
-
-                            this.t_id_comprador.setText(""+pedido.getEmpleado().getIdEmpleado());
-                            this.t_nombre_comprador.setText(pedido.getEmpleado().getNombre());
-                        /*}
+                        c_tipo.setSelectedItem("Directo");
+                        orden_act=pedido.getOrden();
+                        orden_act=(Orden)session.get(Orden.class, orden_act.getIdOrden());
+                        resp=h.estadoOrden(orden_act);
+                        t_orden.setText(""+orden_act.getIdOrden());
+                        t_tipo.setText(orden_act.getTipo().getTipoNombre());
+                        t_marca.setText(orden_act.getMarca().getIdMarca());
+                        t_modelo.setText(""+orden_act.getModelo());
+                        t_id_aseguradora.setText(""+orden_act.getCompania().getIdCompania());
+                        t_aseguradora.setText(orden_act.getCompania().getNombre());
+                        if(orden_act.getSiniestro()!=null)
+                            t_siniestro.setText(orden_act.getSiniestro());
                         else
-                        {
-                            t_tipo.setText("");
-                            t_marca.setText("");
-                            t_modelo.setText("");
-                            t_aseguradora.setText("");
                             t_siniestro.setText("");
-                            t_asegurado.setText("");
-                            t_folio_externo.setText("");
-                        }*/
+                        t_asegurado.setText(orden_act.getClientes().getNombre());
+                        t_folio_externo.setText("");
+
+                        this.t_id_comprador.setText(""+pedido.getEmpleado().getIdEmpleado());
+                        this.t_nombre_comprador.setText(pedido.getEmpleado().getNombre());
                     }
                 }
                 
@@ -1791,7 +1576,7 @@ public class consultaPedido extends javax.swing.JPanel {
                 }
                 //**********
                 double tot=0.0d;
-                if(c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+                if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
                 {
                     model=new MyModel(part.length, columnas);
                     t_datos.setModel(model);
@@ -1827,7 +1612,7 @@ public class consultaPedido extends javax.swing.JPanel {
                         model.setValueAt(sum, r, 10);
                     }
                 }
-                if(c_tipo.getSelectedItem().toString().compareTo("Externo")==0 || c_tipo.getSelectedItem().toString().compareTo("Adicional")==0)
+                if(c_tipo.getSelectedItem().toString().compareTo("Externo")==0 || c_tipo.getSelectedItem().toString().compareTo("Directo")==0)
                 {
                     model=new MyModel(partEx.length, columnas);
                     t_datos.setModel(model);
@@ -1870,28 +1655,10 @@ public class consultaPedido extends javax.swing.JPanel {
                 t_total.setValue(tot+iva);
                 
                 //checar si la orden ya fue autorizada
-                if(pedido.getUsuarioByAutorizo()!=null || pedido.getUsuarioByAutorizo2()!=null)
+                if(pedido.getUsuarioByAutorizo()!=null)
                 {
-                    if(pedido.getUsuarioByAutorizo()!=null)
-                    {
-                        r_autorizar.setSelected(true);
-                        r_autorizar.setText(pedido.getUsuarioByAutorizo().getEmpleado().getNombre());
-                    }
-                    else
-                    {
-                        r_autorizar.setSelected(false);
-                        r_autorizar.setText("Autorizacion 1");
-                    }
-                    if(pedido.getUsuarioByAutorizo2()!=null)
-                    {
-                        r_autorizar2.setSelected(true);
-                        r_autorizar2.setText(pedido.getUsuarioByAutorizo2().getEmpleado().getNombre());
-                    }
-                    else
-                    {
-                        r_autorizar2.setSelected(false);
-                        r_autorizar2.setText("Autorizacion 2");
-                    }
+                    r_autorizar.setSelected(true);
+                    r_autorizar.setText(pedido.getUsuarioByAutorizo().getEmpleado().getNombre());
                     model.setColumnaEditable(0, false);
                     model.setColumnaEditable(1, false);
                     model.setColumnaEditable(2, false);
@@ -1904,36 +1671,21 @@ public class consultaPedido extends javax.swing.JPanel {
                 else
                 {
                     r_autorizar.setSelected(false);
-                    r_autorizar2.setSelected(false);
                     r_autorizar.setText("Autorizacion 1");
-                    r_autorizar2.setText("Autorizacion 2");
                 }
                 
                 //vemos si la orden no esta bloqueada
-                if(c_tipo.getSelectedItem().toString().compareTo("Interno")==0 || c_tipo.getSelectedItem().toString().compareTo("Adicional")==0)
+                if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0 || c_tipo.getSelectedItem().toString().compareTo("Directo")==0)
                 {
                     if(resp.compareTo("")==0 || resp.compareTo("*bloqueada ok*")!=0)
                     {
                         r_autorizar.setEnabled(false);
-                        r_autorizar2.setEnabled(false);
                         b_menos.setEnabled(false);
                         JOptionPane.showMessageDialog(null, "¡Orden bloqueada por:"+orden_act.getUsuarioByBloqueada().getIdUsuario());
-                    }
-                    if(r_autorizar2.isEnabled()!=false)
-                    {
-                        resp=h.estadoPedido(pedido);
-                        if(resp.compareTo("")==0 || resp.compareTo("*bloqueada ok*")!=0)
-                        {
-                            r_autorizar.setEnabled(false);
-                            r_autorizar2.setEnabled(false);
-                            b_menos.setEnabled(false);
-                            JOptionPane.showMessageDialog(null, "¡Pedido bloqueada por:"+pedido.getUsuarioByBloqueado().getIdUsuario());
-                        }
                     }
                     if(orden_act!=null && orden_act.getFechaCierre()!=null)
                     {
                         r_autorizar.setEnabled(false);
-                        r_autorizar2.setEnabled(false);
                         b_menos.setEnabled(false);
                         JOptionPane.showMessageDialog(null, "Orden cerrada");
                     }
@@ -1944,7 +1696,6 @@ public class consultaPedido extends javax.swing.JPanel {
                     if(resp.compareTo("")==0 || resp.compareTo("*bloqueada ok*")!=0)
                     {
                         r_autorizar.setEnabled(false);
-                        r_autorizar2.setEnabled(false);
                         b_menos.setEnabled(false);
                         JOptionPane.showMessageDialog(null, "¡Pedido bloqueado por:"+pedido.getUsuarioByBloqueado().getIdUsuario());
                     }
@@ -1977,8 +1728,6 @@ public class consultaPedido extends javax.swing.JPanel {
                 this.b_menos.setEnabled(false);
                 r_autorizar.setEnabled(false);
                 r_autorizar.setText("Autorizacion 1");
-                r_autorizar2.setEnabled(false);
-                r_autorizar2.setText("Autorizacion 2");
                 model=new MyModel(0, columnas);
                 t_datos.setModel(model); 
                 sumaTotales();
@@ -2013,16 +1762,14 @@ public class consultaPedido extends javax.swing.JPanel {
             this.t_siniestro.setText("");
             this.t_asegurado.setText("");
             this.t_folio_externo.setText("");
-            this.t_id_partida.setText("");
-            this.t_nombre_partida.setText("");
             t_id_comprador.setText("");
             t_nombre_comprador.setText("");
             t_clave.setText("");
             this.b_menos.setEnabled(false);
+            b_pedidos.setEnabled(false);
+            b_compra.setEnabled(false);
             r_autorizar.setEnabled(false);
             r_autorizar.setText("Autorizacion 1");
-            r_autorizar2.setEnabled(false);
-            r_autorizar2.setText("Autorizacion 2");
             model=new MyModel(0, columnas);
             t_datos.setModel(model); 
             sumaTotales();
@@ -2241,7 +1988,7 @@ public class consultaPedido extends javax.swing.JPanel {
             pedido = (Pedido)session.get(Pedido.class, Integer.parseInt(t_pedido.getText()));
             if(pedido!=null)
             {
-                if(pedido.getTipoPedido().compareToIgnoreCase("Interno")==0)
+                if(pedido.getTipoPedido().compareToIgnoreCase("Valuacion")==0)
                 {
                     Partida aux=(Partida)session.get(Partida.class, numero);
                     Movimiento[] mov=(Movimiento[])aux.getMovimientos().toArray(new Movimiento[0]);

@@ -109,7 +109,6 @@ public class editaPedido extends javax.swing.JPanel {
         t_datos.setModel(model);
         t_datos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         r_autorizar.setEnabled(false);
-        r_autorizar2.setEnabled(false);
         bloquea(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
         titulos();
     }
@@ -175,12 +174,13 @@ public class editaPedido extends javax.swing.JPanel {
         numeros = new javax.swing.JComboBox();
         t_id_aseguradora = new javax.swing.JTextField();
         t_clave = new javax.swing.JTextField();
+        t_proveedor = new javax.swing.JTextField();
+        t_id_comprador = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         l_busca = new javax.swing.JLabel();
         b_busca = new javax.swing.JButton();
         t_busca = new javax.swing.JTextField();
         r_autorizar = new javax.swing.JRadioButton();
-        r_autorizar2 = new javax.swing.JRadioButton();
         b_pedidos = new javax.swing.JButton();
         b_compra = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -213,7 +213,6 @@ public class editaPedido extends javax.swing.JPanel {
         l_pedido1 = new javax.swing.JLabel();
         b_calendario = new javax.swing.JButton();
         t_plazo = new javax.swing.JTextField();
-        t_id_comprador = new javax.swing.JTextField();
         t_nombre_comprador = new javax.swing.JTextField();
         b_comprador = new javax.swing.JButton();
         b_busca_pedido = new javax.swing.JButton();
@@ -234,7 +233,6 @@ public class editaPedido extends javax.swing.JPanel {
         b_aseguradora = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        t_proveedor = new javax.swing.JTextField();
         b_proveedor = new javax.swing.JButton();
         l_proveedor = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
@@ -412,12 +410,22 @@ public class editaPedido extends javax.swing.JPanel {
         t_clave.setDisabledTextColor(new java.awt.Color(2, 38, 253));
         t_clave.setEnabled(false);
 
+        t_proveedor.setEditable(false);
+        t_proveedor.setBackground(new java.awt.Color(255, 255, 255));
+        t_proveedor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_proveedor.setDisabledTextColor(new java.awt.Color(2, 38, 253));
+        t_proveedor.setEnabled(false);
+
+        t_id_comprador.setEditable(false);
+        t_id_comprador.setBackground(new java.awt.Color(255, 255, 255));
+        t_id_comprador.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        t_id_comprador.setDisabledTextColor(new java.awt.Color(2, 38, 253));
+
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Modificación de Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
         setLayout(new java.awt.BorderLayout());
 
         l_busca.setFont(new java.awt.Font("Arial", 0, 9)); // NOI18N
-        l_busca.setForeground(new java.awt.Color(2, 38, 253));
         l_busca.setText("Buscar:");
 
         b_busca.setIcon(new ImageIcon("imagenes/buscar1.png"));
@@ -442,20 +450,10 @@ public class editaPedido extends javax.swing.JPanel {
         });
 
         r_autorizar.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        r_autorizar.setForeground(new java.awt.Color(2, 38, 253));
         r_autorizar.setText("Autorizacion 1");
         r_autorizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 r_autorizarActionPerformed(evt);
-            }
-        });
-
-        r_autorizar2.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        r_autorizar2.setForeground(new java.awt.Color(2, 38, 253));
-        r_autorizar2.setText("Autorizacion 2");
-        r_autorizar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                r_autorizar2ActionPerformed(evt);
             }
         });
 
@@ -571,12 +569,12 @@ public class editaPedido extends javax.swing.JPanel {
         });
 
         t_notas.setColumns(20);
-        t_notas.setRows(5);
+        t_notas.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        t_notas.setRows(3);
         jScrollPane2.setViewportView(t_notas);
 
         l_notas.setBackground(new java.awt.Color(254, 254, 254));
         l_notas.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        l_notas.setForeground(new java.awt.Color(2, 38, 253));
         l_notas.setText("Notas:");
 
         b_dcg.setBackground(new java.awt.Color(90, 66, 126));
@@ -598,10 +596,7 @@ public class editaPedido extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(r_autorizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(r_autorizar2))
+                    .addComponent(r_autorizar)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(b_mas, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -632,7 +627,7 @@ public class editaPedido extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cb_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -660,7 +655,6 @@ public class editaPedido extends javax.swing.JPanel {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(b_pedidos)
                             .addComponent(r_autorizar)
-                            .addComponent(r_autorizar2)
                             .addComponent(b_compra)
                             .addComponent(b_dcg)
                             .addComponent(cb_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -707,13 +701,17 @@ public class editaPedido extends javax.swing.JPanel {
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Pedido", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 11))); // NOI18N
 
         c_tipo.setFont(new java.awt.Font("Droid Sans", 0, 10)); // NOI18N
-        c_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Interno", "Externo", "Adicional" }));
+        c_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Directo", "Valuacion", "Externo" }));
         c_tipo.setEnabled(false);
 
-        t_pedido.setEditable(false);
+        t_pedido.setBackground(new java.awt.Color(255, 255, 255));
         t_pedido.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         t_pedido.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_pedido.setEnabled(false);
+        t_pedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_pedidoActionPerformed(evt);
+            }
+        });
 
         t_fecha.setEditable(false);
         t_fecha.setBackground(new java.awt.Color(255, 255, 255));
@@ -722,11 +720,11 @@ public class editaPedido extends javax.swing.JPanel {
         t_fecha.setToolTipText("fecha de pedido");
         t_fecha.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_fecha.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_fecha.setEnabled(false);
 
+        t_folio_externo.setEditable(false);
+        t_folio_externo.setBackground(new java.awt.Color(255, 255, 255));
         t_folio_externo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         t_folio_externo.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_folio_externo.setEnabled(false);
 
         l_pedido1.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_pedido1.setText("N° externo:");
@@ -748,19 +746,14 @@ public class editaPedido extends javax.swing.JPanel {
         t_plazo.setText("DD-MM-YYYY");
         t_plazo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_plazo.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_plazo.setEnabled(false);
         t_plazo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 t_plazoActionPerformed(evt);
             }
         });
 
-        t_id_comprador.setBackground(new java.awt.Color(240, 240, 240));
-        t_id_comprador.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        t_id_comprador.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_id_comprador.setEnabled(false);
-
         t_nombre_comprador.setEditable(false);
+        t_nombre_comprador.setBackground(new java.awt.Color(255, 255, 255));
         t_nombre_comprador.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_nombre_comprador.setDisabledTextColor(new java.awt.Color(2, 38, 253));
 
@@ -800,7 +793,7 @@ public class editaPedido extends javax.swing.JPanel {
                     .addComponent(t_plazo)
                     .addComponent(t_pedido, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(c_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -808,15 +801,12 @@ public class editaPedido extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(t_folio_externo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(t_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(b_comprador)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_id_comprador, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(t_nombre_comprador)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -833,7 +823,6 @@ public class editaPedido extends javax.swing.JPanel {
                     .addComponent(b_calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(t_plazo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(b_comprador, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(t_id_comprador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(t_nombre_comprador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -847,7 +836,6 @@ public class editaPedido extends javax.swing.JPanel {
         t_orden.setBackground(new java.awt.Color(255, 255, 255));
         t_orden.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_orden.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_orden.setEnabled(false);
 
         b_orden.setBackground(new java.awt.Color(90, 66, 126));
         b_orden.setText("Orden");
@@ -859,9 +847,10 @@ public class editaPedido extends javax.swing.JPanel {
             }
         });
 
+        t_tipo.setEditable(false);
+        t_tipo.setBackground(new java.awt.Color(255, 255, 255));
         t_tipo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_tipo.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_tipo.setEnabled(false);
 
         b_tipo.setBackground(new java.awt.Color(90, 66, 126));
         b_tipo.setText("Tipo");
@@ -873,9 +862,10 @@ public class editaPedido extends javax.swing.JPanel {
             }
         });
 
+        t_marca.setEditable(false);
+        t_marca.setBackground(new java.awt.Color(255, 255, 255));
         t_marca.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_marca.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_marca.setEnabled(false);
 
         b_marca.setBackground(new java.awt.Color(90, 66, 126));
         b_marca.setText("Marca");
@@ -893,9 +883,10 @@ public class editaPedido extends javax.swing.JPanel {
         l_modelo.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_modelo.setText("Modelo:");
 
+        t_modelo.setEditable(false);
+        t_modelo.setBackground(new java.awt.Color(255, 255, 255));
         t_modelo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_modelo.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_modelo.setEnabled(false);
         t_modelo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 t_modeloKeyTyped(evt);
@@ -905,9 +896,10 @@ public class editaPedido extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel4.setText("Siniestro:");
 
+        t_siniestro.setEditable(false);
+        t_siniestro.setBackground(new java.awt.Color(255, 255, 255));
         t_siniestro.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_siniestro.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_siniestro.setEnabled(false);
         t_siniestro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 t_siniestroKeyTyped(evt);
@@ -917,13 +909,15 @@ public class editaPedido extends javax.swing.JPanel {
         l_asegurado.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_asegurado.setText("Asegurado:");
 
+        t_asegurado.setEditable(false);
+        t_asegurado.setBackground(new java.awt.Color(255, 255, 255));
         t_asegurado.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_asegurado.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_asegurado.setEnabled(false);
 
+        t_aseguradora.setEditable(false);
+        t_aseguradora.setBackground(new java.awt.Color(255, 255, 255));
         t_aseguradora.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_aseguradora.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_aseguradora.setEnabled(false);
 
         b_aseguradora.setBackground(new java.awt.Color(90, 66, 126));
         b_aseguradora.setText("Compañia:");
@@ -945,11 +939,11 @@ public class editaPedido extends javax.swing.JPanel {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(b_orden)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_orden, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                        .addComponent(t_orden, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(b_tipo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_tipo, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                        .addComponent(t_tipo, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(b_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1009,12 +1003,6 @@ public class editaPedido extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(254, 254, 254));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Proveedor", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 11))); // NOI18N
 
-        t_proveedor.setEditable(false);
-        t_proveedor.setBackground(new java.awt.Color(255, 255, 255));
-        t_proveedor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        t_proveedor.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_proveedor.setEnabled(false);
-
         b_proveedor.setIcon(new ImageIcon("imagenes/buscar1.png"));
         b_proveedor.setToolTipText("Busca proveedor");
         b_proveedor.addActionListener(new java.awt.event.ActionListener() {
@@ -1025,7 +1013,6 @@ public class editaPedido extends javax.swing.JPanel {
 
         l_proveedor.setBackground(new java.awt.Color(255, 255, 255));
         l_proveedor.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        l_proveedor.setForeground(new java.awt.Color(2, 38, 253));
         l_proveedor.setText("SELECCIONE UN PROVEEDOR");
         l_proveedor.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
@@ -1035,24 +1022,20 @@ public class editaPedido extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(l_proveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(l_proveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(b_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(t_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(l_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(b_proveedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addComponent(b_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addComponent(l_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.NORTH);
@@ -1063,13 +1046,15 @@ public class editaPedido extends javax.swing.JPanel {
         l_nombre.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_nombre.setText("Nombre:");
 
+        t_nombre.setEditable(false);
+        t_nombre.setBackground(new java.awt.Color(255, 255, 255));
         t_nombre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_nombre.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_nombre.setEnabled(false);
 
+        t_direccion.setEditable(false);
+        t_direccion.setBackground(new java.awt.Color(255, 255, 255));
         t_direccion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_direccion.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_direccion.setEnabled(false);
 
         l_direccion.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_direccion.setText("Dirección:");
@@ -1077,20 +1062,23 @@ public class editaPedido extends javax.swing.JPanel {
         l_colonia.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_colonia.setText("Colonia:");
 
+        t_colonia.setEditable(false);
+        t_colonia.setBackground(new java.awt.Color(255, 255, 255));
         t_colonia.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_colonia.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_colonia.setEnabled(false);
 
         l_poblacion.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_poblacion.setText("Población:");
 
+        t_poblacion.setEditable(false);
+        t_poblacion.setBackground(new java.awt.Color(255, 255, 255));
         t_poblacion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_poblacion.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_poblacion.setEnabled(false);
 
+        t_cp.setEditable(false);
+        t_cp.setBackground(new java.awt.Color(255, 255, 255));
         t_cp.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_cp.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_cp.setEnabled(false);
 
         l_cp.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_cp.setText("C.P.:");
@@ -1098,9 +1086,10 @@ public class editaPedido extends javax.swing.JPanel {
         l_rfc.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_rfc.setText("R.F.C.:");
 
+        t_rfc.setEditable(false);
+        t_rfc.setBackground(new java.awt.Color(255, 255, 255));
         t_rfc.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_rfc.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_rfc.setEnabled(false);
 
         b_proveedorf.setIcon(new ImageIcon("imagenes/buscar1.png"));
         b_proveedorf.setToolTipText("Busca un proveedor");
@@ -1123,7 +1112,7 @@ public class editaPedido extends javax.swing.JPanel {
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(t_colonia)
                             .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(t_poblacion, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                                .addComponent(t_poblacion, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(l_rfc)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1143,7 +1132,7 @@ public class editaPedido extends javax.swing.JPanel {
                                 .addComponent(t_cp, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
                                 .addComponent(l_nombre)
-                                .addGap(15, 15, 15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(t_nombre)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(b_proveedorf, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1177,7 +1166,7 @@ public class editaPedido extends javax.swing.JPanel {
                     .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(l_poblacion)
                         .addComponent(t_poblacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel13, java.awt.BorderLayout.CENTER);
@@ -1210,7 +1199,7 @@ public class editaPedido extends javax.swing.JPanel {
         else
             f1=new Formatos(this.usr, this.sessionPrograma, this.orden_act, t_pedido.getText());
             
-        if(this.c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+        if(this.c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
             f1.pedidos();
         else
             f1.pedidosExternos(Integer.parseInt(this.t_pedido.getText()));
@@ -1218,7 +1207,7 @@ public class editaPedido extends javax.swing.JPanel {
 
     private void b_compraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_compraActionPerformed
         Formatos f1;
-        if(this.c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+        if(this.c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
         {
             f1=new Formatos(this.usr, this.sessionPrograma, this.orden_act, t_pedido.getText());
             f1.ordenCompra();
@@ -1375,32 +1364,24 @@ public class editaPedido extends javax.swing.JPanel {
                 usr=(Usuario)session.get(Usuario.class, usr.getIdUsuario());
                 if(usr.getAutorizarPedidos()==true)
                 {
-                    if(pedido.getUsuarioByAutorizo2()==null || pedido.getUsuarioByAutorizo2().getIdUsuario().compareTo(usr.getIdUsuario())!=0)
-                    {
-                        pedido.setUsuarioByAutorizo(usr);
-                        session.update(pedido);
-                        session.beginTransaction().commit();
-                        bloquea(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
-                        model.setColumnaEditable(0, false);
-                        model.setColumnaEditable(1, false);
-                        model.setColumnaEditable(2, false);
-                        model.setColumnaEditable(4, false);
-                        model.setColumnaEditable(5, false);
-                        model.setColumnaEditable(7, false);
-                        model.setColumnaEditable(8, false);
-                        model.setColumnaEditable(9, false);
-                        this.b_compra.setEnabled(true);
-                        this.b_pedidos.setEnabled(true);
-                        this.b_dcg.setEnabled(true);
-                        this.b_edita.setEnabled(true);
-                        r_autorizar.setText(usr.getEmpleado().getNombre());
-                        JOptionPane.showMessageDialog(this, "El pedido fue autorizado con exito.");
-                    }
-                    else
-                    {
-                        this.r_autorizar.setSelected(false);
-                        JOptionPane.showMessageDialog(this, "El mismo usuario no puede autorizar 2 veces");
-                    }
+                    pedido.setUsuarioByAutorizo(usr);
+                    session.update(pedido);
+                    session.beginTransaction().commit();
+                    bloquea(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+                    model.setColumnaEditable(0, false);
+                    model.setColumnaEditable(1, false);
+                    model.setColumnaEditable(2, false);
+                    model.setColumnaEditable(4, false);
+                    model.setColumnaEditable(5, false);
+                    model.setColumnaEditable(7, false);
+                    model.setColumnaEditable(8, false);
+                    model.setColumnaEditable(9, false);
+                    this.b_compra.setEnabled(true);
+                    this.b_pedidos.setEnabled(true);
+                    this.b_dcg.setEnabled(true);
+                    this.b_edita.setEnabled(true);
+                    r_autorizar.setText(usr.getEmpleado().getNombre());
+                    JOptionPane.showMessageDialog(this, "El pedido fue autorizado con exito.");
                 }
                 else
                 {
@@ -1464,108 +1445,6 @@ public class editaPedido extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_r_autorizarActionPerformed
-
-    private void r_autorizar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r_autorizar2ActionPerformed
-        // TODO add your handling code here:
-        if(this.r_autorizar2.isSelected()==true)
-        {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            try
-            {
-                session.beginTransaction().begin();
-                usr=(Usuario)session.get(Usuario.class, usr.getIdUsuario());
-                pedido = (Pedido)session.get(Pedido.class, Integer.parseInt(t_pedido.getText()));
-                if(usr.getAutorizarPedidos()==true)
-                {
-                    if(pedido.getUsuarioByAutorizo()==null || pedido.getUsuarioByAutorizo().getIdUsuario().compareTo(usr.getIdUsuario())!=0)
-                    {
-                        pedido.setUsuarioByAutorizo2(usr);
-                        session.update(pedido);
-                        session.beginTransaction().commit();
-                        bloquea(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
-                        model.setColumnaEditable(0, false);
-                        model.setColumnaEditable(1, false);
-                        model.setColumnaEditable(2, false);
-                        model.setColumnaEditable(4, false);
-                        model.setColumnaEditable(5, false);
-                        model.setColumnaEditable(7, false);
-                        model.setColumnaEditable(8, false);
-                        model.setColumnaEditable(9, false);
-                        this.b_compra.setEnabled(true);
-                        this.b_pedidos.setEnabled(true);
-                        this.b_dcg.setEnabled(true);
-                        this.b_edita.setEnabled(true);
-                        r_autorizar2.setText(usr.getEmpleado().getNombre());
-                        JOptionPane.showMessageDialog(this, "El pedido fue autorizado con exito");
-                    }
-                    else
-                    {
-                        r_autorizar2.setSelected(false);
-                        JOptionPane.showMessageDialog(this, "El mismo usuario no puede autorizar 2 veces");
-                    }
-                }
-                else
-                {
-                    r_autorizar2.setSelected(false);
-                    JOptionPane.showMessageDialog(this, "Acceso denegado");
-                }
-            }catch(Exception e)
-            {
-                e.printStackTrace();
-                r_autorizar2.setSelected(false);
-                session.beginTransaction().rollback();
-                JOptionPane.showMessageDialog(this, "Error al autorizar el pedido.");
-            }
-            finally
-            {
-                if(session.isOpen()==true)
-                    session.close();
-            }
-        }
-        else//chacar si ya se recibio productos no quitar*******************
-        {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            try
-            {
-                session.beginTransaction().begin();
-                pedido = (Pedido)session.get(Pedido.class, pedido.getIdPedido());
-                usr = (Usuario)session.get(Usuario.class, usr.getIdUsuario());
-                if(pedido.getAlmacens().size()==0)
-                {
-                    if(usr.getAutorizarPedidos()==true && pedido.getUsuarioByAutorizo2().getIdUsuario().compareTo(usr.getIdUsuario())==0)
-                    {
-                        pedido.setUsuarioByAutorizo2(null);
-                        session.update(pedido);
-                        session.beginTransaction().commit();
-                        r_autorizar2.setText("Autorizacion 2");
-                        busca();
-                        JOptionPane.showMessageDialog(this, "Se eliminó la autorización del pedido con exito");
-                    }
-                    else
-                    {
-                        r_autorizar2.setSelected(true);
-                        JOptionPane.showMessageDialog(this, "Acceso denegado");
-                    }
-                }
-                else
-                {
-                    r_autorizar2.setSelected(true);
-                    JOptionPane.showMessageDialog(this, "El pedido ya tiene movimientos en el almacen");
-                }
-            }catch(Exception e)
-            {
-                e.printStackTrace();
-                r_autorizar2.setSelected(true);
-                session.beginTransaction().rollback();
-                JOptionPane.showMessageDialog(this, "Error al al quitar la autorizacion del pedido.");
-            }
-            finally
-            {
-                if(session.isOpen()==true)
-                session.close();
-            }
-        }
-    }//GEN-LAST:event_r_autorizar2ActionPerformed
 
     private void b_editaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_editaActionPerformed
         // TODO add your handling code here:
@@ -1647,7 +1526,7 @@ public class editaPedido extends javax.swing.JPanel {
         Calendar miCalendario=cal.getReturnStatus();
         if(miCalendario!=null)
         {
-            if(this.c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+            if(this.c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
             {
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 for(int ren=0; ren<t_datos.getRowCount(); ren++)
@@ -1916,7 +1795,6 @@ public class editaPedido extends javax.swing.JPanel {
         {
             t_proveedor.setText("");
             l_proveedor.setText("SELECCIONE UN PROVEEDOR");
-            l_proveedor.setEnabled(false);
             t_proveedor.requestFocus();
         }
     }//GEN-LAST:event_b_proveedorActionPerformed
@@ -1975,7 +1853,7 @@ public class editaPedido extends javax.swing.JPanel {
         h=new Herramientas(usr, 0);
         h.session(sessionPrograma);
 
-        if(this.c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+        if(this.c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
         {
             Session session = HibernateUtil.getSessionFactory().openSession();
             if(t_orden.getText().compareTo("")!=0)
@@ -2059,7 +1937,7 @@ public class editaPedido extends javax.swing.JPanel {
             else
             b_calendario.setEnabled(false);
         }
-        if(this.c_tipo.getSelectedItem().toString().compareTo("Adicional")==0)
+        if(this.c_tipo.getSelectedItem().toString().compareTo("Directo")==0)
             {
                 int pos=t_datos.getRowCount()+1;
                 Object[] vector=new Object[]{""/**Interno*/,""/*#*/,""/*R_valua*/,""/*codigo*/,""+"s/f"/*folio*/,""/*descripción*/,""+""/*medida*/,"0"/*plazo*/,1.0/*cantidad*/,0.0/*costo c/u*/,0.0/*total*/};
@@ -2109,7 +1987,7 @@ public class editaPedido extends javax.swing.JPanel {
     private void b_dcgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_dcgActionPerformed
         // TODO add your handling code here:
         Formatos f1;
-        if(this.c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+        if(this.c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
         {
             f1=new Formatos(this.usr, this.sessionPrograma, this.orden_act, t_pedido.getText());
             f1.ordenCompraDCG(cb_tipo.getSelectedItem().toString());
@@ -2123,6 +2001,28 @@ public class editaPedido extends javax.swing.JPanel {
             f1.ordenCompraExternosDCG(Integer.parseInt(this.t_pedido.getText()), cb_tipo.getSelectedItem().toString());
         }
     }//GEN-LAST:event_b_dcgActionPerformed
+
+    private void t_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_pedidoActionPerformed
+        // TODO add your handling code here:
+        h= new Herramientas(usr, menu);
+        h.session(sessionPrograma);
+        h.desbloqueaOrden();
+        h.desbloqueaPedido();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction().begin();
+            pedido = (Pedido)session.get(Pedido.class, Integer.parseInt(t_pedido.getText()));
+            session.beginTransaction().commit();
+        }catch(Exception e){e.printStackTrace();}
+        finally
+        {
+            if(session!=null)
+                if(session.isOpen())
+                    session.close();
+        }
+        busca();
+    }//GEN-LAST:event_t_pedidoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog autorizarCosto;
@@ -2185,7 +2085,6 @@ public class editaPedido extends javax.swing.JPanel {
     private javax.swing.JPanel p_arriba;
     private javax.swing.JPanel p_interno_centro;
     private javax.swing.JRadioButton r_autorizar;
-    private javax.swing.JRadioButton r_autorizar2;
     private javax.swing.JScrollPane scroll;
     private javax.swing.JFormattedTextField t_IVA;
     private javax.swing.JTextField t_asegurado;
@@ -2242,7 +2141,7 @@ public class editaPedido extends javax.swing.JPanel {
                     break;
                 case 3:               
                     column.setPreferredWidth(100);
-                    /*if(c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+                    /*if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
                     {
                         DefaultCellEditor miEditor = new DefaultCellEditor(numeros);
                         miEditor.setClickCountToStart(2);
@@ -2305,6 +2204,31 @@ public class editaPedido extends javax.swing.JPanel {
     
     public void busca()
     {
+        this.t_pedido.setText("");
+        this.t_proveedor.setText("");
+        this.t_nombre_comprador.setText("");
+        this.t_plazo.setText("");
+        this.t_orden.setText("");
+        this.t_fecha.setText("DD/MM/AAAA");
+        this.l_proveedor.setText("SELECCIONE UN PROVEEDOR");
+        this.t_notas.setText("");
+        this.t_nombre.setText("");
+        this.t_direccion.setText("");
+        this.t_poblacion.setText("");
+        this.t_colonia.setText("");
+        this.t_cp.setText("");
+        this.t_rfc.setText("");
+        this.t_tipo.setText("");
+        this.t_marca.setText("");
+        this.t_modelo.setText("");
+        this.t_id_aseguradora.setText("");
+        this.t_aseguradora.setText("");
+        this.t_siniestro.setText("");
+        this.t_asegurado.setText("");
+        this.t_folio_externo.setText("");
+        model=new MyModel(0, columnas);
+        t_datos.setModel(model);
+                    
         if(pedido!=null)
         {
             elimina=new ArrayList();
@@ -2315,27 +2239,6 @@ public class editaPedido extends javax.swing.JPanel {
             Session session = HibernateUtil.getSessionFactory().openSession();
             try
             {
-                this.t_pedido.setText("");
-                this.t_proveedor.setText("");
-                this.t_plazo.setText("");
-                this.t_orden.setText("");
-                this.t_fecha.setText("DD/MM/AAAA");
-                this.l_proveedor.setText("SELECCIONE UN PROVEEDOR");
-                this.t_notas.setText("");
-                this.t_nombre.setText("");
-                this.t_direccion.setText("");
-                this.t_poblacion.setText("");
-                this.t_colonia.setText("");
-                this.t_cp.setText("");
-                this.t_rfc.setText("");
-                this.t_tipo.setText("");
-                this.t_marca.setText("");
-                this.t_modelo.setText("");
-                this.t_id_aseguradora.setText("");
-                this.t_aseguradora.setText("");
-                this.t_siniestro.setText("");
-                this.t_asegurado.setText("");
-                this.t_folio_externo.setText("");
                 
                 session.beginTransaction().begin();
                 pedido = (Pedido)session.get(Pedido.class, pedido.getIdPedido());
@@ -2384,7 +2287,7 @@ public class editaPedido extends javax.swing.JPanel {
                 //************cargamos datos de la orden***********************
                 if(part.length>0)
                 {
-                    c_tipo.setSelectedItem("Interno");
+                    c_tipo.setSelectedItem("Valuacion");
                     resp=h.estadoOrden(part[0].getOrdenByIdOrden());
                     orden_act=part[0].getOrdenByIdOrden();
                     t_tipo.setText(part[0].getOrdenByIdOrden().getTipo().getTipoNombre());
@@ -2442,7 +2345,7 @@ public class editaPedido extends javax.swing.JPanel {
                     }
                     else
                     {
-                            c_tipo.setSelectedItem("Adicional");
+                            c_tipo.setSelectedItem("Directo");
                             orden_act=pedido.getOrden();
                             orden_act=(Orden)session.get(Orden.class, orden_act.getIdOrden());
                             resp=h.estadoOrden(orden_act);
@@ -2498,7 +2401,7 @@ public class editaPedido extends javax.swing.JPanel {
                 }
                 //**********
                 double tot=0.0d;
-                if(c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+                if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
                 {
                     model=new MyModel(part.length, columnas);
                     t_datos.setModel(model);
@@ -2534,7 +2437,7 @@ public class editaPedido extends javax.swing.JPanel {
                         model.setValueAt(sum, r, 10);
                     }
                 }
-                if(c_tipo.getSelectedItem().toString().compareTo("Externo")==0 || c_tipo.getSelectedItem().toString().compareTo("Adicional")==0)
+                if(c_tipo.getSelectedItem().toString().compareTo("Externo")==0 || c_tipo.getSelectedItem().toString().compareTo("Directo")==0)
                 {
                     model=new MyModel(partEx.length, columnas);
                     model.setColumnaEditable(3, true);
@@ -2581,29 +2484,11 @@ public class editaPedido extends javax.swing.JPanel {
                 
                 //checar si la orden ya fue autorizada
                 r_autorizar.setEnabled(true);
-                r_autorizar2.setEnabled(true);
-                if(pedido.getUsuarioByAutorizo()!=null || pedido.getUsuarioByAutorizo2()!=null)
+                if(pedido.getUsuarioByAutorizo()!=null)
                 {
-                    if(pedido.getUsuarioByAutorizo()!=null)
-                    {
-                        r_autorizar.setSelected(true);
-                        r_autorizar.setText(pedido.getUsuarioByAutorizo().getEmpleado().getNombre());
-                    }
-                    else
-                    {
-                        r_autorizar.setSelected(false);
-                        r_autorizar.setText("Autorizacion 1");
-                    }
-                    if(pedido.getUsuarioByAutorizo2()!=null)
-                    {
-                        r_autorizar2.setSelected(true);
-                        r_autorizar2.setText(pedido.getUsuarioByAutorizo2().getEmpleado().getNombre());
-                    }
-                    else
-                    {
-                        r_autorizar2.setSelected(false);
-                        r_autorizar2.setText("Autorizacion 2");
-                    }
+                    r_autorizar.setSelected(true);
+                    r_autorizar.setText(pedido.getUsuarioByAutorizo().getEmpleado().getNombre());
+
                     bloquea(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
                     model.setColumnaEditable(0, false);
                     model.setColumnaEditable(1, false);
@@ -2625,10 +2510,8 @@ public class editaPedido extends javax.swing.JPanel {
                 else
                 {
                     r_autorizar.setSelected(false);
-                    r_autorizar2.setSelected(false);
                     r_autorizar.setText("Autorizacion 1");
-                    r_autorizar2.setText("Autorizacion 2");
-                    if(c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+                    if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
                     {
                         bloquea(true, true, true, true, false, false, false, false, false, false, false, false, true, true, true, true, false, false, false, false);
                         model.setColumnaEditable(0, false);
@@ -2643,7 +2526,7 @@ public class editaPedido extends javax.swing.JPanel {
                         model.setColumnaEditable(9, true);
                         model.setColumnaEditable(10, false);
                     }
-                    if(c_tipo.getSelectedItem().toString().compareTo("Adicional")==0)
+                    if(c_tipo.getSelectedItem().toString().compareTo("Directo")==0)
                     {
                         bloquea(true, true, true, true, false, false, false, false, false, false, false, false, true, true, true, true, false, false, false, false);
                         model.setColumnaEditable(0, false);
@@ -2680,7 +2563,7 @@ public class editaPedido extends javax.swing.JPanel {
                 }
                 
                 //vemos si la orden no esta bloqueada
-                if(c_tipo.getSelectedItem().toString().compareTo("Interno")==0 || c_tipo.getSelectedItem().toString().compareTo("Adicional")==0)
+                if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0 || c_tipo.getSelectedItem().toString().compareTo("Directo")==0)
                 {
                     if(resp.compareTo("")==0 || resp.compareTo("*bloqueada ok*")==0)
                     {
@@ -2690,18 +2573,15 @@ public class editaPedido extends javax.swing.JPanel {
                             if(usr.getAutorizarPedidos()==true)
                             {
                                 r_autorizar.setEnabled(true);
-                                r_autorizar2.setEnabled(true);
                             }
                             else
                             {
                                 r_autorizar.setEnabled(false);
-                                r_autorizar2.setEnabled(false);
                             }
                         }
                         else
                         {
                             r_autorizar.setEnabled(false);
-                            r_autorizar2.setEnabled(false);
                             bloquea(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
                             model.setColumnaEditable(0, false);
                             model.setColumnaEditable(1, false);
@@ -2721,7 +2601,6 @@ public class editaPedido extends javax.swing.JPanel {
                     else
                     {
                         r_autorizar.setEnabled(false);
-                        r_autorizar2.setEnabled(false);
                         bloquea(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
                         model.setColumnaEditable(0, false);
                         model.setColumnaEditable(1, false);
@@ -2744,7 +2623,6 @@ public class editaPedido extends javax.swing.JPanel {
                     if(orden_act!=null && orden_act.getFechaCierre()!=null)
                     {
                         r_autorizar.setEnabled(false);
-                        r_autorizar2.setEnabled(false);
                         bloquea(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
                         model.setColumnaEditable(0, false);
                         model.setColumnaEditable(1, false);
@@ -2767,20 +2645,13 @@ public class editaPedido extends javax.swing.JPanel {
                     if(resp.compareTo("")==0 || resp.compareTo("*bloqueada ok*")==0)
                     {
                         if(usr.getAutorizarPedidos()==true)
-                        {
                             r_autorizar.setEnabled(true);
-                            r_autorizar2.setEnabled(true);
-                        }
                         else
-                        {
                             r_autorizar.setEnabled(false);
-                            r_autorizar2.setEnabled(false);
-                        }
                     }
                     else
                     {
                         r_autorizar.setEnabled(false);
-                        r_autorizar2.setEnabled(false);
                         bloquea(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
                         model.setColumnaEditable(0, false);
                         model.setColumnaEditable(1, false);
@@ -2823,7 +2694,6 @@ public class editaPedido extends javax.swing.JPanel {
                 this.t_asegurado.setText("");
                 this.t_folio_externo.setText("");
                 this.r_autorizar.setEnabled(false);
-                this.r_autorizar2.setEnabled(false);
                 bloquea(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
                 model.setColumnaEditable(0, false);
                 model.setColumnaEditable(1, false);
@@ -2851,7 +2721,6 @@ public class editaPedido extends javax.swing.JPanel {
         else
         {
             r_autorizar.setEnabled(false);
-            r_autorizar2.setEnabled(false);
             bloquea(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
         }
         titulos();
@@ -2946,7 +2815,7 @@ public class editaPedido extends javax.swing.JPanel {
                     pedido = (Pedido)session.get(Pedido.class, Integer.parseInt(t_pedido.getText()));
                     if(pedido!=null)
                     {
-                        if(c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+                        if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
                         {
                             Partida[] partidas=(Partida[])pedido.getPartidas().toArray(new Partida[0]);
                             if(partidas.length>0 && model.isCellEditable(0, 9)==true)
@@ -3016,7 +2885,7 @@ public class editaPedido extends javax.swing.JPanel {
                                 {
                                     for(int ren=0; ren<t_datos.getRowCount(); ren++)//*** eliminamos los renglones sin informacion
                                     {
-                                        if(t_datos.getValueAt(ren, 5).toString().compareTo("")==0 || (double)t_datos.getValueAt(ren, 10)==0.0)
+                                        if(t_datos.getValueAt(ren, 5).toString().compareTo("")==0)
                                         {
                                             DefaultTableModel model = (DefaultTableModel) t_datos.getModel();
                                             model.removeRow(ren);
@@ -3165,7 +3034,7 @@ public class editaPedido extends javax.swing.JPanel {
                                 return false;
                             }
                         }
-                        if(c_tipo.getSelectedItem().toString().compareTo("Adicional")==0)
+                        if(c_tipo.getSelectedItem().toString().compareTo("Directo")==0)
                         {
                                 if(t_id_comprador.getText().compareTo("")!=0)
                                 {
@@ -3174,7 +3043,7 @@ public class editaPedido extends javax.swing.JPanel {
                                     {
                                         for(int ren=0; ren<t_datos.getRowCount(); ren++)//*** eliminamos los renglones sin informacion
                                         {
-                                            if(t_datos.getValueAt(ren, 5).toString().compareTo("")==0 || (double)t_datos.getValueAt(ren, 10)==0.0)
+                                            if(t_datos.getValueAt(ren, 5).toString().compareTo("")==0)
                                             {
                                                 DefaultTableModel model = (DefaultTableModel) t_datos.getModel();
                                                 model.removeRow(ren);
@@ -3378,7 +3247,7 @@ public class editaPedido extends javax.swing.JPanel {
                     }
                     else
                     {
-                        if(c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+                        if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
                         {
                             Session session = HibernateUtil.getSessionFactory().openSession();
                             try
@@ -3459,7 +3328,7 @@ public class editaPedido extends javax.swing.JPanel {
                     }
                     else
                     {
-                        if(c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+                        if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
                         {
                             Session session = HibernateUtil.getSessionFactory().openSession();
                             if((double)value>0)
@@ -3501,7 +3370,7 @@ public class editaPedido extends javax.swing.JPanel {
                     }
                     else
                     {
-                        if(c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+                        if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
                         {
                             if((double)value>=0)
                             {

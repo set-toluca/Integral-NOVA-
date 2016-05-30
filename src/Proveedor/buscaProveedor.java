@@ -490,7 +490,7 @@ public class buscaProveedor extends javax.swing.JDialog {
                     Desktop.getDesktop().open(archivoXLS);
                 }catch(Exception e)
                 {
-                    System.out.println(e);
+                    e.printStackTrace();
                     JOptionPane.showMessageDialog(this, "No se pudo realizar el reporte");
                 }
             }
@@ -534,7 +534,6 @@ public class buscaProveedor extends javax.swing.JDialog {
             consulta+=" where obj.nombre like '%" + t_busca.getText() +"%'";
         if(c_filtro.getSelectedItem().toString().compareTo("Dirección")==0)
             consulta+=" where obj.direccion like '%" + t_busca.getText() +"%'";
-        System.out.println(consulta);
         List <Object[]> resultList=executeHQLQuery(consulta);
         if(resultList.size()>0)
         {

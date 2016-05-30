@@ -2580,18 +2580,9 @@ public class ModificarOrden extends javax.swing.JPanel {
                 {
                     if(usr.getGeneraPedidos()==true || usr.getEditaPedidos()==true | usr.getEliminaPedidos()==true || usr.getAutorizarPedidos()==true ||usr.getGeneraPedidos()==true ||usr.getCerrarCompras()==true)
                     {
-                        if(orden_act.getInicioRefacciones()!=null)
-                        {
-                            avanceSurtido r1=new avanceSurtido(t_orden.getText(), usr, this.sessionPrograma);
-                            p_avance_pedidos.setViewportView(r1);
-                            p_avance_pedidos.updateUI();
-                        }
-                        else
-                        {
-                            p_avance_pedidos.getViewport().removeAll();
-                            p_avance_pedidos.updateUI();
-                            JOptionPane.showMessageDialog(null, "¡Aun no esta disponible!");
-                        }
+                        avanceSurtido r1=new avanceSurtido(t_orden.getText(), usr, this.sessionPrograma);
+                        p_avance_pedidos.setViewportView(r1);
+                        p_avance_pedidos.updateUI();
                     }
                     else
                     JOptionPane.showMessageDialog(null, "¡Acceso denegado!");

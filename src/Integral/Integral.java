@@ -76,7 +76,6 @@ import Almacen.nuevoAlmacen;
 import Contabilidad.Cuentas;
 import Contabilidad.Egresos;
 import Contabilidad.FacturarOrden;
-import Contabilidad.FacturarOrdenLogis;
 import Contabilidad.NuevaFactura;
 import Contabilidad.NuevaNota;
 import Contabilidad.Provision;
@@ -123,7 +122,6 @@ public class Integral extends javax.swing.JFrame {
     private muestraAlmacen muestra_almacen;
     private nuevoAlmacen nuevo_almacen;
     private NuevaNota nuevaNota;
-    private editaPerdidas perdidas;
     private Provision provision;
     private ResponsablesOP panel_responsables;
     private Configuracion configuracion;
@@ -144,7 +142,6 @@ public class Integral extends javax.swing.JFrame {
     private editaEstatus eEstatus;
     
     private FacturarOrden facturaOrden;
-    private FacturarOrdenLogis facturaOrdenLogis;
     private editaMarca eMarca;
     private editaEspecialidad eEspecialidad;
     private editaCompania ecompania;
@@ -188,7 +185,7 @@ public class Integral extends javax.swing.JFrame {
             {
                 public void paint ( Graphics g, JComponent c )
                 {
-                    g.setColor ( new Color(2, 135, 242) );
+                    g.setColor ( new Color(51,51,255) );
                     g.fillRect ( 0, 0, c.getWidth (), c.getHeight () );
                 }
             } );
@@ -491,7 +488,7 @@ public class Integral extends javax.swing.JFrame {
 
         getContentPane().add(p_tilulo, java.awt.BorderLayout.PAGE_START);
 
-        p_usuario.setBackground(new java.awt.Color(2, 135, 242));
+        p_usuario.setBackground(new java.awt.Color(51, 51, 255));
 
         t_bienvenido.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         t_bienvenido.setForeground(new java.awt.Color(255, 255, 255));
@@ -537,7 +534,7 @@ public class Integral extends javax.swing.JFrame {
 
         p_centro.setLayout(new java.awt.BorderLayout());
 
-        P_pestana.setBackground(new java.awt.Color(2, 135, 242));
+        P_pestana.setBackground(new java.awt.Color(51, 51, 255));
         P_pestana.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         P_pestana.setOpaque(true);
 
@@ -586,7 +583,7 @@ public class Integral extends javax.swing.JFrame {
 
         getContentPane().add(p_centro, java.awt.BorderLayout.CENTER);
 
-        jMenuBar1.setBackground(new java.awt.Color(2, 135, 242));
+        jMenuBar1.setBackground(new java.awt.Color(51, 51, 255));
         jMenuBar1.setBorderPainted(false);
 
         m_servicios.setBackground(new java.awt.Color(2, 135, 242));

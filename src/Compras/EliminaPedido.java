@@ -127,12 +127,13 @@ public class EliminaPedido extends javax.swing.JPanel {
         l_plazo = new javax.swing.JLabel();
         t_id_comprador = new javax.swing.JTextField();
         t_proveedor = new javax.swing.JTextField();
+        t_clave = new javax.swing.JTextField();
+        t_id_aseguradora = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         l_busca = new javax.swing.JLabel();
         b_busca = new javax.swing.JButton();
         t_busca = new javax.swing.JTextField();
         r_autorizar = new javax.swing.JRadioButton();
-        r_autorizar2 = new javax.swing.JRadioButton();
         b_eliminar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         l_iva = new javax.swing.JLabel();
@@ -172,7 +173,6 @@ public class EliminaPedido extends javax.swing.JPanel {
         l_asegurado = new javax.swing.JLabel();
         t_asegurado = new javax.swing.JTextField();
         l_aseguradora = new javax.swing.JLabel();
-        t_id_aseguradora = new javax.swing.JTextField();
         t_aseguradora = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -190,8 +190,6 @@ public class EliminaPedido extends javax.swing.JPanel {
         l_cp = new javax.swing.JLabel();
         l_rfc = new javax.swing.JLabel();
         t_rfc = new javax.swing.JTextField();
-        t_clave = new javax.swing.JTextField();
-        l_clave = new javax.swing.JLabel();
 
         autorizarCosto.setModalExclusionType(null);
         autorizarCosto.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
@@ -287,15 +285,25 @@ public class EliminaPedido extends javax.swing.JPanel {
         t_proveedor.setDisabledTextColor(new java.awt.Color(2, 38, 253));
         t_proveedor.setEnabled(false);
 
+        t_clave.setEditable(false);
+        t_clave.setBackground(new java.awt.Color(255, 255, 255));
+        t_clave.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        t_clave.setDisabledTextColor(new java.awt.Color(2, 38, 253));
+
+        t_id_aseguradora.setEditable(false);
+        t_id_aseguradora.setBackground(new java.awt.Color(255, 255, 255));
+        t_id_aseguradora.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        t_id_aseguradora.setDisabledTextColor(new java.awt.Color(2, 38, 253));
+
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Eliminación de Pedidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
         setLayout(new java.awt.BorderLayout());
 
         l_busca.setFont(new java.awt.Font("Arial", 0, 9)); // NOI18N
-        l_busca.setForeground(new java.awt.Color(2, 135, 242));
         l_busca.setText("Buscar:");
 
-        b_busca.setIcon(new ImageIcon("imagenes/buscar1.png"));
+        b_busca.setBackground(new java.awt.Color(90, 66, 126));
+        b_busca.setIcon(new ImageIcon("imagenes/buscar.png"));
         b_busca.setToolTipText("Busca una partida");
         b_busca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -316,7 +324,6 @@ public class EliminaPedido extends javax.swing.JPanel {
         });
 
         r_autorizar.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        r_autorizar.setForeground(new java.awt.Color(2, 135, 242));
         r_autorizar.setText("Autorizacion 1");
         r_autorizar.setEnabled(false);
         r_autorizar.addActionListener(new java.awt.event.ActionListener() {
@@ -325,12 +332,8 @@ public class EliminaPedido extends javax.swing.JPanel {
             }
         });
 
-        r_autorizar2.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        r_autorizar2.setForeground(new java.awt.Color(2, 135, 242));
-        r_autorizar2.setText("Autorizacion 2");
-        r_autorizar2.setEnabled(false);
-
-        b_eliminar.setIcon(new ImageIcon("imagenes/nuevo.png"));
+        b_eliminar.setBackground(new java.awt.Color(90, 66, 126));
+        b_eliminar.setForeground(new java.awt.Color(255, 255, 255));
         b_eliminar.setText("Eliminar");
         b_eliminar.setEnabled(false);
         b_eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -392,7 +395,6 @@ public class EliminaPedido extends javax.swing.JPanel {
 
         l_notas.setBackground(new java.awt.Color(254, 254, 254));
         l_notas.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        l_notas.setForeground(new java.awt.Color(254, 254, 254));
         l_notas.setText("Notas:");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -403,20 +405,18 @@ public class EliminaPedido extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(r_autorizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(r_autorizar2))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(l_busca)
                         .addGap(18, 18, 18)
                         .addComponent(t_busca, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(b_busca, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(b_eliminar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 331, Short.MAX_VALUE)
-                .addComponent(l_notas)
+                        .addComponent(b_eliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 331, Short.MAX_VALUE)
+                        .addComponent(l_notas))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(r_autorizar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -424,29 +424,28 @@ public class EliminaPedido extends javax.swing.JPanel {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addComponent(l_notas)
-                    .addGap(31, 31, 31))
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(l_notas)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(r_autorizar)
-                    .addComponent(r_autorizar2))
-                .addGap(1, 1, 1)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(t_busca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(l_busca))
-                        .addComponent(b_busca, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(b_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(t_busca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(l_busca))
+                    .addComponent(b_busca, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b_eliminar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(r_autorizar)
+                .addContainerGap())
         );
 
         add(jPanel4, java.awt.BorderLayout.PAGE_END);
 
-        scroll.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(2, 135, 242)));
+        scroll.setBorder(null);
 
         t_datos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -476,7 +475,7 @@ public class EliminaPedido extends javax.swing.JPanel {
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Pedido", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 11))); // NOI18N
 
         c_tipo.setFont(new java.awt.Font("Droid Sans", 0, 10)); // NOI18N
-        c_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Interno", "Externo", "Adicional" }));
+        c_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Directo", "Valuacion", "Externo" }));
         c_tipo.setEnabled(false);
         c_tipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -490,15 +489,14 @@ public class EliminaPedido extends javax.swing.JPanel {
         t_pedido.setEnabled(false);
 
         t_fecha.setEditable(false);
+        t_fecha.setBackground(new java.awt.Color(255, 255, 255));
         t_fecha.setText("DD-MM-YYYY HH:MM:SS");
         t_fecha.setToolTipText("fecha de pedido");
-        t_fecha.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_fecha.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_fecha.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_fecha.setEnabled(false);
 
-        t_folio_externo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_folio_externo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_folio_externo.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_folio_externo.setEnabled(false);
 
         l_pedido1.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_pedido1.setText("N° externo:");
@@ -506,9 +504,9 @@ public class EliminaPedido extends javax.swing.JPanel {
         l_nombre1.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_nombre1.setText("comprador:");
 
+        t_nombre_comprador.setEditable(false);
         t_nombre_comprador.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_nombre_comprador.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_nombre_comprador.setEnabled(false);
 
         jButton1.setText("Pedido:");
 
@@ -528,9 +526,9 @@ public class EliminaPedido extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(l_pedido1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_folio_externo, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                        .addComponent(t_folio_externo, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_fecha))
+                        .addComponent(t_fecha, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(l_nombre1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -590,11 +588,6 @@ public class EliminaPedido extends javax.swing.JPanel {
         t_modelo.setBackground(new java.awt.Color(255, 255, 255));
         t_modelo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_modelo.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_modelo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                t_modeloKeyTyped(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel4.setText("Siniestro:");
@@ -603,11 +596,6 @@ public class EliminaPedido extends javax.swing.JPanel {
         t_siniestro.setBackground(new java.awt.Color(255, 255, 255));
         t_siniestro.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_siniestro.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-        t_siniestro.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                t_siniestroKeyTyped(evt);
-            }
-        });
 
         l_asegurado.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_asegurado.setText("Asegurado:");
@@ -619,11 +607,6 @@ public class EliminaPedido extends javax.swing.JPanel {
 
         l_aseguradora.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_aseguradora.setText("Compañía:");
-
-        t_id_aseguradora.setEditable(false);
-        t_id_aseguradora.setBackground(new java.awt.Color(255, 255, 255));
-        t_id_aseguradora.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        t_id_aseguradora.setDisabledTextColor(new java.awt.Color(2, 38, 253));
 
         t_aseguradora.setEditable(false);
         t_aseguradora.setBackground(new java.awt.Color(255, 255, 255));
@@ -663,8 +646,6 @@ public class EliminaPedido extends javax.swing.JPanel {
                         .addComponent(t_asegurado))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(l_aseguradora)
-                        .addGap(6, 6, 6)
-                        .addComponent(t_id_aseguradora, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(t_aseguradora)))
                 .addContainerGap())
@@ -700,7 +681,6 @@ public class EliminaPedido extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_aseguradora)
-                    .addComponent(t_id_aseguradora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(t_aseguradora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
@@ -718,7 +698,6 @@ public class EliminaPedido extends javax.swing.JPanel {
         l_proveedor.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_proveedor.setText("SELECCIONE UN PROVEEDOR");
         l_proveedor.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        l_proveedor.setEnabled(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -790,14 +769,6 @@ public class EliminaPedido extends javax.swing.JPanel {
         t_rfc.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         t_rfc.setDisabledTextColor(new java.awt.Color(2, 38, 253));
 
-        t_clave.setEditable(false);
-        t_clave.setBackground(new java.awt.Color(255, 255, 255));
-        t_clave.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        t_clave.setDisabledTextColor(new java.awt.Color(2, 38, 253));
-
-        l_clave.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        l_clave.setText("Clave:");
-
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -806,25 +777,6 @@ public class EliminaPedido extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(l_rfc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_rfc, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(l_cp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_cp, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                        .addComponent(l_clave)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(l_colonia)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(l_direccion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_direccion))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(l_nombre)
                         .addGap(21, 21, 21)
                         .addComponent(t_nombre))
@@ -832,8 +784,24 @@ public class EliminaPedido extends javax.swing.JPanel {
                         .addComponent(l_poblacion)
                         .addGap(9, 9, 9)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(t_poblacion)
-                            .addComponent(t_colonia))))
+                            .addComponent(t_colonia)
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addComponent(t_poblacion, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(l_rfc)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(t_rfc, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(l_direccion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_direccion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(l_cp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_cp, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(l_colonia)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
@@ -845,7 +813,10 @@ public class EliminaPedido extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(l_direccion, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(t_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(t_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(l_cp)
+                        .addComponent(t_cp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_colonia)
@@ -853,18 +824,10 @@ public class EliminaPedido extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_poblacion)
-                    .addComponent(t_poblacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(l_clave)
-                        .addComponent(t_clave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(l_rfc)
-                        .addComponent(t_rfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(l_cp)
-                        .addComponent(t_cp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 6, Short.MAX_VALUE))
+                    .addComponent(t_poblacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(l_rfc)
+                    .addComponent(t_rfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 27, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel13, java.awt.BorderLayout.CENTER);
@@ -955,7 +918,7 @@ public class EliminaPedido extends javax.swing.JPanel {
         {
             if(t_pedido.getText().compareTo("")!=0)
             {
-                if(r_autorizar.isSelected()==false && r_autorizar2.isSelected()==false)
+                if(r_autorizar.isSelected()==false)
                 {
                     int opt=JOptionPane.showConfirmDialog(this, "¡Confirma que deseas eliminar el pedido!");
                     if(opt==0)
@@ -965,7 +928,7 @@ public class EliminaPedido extends javax.swing.JPanel {
                         {
                             session.beginTransaction().begin();
                             Pedido ped = (Pedido)session.get(Pedido.class, Integer.parseInt(t_pedido.getText()));
-                            if(c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+                            if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
                             {
                                 Partida[] partidas =(Partida[]) ped.getPartidas().toArray(new Partida[0]);
                                 for(int ren=0; ren<partidas.length; ren++)
@@ -1012,7 +975,7 @@ public class EliminaPedido extends javax.swing.JPanel {
                                 if(pos>=0)
                                     padre.P_pestana.remove(pos);
                             }
-                            if(c_tipo.getSelectedItem().toString().compareTo("Adicional")==0)
+                            if(c_tipo.getSelectedItem().toString().compareTo("Directo")==0)
                             {
                                 session.delete(ped);
                                 session.beginTransaction().commit();
@@ -1062,22 +1025,6 @@ public class EliminaPedido extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_c_tipoActionPerformed
 
-    private void t_modeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_modeloKeyTyped
-        // TODO add your handling code here:
-        char car = evt.getKeyChar();
-        if(t_modelo.getText().length()>=4)
-        evt.consume();
-        if((car<'0' || car>'9'))
-        evt.consume();
-    }//GEN-LAST:event_t_modeloKeyTyped
-
-    private void t_siniestroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_siniestroKeyTyped
-        // TODO add your handling code here:
-        char car = evt.getKeyChar();
-        if(t_siniestro.getText().length()>=18)
-        evt.consume();
-    }//GEN-LAST:event_t_siniestroKeyTyped
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog autorizarCosto;
     private javax.swing.JButton b_autorizar;
@@ -1102,7 +1049,6 @@ public class EliminaPedido extends javax.swing.JPanel {
     private javax.swing.JLabel l_asegurado;
     private javax.swing.JLabel l_aseguradora;
     private javax.swing.JLabel l_busca;
-    private javax.swing.JLabel l_clave;
     private javax.swing.JLabel l_colonia;
     private javax.swing.JLabel l_cp;
     private javax.swing.JLabel l_direccion;
@@ -1123,7 +1069,6 @@ public class EliminaPedido extends javax.swing.JPanel {
     private javax.swing.JPanel p_arriba;
     private javax.swing.JPanel p_interno_centro;
     private javax.swing.JRadioButton r_autorizar;
-    private javax.swing.JRadioButton r_autorizar2;
     private javax.swing.JScrollPane scroll;
     private javax.swing.JFormattedTextField t_IVA;
     private javax.swing.JTextField t_asegurado;
@@ -1308,7 +1253,7 @@ public class EliminaPedido extends javax.swing.JPanel {
                 //************cargamos datos de la orden***********************
                 if(part.length>0)
                 {
-                    c_tipo.setSelectedItem("Interno");
+                    c_tipo.setSelectedItem("Valuacion");
                     resp=h.estadoOrden(part[0].getOrdenByIdOrden());
                     orden_act=part[0].getOrdenByIdOrden();
                     t_tipo.setText(part[0].getOrdenByIdOrden().getTipo().getTipoNombre());
@@ -1367,7 +1312,7 @@ public class EliminaPedido extends javax.swing.JPanel {
                     }
                     else
                     {
-                        c_tipo.setSelectedItem("Adicional");
+                        c_tipo.setSelectedItem("Directo");
                         orden_act=pedido.getOrden();
                         orden_act=(Orden)session.get(Orden.class, orden_act.getIdOrden());
                         resp=h.estadoOrden(orden_act);
@@ -1424,7 +1369,7 @@ public class EliminaPedido extends javax.swing.JPanel {
                 }
                 //**********
                 double tot=0.0d;
-                if(c_tipo.getSelectedItem().toString().compareTo("Interno")==0)
+                if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0)
                 {
                     model=new MyModel(part.length, columnas);
                     t_datos.setModel(model);
@@ -1460,7 +1405,7 @@ public class EliminaPedido extends javax.swing.JPanel {
                         model.setValueAt(sum, r, 10);
                     }
                 }
-                if(c_tipo.getSelectedItem().toString().compareTo("Externo")==0 || c_tipo.getSelectedItem().toString().compareTo("Adicional")==0)
+                if(c_tipo.getSelectedItem().toString().compareTo("Externo")==0 || c_tipo.getSelectedItem().toString().compareTo("Directo")==0)
                 {
                     model=new MyModel(partEx.length, columnas);
                     t_datos.setModel(model);
@@ -1503,28 +1448,10 @@ public class EliminaPedido extends javax.swing.JPanel {
                 t_total.setValue(tot+iva);
                 
                 //checar si la orden ya fue autorizada
-                if(pedido.getUsuarioByAutorizo()!=null || pedido.getUsuarioByAutorizo2()!=null)
+                if(pedido.getUsuarioByAutorizo()!=null)
                 {
-                    if(pedido.getUsuarioByAutorizo()!=null)
-                    {
-                        r_autorizar.setSelected(true);
-                        r_autorizar.setText(pedido.getUsuarioByAutorizo().getEmpleado().getNombre());
-                    }
-                    else
-                    {
-                        r_autorizar.setSelected(false);
-                        r_autorizar.setText("Autorizacion 1");
-                    }
-                    if(pedido.getUsuarioByAutorizo2()!=null)
-                    {
-                        r_autorizar2.setSelected(true);
-                        r_autorizar2.setText(pedido.getUsuarioByAutorizo2().getEmpleado().getNombre());
-                    }
-                    else
-                    {
-                        r_autorizar2.setSelected(false);
-                        r_autorizar2.setText("Autorizacion 2");
-                    }
+                    r_autorizar.setSelected(true);
+                    r_autorizar.setText(pedido.getUsuarioByAutorizo().getEmpleado().getNombre());
                     model.setColumnaEditable(0, false);
                     model.setColumnaEditable(1, false);
                     model.setColumnaEditable(2, false);
@@ -1538,14 +1465,12 @@ public class EliminaPedido extends javax.swing.JPanel {
                 else
                 {
                     r_autorizar.setSelected(false);
-                    r_autorizar2.setSelected(false);
                     r_autorizar.setText("Autorizacion 1");
-                    r_autorizar2.setText("Autorizacion 2");
                     b_eliminar.setEnabled(true);
                 }
                 
                 //vemos si la orden no esta bloqueada
-                if(c_tipo.getSelectedItem().toString().compareTo("Interno")==0 || c_tipo.getSelectedItem().toString().compareTo("Adicional")==0)
+                if(c_tipo.getSelectedItem().toString().compareTo("Valuacion")==0 || c_tipo.getSelectedItem().toString().compareTo("Directo")==0)
                 {
                     if(resp.compareTo("")==0 || resp.compareTo("*bloqueada ok*")!=0)
                     {
@@ -1602,7 +1527,6 @@ public class EliminaPedido extends javax.swing.JPanel {
                 this.t_asegurado.setText("");
                 this.t_folio_externo.setText("");
                 this.r_autorizar.setEnabled(false);
-                this.r_autorizar2.setEnabled(false);
                 
                 b_eliminar.setEnabled(false);
                 session.beginTransaction().rollback();
@@ -1713,10 +1637,8 @@ public class EliminaPedido extends javax.swing.JPanel {
         @Override
         public void removeRow(int row) 
         {
-            //Vector vector = (Vector)dataVector.elementAt(0);
             dataVector.remove(row);
             celdaEditable.remove(row);
-            //vector.remove(row);
             fireTableRowsDeleted(row, row);
             this.ren=ren-1;
         }

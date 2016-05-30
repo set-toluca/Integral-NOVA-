@@ -400,10 +400,8 @@ public class buscaPedido extends javax.swing.JDialog {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try
         {
-            //session.beginTransaction();
             if(cb_todos.isSelected()==false)
                 consulta+=" limit 70";
-            System.out.println(consulta);
             Query q = session.createSQLQuery(consulta);
             q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
             List resultList = q.list();
