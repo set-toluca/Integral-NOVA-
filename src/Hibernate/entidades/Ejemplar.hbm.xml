@@ -17,8 +17,14 @@
         <property name="catalogo" type="string">
             <column name="id_catalogo" length="150" />
         </property>
+        <property name="medida" type="string">
+            <column name="medida" length="10" />
+        </property>
         <property name="modelo" type="java.lang.Integer">
             <column name="modelo" />
+        </property>
+        <property name="inventario" type="java.lang.Integer">
+            <column name="inventario" />
         </property>
         <property name="comentario" type="string">
             <column name="comentario" length="100" />
@@ -27,6 +33,14 @@
             <column name="imagen" length="30" />
         </property>
         <set name="partidas" table="partida" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_parte" length="35">
+                    <comment>numero de serie del articulo de dicha partida</comment>
+                </column>
+            </key>
+            <one-to-many class="Hibernate.entidades.Partida" />
+        </set>
+        <set name="partidasExternas" table="PartidaExterna" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_parte" length="35">
                     <comment>numero de serie del articulo de dicha partida</comment>

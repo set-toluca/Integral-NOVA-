@@ -1,6 +1,5 @@
 package Ejemplar;
 
-import Catalogo.buscaCatalogo;
 import Hibernate.Util.HibernateUtil;
 import Hibernate.entidades.Catalogo;
 import Hibernate.entidades.Ejemplar;
@@ -30,10 +29,8 @@ import java.awt.Desktop;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -51,7 +48,7 @@ public class editaEjemplar extends javax.swing.JPanel {
     Marca marca;
     Tipo tipo;
     Catalogo catalogo;
-    String[] columnas = new String [] {"Clave","Modelo","Marca","Tipo", "Catálogo", "Comentarios", "Foto"};
+    String[] columnas = new String [] {"Clave","Modelo","Marca","Tipo", "Catálogo", "Comentarios", "Foto", "Inventario"};
     String[] marc;
     String[] tip;
     int[] catalog;
@@ -63,10 +60,12 @@ public class editaEjemplar extends javax.swing.JPanel {
     int entro_foto=0;
     File archivo=null;
     String nombreFoto="";
+    int inventario=0;
     
-    public editaEjemplar(Usuario usuario, String ses) 
+    public editaEjemplar(Usuario usuario, String ses, int inventario) 
     {
         initComponents();
+        this.inventario=inventario;
         cargaMarca();
         cargaTipo();
         sessionPrograma=ses;
@@ -88,10 +87,11 @@ public class editaEjemplar extends javax.swing.JPanel {
                 java.lang.String.class,
                 java.lang.String.class,
                 java.lang.String.class,
+                java.lang.Integer.class,
                 java.lang.String.class            
             };
             boolean[] canEdit = new boolean [] {
-                false,false,false,false,false,false, false
+                false,false,false,false,false,false, false, false
             };
             public void setValueAt(Object value, int row, int col)
             {
@@ -157,6 +157,8 @@ public class editaEjemplar extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         t_comentario = new javax.swing.JTextArea();
         p_foto = new javax.swing.JPanel();
+        medida = new javax.swing.JComboBox();
+        l_tipo1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -427,6 +429,12 @@ public class editaEjemplar extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        medida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PZAS", "LTS", "MTS", "CMS", "MMS", "GRS", "MLS", "KGS", "HRS", "MIN", "KIT", "FT", "LB", "JGO", "NA" }));
+        medida.setEnabled(false);
+
+        l_tipo1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        l_tipo1.setText("Unidad:");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -462,7 +470,12 @@ public class editaEjemplar extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(p_foto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(l_tipo1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(medida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -491,7 +504,11 @@ public class editaEjemplar extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(p_foto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(69, 69, 69)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(l_tipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(medida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(b_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -582,6 +599,8 @@ public class editaEjemplar extends javax.swing.JPanel {
                         else
                             actor.setTipo(null);
                         
+                        actor.setMedida(medida.getSelectedItem().toString());
+                        
                         actor.setCatalogo(t_catalogo.getText());
                         actor.setComentario(t_comentario.getText());
                         if(entro_foto==1)
@@ -632,7 +651,7 @@ public class editaEjemplar extends javax.swing.JPanel {
     private void Selecciona2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Selecciona2ActionPerformed
         h=new Herramientas(usr, 0);
         h.session(sessionPrograma);     
-        altaEjemplar obj = new altaEjemplar(new javax.swing.JFrame(), true, usr, sessionPrograma);
+        altaEjemplar obj = new altaEjemplar(new javax.swing.JFrame(), true, usr, sessionPrograma, inventario);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
         obj.setVisible(true);
@@ -696,6 +715,10 @@ public class editaEjemplar extends javax.swing.JPanel {
             else
                 c_tipo.setSelectedItem("NA");
             
+            if(t_datos.getValueAt(t_datos.getSelectedRow(), 7)!=null)
+                medida.setSelectedItem(t_datos.getValueAt(t_datos.getSelectedRow(), 7).toString());
+            else
+                medida.setSelectedItem("NA");
             t_catalogo.setText(t_datos.getValueAt(t_datos.getSelectedRow(), 4).toString());
             
             t_comentario.setText(t_datos.getValueAt(t_datos.getSelectedRow(), 5).toString());
@@ -904,6 +927,8 @@ public class editaEjemplar extends javax.swing.JPanel {
     private javax.swing.JLabel l_marca;
     private javax.swing.JLabel l_modelo;
     private javax.swing.JLabel l_tipo;
+    private javax.swing.JLabel l_tipo1;
+    private javax.swing.JComboBox medida;
     private javax.swing.JPanel p_foto;
     private javax.swing.JTextField t_busca;
     public javax.swing.JTextField t_catalogo;
@@ -979,6 +1004,7 @@ public class editaEjemplar extends javax.swing.JPanel {
         t_comentario.setEnabled(comentario);
         b_cancelar.setEnabled(cancelar);
         b_guardar.setEnabled(guardar);
+        medida.setEnabled(tipo);
     }
     
     private List<Object[]> executeHQLQuery(String hql) {
@@ -1032,8 +1058,8 @@ public class editaEjemplar extends javax.swing.JPanel {
     private void buscaDato()
     {
         String consulta="from Ejemplar obj";
-        //if(t_catalogo.getText().compareTo("")!=0)
-            //consulta+=" Where  obj.catalogo.idCatalogo="+t_numero.getText();
+        if(inventario<2)
+            consulta+=" where inventario="+inventario;
         List <Object[]> resultList=executeHQLQuery(consulta);
         if(resultList.size()>0)
         {
@@ -1059,6 +1085,10 @@ public class editaEjemplar extends javax.swing.JPanel {
                     model.setValueAt(actor.getImagen(), i, 6);
                 else
                     model.setValueAt("", i, 6);
+                if(actor.getInventario()!=null)
+                    model.setValueAt(actor.getInventario(), i, 7);
+                else
+                    model.setValueAt("", i, 7);
                 i++;
             }
         }

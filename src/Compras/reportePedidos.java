@@ -50,7 +50,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import Integral.ExtensionFileFilter;
@@ -64,8 +63,6 @@ import Integral.calendario;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -80,7 +77,7 @@ public class reportePedidos extends javax.swing.JPanel {
     Herramientas h;
     FormatoTabla formato;
     //private Session session;
-    String[] columnas = new String [] {"Pedido", "Fecha", "O. Taller", "Usuario", "Proveedor", "Nombre de Proveedor", "Facturar a", "Observaciones", "Autorizo1", "Autorizo2", "Monto tot."};
+    String[] columnas = new String [] {"Pedido", "Fecha", "O. Taller", "Usuario", "Proveedor", "Nombre de Proveedor", "Facturar a", "Observaciones", "Autorizo1", "Monto tot."};
     DefaultTableModel model;
     /**
      * Creates new form reportePedidos
@@ -98,7 +95,7 @@ public class reportePedidos extends javax.swing.JPanel {
 
     DefaultTableModel ModeloTablaReporte(int renglones, String columnas[])
         {
-            model = new DefaultTableModel(new Object [renglones][11], columnas)
+            model = new DefaultTableModel(new Object [renglones][10], columnas)
             {
                 Class[] types = new Class [] {
                     java.lang.Integer.class, 
@@ -110,31 +107,18 @@ public class reportePedidos extends javax.swing.JPanel {
                     java.lang.String.class, 
                     java.lang.String.class, 
                     java.lang.String.class,
-                    java.lang.String.class,
                     java.lang.Double.class,
                 };
                 boolean[] canEdit = new boolean [] {
-                    false, false, false, false, false, false, false, false, false, false, false
+                    false, false, false, false, false, false, false, false, false, false
                 };
 
                 public void setValueAt(Object value, int row, int col)
                  {
                         Vector vector = (Vector)this.dataVector.elementAt(row);
-                        Object celda = ((Vector)this.dataVector.elementAt(row)).elementAt(col);
-                        switch(col)
-                        {
-                            case 0:
-                                    vector.setElementAt(value, col);
-                                    this.dataVector.setElementAt(vector, row);
-                                    fireTableCellUpdated(row, col);
-                                    break;
-
-                            default:
-                                    vector.setElementAt(value, col);
-                                    this.dataVector.setElementAt(vector, row);
-                                    fireTableCellUpdated(row, col);
-                                    break;
-                        }
+                        vector.setElementAt(value, col);
+                        this.dataVector.setElementAt(vector, row);
+                        fireTableCellUpdated(row, col);
                     }
                 
                 public Class getColumnClass(int columnIndex) {
@@ -182,11 +166,8 @@ public class reportePedidos extends javax.swing.JPanel {
                     break; 
                 case 8:
                     column.setPreferredWidth(50);
-                    break;     
+                    break;      
                 case 9:
-                    column.setPreferredWidth(60);
-                    break; 
-                case 10:
                     column.setPreferredWidth(50);
                     break; 
                 default:
@@ -570,11 +551,11 @@ public class reportePedidos extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Pedido", "Fecha", "O. Taller", "Usuario", "Prov.", "Nombre de Proveedor", "Facturar a", "Observaciones", "Autorizo1", "Autorizo2", "Monto Tot."
+                "Pedido", "Fecha", "O. Taller", "Usuario", "Prov.", "Nombre de Proveedor", "Facturar a", "Observaciones", "Autorizo1", "Monto Tot."
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -796,10 +777,6 @@ public class reportePedidos extends javax.swing.JPanel {
                         model.setValueAt(actor.getUsuarioByAutorizo().getIdUsuario(), i, 8);
                     else
                         model.setValueAt("Sin autorizar", i, 8);
-                    if(actor.getUsuarioByAutorizo2()!=null)
-                        model.setValueAt(actor.getUsuarioByAutorizo2().getIdUsuario(), i, 9);
-                    else
-                        model.setValueAt("Sin autorizar", i, 9);
                     double tot=0.0d;
                     if(part.length>0)
                     {
@@ -811,7 +788,7 @@ public class reportePedidos extends javax.swing.JPanel {
                         for(int x=0; x<partEx.length; x++)
                             tot+=partEx[x].getCantidad()*partEx[x].getCosto();
                     }
-                    model.setValueAt(tot, i, 10);
+                    model.setValueAt(tot, i, 9);
                     i++;
                 }
             }
@@ -863,7 +840,7 @@ public class reportePedidos extends javax.swing.JPanel {
                         int centro=Element.ALIGN_CENTER;
                         int izquierda=Element.ALIGN_LEFT;
                         int derecha=Element.ALIGN_RIGHT;
-                        float[] tam_pdf = new float[]{10,25,13,18,10,50,50,60,18,18,15};
+                        float[] tam_pdf = new float[]{10,25,13,18,10,50,50,60,18,15};
 
                         PdfPTable tabla=reporte.crearTabla(tam_pdf.length, tam_pdf, 100, Element.ALIGN_LEFT);
 
@@ -889,15 +866,6 @@ public class reportePedidos extends javax.swing.JPanel {
                                         tabla.addCell(reporte.celda("", font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
                                 }
                             }
-                            /*if(ren==38)
-                            {
-                                reporte.agregaObjeto(tabla);
-                                reporte.writer.newPage();
-                                tabla=reporte.crearTabla(tam_pdf.length, tam_pdf, 100, Element.ALIGN_LEFT);
-                                cabecera(reporte, bf, tabla);
-                                ren=-1;
-                            }
-                            ren++;*/
                         }
                         tabla.setHeaderRows(1);
                         reporte.agregaObjeto(tabla);
@@ -1036,8 +1004,7 @@ public class reportePedidos extends javax.swing.JPanel {
                         if(autorizado.isSelected()==true)
                         {
                             pedidos = (Pedido[]) session.createCriteria(Pedido.class)
-                                .add(Restrictions.and( 
-                                        Restrictions.and(Restrictions.isNotNull("usuarioByAutorizo"), Restrictions.isNotNull("usuarioByAutorizo2")) , 
+                                .add(Restrictions.and(Restrictions.isNotNull("usuarioByAutorizo") , 
                                         Restrictions.in("idPedido", no)) 
                                 ).list().toArray(new Pedido[0]);
                         }
@@ -1053,7 +1020,7 @@ public class reportePedidos extends javax.swing.JPanel {
                             for(int a=0; a<pedidos.length; a++)
                             {
                                 Pedido aux=pedidos[a];
-                                if(aux.getTipoPedido().compareTo("Interno")==0)
+                                if(aux.getTipoPedido().compareTo("Valuacion")==0)
                                 {
                                     Partida [] par=(Partida[])aux.getPartidas().toArray(new Partida[0]);
                                     for(int b=0; b<par.length; b++)
@@ -1075,19 +1042,30 @@ public class reportePedidos extends javax.swing.JPanel {
                                     {
                                         PartidaExterna ren2=par[b];
                                         Renglon nuevo;
-                                        nuevo=new Renglon(""+aux.getIdPedido(), ren2.getNoParte(), ren2.getDescripcion(), ren2.getCantidad(),  ren2.getUnidad(),  ren2.getCosto(), "", ""+"Ext");
+                                        nuevo=new Renglon(""+aux.getIdPedido(), ren2.getNoParte(), ren2.getDescripcion(), ren2.getCantidad(),  ren2.getUnidad(),  ren2.getCosto(), "", ""+"EXT");
                                         ordena.add(nuevo);
                                     }
                                 }
 
-                                if(aux.getTipoPedido().compareTo("Adicional")==0)
+                                if(aux.getTipoPedido().compareTo("Directo")==0)
                                 {
                                     PartidaExterna [] par=(PartidaExterna[])aux.getPartidaExternas().toArray(new PartidaExterna[0]);
                                     for(int b=0; b<par.length; b++)
                                     {
                                         PartidaExterna ren2=par[b];
                                         Renglon nuevo;
-                                        nuevo=new Renglon(""+aux.getIdPedido(), ren2.getNoParte(), ren2.getDescripcion(), ren2.getCantidad(),  ren2.getUnidad(),  ren2.getCosto(), ""+aux.getOrden().getIdOrden(), "ADI");
+                                        nuevo=new Renglon(""+aux.getIdPedido(), ren2.getNoParte(), ren2.getDescripcion(), ren2.getCantidad(),  ren2.getUnidad(),  ren2.getCosto(), ""+aux.getOrden().getIdOrden(), "DIR");
+                                        ordena.add(nuevo);
+                                    }
+                                }
+                                if(aux.getTipoPedido().compareTo("Inventario")==0)
+                                {
+                                    PartidaExterna [] par=(PartidaExterna[])aux.getPartidaExternas().toArray(new PartidaExterna[0]);
+                                    for(int b=0; b<par.length; b++)
+                                    {
+                                        PartidaExterna ren2=par[b];
+                                        Renglon nuevo;
+                                        nuevo=new Renglon(""+aux.getIdPedido(), ren2.getEjemplar().getIdParte(), ren2.getDescripcion(), ren2.getCantidad(),  ren2.getUnidad(),  ren2.getCosto(), "", "INV");
                                         ordena.add(nuevo);
                                     }
                                 }
@@ -1183,7 +1161,6 @@ public class reportePedidos extends javax.swing.JPanel {
                         else
                         {
                             no=new  Object[t_datos.getRowCount()];
-                            //ren =new int[t_datos.getRowCount()];
                             for(int x=0; x<t_datos.getRowCount(); x++)
                             {
                                 no[x]=(int)t_datos.getValueAt(x, 0);
@@ -1193,8 +1170,7 @@ public class reportePedidos extends javax.swing.JPanel {
                         if(autorizado.isSelected()==true)
                         {
                             pedidos = (Pedido[]) session.createCriteria(Pedido.class)
-                                .add(Restrictions.and( 
-                                        Restrictions.and(Restrictions.isNotNull("usuarioByAutorizo"), Restrictions.isNotNull("usuarioByAutorizo2")) , 
+                                .add(Restrictions.and(Restrictions.isNotNull("usuarioByAutorizo") , 
                                         Restrictions.in("idPedido", no)) 
                                 ).list().toArray(new Pedido[0]);
                         }
@@ -1210,7 +1186,7 @@ public class reportePedidos extends javax.swing.JPanel {
                             for(int a=0; a<pedidos.length; a++)
                             {
                                 Pedido aux=pedidos[a];
-                                if(aux.getTipoPedido().compareTo("Interno")==0)
+                                if(aux.getTipoPedido().compareTo("Valuacion")==0)
                                 {
                                     Partida [] par=(Partida[])aux.getPartidas().toArray(new Partida[0]);
                                     for(int b=0; b<par.length; b++)
@@ -1237,14 +1213,25 @@ public class reportePedidos extends javax.swing.JPanel {
                                     }
                                 }
 
-                                if(aux.getTipoPedido().compareTo("Adicional")==0)
+                                if(aux.getTipoPedido().compareTo("Directo")==0)
                                 {
                                     PartidaExterna [] par=(PartidaExterna[])aux.getPartidaExternas().toArray(new PartidaExterna[0]);
                                     for(int b=0; b<par.length; b++)
                                     {
                                         PartidaExterna ren2=par[b];
                                         Renglon nuevo;
-                                        nuevo=new Renglon(""+aux.getIdPedido(), ren2.getNoParte(), ren2.getDescripcion(), ren2.getCantidad(),  ren2.getUnidad(),  ren2.getCosto(), ""+aux.getOrden().getIdOrden(), "ADI");
+                                        nuevo=new Renglon(""+aux.getIdPedido(), ren2.getNoParte(), ren2.getDescripcion(), ren2.getCantidad(),  ren2.getUnidad(),  ren2.getCosto(), ""+aux.getOrden().getIdOrden(), "DIR");
+                                        ordena.add(nuevo);
+                                    }
+                                }
+                                if(aux.getTipoPedido().compareTo("Inventario")==0)
+                                {
+                                    PartidaExterna [] par=(PartidaExterna[])aux.getPartidaExternas().toArray(new PartidaExterna[0]);
+                                    for(int b=0; b<par.length; b++)
+                                    {
+                                        PartidaExterna ren2=par[b];
+                                        Renglon nuevo;
+                                        nuevo=new Renglon(""+aux.getIdPedido(), ren2.getEjemplar().getIdParte(), ren2.getDescripcion(), ren2.getCantidad(),  ren2.getUnidad(),  ren2.getCosto(), "", "INV");
                                         ordena.add(nuevo);
                                     }
                                 }
@@ -1363,7 +1350,6 @@ public void cabecera(PDF reporte, BaseFont bf, PdfPTable tabla)
             tabla.addCell(reporte.celda("Facturar a", font, cabecera, centro, 0,1,Rectangle.RECTANGLE));
             tabla.addCell(reporte.celda("Observaciones", font, cabecera, centro, 0,1, Rectangle.RECTANGLE));
             tabla.addCell(reporte.celda("Autorizo1", font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
-            tabla.addCell(reporte.celda("Autorizo2", font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
             tabla.addCell(reporte.celda("Monto Tot", font, cabecera, centro, 0,1, Rectangle.RECTANGLE));
     }
 

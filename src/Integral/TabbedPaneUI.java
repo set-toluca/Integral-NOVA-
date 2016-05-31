@@ -83,7 +83,7 @@ public class TabbedPaneUI extends BasicTabbedPaneUI {
                 shape.addPoint(x + w, y+(h/2));
                 shape.addPoint(x + w, y);
 		if (isSelected)
-                    g.setColor(Color.white);
+                    g.setColor(Color.ORANGE);
 		else
                     g.setColor(Color.lightGray);
 		g.fillPolygon(shape);

@@ -2881,7 +2881,7 @@ public class altaCompras extends javax.swing.JPanel {
             user = (Usuario)session.get(Usuario.class, user.getIdUsuario());
             if(user.getEditaCodigo()==true)
             {
-                altaEjemplar obj = new altaEjemplar(new javax.swing.JFrame(), true, user, sessionPrograma);
+                altaEjemplar obj = new altaEjemplar(new javax.swing.JFrame(), true, user, sessionPrograma, 0);
                 Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
                 obj.setLocation((d.width/2)-(obj.getWidth()/2), 10);
                 obj.setModal(false);

@@ -6,6 +6,7 @@
 package Compras;
 
 import Compania.buscaCompania;
+import Ejemplar.buscaEjemplar;
 import Hibernate.Util.HibernateUtil;
 import Hibernate.entidades.Compania;
 import Marca.buscaMarca;
@@ -701,10 +702,9 @@ public class editaPedido extends javax.swing.JPanel {
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Pedido", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 11))); // NOI18N
 
         c_tipo.setFont(new java.awt.Font("Droid Sans", 0, 10)); // NOI18N
-        c_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Directo", "Valuacion", "Externo" }));
+        c_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Directo", "Valuacion", "Externo", "Inventario" }));
         c_tipo.setEnabled(false);
 
-        t_pedido.setBackground(new java.awt.Color(255, 255, 255));
         t_pedido.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         t_pedido.setDisabledTextColor(new java.awt.Color(2, 38, 253));
         t_pedido.addActionListener(new java.awt.event.ActionListener() {
@@ -1459,6 +1459,7 @@ public class editaPedido extends javax.swing.JPanel {
         {
             bloquea(true, true, true, true, false, false, false, false, false, false, false, false, false, false, true, true, false, false, false, false);
             model=(MyModel)t_datos.getModel();
+            model.setColumnaEditable(8, true);
             model.setColumnaEditable(9, true);
         }
         
@@ -1938,16 +1939,42 @@ public class editaPedido extends javax.swing.JPanel {
             b_calendario.setEnabled(false);
         }
         if(this.c_tipo.getSelectedItem().toString().compareTo("Directo")==0)
+        {
+            int pos=t_datos.getRowCount()+1;
+            Object[] vector=new Object[]{""/**Interno*/,""/*#*/,""/*R_valua*/,""/*codigo*/,""+"s/f"/*folio*/,""/*descripción*/,""+""/*medida*/,"0"/*plazo*/,1.0/*cantidad*/,0.0/*costo c/u*/,0.0/*total*/};
+            model.addRow(vector);
+            for(int x=0; x<t_datos.getColumnCount(); x++)
+            {
+                if(x==0 || x==1 || x==4 || x==7 || x==10)
+                    model.setCeldaEditable(t_datos.getRowCount()-1, x, false);
+                else
+                    model.setCeldaEditable(t_datos.getRowCount()-1, x, true);
+            }
+            sumaTotales();
+            if(t_datos.getRowCount()!=0)
+                b_calendario.setEnabled(true);
+            else
+                b_calendario.setEnabled(false);
+        }
+        if(this.c_tipo.getSelectedItem().toString().compareTo("Inventario")==0)
+        {
+            buscaEjemplar obj = new buscaEjemplar(new javax.swing.JFrame(), true, sessionPrograma, this.usr, 1);
+            obj.t_busca.requestFocus();
+            Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+            obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+            obj.setVisible(true);
+            Ejemplar eje=obj.getReturnStatus();
+            if (eje!=null)
             {
                 int pos=t_datos.getRowCount()+1;
-                Object[] vector=new Object[]{""/**Interno*/,""/*#*/,""/*R_valua*/,""/*codigo*/,""+"s/f"/*folio*/,""/*descripción*/,""+""/*medida*/,"0"/*plazo*/,1.0/*cantidad*/,0.0/*costo c/u*/,0.0/*total*/};
+                Object[] vector=new Object[]{""/**Interno*/,""/*#*/,""/*R_valua*/,eje.getIdParte()/*codigo*/,""+"s/f"/*folio*/,eje.getCatalogo()/*descripción*/,""+eje.getMedida()/*medida*/,""/*plazo*/,1.0/*cantidad*/,0.0/*costo c/u*/,0.0/*total*/};
                 model.addRow(vector);
                 for(int x=0; x<t_datos.getColumnCount(); x++)
                 {
-                    if(x==0 || x==1 || x==4 || x==7 || x==10)
-                        model.setCeldaEditable(t_datos.getRowCount()-1, x, false);
-                    else
+                    if(x==8 || x==9)
                         model.setCeldaEditable(t_datos.getRowCount()-1, x, true);
+                    else
+                        model.setCeldaEditable(t_datos.getRowCount()-1, x, false);
                 }
                 sumaTotales();
                 if(t_datos.getRowCount()!=0)
@@ -1955,6 +1982,7 @@ public class editaPedido extends javax.swing.JPanel {
                 else
                     b_calendario.setEnabled(false);
             }
+        }
     }//GEN-LAST:event_b_masActionPerformed
 
     private void numerosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_numerosFocusLost
@@ -2239,7 +2267,6 @@ public class editaPedido extends javax.swing.JPanel {
             Session session = HibernateUtil.getSessionFactory().openSession();
             try
             {
-                
                 session.beginTransaction().begin();
                 pedido = (Pedido)session.get(Pedido.class, pedido.getIdPedido());
                 String resp="";
@@ -2345,6 +2372,8 @@ public class editaPedido extends javax.swing.JPanel {
                     }
                     else
                     {
+                        if(pedido.getTipoPedido().compareTo("Directo")==0)
+                        {
                             c_tipo.setSelectedItem("Directo");
                             orden_act=pedido.getOrden();
                             orden_act=(Orden)session.get(Orden.class, orden_act.getIdOrden());
@@ -2363,6 +2392,13 @@ public class editaPedido extends javax.swing.JPanel {
 
                             this.t_id_comprador.setText(""+pedido.getEmpleado().getIdEmpleado());
                             this.t_nombre_comprador.setText(pedido.getEmpleado().getNombre());
+                        }
+                        else
+                        {
+                            c_tipo.setSelectedItem("Inventario");
+                            this.t_id_comprador.setText(""+pedido.getEmpleado().getIdEmpleado());
+                            this.t_nombre_comprador.setText(pedido.getEmpleado().getNombre());
+                        }
                     }
                 }
                 
@@ -2433,6 +2469,41 @@ public class editaPedido extends javax.swing.JPanel {
                         else
                             model.setValueAt(0, r, 9);
                         double sum=part[r].getCantPcp()*part[r].getPcp();
+                        tot+=sum;
+                        model.setValueAt(sum, r, 10);
+                    }
+                }
+                if(c_tipo.getSelectedItem().toString().compareTo("Inventario")==0)
+                {
+                    model=new MyModel(partEx.length, columnas);
+                    model.setColumnaEditable(8, true);
+                    model.setColumnaEditable(9, true);
+                    t_datos.setModel(model);
+                    for(int r=0; r<partEx.length; r++)
+                    {
+                        model.setValueAt(partEx[r].getIdPartidaExterna(), r, 0);
+                        model.setValueAt("", r, 1);
+                        model.setValueAt("", r, 2);
+                        model.setValueAt(partEx[r].getEjemplar().getIdParte(), r, 3);
+                        model.setValueAt("", r, 4);
+                        model.setValueAt(partEx[r].getDescripcion(), r, 5);
+                        model.setValueAt(partEx[r].getUnidad(), r, 6);
+                        if(partEx[r].getPlazo()!=null)
+                        {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            model.setValueAt(sdf.format(partEx[r].getPlazo()), r, 7);
+                        }
+                        else
+                            model.setValueAt("0", r, 7);
+                        if(partEx[r].getCantidad()!=null)
+                            model.setValueAt(partEx[r].getCantidad(), r, 8);
+                        else
+                            model.setValueAt(0, r, 8);
+                        if(partEx[r].getCosto()!=null)
+                            model.setValueAt(partEx[r].getCosto(), r, 9);
+                        else
+                            model.setValueAt(0, r, 9);
+                        double sum=partEx[r].getCantidad()*partEx[r].getCosto();
                         tot+=sum;
                         model.setValueAt(sum, r, 10);
                     }
@@ -2536,6 +2607,21 @@ public class editaPedido extends javax.swing.JPanel {
                         model.setColumnaEditable(4, false);
                         model.setColumnaEditable(5, true);
                         model.setColumnaEditable(6, true);
+                        model.setColumnaEditable(7, false);
+                        model.setColumnaEditable(8, true);
+                        model.setColumnaEditable(9, true);
+                        model.setColumnaEditable(10, false);
+                    }
+                    if(c_tipo.getSelectedItem().toString().compareTo("Inventario")==0)
+                    {
+                        bloquea(true, true, true, true, false, false, false, false, false, false, false, true, true, true, true, true, false, false, true, false);
+                        model.setColumnaEditable(0, false);
+                        model.setColumnaEditable(1, false);
+                        model.setColumnaEditable(2, false);
+                        model.setColumnaEditable(3, false);
+                        model.setColumnaEditable(4, false);
+                        model.setColumnaEditable(5, false);
+                        model.setColumnaEditable(6, false);
                         model.setColumnaEditable(7, false);
                         model.setColumnaEditable(8, true);
                         model.setColumnaEditable(9, true);
@@ -2760,8 +2846,8 @@ public class editaPedido extends javax.swing.JPanel {
         b_marca.setEnabled(marca);
         t_modelo.setEditable(modelo);
         b_aseguradora.setEnabled(aseg);
-        t_siniestro.setEnabled(siniestro);
-        t_asegurado.setEnabled(aseg);
+        t_siniestro.setEditable(siniestro);
+        t_asegurado.setEditable(aseg);
         b_mas.setEnabled(mas);
         b_menos.setEnabled(menos);
         b_guardar.setEnabled(guarda);
@@ -3150,6 +3236,86 @@ public class editaPedido extends javax.swing.JPanel {
                                     return false;
                                 }
                         }
+                        if(this.c_tipo.getSelectedItem().toString().compareTo("Inventario")==0)
+                        {
+                            if(t_datos.getRowCount()>0)
+                            {
+                                pedido=(Pedido)session.get(Pedido.class, pedido.getIdPedido());
+
+                                provf_act=(Proveedor)session.get(Proveedor.class, Integer.parseInt(t_clave.getText()));
+                                pedido.setProveedorByIdEmpresa(provf_act);
+
+                                prov_act=(Proveedor)session.get(Proveedor.class, Integer.parseInt(t_proveedor.getText()));
+                                pedido.setProveedorByIdProveedor(prov_act);
+
+                                pedido.setUsuarioByIdUsuario(usr);
+                                pedido.setIdExterno(this.t_folio_externo.getText());
+
+                                if(t_notas.getText().compareTo("")!=0)
+                                    pedido.setNotas(t_notas.getText());
+                                else
+                                    pedido.setNotas("");
+                                for(int ren=0; ren<t_datos.getRowCount(); ren++)
+                                {
+                                    if(t_datos.getValueAt(ren, 0).toString().compareTo("")==0)//incertar renglon
+                                    {
+                                        PartidaExterna px=new PartidaExterna();
+                                        //px.setPartida(t_datos.getValueAt(ren, 0).toString());
+                                        //px.setIdValuacion(t_datos.getValueAt(ren, 1).toString());
+                                        Ejemplar ej=(Ejemplar)session.get(Ejemplar.class, t_datos.getValueAt(ren, 3).toString());
+                                        px.setEjemplar(ej);
+                                        px.setDescripcion(t_datos.getValueAt(ren, 5).toString());
+                                        px.setFacturado(false);
+                                        px.setUnidad(t_datos.getValueAt(ren, 6).toString());
+                                        px.setOp(false);
+                                        if(t_datos.getValueAt(ren, 7).toString().compareTo("")!=0 || t_datos.getValueAt(ren, 7).toString().compareTo("0")!=0)
+                                        {
+                                            String[] fecha = t_datos.getValueAt(ren, 7).toString().split("-");
+                                            Calendar calendario = Calendar.getInstance();
+                                            calendario.set(
+                                                    Integer.parseInt(fecha[0]), 
+                                                    Integer.parseInt(fecha[1])-1, 
+                                                    Integer.parseInt(fecha[2]));
+                                            px.setPlazo(calendario.getTime());
+                                        }
+                                        px.setCantidad((double) t_datos.getValueAt(ren, 8));
+                                        px.setCosto((double) t_datos.getValueAt(ren, 9));
+                                        px.setPedido(pedido);
+                                        px.setOriCon("-");
+                                        px.setD(0.0);
+                                        px.setR(0.0);
+                                        px.setM(0.0);
+                                        pedido.agregaPartidaExterna(px);
+                                    }
+                                    else
+                                    {
+                                        PartidaExterna px=(PartidaExterna)session.get(PartidaExterna.class, Integer.parseInt(t_datos.getValueAt(ren, 0).toString()));
+                                        if(t_datos.getValueAt(ren, 7).toString().compareTo("0")!=0)
+                                        {
+                                            String[] fecha1 = t_datos.getValueAt(ren, 7).toString().split("-");
+                                            Calendar calendario1 = Calendar.getInstance();
+                                            calendario1.set(
+                                                    Integer.parseInt(fecha1[0]), 
+                                                    Integer.parseInt(fecha1[1])-1, 
+                                                    Integer.parseInt(fecha1[2]));
+                                            px.setPlazo(calendario1.getTime());
+                                        }
+                                        px.setCantidad((double) t_datos.getValueAt(ren, 8));
+                                        px.setCosto((double) t_datos.getValueAt(ren, 9));
+                                        session.update(px);
+                                    }
+                                }
+                                for(int d=0; d<elimina.size(); d++)
+                                {
+                                    PartidaExterna pe=(PartidaExterna)session.get(PartidaExterna.class, (int)elimina.get(d));
+                                    pedido.getPartidaExternas().remove(pe);
+                                    session.delete(pe);
+                                }
+                                session.update(pedido);
+                                session.beginTransaction().commit();
+                                t_fecha.setText(pedido.getFechaPedido().toLocaleString());
+                            }
+                        }
                     }
                     else
                     {
@@ -3333,7 +3499,6 @@ public class editaPedido extends javax.swing.JPanel {
                             Session session = HibernateUtil.getSessionFactory().openSession();
                             if((double)value>0)
                             {
-                                //Partida part=(Partida) session.createCriteria(Partida.class).add(Restrictions.eq("ordenByIdOrden.idOrden", Integer.parseInt(t_orden.getText()))).add(Restrictions.eq("idEvaluacion", Integer.parseInt(t_datos.getValueAt(t_datos.getSelectedRow(), 0).toString()))).add(Restrictions.eq("subPartida", Integer.parseInt(t_datos.getValueAt(t_datos.getSelectedRow(), 1).toString()))).setMaxResults(1).uniqueResult();
                                 Partida part=(Partida) session.get(Partida.class, Integer.parseInt(t_datos.getValueAt(row, 0).toString()));
                                 if((double)value<=part.getCantidadAut())
                                 {

@@ -694,11 +694,9 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
             }
         });
 
-        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBackground(new java.awt.Color(2, 135, 242));
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 9)); // NOI18N
@@ -792,7 +790,7 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
         jPanel1.add(r_cerrar_valuacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(665, 2, -1, -1));
 
         jPanel6.setBackground(new java.awt.Color(2, 135, 242));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Refacciones", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 10))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true), "Refacciones", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 10), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         t_costo_refacciones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -888,7 +886,7 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 375, 60));
 
         jPanel7.setBackground(new java.awt.Color(2, 135, 242));
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Mano de Obra", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 10))); // NOI18N
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true), "Mano de Obra", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 10), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 9)); // NOI18N
@@ -971,10 +969,11 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
 
         add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
+        scroll.setBackground(new java.awt.Color(255, 255, 255));
+        scroll.setBorder(null);
         scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scroll.setPreferredSize(new java.awt.Dimension(453, 150));
 
-        t_datos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         t_datos.setForeground(new java.awt.Color(102, 102, 102));
         t_datos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -985,6 +984,7 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
             }
         ));
         t_datos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        t_datos.setFillsViewportHeight(true);
         t_datos.setGridColor(new java.awt.Color(102, 102, 102));
         t_datos.getTableHeader().setReorderingAllowed(false);
         t_datos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1091,7 +1091,7 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
                 .addComponent(t_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(b_ok)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

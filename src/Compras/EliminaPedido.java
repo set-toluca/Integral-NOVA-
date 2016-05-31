@@ -39,6 +39,8 @@ import Integral.HorizontalBarUI;
 import Integral.Render1;
 import Integral.Integral;
 import Integral.VerticalBarUI;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 /**
  *
@@ -475,7 +477,7 @@ public class EliminaPedido extends javax.swing.JPanel {
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Pedido", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 11))); // NOI18N
 
         c_tipo.setFont(new java.awt.Font("Droid Sans", 0, 10)); // NOI18N
-        c_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Directo", "Valuacion", "Externo" }));
+        c_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Directo", "Valuacion", "Externo", "Inventario" }));
         c_tipo.setEnabled(false);
         c_tipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -509,6 +511,11 @@ public class EliminaPedido extends javax.swing.JPanel {
         t_nombre_comprador.setDisabledTextColor(new java.awt.Color(2, 38, 253));
 
         jButton1.setText("Pedido:");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -975,6 +982,25 @@ public class EliminaPedido extends javax.swing.JPanel {
                                 if(pos>=0)
                                     padre.P_pestana.remove(pos);
                             }
+                            if(c_tipo.getSelectedItem().toString().compareTo("Externo")==0)
+                            {
+                                session.delete(ped);
+                                session.beginTransaction().commit();
+                                h= new Herramientas(usr, menu);
+                                h.session(sessionPrograma);
+                                h.desbloqueaOrden();
+                                h.desbloqueaPedido();
+                                JOptionPane.showMessageDialog(this, "¡Pedido eliminado!");
+                                Integral padre = (Integral) this.getTopLevelAncestor();
+                                int pos=0;
+                                for(int a=0; a<padre.P_pestana.getTabCount(); a++)
+                                {
+                                    if(padre.P_pestana.getTitleAt(a).compareTo("Eliminar Pedido")==0)
+                                        pos=a;
+                                }
+                                if(pos>=0)
+                                    padre.P_pestana.remove(pos);
+                            }
                             if(c_tipo.getSelectedItem().toString().compareTo("Directo")==0)
                             {
                                 session.delete(ped);
@@ -1024,6 +1050,22 @@ public class EliminaPedido extends javax.swing.JPanel {
     private void c_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_tipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_c_tipoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        buscaPedido obj = new buscaPedido(new javax.swing.JFrame(), true, 0, "");
+        obj.t_busca.requestFocus();
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+        obj.setVisible(true);
+
+        Pedido ped=obj.getReturnStatus();
+        if(ped!=null)
+        {
+            pedido=ped;
+            busca();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog autorizarCosto;
@@ -1312,25 +1354,34 @@ public class EliminaPedido extends javax.swing.JPanel {
                     }
                     else
                     {
-                        c_tipo.setSelectedItem("Directo");
-                        orden_act=pedido.getOrden();
-                        orden_act=(Orden)session.get(Orden.class, orden_act.getIdOrden());
-                        resp=h.estadoOrden(orden_act);
-                        t_orden.setText(""+orden_act.getIdOrden());
-                        t_tipo.setText(orden_act.getTipo().getTipoNombre());
-                        t_marca.setText(orden_act.getMarca().getIdMarca());
-                        t_modelo.setText(""+orden_act.getModelo());
-                        t_id_aseguradora.setText(""+orden_act.getCompania().getIdCompania());
-                        t_aseguradora.setText(orden_act.getCompania().getNombre());
-                        if(orden_act.getSiniestro()!=null)
-                            t_siniestro.setText(orden_act.getSiniestro());
-                        else
-                            t_siniestro.setText("");
-                        t_asegurado.setText(orden_act.getClientes().getNombre());
-                        t_folio_externo.setText("");
+                        if(pedido.getTipoPedido().compareTo("Directo")==0)
+                        {
+                            c_tipo.setSelectedItem("Directo");
+                            orden_act=pedido.getOrden();
+                            orden_act=(Orden)session.get(Orden.class, orden_act.getIdOrden());
+                            resp=h.estadoOrden(orden_act);
+                            t_orden.setText(""+orden_act.getIdOrden());
+                            t_tipo.setText(orden_act.getTipo().getTipoNombre());
+                            t_marca.setText(orden_act.getMarca().getIdMarca());
+                            t_modelo.setText(""+orden_act.getModelo());
+                            t_id_aseguradora.setText(""+orden_act.getCompania().getIdCompania());
+                            t_aseguradora.setText(orden_act.getCompania().getNombre());
+                            if(orden_act.getSiniestro()!=null)
+                                t_siniestro.setText(orden_act.getSiniestro());
+                            else
+                                t_siniestro.setText("");
+                            t_asegurado.setText(orden_act.getClientes().getNombre());
+                            t_folio_externo.setText("");
 
-                        this.t_id_comprador.setText(""+pedido.getEmpleado().getIdEmpleado());
-                        this.t_nombre_comprador.setText(pedido.getEmpleado().getNombre());
+                            this.t_id_comprador.setText(""+pedido.getEmpleado().getIdEmpleado());
+                            this.t_nombre_comprador.setText(pedido.getEmpleado().getNombre());
+                        }
+                        else
+                        {
+                            c_tipo.setSelectedItem("Inventario");
+                            this.t_id_comprador.setText(""+pedido.getEmpleado().getIdEmpleado());
+                            this.t_nombre_comprador.setText(pedido.getEmpleado().getNombre());
+                        }
                     }
                 }
                 
@@ -1418,6 +1469,40 @@ public class EliminaPedido extends javax.swing.JPanel {
                             model.setValueAt(partEx[r].getNoParte(), r, 3);
                         else
                             model.setValueAt("", r, 3);
+                        model.setValueAt("", r, 4);
+                        model.setValueAt(partEx[r].getDescripcion(), r, 5);
+                        model.setValueAt(partEx[r].getUnidad(), r, 6);
+                        if(partEx[r].getPlazo()!=null)
+                        {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            model.setValueAt(sdf.format(partEx[r].getPlazo()), r, 7);
+                        }
+                        else
+                            model.setValueAt("0", r, 7);
+                        if(partEx[r].getCantidad()!=null)
+                            model.setValueAt(partEx[r].getCantidad(), r, 8);
+                        else
+                            model.setValueAt(0, r, 8);
+                        if(partEx[r].getCosto()!=null)
+                            model.setValueAt(partEx[r].getCosto(), r, 9);
+                        else
+                            model.setValueAt(0, r, 9);
+                        double sum=partEx[r].getCantidad()*partEx[r].getCosto();
+                        tot+=sum;
+                        model.setValueAt(sum, r, 10);
+                    }
+                }
+                
+                if(c_tipo.getSelectedItem().toString().compareTo("Inventario")==0)
+                {
+                    model=new MyModel(partEx.length, columnas);
+                    t_datos.setModel(model);
+                    for(int r=0; r<partEx.length; r++)
+                    {
+                        model.setValueAt(partEx[r].getIdPartidaExterna(), r, 0);
+                        model.setValueAt("", r, 1);
+                        model.setValueAt("", r, 2);
+                        model.setValueAt(partEx[r].getEjemplar().getIdParte(), r, 3);
                         model.setValueAt("", r, 4);
                         model.setValueAt(partEx[r].getDescripcion(), r, 5);
                         model.setValueAt(partEx[r].getUnidad(), r, 6);

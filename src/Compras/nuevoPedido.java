@@ -6,6 +6,7 @@
 package Compras;
 
 import Compania.buscaCompania;
+import Ejemplar.buscaEjemplar;
 import Hibernate.Util.HibernateUtil;
 import Hibernate.entidades.Compania;
 import Hibernate.entidades.Marca;
@@ -603,6 +604,7 @@ public class nuevoPedido extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Nuevo Pedido", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
         setLayout(new java.awt.BorderLayout());
 
+        p_centro.setBackground(new java.awt.Color(255, 255, 255));
         p_centro.setBorder(null);
 
         t_datos.setModel(new javax.swing.table.DefaultTableModel(
@@ -613,6 +615,7 @@ public class nuevoPedido extends javax.swing.JPanel {
                 "#", "R. Valua", "N° Parte", "Folio", "Descripción", "Medida", "Plazo", "Cantidad", "Costo c/u", "Total"
             }
         ));
+        t_datos.setFillsViewportHeight(true);
         t_datos.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         t_datos.getTableHeader().setReorderingAllowed(false);
         t_datos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -625,8 +628,11 @@ public class nuevoPedido extends javax.swing.JPanel {
 
         add(p_centro, java.awt.BorderLayout.CENTER);
 
-        l_busca.setFont(new java.awt.Font("Arial", 0, 9)); // NOI18N
-        l_busca.setForeground(new java.awt.Color(90, 66, 126));
+        p_abajo.setBackground(new java.awt.Color(2, 135, 242));
+
+        l_busca.setBackground(new java.awt.Color(255, 255, 255));
+        l_busca.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
+        l_busca.setForeground(new java.awt.Color(255, 255, 255));
         l_busca.setText("Buscar:");
 
         b_busca.setBackground(new java.awt.Color(2, 135, 242));
@@ -650,7 +656,6 @@ public class nuevoPedido extends javax.swing.JPanel {
             }
         });
 
-        b_menos.setBackground(new java.awt.Color(2, 135, 242));
         b_menos.setIcon(new ImageIcon("imagenes/boton_menos.png"));
         b_menos.setMnemonic('2');
         b_menos.setToolTipText("Elimina la partida seleccionada (ALT+2)");
@@ -660,7 +665,6 @@ public class nuevoPedido extends javax.swing.JPanel {
             }
         });
 
-        b_mas.setBackground(new java.awt.Color(2, 135, 242));
         b_mas.setIcon(new ImageIcon("imagenes/boton_mas.png"));
         b_mas.setMnemonic('1');
         b_mas.setToolTipText("Agrega una partida (ALT+1)");
@@ -670,7 +674,6 @@ public class nuevoPedido extends javax.swing.JPanel {
             }
         });
 
-        b_guardar.setBackground(new java.awt.Color(2, 135, 242));
         b_guardar.setText("Guardar");
         b_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -678,7 +681,6 @@ public class nuevoPedido extends javax.swing.JPanel {
             }
         });
 
-        b_ocompra.setBackground(new java.awt.Color(2, 135, 242));
         b_ocompra.setText("Ord. de Compra");
         b_ocompra.setEnabled(false);
         b_ocompra.addActionListener(new java.awt.event.ActionListener() {
@@ -687,7 +689,6 @@ public class nuevoPedido extends javax.swing.JPanel {
             }
         });
 
-        b_pedido.setBackground(new java.awt.Color(2, 135, 242));
         b_pedido.setText("Pedido");
         b_pedido.setEnabled(false);
         b_pedido.addActionListener(new java.awt.event.ActionListener() {
@@ -696,7 +697,6 @@ public class nuevoPedido extends javax.swing.JPanel {
             }
         });
 
-        b_nuevo_pedido.setBackground(new java.awt.Color(2, 135, 242));
         b_nuevo_pedido.setText("Nuevo");
         b_nuevo_pedido.setToolTipText("Nuevo Pedido");
         b_nuevo_pedido.setEnabled(false);
@@ -755,7 +755,7 @@ public class nuevoPedido extends javax.swing.JPanel {
 
         l_notas.setBackground(new java.awt.Color(254, 254, 254));
         l_notas.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
-        l_notas.setForeground(new java.awt.Color(90, 66, 126));
+        l_notas.setForeground(new java.awt.Color(255, 255, 255));
         l_notas.setText("Notas:");
 
         t_notas.setColumns(20);
@@ -838,7 +838,7 @@ public class nuevoPedido extends javax.swing.JPanel {
         jLabel3.setText("Pedido:");
 
         c_tipo.setFont(new java.awt.Font("Droid Sans", 0, 10)); // NOI18N
-        c_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Directo", "Valuacion", "Externo" }));
+        c_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Directo", "Valuacion", "Externo", "Inventario" }));
         c_tipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 c_tipoActionPerformed(evt);
@@ -1446,6 +1446,33 @@ public class nuevoPedido extends javax.swing.JPanel {
                 else
                     b_calendario.setEnabled(false);
             }
+            if(this.c_tipo.getSelectedItem().toString().compareTo("Inventario")==0)
+            {
+                buscaEjemplar obj = new buscaEjemplar(new javax.swing.JFrame(), true, sessionPrograma, this.usr, 1);
+                obj.t_busca.requestFocus();
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+                obj.setVisible(true);
+                Ejemplar eje=obj.getReturnStatus();
+                if (eje!=null)
+                {
+                    int pos=t_datos.getRowCount()+1;
+                    Object[] vector=new Object[]{""/*#*/,""/*R_valua*/,eje.getIdParte()/*codigo*/,""+"s/f"/*folio*/,eje.getCatalogo()/*descripción*/,""+eje.getMedida()/*medida*/,""/*plazo*/,1.0/*cantidad*/,0.0/*costo c/u*/,0.0/*total*/};
+                    model.addRow(vector);
+                    for(int x=0; x<t_datos.getColumnCount(); x++)
+                    {
+                        if(x==7 || x==8)
+                            model.setCeldaEditable(t_datos.getRowCount()-1, x, true);
+                        else
+                            model.setCeldaEditable(t_datos.getRowCount()-1, x, false);
+                    }
+                    sumaTotales();
+                    if(t_datos.getRowCount()!=0)
+                        b_calendario.setEnabled(true);
+                    else
+                        b_calendario.setEnabled(false);
+                }
+            }
             if(this.c_tipo.getSelectedItem().toString().compareTo("Directo")==0)
             {
                 int pos=t_datos.getRowCount()+1;
@@ -1713,6 +1740,57 @@ public class nuevoPedido extends javax.swing.JPanel {
                                 ren--;
                             }
                         }
+                        if(t_datos.getRowCount()!=0)
+                        {
+                            Pedido pedido = new Pedido();
+                            if(t_clave.getText().compareTo("")!=0)
+                                pedido.setProveedorByIdEmpresa(provf_act);
+                            if(t_proveedor.getText().compareTo("")!=0)
+                                pedido.setProveedorByIdProveedor(prov_act);
+                            pedido.setUsuarioByIdUsuario(usr);
+                            Date fecha_pedido = new Date();
+                            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                            String valor=dateFormat.format(fecha_pedido);
+                            String [] fecha = valor.split("-");
+                            String [] hora=fecha[2].split(":");
+                            String [] aux=hora[0].split(" ");
+                            fecha[2]=aux[0];
+                            hora[0]=aux[1];
+                            Calendar calendario = Calendar.getInstance();
+                            calendario.set(
+                                    Integer.parseInt(fecha[2]), 
+                                    Integer.parseInt(fecha[1])-1, 
+                                    Integer.parseInt(fecha[0]), 
+                                    Integer.parseInt(hora[0]), 
+                                    Integer.parseInt(hora[1]), 
+                                    Integer.parseInt(hora[2]));
+                            pedido.setFechaPedido(calendario.getTime());
+                            if(this.t_folio_externo.getText().compareTo("")!=0)
+                                pedido.setIdExterno(this.t_folio_externo.getText());
+                            if(t_notas.getText().compareTo("")!=0)
+                                pedido.setNotas(t_notas.getText());
+                            pedido.setTipoPedido(c_tipo.getSelectedItem().toString());
+                            
+                            Integer respuesta=guardarPedido(pedido);
+                            if(respuesta!=null)
+                            {
+                                t_pedido.setText(""+respuesta);
+                                JOptionPane.showMessageDialog(null, "Pedido almacenado con la clave:  " +respuesta);
+                                estadoBotones();
+                            }
+                            else
+                                b_guardar.requestFocus();
+                        }
+                        else
+                            JOptionPane.showMessageDialog(null, "Selecciona algunos pedidos");
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null, "Selecciona el nombre del comprador");
+                }
+                if(c_tipo.getSelectedItem().toString().compareTo("Inventario")==0)
+                {
+                    if(t_id_comprador.getText().compareTo("")!=0)
+                    {
                         if(t_datos.getRowCount()!=0)
                         {
                             Pedido pedido = new Pedido();
@@ -2299,6 +2377,26 @@ public class nuevoPedido extends javax.swing.JPanel {
                 this.t_folio_externo.setText("");
                 this.b_calendario.setEnabled(false);
 
+        }
+        if(c_tipo.getSelectedItem().toString().compareTo("Inventario")==0)
+        {
+            datos_unidad("", "", "", "", "", "","","", "");
+            this.t_id_comprador.setText("");
+            this.t_nombre_comprador.setText("");
+            this.b_comprador.setEnabled(true);
+            this.t_orden.setText("");
+            this.orden_act=null;
+            this.b_orden.setEnabled(false);
+            this.b_tipo.setEnabled(false);
+            this.b_marca.setEnabled(false);
+            this.t_modelo.setEditable(false);
+            this.b_aseguradora.setEnabled(false);
+            this.t_siniestro.setEditable(false);
+            this.t_asegurado.setEditable(false);
+            this.t_folio_externo.setEditable(true);
+            this.t_folio_externo.setText("");
+            this.b_calendario.setEnabled(false);
+            
         }
         model=new MyModel(0, columnas);
         t_datos.setModel(model);
@@ -2963,6 +3061,43 @@ public class nuevoPedido extends javax.swing.JPanel {
                     }
                     t_fecha.setText(obj.getFechaPedido().toLocaleString());
                     session.beginTransaction().commit();
+                }
+                if(this.c_tipo.getSelectedItem().toString().compareTo("Inventario")==0)
+                {
+                    for(int ren=0; ren<t_datos.getRowCount(); ren++)
+                    {
+                        PartidaExterna px=new PartidaExterna();
+                        //px.setPartida(t_datos.getValueAt(ren, 0).toString());
+                        //px.setIdValuacion(t_datos.getValueAt(ren, 1).toString());
+                        Ejemplar ej=(Ejemplar)session.get(Ejemplar.class, t_datos.getValueAt(ren, 2).toString());
+                        px.setEjemplar(ej);
+                        px.setDescripcion(t_datos.getValueAt(ren, 4).toString());
+                        px.setFacturado(false);
+                        px.setUnidad(t_datos.getValueAt(ren, 5).toString());
+                        px.setOp(false);
+                        if(t_datos.getValueAt(ren, 6).toString().compareTo("")!=0)
+                        {
+                            String[] fecha = t_datos.getValueAt(ren, 6).toString().split("-");
+                            Calendar calendario = Calendar.getInstance();
+                            calendario.set(
+                                    Integer.parseInt(fecha[0]), 
+                                    Integer.parseInt(fecha[1])-1, 
+                                    Integer.parseInt(fecha[2]));
+                            px.setPlazo(calendario.getTime());
+                        }
+                        px.setCantidad((double) t_datos.getValueAt(ren, 7));
+                        px.setCosto((double) t_datos.getValueAt(ren, 8));
+                        px.setPedido(obj);
+                        px.setOriCon("-");
+                        px.setD(0.0);
+                        px.setR(0.0);
+                        px.setM(0.0);
+                        obj.agregaPartidaExterna(px);
+                    }
+                    obj.setEmpleado(emp);
+                    session.update(obj);
+                    session.beginTransaction().commit();
+                    t_fecha.setText(obj.getFechaPedido().toLocaleString());
                 }
                 if(this.c_tipo.getSelectedItem().toString().compareTo("Externo")==0)
                 {

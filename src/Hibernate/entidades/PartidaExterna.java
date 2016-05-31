@@ -29,6 +29,7 @@ public class PartidaExterna  implements java.io.Serializable {
      private boolean muestra;
      private boolean op;
      private Usuario mecanico;
+     private Ejemplar ejemplar;
      private Date fechaMecanico;
      private String oriCon;
      private Boolean facturado;
@@ -40,7 +41,7 @@ public class PartidaExterna  implements java.io.Serializable {
     public PartidaExterna() {
     }
 
-    public PartidaExterna(Pedido pedido, String partida, Double cantidad, String unidad, String descripcion, String idValuacion, String noParte, Double costo, Boolean servicio, String idExternos, Date plazo, Integer facturaPedido, Boolean surtido, Boolean muestra, Boolean op, Usuario mecanico, Date fechaMecanico, String oriCon, Boolean facturado, double d, double r, double m, Set movimientos) {
+    public PartidaExterna(Pedido pedido, String partida, Double cantidad, String unidad, String descripcion, String idValuacion, String noParte, Double costo, Boolean servicio, String idExternos, Date plazo, Integer facturaPedido, Boolean surtido, Boolean muestra, Boolean op, Usuario mecanico, Date fechaMecanico, String oriCon, Boolean facturado, double d, double r, double m, Ejemplar ejemplar, Set movimientos) {
        this.pedido = pedido;
        this.partida = partida;
        this.cantidad = cantidad;
@@ -61,6 +62,7 @@ public class PartidaExterna  implements java.io.Serializable {
        this.fechaMecanico = fechaMecanico;
        this.oriCon = oriCon;
        this.facturado = facturado;
+       this.ejemplar = ejemplar;
        this.d = d;
        this.r = r;
        this.m = m;
@@ -220,6 +222,14 @@ public class PartidaExterna  implements java.io.Serializable {
     
     public void setFacturado(Boolean facturado) {
         this.facturado = facturado;
+    }
+    
+    public Ejemplar getEjemplar() {
+        return this.ejemplar;
+    }
+    
+    public void setEjemplar(Ejemplar ejemplar) {
+        this.ejemplar = ejemplar;
     }
     
     public double getD() {

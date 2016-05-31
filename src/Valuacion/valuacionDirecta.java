@@ -274,11 +274,9 @@ public class valuacionDirecta extends javax.swing.JPanel {
         t_doble.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBackground(new java.awt.Color(2, 135, 242));
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 9)); // NOI18N
@@ -401,9 +399,10 @@ public class valuacionDirecta extends javax.swing.JPanel {
 
         add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
+        scroll.setBackground(new java.awt.Color(255, 255, 255));
+        scroll.setBorder(null);
         scroll.setPreferredSize(new java.awt.Dimension(453, 150));
 
-        t_datos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         t_datos.setForeground(new java.awt.Color(102, 102, 102));
         t_datos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -414,6 +413,7 @@ public class valuacionDirecta extends javax.swing.JPanel {
             }
         ));
         t_datos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        t_datos.setFillsViewportHeight(true);
         t_datos.setGridColor(new java.awt.Color(102, 102, 102));
         t_datos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         t_datos.getTableHeader().setReorderingAllowed(false);

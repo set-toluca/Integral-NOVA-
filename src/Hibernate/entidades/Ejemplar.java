@@ -18,7 +18,10 @@ public class Ejemplar  implements java.io.Serializable {
      private Integer modelo;
      private String comentario;
      private String imagen;
+     private Integer inventario;
+     private String medida;
      private Set partidas = new HashSet(0);
+     private Set partidasExternas= new HashSet(0);
 
     public Ejemplar() {
     }
@@ -27,7 +30,7 @@ public class Ejemplar  implements java.io.Serializable {
     public Ejemplar(String idParte) {
         this.idParte = idParte;
     }
-    public Ejemplar(String idParte, Marca marca, Tipo tipo, String catalogo, Integer modelo, String comentario, String imsgen, Set partidas) {
+    public Ejemplar(String idParte, Marca marca, Tipo tipo, String catalogo, Integer modelo, String comentario, String imagen, Integer inventario, String medida, Set partidas, Set partidasExternas) {
        this.idParte = idParte;
        this.marca = marca;
        this.tipo = tipo;
@@ -35,7 +38,10 @@ public class Ejemplar  implements java.io.Serializable {
        this.modelo = modelo;
        this.comentario = comentario;
        this.imagen = imagen;
+       this.inventario=inventario;
+       this.medida=medida;
        this.partidas = partidas;
+       this.partidasExternas=partidasExternas;
     }
    
     public String getIdParte() {
@@ -66,6 +72,13 @@ public class Ejemplar  implements java.io.Serializable {
     public void setCatalogo(String catalogo) {
         this.catalogo = catalogo;
     }
+    public String getMedida() {
+        return this.medida;
+    }
+    
+    public void setMedida(String medida) {
+        this.medida = medida;
+    }
     
     public Integer getModelo() {
         return this.modelo;
@@ -74,6 +87,14 @@ public class Ejemplar  implements java.io.Serializable {
     public void setModelo(Integer modelo) {
         this.modelo = modelo;
     }
+    public Integer getInventario() {
+        return this.inventario;
+    }
+    
+    public void setInventario(Integer inventario) {
+        this.inventario = inventario;
+    }
+    
     public String getComentario() {
         return this.comentario;
     }
@@ -98,7 +119,13 @@ public class Ejemplar  implements java.io.Serializable {
         this.partidas = partidas;
     }
 
-
+    public Set getPartidasExternas() {
+        return this.partidasExternas;
+    }
+    
+    public void setPartidasExternas(Set partidasExternas) {
+        this.partidasExternas = partidasExternas;
+    }
 
 
 }

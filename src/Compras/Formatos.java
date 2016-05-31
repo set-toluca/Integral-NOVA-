@@ -244,9 +244,9 @@ public class Formatos {
             PdfPTable tabla=reporte.crearTabla(10, tam, 100, Element.ALIGN_LEFT);
 
             Pedido ped = (Pedido)session.get(Pedido.class, Integer.parseInt(this.no_ped));
-            if(ped.getUsuarioByAutorizo()!=null && ped.getUsuarioByAutorizo2()!=null)
+            if(ped.getUsuarioByAutorizo()!=null)
             {
-                reporte.estatusAutoriza(ped.getUsuarioByAutorizo().getEmpleado().getNombre(), ped.getUsuarioByAutorizo2().getEmpleado().getNombre());
+                reporte.estatusAutoriza(ped.getUsuarioByAutorizo().getEmpleado().getNombre(), "");
             }
             else
                 reporte.estatusAutoriza("","       NO AUTORIZADO");
@@ -365,9 +365,9 @@ public class Formatos {
                 float tam[]=new float[]{20,30,25,60,190,25,30,20,40,40};
                 PdfPTable tabla=reporte.crearTabla(10, tam, 100, Element.ALIGN_LEFT);
 
-                if(ped.getUsuarioByAutorizo()!=null && ped.getUsuarioByAutorizo2()!=null)
+                if(ped.getUsuarioByAutorizo()!=null)
                 {
-                    reporte.estatusAutoriza(ped.getUsuarioByAutorizo().getEmpleado().getNombre(), ped.getUsuarioByAutorizo2().getEmpleado().getNombre());
+                    reporte.estatusAutoriza(ped.getUsuarioByAutorizo().getEmpleado().getNombre(), "");
                 }
                 else
                     reporte.estatusAutoriza("","       NO AUTORIZADO");
@@ -397,7 +397,10 @@ public class Formatos {
 
                         //folio del articulo de articulo
                         tabla.addCell(reporte.celda("", font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
-                        tabla.addCell(reporte.celda(""+cuentas[i].getNoParte(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        if(ped.getTipoPedido().compareTo("Inventario")==0)
+                            tabla.addCell(reporte.celda(""+cuentas[i].getEjemplar().getIdParte(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        else
+                            tabla.addCell(reporte.celda(""+cuentas[i].getNoParte(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
 
                         //Descripcion
                         tabla.addCell(reporte.celda(cuentas[i].getDescripcion(), font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
@@ -480,9 +483,9 @@ public class Formatos {
                 PdfPTable tabla=reporte.crearTabla(7, tam, 100, Element.ALIGN_LEFT);
 
                 Pedido ped = (Pedido)session.get(Pedido.class, Integer.parseInt(no_ped));
-                if(ped.getUsuarioByAutorizo()!=null && ped.getUsuarioByAutorizo2()!=null)
+                if(ped.getUsuarioByAutorizo()!=null)
                 {
-                    reporte.estatusAutoriza(ped.getUsuarioByAutorizo().getEmpleado().getNombre(), ped.getUsuarioByAutorizo2().getEmpleado().getNombre());
+                    reporte.estatusAutoriza(ped.getUsuarioByAutorizo().getEmpleado().getNombre(), "");
                 }
                 else
                     reporte.estatusAutoriza("","       NO AUTORIZADO");
@@ -709,7 +712,7 @@ public class Formatos {
                 Pedido ped = (Pedido)session.get(Pedido.class, pedido);
                 
                 reporte.estatusAutoriza("","");
-                if(ped.getTipoPedido().compareToIgnoreCase("Externo")==0)
+                if(ped.getTipoPedido().compareToIgnoreCase("Externo")==0 || ped.getTipoPedido().compareToIgnoreCase("Inventario")==0)
                     cabeceraCompraExDCG(reporte, bf, tabla, ped, tipo);
                 if(ped.getTipoPedido().compareToIgnoreCase("Directo")==0)
                     cabeceraCompraDCG(reporte, bf, tabla, ped, tipo);
@@ -737,7 +740,10 @@ public class Formatos {
                         //Descripcion
                         tabla.addCell(reporte.celda(cuentas[i].getDescripcion(), font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
 
-                        tabla.addCell(reporte.celda(""+cuentas[i].getNoParte(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        if(ped.getTipoPedido().compareTo("Inventario")==0)
+                            tabla.addCell(reporte.celda(""+cuentas[i].getEjemplar().getIdParte(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        else
+                           tabla.addCell(reporte.celda(""+cuentas[i].getNoParte(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
                         
                         //costo unit
                         tabla.addCell(reporte.celda(formatoPorcentaje.format(cuentas[i].getCosto()), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
@@ -808,13 +814,13 @@ public class Formatos {
 
                 Pedido ped = (Pedido)session.get(Pedido.class, pedido);
                 
-                if(ped.getUsuarioByAutorizo()!=null && ped.getUsuarioByAutorizo2()!=null)
+                if(ped.getUsuarioByAutorizo()!=null)
                 {
-                    reporte.estatusAutoriza(ped.getUsuarioByAutorizo().getEmpleado().getNombre(), ped.getUsuarioByAutorizo2().getEmpleado().getNombre());
+                    reporte.estatusAutoriza(ped.getUsuarioByAutorizo().getEmpleado().getNombre(), "");
                 }
                 else
                     reporte.estatusAutoriza("","       NO AUTORIZADO");
-                if(ped.getTipoPedido().compareToIgnoreCase("Externo")==0)
+                if(ped.getTipoPedido().compareToIgnoreCase("Externo")==0 || ped.getTipoPedido().compareToIgnoreCase("Inventario")==0)
                     cabeceraCompraEx(reporte, bf, tabla, ped);
                 if(ped.getTipoPedido().compareToIgnoreCase("Directo")==0)
                     cabeceraCompra(reporte, bf, tabla, ped);
@@ -845,7 +851,10 @@ public class Formatos {
                         else
                             tabla.addCell(reporte.celda("", font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
 
-                        tabla.addCell(reporte.celda(""+cuentas[i].getNoParte(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        if(ped.getTipoPedido().compareTo("Inventario")==0)
+                            tabla.addCell(reporte.celda(""+cuentas[i].getEjemplar().getIdParte(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        else
+                            tabla.addCell(reporte.celda(""+cuentas[i].getNoParte(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
                         
                         //costo unit
                         tabla.addCell(reporte.celda(formatoPorcentaje.format(cuentas[i].getCosto()), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
@@ -926,7 +935,12 @@ public class Formatos {
             
         }
         else
-            reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Externo", 40, 695, 0);
+        {
+            if(ped.getTipoPedido().compareTo("Inventario")==0)
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Inventario", 40, 695, 0);
+            else
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Externo", 40, 695, 0);
+        }
         
         //**********************datos de facturacion*****************************
         reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Clave: "+ped.getProveedorByIdEmpresa().getIdProveedor(), 285, 725, 0);
@@ -1367,34 +1381,46 @@ public class Formatos {
         reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "DATOS LA UNIDAD", 450, 697, 0);
         if(ped.getPartida()==null)
         {
-            reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Orden: "+ped.getOrdenExterna().getIdOrden(), 410, 687, 0);
-            if(ped.getOrdenExterna().getTipo()!=null)
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo: "+ped.getOrdenExterna().getTipo().getTipoNombre(), 410, 677, 0);
-
-            if(ped.getOrdenExterna().getModelo()!=null)
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Modelo: "+ped.getOrdenExterna().getModelo(), 410, 667, 0);
-            else
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Modelo: ", 410, 667, 0);
-
-            if(ped.getOrdenExterna().getCompania()!=null)
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Compañía: "+ped.getOrdenExterna().getCompania().getNombre(), 410, 657, 0);
-            else
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Compañía: ", 410, 657, 0);
-            
-            if(ped.getOrdenExterna().getAsegurado()!=null)
+            if(ped.getTipoPedido().compareTo("Inventario")==0)
             {
-                String clien=ped.getOrdenExterna().getAsegurado();
-                if(clien.length()>25)
-                    clien=clien.substring(0, 25);
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Asegurado:"+clien, 410, 647, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Orden: NA", 410, 687, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo: NA", 410, 677, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Modelo: NA", 410, 667, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Compañía: NA", 410, 657, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Asegurado: NA", 410, 647, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Siniestro: NA", 410, 637, 0);
             }
             else
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Asegurado:", 410, 647, 0);
+            {
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Orden: "+ped.getOrdenExterna().getIdOrden(), 410, 687, 0);
+                if(ped.getOrdenExterna().getTipo()!=null)
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo: "+ped.getOrdenExterna().getTipo().getTipoNombre(), 410, 677, 0);
 
-            if(ped.getOrdenExterna().getSiniestro()!=null)
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Siniestro:"+ped.getOrdenExterna().getSiniestro(), 410, 637, 0);
-            else
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Siniestro:", 410, 637, 0);
+                if(ped.getOrdenExterna().getModelo()!=null)
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Modelo: "+ped.getOrdenExterna().getModelo(), 410, 667, 0);
+                else
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Modelo: ", 410, 667, 0);
+
+                if(ped.getOrdenExterna().getCompania()!=null)
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Compañía: "+ped.getOrdenExterna().getCompania().getNombre(), 410, 657, 0);
+                else
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Compañía: ", 410, 657, 0);
+
+                if(ped.getOrdenExterna().getAsegurado()!=null)
+                {
+                    String clien=ped.getOrdenExterna().getAsegurado();
+                    if(clien.length()>25)
+                        clien=clien.substring(0, 25);
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Asegurado:"+clien, 410, 647, 0);
+                }
+                else
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Asegurado:", 410, 647, 0);
+
+                if(ped.getOrdenExterna().getSiniestro()!=null)
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Siniestro:"+ped.getOrdenExterna().getSiniestro(), 410, 637, 0);
+                else
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Siniestro:", 410, 637, 0);
+            }
         }
         else
         {
@@ -1548,34 +1574,46 @@ public class Formatos {
         reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "DATOS LA UNIDAD", 450, 697, 0);
         if(ped.getPartida()==null)
         {
-            reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Orden: "+ped.getOrdenExterna().getIdOrden(), 410, 687, 0);
-            if(ped.getOrdenExterna().getTipo()!=null)
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo: "+ped.getOrdenExterna().getTipo().getTipoNombre(), 410, 677, 0);
-
-            if(ped.getOrdenExterna().getModelo()!=null)
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Modelo: "+ped.getOrdenExterna().getModelo(), 410, 667, 0);
-            else
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Modelo: ", 410, 667, 0);
-
-            if(ped.getOrdenExterna().getCompania()!=null)
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Compañía: "+ped.getOrdenExterna().getCompania().getNombre(), 410, 657, 0);
-            else
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Compañía: ", 410, 657, 0);
-            
-            if(ped.getOrdenExterna().getAsegurado()!=null)
+            if(ped.getTipoPedido().compareTo("Inventario")==0)
             {
-                String clien=ped.getOrdenExterna().getAsegurado();
-                if(clien.length()>25)
-                    clien=clien.substring(0, 25);
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Asegurado:"+clien, 410, 647, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Orden: NA", 410, 687, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo: NA", 410, 677, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Modelo: NA", 410, 667, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Compañía: NA", 410, 657, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Asegurado: NA", 410, 647, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Siniestro: NA", 410, 637, 0);
             }
             else
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Asegurado:", 410, 647, 0);
+            {
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Orden: "+ped.getOrdenExterna().getIdOrden(), 410, 687, 0);
+                if(ped.getOrdenExterna().getTipo()!=null)
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo: "+ped.getOrdenExterna().getTipo().getTipoNombre(), 410, 677, 0);
 
-            if(ped.getOrdenExterna().getSiniestro()!=null)
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Siniestro:"+ped.getOrdenExterna().getSiniestro(), 410, 637, 0);
-            else
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Siniestro:", 410, 637, 0);
+                if(ped.getOrdenExterna().getModelo()!=null)
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Modelo: "+ped.getOrdenExterna().getModelo(), 410, 667, 0);
+                else
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Modelo: ", 410, 667, 0);
+
+                if(ped.getOrdenExterna().getCompania()!=null)
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Compañía: "+ped.getOrdenExterna().getCompania().getNombre(), 410, 657, 0);
+                else
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Compañía: ", 410, 657, 0);
+
+                if(ped.getOrdenExterna().getAsegurado()!=null)
+                {
+                    String clien=ped.getOrdenExterna().getAsegurado();
+                    if(clien.length()>25)
+                        clien=clien.substring(0, 25);
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Asegurado:"+clien, 410, 647, 0);
+                }
+                else
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Asegurado:", 410, 647, 0);
+
+                if(ped.getOrdenExterna().getSiniestro()!=null)
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Siniestro:"+ped.getOrdenExterna().getSiniestro(), 410, 637, 0);
+                else
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Siniestro:", 410, 637, 0);
+            }
         }
         else
         {

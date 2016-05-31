@@ -444,18 +444,7 @@ public class consultaPedido extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(l_notas, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(t_busca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(l_busca))
-                            .addComponent(b_busca, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(b_pedidos)
-                                .addComponent(b_compra)))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -464,7 +453,19 @@ public class consultaPedido extends javax.swing.JPanel {
                                 .addGap(4, 4, 4)
                                 .addComponent(r_autorizar)
                                 .addGap(8, 8, 8))
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(l_notas, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(t_busca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(l_busca))
+                                .addComponent(b_busca, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(b_pedidos)
+                                    .addComponent(b_compra))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -500,7 +501,7 @@ public class consultaPedido extends javax.swing.JPanel {
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Pedido", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 11))); // NOI18N
 
         c_tipo.setFont(new java.awt.Font("Droid Sans", 0, 10)); // NOI18N
-        c_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Directo", "Valuacion", "Externo" }));
+        c_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Directo", "Valuacion", "Externo", "Inventario" }));
         c_tipo.setEnabled(false);
         c_tipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1519,25 +1520,34 @@ public class consultaPedido extends javax.swing.JPanel {
                     }
                     else
                     {
-                        c_tipo.setSelectedItem("Directo");
-                        orden_act=pedido.getOrden();
-                        orden_act=(Orden)session.get(Orden.class, orden_act.getIdOrden());
-                        resp=h.estadoOrden(orden_act);
-                        t_orden.setText(""+orden_act.getIdOrden());
-                        t_tipo.setText(orden_act.getTipo().getTipoNombre());
-                        t_marca.setText(orden_act.getMarca().getIdMarca());
-                        t_modelo.setText(""+orden_act.getModelo());
-                        t_id_aseguradora.setText(""+orden_act.getCompania().getIdCompania());
-                        t_aseguradora.setText(orden_act.getCompania().getNombre());
-                        if(orden_act.getSiniestro()!=null)
-                            t_siniestro.setText(orden_act.getSiniestro());
-                        else
-                            t_siniestro.setText("");
-                        t_asegurado.setText(orden_act.getClientes().getNombre());
-                        t_folio_externo.setText("");
+                        if(pedido.getTipoPedido().compareTo("Directo")==0)
+                        {
+                            c_tipo.setSelectedItem("Directo");
+                            orden_act=pedido.getOrden();
+                            orden_act=(Orden)session.get(Orden.class, orden_act.getIdOrden());
+                            resp=h.estadoOrden(orden_act);
+                            t_orden.setText(""+orden_act.getIdOrden());
+                            t_tipo.setText(orden_act.getTipo().getTipoNombre());
+                            t_marca.setText(orden_act.getMarca().getIdMarca());
+                            t_modelo.setText(""+orden_act.getModelo());
+                            t_id_aseguradora.setText(""+orden_act.getCompania().getIdCompania());
+                            t_aseguradora.setText(orden_act.getCompania().getNombre());
+                            if(orden_act.getSiniestro()!=null)
+                                t_siniestro.setText(orden_act.getSiniestro());
+                            else
+                                t_siniestro.setText("");
+                            t_asegurado.setText(orden_act.getClientes().getNombre());
+                            t_folio_externo.setText("");
 
-                        this.t_id_comprador.setText(""+pedido.getEmpleado().getIdEmpleado());
-                        this.t_nombre_comprador.setText(pedido.getEmpleado().getNombre());
+                            this.t_id_comprador.setText(""+pedido.getEmpleado().getIdEmpleado());
+                            this.t_nombre_comprador.setText(pedido.getEmpleado().getNombre());
+                        }
+                        else
+                        {
+                            c_tipo.setSelectedItem("Inventario");
+                            this.t_id_comprador.setText(""+pedido.getEmpleado().getIdEmpleado());
+                            this.t_nombre_comprador.setText(pedido.getEmpleado().getNombre());
+                        }
                     }
                 }
                 
@@ -1625,6 +1635,39 @@ public class consultaPedido extends javax.swing.JPanel {
                             model.setValueAt(partEx[r].getNoParte(), r, 3);
                         else
                             model.setValueAt("", r, 3);
+                        model.setValueAt("", r, 4);
+                        model.setValueAt(partEx[r].getDescripcion(), r, 5);
+                        model.setValueAt(partEx[r].getUnidad(), r, 6);
+                        if(partEx[r].getPlazo()!=null)
+                        {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            model.setValueAt(sdf.format(partEx[r].getPlazo()), r, 7);
+                        }
+                        else
+                            model.setValueAt("0", r, 7);
+                        if(partEx[r].getCantidad()!=null)
+                            model.setValueAt(partEx[r].getCantidad(), r, 8);
+                        else
+                            model.setValueAt(0, r, 8);
+                        if(partEx[r].getCosto()!=null)
+                            model.setValueAt(partEx[r].getCosto(), r, 9);
+                        else
+                            model.setValueAt(0, r, 9);
+                        double sum=partEx[r].getCantidad()*partEx[r].getCosto();
+                        tot+=sum;
+                        model.setValueAt(sum, r, 10);
+                    }
+                }
+                if(c_tipo.getSelectedItem().toString().compareTo("Inventario")==0)
+                {
+                    model=new MyModel(partEx.length, columnas);
+                    t_datos.setModel(model);
+                    for(int r=0; r<partEx.length; r++)
+                    {
+                        model.setValueAt(partEx[r].getIdPartidaExterna(), r, 0);
+                        model.setValueAt("", r, 1);
+                        model.setValueAt("", r, 2);
+                        model.setValueAt(partEx[r].getEjemplar().getIdParte(), r, 3);
                         model.setValueAt("", r, 4);
                         model.setValueAt(partEx[r].getDescripcion(), r, 5);
                         model.setValueAt(partEx[r].getUnidad(), r, 6);

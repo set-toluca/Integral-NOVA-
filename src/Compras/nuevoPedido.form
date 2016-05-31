@@ -669,6 +669,9 @@
   <SubComponents>
     <Container class="javax.swing.JScrollPane" name="p_centro">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
@@ -754,6 +757,7 @@
                 </Column>
               </TableColumnModel>
             </Property>
+            <Property name="fillsViewportHeight" type="boolean" value="true"/>
             <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
               <JTableSelectionModel selectionMode="2"/>
             </Property>
@@ -768,6 +772,11 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="p_abajo">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f2" green="87" red="2" type="rgb"/>
+        </Property>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="South"/>
@@ -846,11 +855,14 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="l_busca">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="9" style="0"/>
+              <Font name="Arial" size="10" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="7e" green="42" red="5a" type="rgb"/>
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Buscar:"/>
           </Properties>
@@ -884,9 +896,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="b_menos">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f2" green="87" red="2" type="rgb"/>
-            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new ImageIcon(&quot;imagenes/boton_menos.png&quot;)" type="code"/>
             </Property>
@@ -899,9 +908,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="b_mas">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f2" green="87" red="2" type="rgb"/>
-            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new ImageIcon(&quot;imagenes/boton_mas.png&quot;)" type="code"/>
             </Property>
@@ -914,9 +920,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="b_guardar">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f2" green="87" red="2" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Guardar"/>
           </Properties>
           <Events>
@@ -925,9 +928,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="b_ocompra">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f2" green="87" red="2" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Ord. de Compra"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -937,9 +937,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="b_pedido">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f2" green="87" red="2" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Pedido"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -949,9 +946,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="b_nuevo_pedido">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f2" green="87" red="2" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Nuevo"/>
             <Property name="toolTipText" type="java.lang.String" value="Nuevo Pedido"/>
             <Property name="enabled" type="boolean" value="false"/>
@@ -1114,7 +1108,7 @@
               <Font name="Arial" size="10" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="7e" green="42" red="5a" type="rgb"/>
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Notas:"/>
           </Properties>
@@ -1289,10 +1283,11 @@
                           <Font name="Droid Sans" size="10" style="0"/>
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="3">
+                          <StringArray count="4">
                             <StringItem index="0" value="Directo"/>
                             <StringItem index="1" value="Valuacion"/>
                             <StringItem index="2" value="Externo"/>
+                            <StringItem index="3" value="Inventario"/>
                           </StringArray>
                         </Property>
                       </Properties>

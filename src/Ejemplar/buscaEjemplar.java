@@ -25,27 +25,26 @@ import org.hibernate.Session;
 public class buscaEjemplar extends javax.swing.JDialog {
 
     public static final Ejemplar RET_CANCEL =null;
-    //private Session session;
     InputMap map = new InputMap();
     DefaultTableModel model;
-    String[] columnas = new String [] {"No Parte","Modelo","Marca", "Tipo", "Catalogo", "Comentario"};
-    //Usuario user;
+    String[] columnas = new String [] {"No Parte","Modelo","Marca", "Tipo", "Catalogo", "Medida"};
     String sessionPrograma="";
     Herramientas h;
     Usuario usr;
+    int tipo=0;
     
-    public buscaEjemplar(java.awt.Frame parent, boolean modal, String ses, Usuario usuario) {
+    public buscaEjemplar(java.awt.Frame parent, boolean modal, String ses, Usuario usuario, int tipo) {
         super(parent, modal);
+        this.tipo=tipo;
         sessionPrograma=ses;
         usr=usuario;
         initComponents();
         getRootPane().setDefaultButton(jButton1);
-        //formatoTabla();
-        //t_datos.setModel(ModeloTablaReporte(0, columnas));
-        //t_busca.requestFocus();
         t_datos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         String consulta="from Ejemplar em where em.idParte like '%" + t_busca.getText() +"%'";        
-        List <Object[]> resultList=executeHQLQuery(consulta);
+        if(tipo<2)
+            consulta+=" and inventario="+tipo;
+        executeHQLQuery(consulta);
     }
     
     DefaultTableModel ModeloTablaReporte(int renglones, String columnas[])
@@ -174,7 +173,7 @@ public class buscaEjemplar extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Clave", "Modelo", "Marca", "Tipo", "Catálogo", "Comentario"
+                "Clave", "Modelo", "Marca", "Tipo", "Catálogo", "Medida"
             }
         ) {
             Class[] types = new Class [] {
@@ -272,7 +271,9 @@ public class buscaEjemplar extends javax.swing.JDialog {
 
     private void t_buscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_buscaKeyReleased
         String consulta="from Ejemplar em where em.idParte like '%" + t_busca.getText() +"%'";        
-        List <Object[]> resultList=executeHQLQuery(consulta);
+        if(tipo<2)
+            consulta+=" and inventario="+tipo;
+        executeHQLQuery(consulta);
     }//GEN-LAST:event_t_buscaKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -286,6 +287,8 @@ public class buscaEjemplar extends javax.swing.JDialog {
             {
                 Ejemplar op= new Ejemplar();
                 op.setIdParte(t_datos.getValueAt(t_datos.getSelectedRow(), 0).toString());
+                op.setCatalogo(t_datos.getValueAt(t_datos.getSelectedRow(), 4).toString());
+                op.setMedida(t_datos.getValueAt(t_datos.getSelectedRow(), 5).toString());
                 if(t_datos.getValueAt(t_datos.getSelectedRow(), 1)!=null)
                     op.setModelo(Integer.parseInt(t_datos.getValueAt(t_datos.getSelectedRow(), 1).toString()));
                 doClose(op);
@@ -348,7 +351,7 @@ public class buscaEjemplar extends javax.swing.JDialog {
                     if(actor.getTipo()!=null)
                         model.setValueAt(actor.getTipo().getTipoNombre(), i, 3);
                     model.setValueAt(actor.getCatalogo(), i, 4);
-                    model.setValueAt(actor.getComentario(), i, 5);
+                    model.setValueAt(actor.getMedida(), i, 5);
                     i++;
                 }
             }
@@ -404,10 +407,10 @@ public class buscaEjemplar extends javax.swing.JDialog {
                     column.setPreferredWidth(80);
                     break; 
                 case 4:
-                    column.setPreferredWidth(70);
+                    column.setPreferredWidth(120);
                     break; 
                 case 5:
-                    column.setPreferredWidth(100);
+                    column.setPreferredWidth(50);
                     break; 
                 default:
                     column.setPreferredWidth(40);
