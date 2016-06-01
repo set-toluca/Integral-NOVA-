@@ -43,13 +43,19 @@
             </key>
             <one-to-many class="Hibernate.entidades.Partida" />
         </set>
-        <set name="partidasExternas" table="PartidaExterna" inverse="true" lazy="true" fetch="select">
+        <set name="partidasExternas" table="partida_externa" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_parte" length="35">
                     <comment>numero de serie del articulo de dicha partida</comment>
                 </column>
             </key>
             <one-to-many class="Hibernate.entidades.Partida" />
+        </set>
+        <set name="movimientos" table="movimiento" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_Parte" length="35" />
+            </key>
+            <one-to-many class="Hibernate.entidades.Movimiento" />
         </set>
     </class>
 </hibernate-mapping>

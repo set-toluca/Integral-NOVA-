@@ -23,6 +23,7 @@ public class Ejemplar  implements java.io.Serializable {
      private Double existencias;
      private Set partidas = new HashSet(0);
      private Set partidasExternas= new HashSet(0);
+     private Set movimientos= new HashSet(0);
 
     public Ejemplar() {
     }
@@ -31,7 +32,7 @@ public class Ejemplar  implements java.io.Serializable {
     public Ejemplar(String idParte) {
         this.idParte = idParte;
     }
-    public Ejemplar(String idParte, Marca marca, Tipo tipo, String catalogo, Integer modelo, String comentario, String imagen, Integer inventario, String medida, Double existencias, Set partidas, Set partidasExternas) {
+    public Ejemplar(String idParte, Marca marca, Tipo tipo, String catalogo, Integer modelo, String comentario, String imagen, Integer inventario, String medida, Double existencias, Set partidas, Set partidasExternas, Set movimientos) {
        this.idParte = idParte;
        this.marca = marca;
        this.tipo = tipo;
@@ -44,6 +45,7 @@ public class Ejemplar  implements java.io.Serializable {
        this.existencias=existencias;
        this.partidas = partidas;
        this.partidasExternas=partidasExternas;
+       this.movimientos=movimientos;
     }
    
     public String getIdParte() {
@@ -137,6 +139,13 @@ public class Ejemplar  implements java.io.Serializable {
     }
 
 
+    public Set getMovimientos() {
+        return this.movimientos;
+    }
+    
+    public void setMovimientos(Set movimientos) {
+        this.movimientos = movimientos;
+    }
 }
 
 
