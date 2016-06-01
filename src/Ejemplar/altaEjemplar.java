@@ -375,6 +375,7 @@ public class altaEjemplar extends javax.swing.JDialog {
                         art.setComentario(t_comentario.getText());
                         art.setInventario(inventario);
                         art.setMedida(medida.getSelectedItem().toString());
+                        art.setExistencias(0.0);
                         if(entro_foto==1)
                         {
                             Random rng=new Random();

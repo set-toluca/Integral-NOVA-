@@ -26,6 +26,9 @@
         <property name="inventario" type="java.lang.Integer">
             <column name="inventario" />
         </property>
+        <property name="existencias" type="java.lang.Double">
+            <column name="existencias" />
+        </property>
         <property name="comentario" type="string">
             <column name="comentario" length="100" />
         </property>

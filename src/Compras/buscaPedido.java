@@ -10,11 +10,9 @@
  */
 package Compras;
 
-import Integral.FormatoTabla;
 import Integral.Render1;
 import Hibernate.Util.HibernateUtil;
 import java.util.List;
-import java.util.Vector;
 import javax.swing.InputMap;
 import javax.swing.JOptionPane;
 import Hibernate.entidades.Pedido;
@@ -24,7 +22,6 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
@@ -174,14 +171,14 @@ public class buscaPedido extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Pedido", "Fecha", "O. Taller", "Usuario", "Nombre de Proveedor", "Autorizo 1", "Autorizo 2"
+                "Pedido", "Fecha", "O. Taller", "Usuario", "Nombre de Proveedor", "Autorizo 1"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -297,7 +294,7 @@ public class buscaPedido extends javax.swing.JDialog {
                 doClose(cli);
             }
             else
-            JOptionPane.showMessageDialog(null, "¡No hay un cliente seleccionado!");
+            JOptionPane.showMessageDialog(null, "¡No hay un pedido seleccionado!");
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -343,7 +340,7 @@ public class buscaPedido extends javax.swing.JDialog {
     private void buscaDato()
     {
         
-        String consulta="select distinct id_pedido as id, fecha_pedido, id_usuario, T2.nombre, if(autorizo is null, '', autorizo) as a1, if(autorizo2 is null, '', autorizo2) as a2, tipo_pedido, if(tipo_pedido='Interno', (select id_orden from partida where id_pedido=id limit 1),if(tipo_pedido='Adicional',id_orden,'')) as ord " +
+        String consulta="select distinct id_pedido as id, fecha_pedido, id_usuario, T2.nombre, if(autorizo is null, '', autorizo) as a1, tipo_pedido, if(tipo_pedido='Interno', (select id_orden from partida where id_pedido=id limit 1),if(tipo_pedido='Adicional',id_orden,'')) as ord " +
                         "from pedido as T1 left join proveedor as T2 on T1.id_proveedor=T2.id_proveedor ";
         if(t_busca.getText().compareToIgnoreCase("")!=0)
         {
@@ -352,7 +349,7 @@ public class buscaPedido extends javax.swing.JDialog {
                 case "Pedido":
                     consulta+=" where T1.id_pedido =" + t_busca.getText();
                     if(tipoVentana==1)
-                        consulta+=" and autorizo is not null and autorizo2 is not null";
+                        consulta+=" and autorizo is not null";
                     
                     if(tipoPedido.compareToIgnoreCase("")!=0)
                         consulta+=" and tipo_pedido='"+tipoPedido+"'";
@@ -362,9 +359,9 @@ public class buscaPedido extends javax.swing.JDialog {
                 case "O. Taller":
                     consulta+=" where id_orden like'"+t_busca.getText()+"%'";
                     if(tipoVentana==1)
-                        consulta+=" and autorizo is not null and autorizo2 is not null";
+                        consulta+=" and autorizo is not null";
                     if(t_busca.getText().compareToIgnoreCase("")==0)
-                        consulta+=" where autorizo is not null and autorizo2 is not null";
+                        consulta+=" where autorizo is not null";
                     
                     if(tipoPedido.compareToIgnoreCase("")!=0)
                         consulta+=" and tipo_pedido='"+tipoPedido+"'";
@@ -374,9 +371,9 @@ public class buscaPedido extends javax.swing.JDialog {
                 case "Nombre de Proveedor":
                     consulta+="where T2.nombre like '%" + t_busca.getText() +"%'";
                     if(tipoVentana==1)
-                        consulta+=" and autorizo is not null and autorizo2 is not null";
+                        consulta+=" and autorizo is not null";
                     if(t_busca.getText().compareTo("")==0)
-                        consulta+=" where autorizo is not null and autorizo2 is not null";
+                        consulta+=" where autorizo is not null";
                     
                     if(tipoPedido.compareTo("")!=0)
                         consulta+=" and tipo_pedido='"+tipoPedido+"'";
@@ -389,12 +386,12 @@ public class buscaPedido extends javax.swing.JDialog {
             if(tipoPedido.compareTo("")!=0)
             {
                 if(tipoVentana==1)
-                    consulta+=" where autorizo is not null and autorizo2 is not null and tipo_pedido='"+tipoPedido+"' order by T1.id_pedido desc";
+                    consulta+=" where autorizo is not null and tipo_pedido='"+tipoPedido+"' order by T1.id_pedido desc";
                 else
                     consulta+=" where tipo_pedido='"+tipoPedido+"' order by T1.id_pedido desc";
             }
             else
-                consulta+=" where autorizo is not null and autorizo2 is not null order by T1.id_pedido desc";
+                consulta+=" where autorizo is not null order by T1.id_pedido desc";
         }
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -409,7 +406,7 @@ public class buscaPedido extends javax.swing.JDialog {
             for (Object o : resultList) 
             {
                 java.util.HashMap pedido=(java.util.HashMap)o;
-                Object[] renglon=new Object[]{pedido.get("id"),pedido.get("fecha_pedido"),pedido.get("ord"),pedido.get("id_usuario"),pedido.get("nombre"),pedido.get("a1"),pedido.get("a2")};
+                Object[] renglon=new Object[]{pedido.get("id"),pedido.get("fecha_pedido"),pedido.get("ord"),pedido.get("id_usuario"),pedido.get("nombre"),pedido.get("a1")};
                 model.addRow(renglon);
             }
             t_busca.requestFocus();
@@ -419,8 +416,6 @@ public class buscaPedido extends javax.swing.JDialog {
             if(session!=null)
                 if(session.isOpen())
                 {
-                    //session.clear();
-                    //session.flush();
                     session.close();
                 }
         }
@@ -452,9 +447,6 @@ public void tabla_tamaños()
                     column.setPreferredWidth(400);
                     break; 
                 case 5:
-                    column.setPreferredWidth(100);
-                    break; 
-                case 6:
                     column.setPreferredWidth(100);
                     break; 
                 default:

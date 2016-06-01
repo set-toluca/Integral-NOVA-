@@ -30,7 +30,6 @@ public class Tiempo  {
         public void run() 
         {
             segundos++;
-            System.out.println(segundos);
             if(segundos>600)
             {
                 eliminaBloqueos();
@@ -83,7 +82,6 @@ public class Tiempo  {
             Pedido[] bloqueados = (Pedido[]) usr.getPedidosForBloqueado().toArray(new Pedido[0]);
             for(int b=0; b<bloqueados.length; b++)
             {
-                System.out.println(bloqueados[b].getIdPedido());
                 usr.getPedidosForBloqueado().remove(bloqueados[b]);
                 bloqueados[b].setUsuarioByBloqueado(null);
                 bloqueados[b].setVentana(null);
