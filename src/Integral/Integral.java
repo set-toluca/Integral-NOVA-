@@ -484,11 +484,11 @@ public class Integral extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1050, 700));
         setName("Sisitema de Administración de Ordenes"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
@@ -824,9 +824,19 @@ public class Integral extends javax.swing.JFrame {
         jMenu20.add(jMenuItem46);
 
         jMenuItem53.setText("Existencias");
+        jMenuItem53.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem53ActionPerformed(evt);
+            }
+        });
         jMenu20.add(jMenuItem53);
 
         jMenuItem54.setText("Ajuste Inventario");
+        jMenuItem54.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem54ActionPerformed(evt);
+            }
+        });
         jMenu20.add(jMenuItem54);
 
         jMenuBar1.add(jMenu20);
@@ -4452,6 +4462,81 @@ public class Integral extends javax.swing.JFrame {
             if(session.isOpen())
                 session.close();
     }//GEN-LAST:event_m_editar_articulo1ActionPerformed
+
+    private void jMenuItem53ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem53ActionPerformed
+        // TODO add your handling code here:
+                // TODO add your handling code here:
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction().begin();
+            actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
+            if(actor.getGenerarFactura()==true)
+            {
+                pos=P_pestana.indexOfTab("Existencias");
+                if(pos>=0)
+                {
+                    P_pestana.setSelectedIndex(pos);    
+                }
+                else
+                {
+                    existencias = null;
+                    existencias = new Existencias(actor, sessionPrograma);
+                    PanelPestanas btc=new PanelPestanas(P_pestana, 49,actor);
+                    P_pestana.addTab("Existencias", existencias);
+                    P_pestana.setSelectedComponent(existencias);
+                    P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
+                }
+                System.gc();
+            }
+            else
+                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        if(session!=null)
+            if(session.isOpen())
+                session.close();
+    }//GEN-LAST:event_jMenuItem53ActionPerformed
+
+    private void jMenuItem54ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem54ActionPerformed
+                // TODO add your handling code here:
+        h.menu=0;
+         h.session(sessionPrograma);
+         Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction().begin();
+            actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
+            if(actor.getGenerarFactura()==true)
+            {
+                pos=P_pestana.indexOfTab("Ajuste Inventario");
+                if(pos>=0)
+                {
+                    P_pestana.setSelectedIndex(pos);    
+                }
+                else
+                {
+                    ajuste = null;
+                    ajuste = new ajusteInventario(actor, sessionPrograma);
+                    PanelPestanas btc=new PanelPestanas(P_pestana, 49,actor);
+                    P_pestana.addTab("Ajuste Inventario", ajuste);
+                    P_pestana.setSelectedComponent(ajuste);
+                    P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
+                }
+                System.gc();
+            }
+            else
+                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        if(session!=null)
+            if(session.isOpen())
+                session.close();
+    }//GEN-LAST:event_jMenuItem54ActionPerformed
 
     /**
      * @param args the command line arguments
