@@ -66,7 +66,7 @@ public class Existencias extends javax.swing.JPanel {
     }
 
     public String[] getColumnas() {
-        String columnas[] = new String[]{"ID PARTE", "MARCA", "TIPO", "MODELO", "CATALOGO", "MEDIDA", "EXISTENCIAS", "COMENTARIO"};
+        String columnas[] = new String[]{"ID PARTE", "MARCA", "TIPO", "MODELO", "CATALOGO", "MEDIDA", "EXISTENCIAS", "COMENTARIOS"};
         return columnas;
     }
     public void cargaDatos(){

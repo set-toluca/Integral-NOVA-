@@ -433,7 +433,7 @@ public class ajusteInventario extends javax.swing.JPanel {
                     session.beginTransaction().commit();
                 }
              }else
-                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+                JOptionPane.showMessageDialog(null, "¡Acceso denegados!");
         }catch(Exception e){
             e.printStackTrace();
         }
