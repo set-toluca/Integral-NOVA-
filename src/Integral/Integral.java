@@ -824,19 +824,9 @@ public class Integral extends javax.swing.JFrame {
         jMenu20.add(jMenuItem46);
 
         jMenuItem53.setText("Existencias");
-        jMenuItem53.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem53ActionPerformed(evt);
-            }
-        });
         jMenu20.add(jMenuItem53);
 
         jMenuItem54.setText("Ajuste Inventario");
-        jMenuItem54.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem54ActionPerformed(evt);
-            }
-        });
         jMenu20.add(jMenuItem54);
 
         jMenuBar1.add(jMenu20);
