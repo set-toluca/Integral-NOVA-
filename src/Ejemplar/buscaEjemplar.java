@@ -333,6 +333,7 @@ public class buscaEjemplar extends javax.swing.JDialog {
     private List<Object[]> executeHQLQuery(String hql) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
+            System.out.println(hql);
             session.beginTransaction();
             Query q = session.createQuery(hql);
             List resultList = q.list();
@@ -361,7 +362,7 @@ public class buscaEjemplar extends javax.swing.JDialog {
                 session.getTransaction().commit();
                 session.disconnect();
                 return resultList;
-        } catch (HibernateException he) {
+        } catch (Exception he) {
             he.printStackTrace();
             List lista= null;
             return lista;

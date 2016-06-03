@@ -4339,7 +4339,7 @@ public class Integral extends javax.swing.JFrame {
             actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
             if(actor.getConsultarEjemplar()==true)
              {
-                buscaEjemplar obj = new buscaEjemplar(new javax.swing.JFrame(), true, sessionPrograma, actor, 0);
+                buscaEjemplar obj = new buscaEjemplar(new javax.swing.JFrame(), true, sessionPrograma, actor, 1);
                 obj.t_busca.requestFocus();
                 Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
                 obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
@@ -4361,7 +4361,7 @@ public class Integral extends javax.swing.JFrame {
                     }
                     else
                     {
-                        eEjemplar = new editaEjemplar(actor, sessionPrograma, 0);
+                        eEjemplar = new editaEjemplar(actor, sessionPrograma, 1);
                         PanelPestanas btc=new PanelPestanas(P_pestana,-1, actor);
                         P_pestana.addTab("Edita Ejemplar", eEjemplar);
                         P_pestana.setSelectedComponent(eEjemplar);
@@ -4422,7 +4422,7 @@ public class Integral extends javax.swing.JFrame {
                 }
                 else
                 {
-                    eEjemplar = new editaEjemplar(actor,sessionPrograma, 0);
+                    eEjemplar = new editaEjemplar(actor,sessionPrograma, 1);
                     PanelPestanas btc=new PanelPestanas(P_pestana,-1, actor);
                     P_pestana.addTab("Edita Ejemplar", eEjemplar);
                     P_pestana.setSelectedComponent(eEjemplar);

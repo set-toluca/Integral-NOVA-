@@ -364,177 +364,194 @@ public class buscaAlmacen extends javax.swing.JDialog {
 
     private void buscaDato()
     {
-        /*if(t_busca.getText().compareTo("")!=0)
-        {*/
-            String consulta="SELECT DISTINCT obj from Almacen obj ";
-            String aux="";
-            if(c_filtro.getSelectedItem().toString().compareTo("N° Entrada")==0)
-                if(t_busca.getText().compareTo("")!=0)
-                    consulta+=" where obj.idAlmacen =" + t_busca.getText();
-            
-            if(c_filtro.getSelectedItem().toString().compareTo("Pedido")==0)
+        String consulta="SELECT DISTINCT obj from Almacen obj ";
+        String aux="";
+        if(c_filtro.getSelectedItem().toString().compareTo("N° Entrada")==0)
+            if(t_busca.getText().compareTo("")!=0)
+                consulta+=" where obj.idAlmacen =" + t_busca.getText();
+
+        if(c_filtro.getSelectedItem().toString().compareTo("Pedido")==0)
+        {
+            if(t_busca.getText().compareTo("")!=0)
+            consulta+="LEFT JOIN obj.pedido ped "
+                + "where ped.idPedido like'%"+t_busca.getText()+"%'";
+        }
+
+        if(c_filtro.getSelectedItem().toString().compareTo("O. Taller")==0)
+        {
+            if(t_busca.getText().compareTo("")!=0)
             {
-                if(t_busca.getText().compareTo("")!=0)
-                consulta+="LEFT JOIN obj.pedido ped "
-                    + "where ped.idPedido like'%"+t_busca.getText()+"%'";
-            }
-            
-            if(c_filtro.getSelectedItem().toString().compareTo("O. Taller")==0)
-            {
-                if(t_busca.getText().compareTo("")!=0)
-                {
-                    aux="SELECT DISTINCT obj from Almacen obj "
-                      + "WHERE obj.pedido.partida.ordenByIdOrden.idOrden like '%"+t_busca.getText()+"%'";
-                    consulta+="LEFT JOIN FETCH obj.movimientos objM "
-                        + "LEFT JOIN objM.partida part "
-                        + "LEFT JOIN part.ordenByIdOrden ord "
-                        + "where ord.idOrden like'%"+t_busca.getText()+"%'";
-                }
-            }
-            
-            if(c_filtro.getSelectedItem().toString().compareTo("No Proveedor (pedido)")==0)
-                if(t_busca.getText().compareTo("")!=0)
-                    consulta+="LEFT JOIN obj.pedido ped "
-                    + "LEFT JOIN ped.proveedorByIdProveedor prov "
-                    + "where prov.idProveedor like'%"+t_busca.getText()+"%'";
-            
-            if(c_filtro.getSelectedItem().toString().compareTo("Nombre de Proveedor (pedido)")==0)
-                consulta+="LEFT JOIN obj.pedido ped "
-                    + "LEFT JOIN ped.proveedorByIdProveedor prov "
-                    + "where prov.nombre like'%"+t_busca.getText()+"%'";
-            
-            if(c_filtro.getSelectedItem().toString().compareTo("Entrego/recibió")==0)
-                consulta+="LEFT JOIN obj.pedido ped "
-                    + "where obj.entrego like'%"+t_busca.getText()+"%'";
-            
-            if(c_filtro.getSelectedItem().toString().compareTo("No Proveedor (s. compañía)")==0)
-            {
-                if(t_busca.getText().compareTo("")!=0)
+                aux="SELECT DISTINCT obj from Almacen obj "
+                  + "WHERE obj.pedido.partida.ordenByIdOrden.idOrden like '%"+t_busca.getText()+"%'";
                 consulta+="LEFT JOIN FETCH obj.movimientos objM "
                     + "LEFT JOIN objM.partida part "
-                    + "LEFT JOIN part.proveedor prov "
-                    + "where prov.idProveedor like'%"+t_busca.getText()+"%'";
+                    + "LEFT JOIN part.ordenByIdOrden ord "
+                    + "where ord.idOrden like'%"+t_busca.getText()+"%' OR obj.orden.idOrden like'%"+t_busca.getText()+"%'";
             }
-            if(c_filtro.getSelectedItem().toString().compareTo("Nombre de Proveedor (s. compañía)")==0)
+        }
+
+        if(c_filtro.getSelectedItem().toString().compareTo("No Proveedor (pedido)")==0)
+            if(t_busca.getText().compareTo("")!=0)
+                consulta+="LEFT JOIN obj.pedido ped "
+                + "LEFT JOIN ped.proveedorByIdProveedor prov "
+                + "where prov.idProveedor like'%"+t_busca.getText()+"%'";
+
+        if(c_filtro.getSelectedItem().toString().compareTo("Nombre de Proveedor (pedido)")==0)
+            consulta+="LEFT JOIN obj.pedido ped "
+                + "LEFT JOIN ped.proveedorByIdProveedor prov "
+                + "where prov.nombre like'%"+t_busca.getText()+"%'";
+
+        if(c_filtro.getSelectedItem().toString().compareTo("Entrego/recibió")==0)
+            consulta+="LEFT JOIN obj.pedido ped "
+                + "where obj.entrego like'%"+t_busca.getText()+"%'";
+
+        if(c_filtro.getSelectedItem().toString().compareTo("No Proveedor (s. compañía)")==0)
+        {
+            if(t_busca.getText().compareTo("")!=0)
+            consulta+="LEFT JOIN FETCH obj.movimientos objM "
+                + "LEFT JOIN objM.partida part "
+                + "LEFT JOIN part.proveedor prov "
+                + "where prov.idProveedor like'%"+t_busca.getText()+"%'";
+        }
+        if(c_filtro.getSelectedItem().toString().compareTo("Nombre de Proveedor (s. compañía)")==0)
+        {
+            if(t_busca.getText().compareTo("")!=0)
+            consulta+="LEFT JOIN FETCH obj.movimientos objM "
+                + "LEFT JOIN objM.partida part "
+                + "LEFT JOIN part.proveedor prov "
+                + "where prov.nombre like'%"+t_busca.getText()+"%'";
+        }
+
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction();
+            Query q = session.createQuery(consulta);
+            List resultList = q.list();
+
+            if(aux.compareTo("")!=0)
             {
-                if(t_busca.getText().compareTo("")!=0)
-                consulta+="LEFT JOIN FETCH obj.movimientos objM "
-                    + "LEFT JOIN objM.partida part "
-                    + "LEFT JOIN part.proveedor prov "
-                    + "where prov.nombre like'%"+t_busca.getText()+"%'";
+                Query q1 = session.createQuery(aux);
+                resultList.addAll(q1.list());
             }
 
-
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            try
+            if(resultList.size()>0)
             {
-                session.beginTransaction();
-                Query q = session.createQuery(consulta);
-                List resultList = q.list();
-                
-                if(aux.compareTo("")!=0)
+                t_datos.setModel(ModeloTablaReporte(resultList.size(), columnas));
+                int i=0;
+                for (Object o : resultList) 
                 {
-                    Query q1 = session.createQuery(aux);
-                    resultList.addAll(q1.list());
-                }
-
-                if(resultList.size()>0)
-                {
-                    t_datos.setModel(ModeloTablaReporte(resultList.size(), columnas));
-                    int i=0;
-                    for (Object o : resultList) 
+                    Almacen actor = (Almacen) o;
+                    model.setValueAt(actor.getIdAlmacen(), i, 0);
+                    model.setValueAt(actor.getUsuario().getEmpleado().getNombre(), i, 1);
+                    model.setValueAt(actor.getFecha(), i, 2);
+                    if(actor.getPedido()!=null)
+                        model.setValueAt(actor.getPedido().getIdPedido(), i, 3);
+                    else
+                        model.setValueAt("", i, 3);
+                    model.setValueAt(actor.getNotas(), i, 4);
+                    if(actor.getTipoMovimiento()==1)
                     {
-                        Almacen actor = (Almacen) o;
-                        model.setValueAt(actor.getIdAlmacen(), i, 0);
-                        model.setValueAt(actor.getUsuario().getEmpleado().getNombre(), i, 1);
-                        model.setValueAt(actor.getFecha(), i, 2);
-                        if(actor.getPedido()!=null)
-                            model.setValueAt(actor.getPedido().getIdPedido(), i, 3);
-                        else
-                            model.setValueAt("", i, 3);
-                        model.setValueAt(actor.getNotas(), i, 4);
-                        if(actor.getTipoMovimiento()==1)
+                        if(actor.getOperacion()==1)
                         {
-                            if(actor.getOperacion()==1)
-                            {
-                                model.setValueAt("Entrada", i, 5);
-                                model.setValueAt("P. Interno", i, 6);
-                            }
-                            if(actor.getOperacion()==2)
-                            {
-                                model.setValueAt("Entrada", i, 5);
-                                model.setValueAt("P. Externo", i, 6);
-                            }
-                            if(actor.getOperacion()==3)
-                            {
-                                model.setValueAt("Entrada", i, 5);
-                                model.setValueAt("P. Adicional", i, 6);
-                            }
-                            if(actor.getOperacion()==4)
-                            {
-                                model.setValueAt("Entregada", i, 5);
-                                model.setValueAt("Compañía", i, 6);
-                            }
-
-                            if(actor.getOperacion()==5)
-                            {
-                                model.setValueAt("Devolución", i, 5);
-                                model.setValueAt("Operarios", i, 6);
-                            }
-                            if(actor.getOperacion()==6)
-                            {
-                                model.setValueAt("Devolución", i, 5);
-                                model.setValueAt("Venta", i, 6);
-                            }
+                            model.setValueAt("Entrada", i, 5);
+                            model.setValueAt("P. Valuacion", i, 6);
                         }
-                        else
+                        if(actor.getOperacion()==2)
                         {
-
-                            if(actor.getOperacion()==1)
-                            {
-                                model.setValueAt("Devolución", i, 5);
-                                model.setValueAt("P. Interno", i, 6);
-                            }
-                            if(actor.getOperacion()==2)
-                            {
-                                model.setValueAt("Devolución", i, 5);
-                                model.setValueAt("P. Externo", i, 6);
-                            }
-                            if(actor.getOperacion()==3)
-                            {
-                                model.setValueAt("Devolución", i, 5);
-                                model.setValueAt("P. Adicional", i, 6);
-                            }
-                            if(actor.getOperacion()==4)
-                            {
-                                model.setValueAt("Devolución", i, 5);
-                                model.setValueAt("Compañía", i, 6);
-                            }
-                            if(actor.getOperacion()==5)
-                            {
-                                model.setValueAt("Salida", i, 5);
-                                model.setValueAt("Operarios", i, 6);
-                            }
-                            if(actor.getOperacion()==6)
-                            {
-                                model.setValueAt("Salida", i, 5);
-                                model.setValueAt("Venta", i, 6);
-                            }
+                            model.setValueAt("Entrada", i, 5);
+                            model.setValueAt("P. Externo", i, 6);
                         }
-                        i++;
+                        if(actor.getOperacion()==3)
+                        {
+                            model.setValueAt("Entrada", i, 5);
+                            model.setValueAt("P. Directo", i, 6);
+                        }
+                        if(actor.getOperacion()==4)
+                        {
+                            model.setValueAt("Entregada", i, 5);
+                            model.setValueAt("Compañía", i, 6);
+                        }
+
+                        if(actor.getOperacion()==5)
+                        {
+                            model.setValueAt("Devolución", i, 5);
+                            model.setValueAt("Operarios", i, 6);
+                        }
+                        if(actor.getOperacion()==6)
+                        {
+                            model.setValueAt("Devolución", i, 5);
+                            model.setValueAt("Venta", i, 6);
+                        }
+                        if(actor.getOperacion()==7)
+                        {
+                            model.setValueAt("Entrada", i, 5);
+                            model.setValueAt("P.Consumibles", i, 6);
+                        }
+                        if(actor.getOperacion()==8)
+                        {
+                            model.setValueAt("Devolucion", i, 5);
+                            model.setValueAt("Consumibles", i, 6);
+                        }
                     }
+                    else
+                    {
+
+                        if(actor.getOperacion()==1)
+                        {
+                            model.setValueAt("Devolución", i, 5);
+                            model.setValueAt("P. Valuacion", i, 6);
+                        }
+                        if(actor.getOperacion()==2)
+                        {
+                            model.setValueAt("Devolución", i, 5);
+                            model.setValueAt("P. Externo", i, 6);
+                        }
+                        if(actor.getOperacion()==3)
+                        {
+                            model.setValueAt("Devolución", i, 5);
+                            model.setValueAt("P. Directo", i, 6);
+                        }
+                        if(actor.getOperacion()==4)
+                        {
+                            model.setValueAt("Devolución", i, 5);
+                            model.setValueAt("Compañía", i, 6);
+                        }
+                        if(actor.getOperacion()==5)
+                        {
+                            model.setValueAt("Salida", i, 5);
+                            model.setValueAt("Operarios", i, 6);
+                        }
+                        if(actor.getOperacion()==6)
+                        {
+                            model.setValueAt("Salida", i, 5);
+                            model.setValueAt("Venta", i, 6);
+                        }
+                        if(actor.getOperacion()==1)
+                        {
+                            model.setValueAt("Devolución", i, 5);
+                            model.setValueAt("P.Consumibles", i, 6);
+                        }
+                        if(actor.getOperacion()==1)
+                        {
+                            model.setValueAt("Salida", i, 5);
+                            model.setValueAt("Consumibles", i, 6);
+                        }
+                    }
+                    i++;
                 }
-                else
-                    t_datos.setModel(ModeloTablaReporte(0, columnas));
-                t_busca.requestFocus();
-            }catch(Exception e)
-            {
-                System.out.println(e);
             }
-            if(session!=null)
-                if(session.isOpen())
-                    session.close();
-        //}
+            else
+                t_datos.setModel(ModeloTablaReporte(0, columnas));
+            t_busca.requestFocus();
+        }catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        if(session!=null)
+            if(session.isOpen())
+                session.close();
         titulos();
     }
     private Almacen returnStatus = RET_CANCEL;
