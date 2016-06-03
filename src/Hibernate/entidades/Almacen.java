@@ -15,6 +15,7 @@ public class Almacen  implements java.io.Serializable {
      private Integer idAlmacen;
      private Usuario usuario;
      private Pedido pedido;
+     private Orden orden;
      private String entrego;
      private Date fecha;
      private int tipoMovimiento;
@@ -36,7 +37,7 @@ public class Almacen  implements java.io.Serializable {
         this.tipoMovimiento = tipoMovimiento;
         this.operacion = operacion;
     }
-    public Almacen(Usuario usuario, Pedido pedido, String entrego, Date fecha, int tipoMovimiento, int operacion, String documento, String notas, String autorizo, String tipoDocumento, Set movimientos) {
+    public Almacen(Usuario usuario, Pedido pedido, String entrego, Date fecha, int tipoMovimiento, int operacion, String documento, String notas, String autorizo, String tipoDocumento, Orden orden, Set movimientos) {
        this.usuario = usuario;
        this.pedido = pedido;
        this.entrego = entrego;
@@ -46,6 +47,7 @@ public class Almacen  implements java.io.Serializable {
        this.documento = documento;
        this.notas = notas;
        this.autorizo = autorizo;
+       this.orden = orden;
        this.tipoDocumento = tipoDocumento;
        this.movimientos = movimientos;
     }
@@ -70,6 +72,13 @@ public class Almacen  implements java.io.Serializable {
     
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+    public Orden getOrden() {
+        return this.orden;
+    }
+    
+    public void setOrden(Orden orden) {
+        this.orden = orden;
     }
     public String getEntrego() {
         return this.entrego;

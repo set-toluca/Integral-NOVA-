@@ -360,8 +360,8 @@ public class buscaPedido extends javax.swing.JDialog {
                     consulta+=" where id_orden like'"+t_busca.getText()+"%'";
                     if(tipoVentana==1)
                         consulta+=" and autorizo is not null";
-                    if(t_busca.getText().compareToIgnoreCase("")==0)
-                        consulta+=" where autorizo is not null";
+                    //if(t_busca.getText().compareToIgnoreCase("")==0)
+                      //  consulta+=" where autorizo is not null";
                     
                     if(tipoPedido.compareToIgnoreCase("")!=0)
                         consulta+=" and tipo_pedido='"+tipoPedido+"'";
@@ -372,8 +372,8 @@ public class buscaPedido extends javax.swing.JDialog {
                     consulta+="where T2.nombre like '%" + t_busca.getText() +"%'";
                     if(tipoVentana==1)
                         consulta+=" and autorizo is not null";
-                    if(t_busca.getText().compareTo("")==0)
-                        consulta+=" where autorizo is not null";
+                    //if(t_busca.getText().compareTo("")==0)
+                      //  consulta+=" where autorizo is not null";
                     
                     if(tipoPedido.compareTo("")!=0)
                         consulta+=" and tipo_pedido='"+tipoPedido+"'";
@@ -391,7 +391,10 @@ public class buscaPedido extends javax.swing.JDialog {
                     consulta+=" where tipo_pedido='"+tipoPedido+"' order by T1.id_pedido desc";
             }
             else
-                consulta+=" where autorizo is not null order by T1.id_pedido desc";
+                if(tipoVentana==1)
+                    consulta+=" where autorizo is not null order by T1.id_pedido desc";
+                else
+                    consulta+=" order by T1.id_pedido desc";
         }
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -399,6 +402,7 @@ public class buscaPedido extends javax.swing.JDialog {
         {
             if(cb_todos.isSelected()==false)
                 consulta+=" limit 70";
+            System.out.println(consulta);
             Query q = session.createSQLQuery(consulta);
             q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
             List resultList = q.list();

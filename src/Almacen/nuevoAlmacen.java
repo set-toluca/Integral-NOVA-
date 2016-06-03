@@ -81,6 +81,9 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         formatoTabla();
         b_buscapedido.setEnabled(true);
         b_buscaorden.setEnabled(false);
+        b_detalles.setEnabled(false);
+        cb_sin_orden.setVisible(false);
+        cb_sin_orden.setSelected(false);
     }
     public void formatoTabla()
     {
@@ -164,9 +167,10 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         l_tipo_pedido = new javax.swing.JLabel();
         r1 = new javax.swing.JRadioButton();
         r2 = new javax.swing.JRadioButton();
-        jButton9 = new javax.swing.JButton();
+        b_detalles = new javax.swing.JButton();
         t_er = new javax.swing.JTextField();
         l_er = new javax.swing.JLabel();
+        cb_sin_orden = new javax.swing.JCheckBox();
         jScrollPane4 = new javax.swing.JScrollPane();
         t_datos = new javax.swing.JTable();
         jPanelM = new javax.swing.JPanel();
@@ -661,12 +665,12 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         r2.setText("Remisión");
         r2.setEnabled(false);
 
-        jButton9.setBackground(new java.awt.Color(51, 51, 255));
-        jButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jButton9.setText("Ver mas");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        b_detalles.setBackground(new java.awt.Color(51, 51, 255));
+        b_detalles.setForeground(new java.awt.Color(255, 255, 255));
+        b_detalles.setText("Ver mas");
+        b_detalles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                b_detallesActionPerformed(evt);
             }
         });
 
@@ -686,6 +690,13 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         l_er.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_er.setText("Entrego");
 
+        cb_sin_orden.setText("Sin Orden");
+        cb_sin_orden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_sin_ordenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelProveedorLayout = new javax.swing.GroupLayout(jPanelProveedor);
         jPanelProveedor.setLayout(jPanelProveedorLayout);
         jPanelProveedorLayout.setHorizontalGroup(
@@ -704,7 +715,10 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(t_orden, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton9))
+                        .addComponent(b_detalles)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cb_sin_orden)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanelProveedorLayout.createSequentialGroup()
                         .addComponent(l_er, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -748,7 +762,8 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                             .addComponent(r2)
                             .addComponent(b_buscaorden, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(t_orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(b_detalles, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cb_sin_orden))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(t_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1201,6 +1216,52 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                     b_buscapedido.requestFocus();
                 }
             }
+            if(c_toperacion.getSelectedItem().toString().compareTo("Inventario")==0)
+            {
+                if(t_orden.getText().compareTo("")!=0)
+                {
+                     buscaEjemplarAlmacen obj= new buscaEjemplarAlmacen(null, true, this.sessionPrograma, this.usr, t_orden.getText());
+                     Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                     obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+                     obj.setVisible(true);
+                     Object[] vector = obj.getReturnStatus();
+                     if(vector!=null)
+                     {
+                         String valor=(String)vector[0];
+                         int r= buscaEjemplar(valor);
+ 
+                         if(r==-1)
+                         {
+                             System.out.println(vector.length);
+                             model.addRow(vector);
+                             model.setColumnaEditable(8, true);
+                         }
+                     } 
+                }
+                else
+                {
+                    if(cb_sin_orden.isSelected()==true)
+                    {
+                        buscaEjemplarAlmacen obj= new buscaEjemplarAlmacen(null, true, this.sessionPrograma, this.usr, "");
+                        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                        obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+                        obj.setVisible(true);
+                        Object[] vector = obj.getReturnStatus();
+                        if(vector!=null)
+                        {
+                            String valor=(String)vector[0];
+                            int r= buscaEjemplar(valor);
+
+                            if(r==-1)
+                            {
+                                model.addRow(vector);
+                                model.setColumnaEditable(7, true);
+                                //sumaTotales();
+                            }
+                        } 
+                    }
+                }
+            }
             if(c_toperacion.getSelectedItem().toString().compareTo("Venta")==0)
             {
                 pedido =(Pedido)session.get(Pedido.class, Integer.parseInt(t_pedido.getText()));
@@ -1233,8 +1294,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                     model.setColumnaEditable(7, true);
                                 sumaTotales();
                             }
-                            //else
-                                //JOptionPane.showMessageDialog(null, "¡No se pueden agregar partidas duplicadas!");
                         }
                     }               
                 }
@@ -1447,8 +1506,8 @@ public class nuevoAlmacen extends javax.swing.JPanel {
             if(orden_act!=null)
             {
                 limpiar_tabla();
-                if(orden_act.getInicioRefacciones()!=null)
-                {
+                /*if(orden_act.getInicioRefacciones()!=null)
+                {*/
                     if(orden_act.getFechaCierre()==null)
                     {
                         h= new Herramientas(usr, menu);
@@ -1480,9 +1539,9 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                     }
                     else
                         JOptionPane.showMessageDialog(null, "¡Orden cerrada!");
-                }
+                /*}
                 else
-                    JOptionPane.showMessageDialog(null, "¡Aún no esta disponible!");
+                    JOptionPane.showMessageDialog(null, "¡Aún no esta disponible!");*/
             }
             else
             {
@@ -1763,14 +1822,14 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                             if(r1.isSelected())
                                                 almacen.setTipoDocumento("F");
                                             else
-                                                almacen.setTipoDocumento("R");
+                                                almacen.setTipoDocumento("R");//se elimina
                                             Integer respuesta=guardarAlmacen(almacen);
                                             if(respuesta!=null)
                                             {
                                                 JOptionPane.showMessageDialog(null, "Registro almacenado con la clave:  " +respuesta);
                                                 estado(false, false, false, false, false, false, false, false, false, false, true);                              
                                                 b_recargar.requestFocus();
-                                                formatosPedido fa=new formatosPedido(this.usr, this.sessionPrograma, almacen);
+                                                formatosOrden fa=new formatosOrden(this.usr, this.sessionPrograma, almacen);
                                                 fa.formato();
                                             }
                                             else
@@ -1792,7 +1851,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                             JOptionPane.showMessageDialog(null, "Registro almacenado con la clave:  " +respuesta);
                                             estado(false, false, false, false, false, false, false, false, false, false, true);                              
                                             b_recargar.requestFocus();
-                                            formatosPedido fa=new formatosPedido(this.usr, this.sessionPrograma, almacen);
+                                            formatosOrden fa=new formatosOrden(this.usr, this.sessionPrograma, almacen);
                                             fa.formato();
                                         }
                                         else
@@ -2029,6 +2088,85 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                         t_er.requestFocus();
                     }
                     break;
+                case 4://Inventario
+                    if(c_tmovimiento.getSelectedItem().toString().compareTo("Entrada")==0)
+                    {
+                        if(t_er.getText().compareTo("")!=0)
+                        {
+                            if(t_datos.getRowCount()>0)
+                            {
+                                boolean cero=false;
+                                if(cb_sin_orden.isSelected()==true)
+                                   cero=consultaLista(7);
+                                else
+                                    cero=consultaLista(8);
+                                if(cero==true)
+                                {
+                                    almacen.setOperacion(8); 
+                                    almacen.setOrden(orden_act);
+                                    Integer respuesta=guardarAlmacenOrden(almacen);
+                                    if(respuesta!=null)
+                                    {
+                                        JOptionPane.showMessageDialog(null, "Registro almacenado con la clave:  " +respuesta);
+                                        estado(false, false, false, false, false, false, false, false, false, false, true);
+                                        b_recargar.requestFocus();
+                                        formatosOrden fa=new formatosOrden(this.usr, this.sessionPrograma, almacen);
+                                        fa.formato();
+                                    }
+                                    else
+                                        b_guardar.requestFocus();
+                                }
+                                else
+                                    JOptionPane.showMessageDialog(null, "No se puede almacenar la cantidad ya que una partida contiene 0.00");
+                            }
+                            else
+                                JOptionPane.showMessageDialog(null, "Es necesario seleccionar alguna partida");
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Ingresa el nombre del que entrego/recibio");
+                            t_er.requestFocus();
+                        }
+                    }
+                    if(c_tmovimiento.getSelectedItem().toString().compareTo("Salida")==0)
+                    {
+                        if(t_er.getText().compareTo("")!=0)
+                        {
+                            if(t_datos.getRowCount()>0)
+                            {
+                                boolean cero=false;
+                                if(cb_sin_orden.isSelected()==true)
+                                   cero=consultaLista(7);
+                                else
+                                    cero=consultaLista(8);
+                                if(cero==true)
+                                {
+                                    almacen.setOperacion(8);
+                                    Integer respuesta=guardarAlmacenOrden(almacen);
+                                    if(respuesta!=null)
+                                    {
+                                        JOptionPane.showMessageDialog(null, "Registro almacenado con la clave:  " +respuesta);
+                                        estado(false, false, false, false, false, false, false, false, false, false, true);
+                                        b_recargar.requestFocus();
+                                        formatosOrden fa=new formatosOrden(this.usr, this.sessionPrograma, almacen);
+                                        fa.formato();
+                                    }
+                                    else
+                                        b_guardar.requestFocus();
+                                }
+                                else
+                                    JOptionPane.showMessageDialog(null, "No se puede almacenar la cantidad ya que una partida contiene 0.00");
+                            }
+                            else
+                                JOptionPane.showMessageDialog(null, "Es necesario seleccionar alguna partida");
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Ingresa el nombre del que entrego/recibio");
+                            t_er.requestFocus();
+                        }
+                    }
+                    break;
             }
         }catch(Exception e)
         {
@@ -2045,6 +2183,9 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         h.desbloqueaOrden();
         c_tmovimiento.setSelectedIndex(0);
         c_toperacion.setSelectedIndex(0);
+        b_detalles.setEnabled(false);
+        cb_sin_orden.setVisible(false);
+        cb_sin_orden.setSelected(false);
         limpiar_tabla();
         borra_cajas();
         estado(true, false, false, true, true, true, true, true, false, true, false);
@@ -2213,31 +2354,91 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         c_toperacion.setSelectedItem("Venta");
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void b_detallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_detallesActionPerformed
         // TODO add your handling code here:
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         datos.setSize(400, 200);
         datos.setLocation((d.width/2)-(datos.getWidth()/2), (d.height/2)-(datos.getHeight()/2));
         datos.setVisible(true);
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_b_detallesActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        c_tmovimiento.setSelectedItem("Salida");
+        c_tmovimiento.setSelectedItem("Entrada");
         c_toperacion.setSelectedItem("Inventario");
+        cb_sin_orden.setSelected(false);
+        b_buscaorden.setEnabled(true);
+        b_detalles.setEnabled(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
-        c_tmovimiento.setSelectedItem("Entrada");
+        c_tmovimiento.setSelectedItem("Salida");
         c_toperacion.setSelectedItem("Inventario");
+        cb_sin_orden.setSelected(false);
+        b_buscaorden.setEnabled(true);
+        b_detalles.setEnabled(true);
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void cb_sin_ordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_sin_ordenActionPerformed
+        // TODO add your handling code here:
+        orden_act=null;
+        t_orden.setText("");
+        t_tipo.setText("");
+        t_marca.setText("");
+        t_modelo.setText("");
+        t_serie.setText("");
+        t_compania.setText("");
+        t_siniestro.setText("");
+        t_asegurado.setText("");
+        
+        if(cb_sin_orden.isSelected()==true)
+        {
+            b_buscaorden.setEnabled(false);
+            b_detalles.setEnabled(false);
+            b_mas.setEnabled(true);
+            b_menos.setEnabled(true);
+        }
+        else
+        {
+            b_buscaorden.setEnabled(true);
+            b_detalles.setEnabled(true);
+            b_mas.setEnabled(false);
+            b_menos.setEnabled(false);
+        }
+        if(c_tmovimiento.getSelectedItem().toString().compareTo("Entrada")==0)//devolución de consumibles
+        {
+            Class[] types = new Class [] 
+            {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, 
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
+            };
+            String[] columnas = new String [] {"No Parte","Modelo","Marca","Tipo","Catalogo","Medida","Existencias","Devoluciones"};
+            model=new nuevoAlmacen.MyModel(0, columnas, types);
+            model.setColumnaEditable(7, true);
+            t_datos.setModel(model);
+        }
+        if(c_tmovimiento.getSelectedItem().toString().compareTo("Salida")==0)
+        {
+            Class[] types = new Class [] 
+            {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, 
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
+            };
+            String[] columnas = new String [] {"No Parte","Modelo","Marca","Tipo","Catalogo","Medida","Existencias","Entregadas"}; 
+            model=new nuevoAlmacen.MyModel(0, columnas, types);
+            model.setColumnaEditable(7, true);
+            t_datos.setModel(model);
+        }
+        busca();
+    }//GEN-LAST:event_cb_sin_ordenActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog autoriza;
     private javax.swing.JButton b_autorizar;
     private javax.swing.JButton b_buscaorden;
     private javax.swing.JButton b_buscapedido;
+    private javax.swing.JButton b_detalles;
     private javax.swing.JButton b_guardar;
     private javax.swing.JButton b_mas;
     private javax.swing.JButton b_menos;
@@ -2246,6 +2447,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox c_tmovimiento;
     private javax.swing.JComboBox c_toperacion;
+    private javax.swing.JCheckBox cb_sin_orden;
     private javax.swing.JComboBox codigo;
     private javax.swing.JDialog datos;
     private javax.swing.JRadioButton f1;
@@ -2263,7 +2465,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -3254,6 +3455,36 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                     }
                 }
             }
+            if(c_toperacion.getSelectedItem().toString().compareTo("Inventario")==0)
+            {
+                if(t_orden.getText().compareTo("")!=0)
+                {
+                    if(c_tmovimiento.getSelectedItem().toString().compareTo("Entrada")==0)//devolución de consumibles
+                    {
+                        Class[] types = new Class [] 
+                        {
+                            java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, 
+                            java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+                        };
+                        String[] columnas = new String [] {"No Parte","Modelo","Marca","Tipo","Catalogo","Medida","Existencias","Operario","Devoluciones"};
+                        model=new nuevoAlmacen.MyModel(0, columnas, types);
+                        model.setColumnaEditable(8, true);
+                        t_datos.setModel(model);
+                    }
+                    if(c_tmovimiento.getSelectedItem().toString().compareTo("Salida")==0)
+                    {
+                        Class[] types = new Class [] 
+                        {
+                            java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, 
+                            java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+                        };
+                        String[] columnas = new String [] {"No Parte","Modelo","Marca","Tipo","Catalogo","Medida","Existencias","Operario","Entregadas"}; 
+                        model=new nuevoAlmacen.MyModel(0, columnas, types);
+                        model.setColumnaEditable(8, true);
+                        t_datos.setModel(model);
+                    }
+                }
+            }
             if(c_toperacion.getSelectedItem().toString().compareTo("Venta")==0)
             {
                 Pedido pedido=(Pedido)session.get(Pedido.class, Integer.parseInt(t_pedido.getText()));
@@ -3667,9 +3898,66 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                 }
                                 else
                                 {
-                                    vector.setElementAt(value, col);
-                                    dataVector.setElementAt(vector, row);
-                                    fireTableCellUpdated(row, col);
+                                    if(c_toperacion.getSelectedItem().toString().compareTo("Inventario")==0 && cb_sin_orden.isSelected()==true)
+                                    {
+                                        if(vector.get(col)==null)
+                                        {
+                                            vector.setElementAt(value, col);
+                                            dataVector.setElementAt(vector, row);
+                                            fireTableCellUpdated(row, col);
+                                        }
+                                        else
+                                        {
+                                            Session session = HibernateUtil.getSessionFactory().openSession();
+                                            try
+                                            {
+                                                if(c_tmovimiento.getSelectedItem().toString().compareTo("Salida")==0)
+                                                {
+                                                    if((double)value>=0)
+                                                    {
+                                                        if((double)value<=(double)t_datos.getValueAt(row, 6))
+                                                        {
+                                                            vector.setElementAt(value, col);
+                                                            dataVector.setElementAt(vector, row);
+                                                            fireTableCellUpdated(row, col);
+                                                        }
+                                                        else
+                                                            JOptionPane.showMessageDialog(null, "La cantidad máxima por entregar es: "+t_datos.getValueAt(row, 6).toString()+t_datos.getValueAt(row, 5).toString());
+                                                    }
+                                                    else
+                                                        JOptionPane.showMessageDialog(null, "El campo no permite números negativos");
+                                                    t_datos.setColumnSelectionInterval(col, col);
+                                                    t_datos.setRowSelectionInterval(row, row);
+                                                }
+                                                else
+                                                {
+                                                    if((double)value>=0)
+                                                    {
+                                                        vector.setElementAt(value, col);
+                                                        dataVector.setElementAt(vector, row);
+                                                        fireTableCellUpdated(row, col);
+                                                    }
+                                                    else
+                                                        JOptionPane.showMessageDialog(null, "El campo no permite números negativos");
+                                                    t_datos.setColumnSelectionInterval(col, col);
+                                                    t_datos.setRowSelectionInterval(row, row);
+                                                }
+                                            }
+                                            catch(Exception e)
+                                            {
+                                                System.out.println(e);
+                                            }
+                                            if(session!=null)
+                                                if(session.isOpen())
+                                                    session.close();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        vector.setElementAt(value, col);
+                                        dataVector.setElementAt(vector, row);
+                                        fireTableCellUpdated(row, col);
+                                    }
                                 }
                             }
                             break;
@@ -3883,9 +4171,64 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                     }
                                     else
                                     {
-                                        vector.setElementAt(value, col);
-                                        dataVector.setElementAt(vector, row);
-                                        fireTableCellUpdated(row, col);
+                                        if(c_toperacion.getSelectedItem().toString().compareTo("Inventario")==0)
+                                        {
+                                            if(vector.get(col)==null)
+                                            {
+                                                vector.setElementAt(value, col);
+                                                dataVector.setElementAt(vector, row);
+                                                fireTableCellUpdated(row, col);
+                                            }
+                                            else
+                                            {
+                                                Session session = HibernateUtil.getSessionFactory().openSession();
+                                                try
+                                                {
+                                                    if((double)value>=0)
+                                                    {
+                                                        if(c_tmovimiento.getSelectedItem().toString().compareTo("Entrada")==0)
+                                                        {
+                                                            if((double)value<=(double)t_datos.getValueAt(row, 7))
+                                                            {
+                                                                vector.setElementAt(value, col);
+                                                                dataVector.setElementAt(vector, row);
+                                                                fireTableCellUpdated(row, col);
+                                                                sumaTotales();
+                                                            }
+                                                            else
+                                                                JOptionPane.showMessageDialog(null, "La cantidad máxima por devolver es: "+t_datos.getValueAt(row, 6)+t_datos.getValueAt(row, 5).toString()); 
+                                                        }
+                                                        else
+                                                        {
+                                                            if((double)value<=(double)t_datos.getValueAt(row, 6))
+                                                            {
+                                                                vector.setElementAt(value, col);
+                                                                dataVector.setElementAt(vector, row);
+                                                                fireTableCellUpdated(row, col);
+                                                                sumaTotales();
+                                                            }
+                                                            else
+                                                                JOptionPane.showMessageDialog(null, "La cantidad máxima a entregar es: "+t_datos.getValueAt(row, 6)+t_datos.getValueAt(row, 5).toString()); 
+                                                        }
+                                                    }
+                                                    else
+                                                        JOptionPane.showMessageDialog(null, "El campo no permite números negativos"); 
+                                                    sumaTotales();
+                                                }catch(Exception e)
+                                                {
+                                                    System.out.println(e);
+                                                }
+                                                if(session!=null)
+                                                    if(session.isOpen())
+                                                        session.close();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            vector.setElementAt(value, col);
+                                            dataVector.setElementAt(vector, row);
+                                            fireTableCellUpdated(row, col);
+                                        }
                                     }
                                 }
                             }
@@ -3955,6 +4298,16 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         for(int ren=0; ren<t_datos.getRowCount(); ren++)
         {
             if(t_datos.getValueAt(ren, 0).toString().compareTo(partida.get(0).toString())==0)
+                x=ren;
+        }
+        return x;
+    }
+    private int buscaEjemplar(String partida)
+    {
+        int x=-1;
+        for(int ren=0; ren<t_datos.getRowCount(); ren++)
+        {
+            if(t_datos.getValueAt(ren, 0).toString().compareTo(partida)==0)
                 x=ren;
         }
         return x;
@@ -4211,7 +4564,11 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         try 
         {
             session.beginTransaction().begin();
-            orden_act =(Orden)session.get(Orden.class, orden_act.getIdOrden());
+            if(t_orden.getText().compareTo("")!=0)
+            {
+                orden_act =(Orden)session.get(Orden.class, Integer.parseInt(t_orden.getText()));
+                obj.setOrden(orden_act);   
+            }
             obj.setMovimientos(new HashSet(0));
             IdAlmacen=(Integer) session.save(obj);
             Almacen alm = (Almacen)session.get(Almacen.class, IdAlmacen);
@@ -4219,6 +4576,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
             {
                 Partida part=null;
                 PartidaExterna parEx=null;
+                Ejemplar ejem = null;
                 Movimiento mov = new Movimiento();
                 mov.setAlmacen(alm);
                 if(c_toperacion.getSelectedItem().toString().compareTo("Compañía")==0)
@@ -4229,7 +4587,10 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                 if(c_toperacion.getSelectedItem().toString().compareTo("Operarios")==0 && c_tmovimiento.getSelectedItem().toString().compareTo("Entrada")==0)
                     mov.setCantidad((double)t_datos.getValueAt(ren, 7));
                 else
-                    mov.setCantidad((double)t_datos.getValueAt(ren, 8));
+                {
+                    if(c_toperacion.getSelectedItem().toString().compareTo("Inventario")!=0)
+                        mov.setCantidad((double)t_datos.getValueAt(ren, 8));
+                }
                 if(c_toperacion.getSelectedItem().toString().compareTo("Operarios")==0)
                 {
                     if(t_datos.getValueAt(ren, 2).toString().compareTo("PED.")==0 || t_datos.getValueAt(ren, 2).toString().compareTo("COM.")==0)
@@ -4237,8 +4598,22 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                     if(t_datos.getValueAt(ren, 2).toString().compareTo("ADI.")==0)
                         parEx=(PartidaExterna)session.get(PartidaExterna.class, Integer.parseInt(t_datos.getValueAt(ren, 0).toString()));
                 }
+                if(c_toperacion.getSelectedItem().toString().compareTo("Inventario")==0)
+                {
+                    ejem=(Ejemplar)session.get(Ejemplar.class, t_datos.getValueAt(ren, 0).toString());
+                    if(t_orden.getText().compareTo("")!=0)
+                        mov.setCantidad((double)t_datos.getValueAt(ren, 8));
+                    else
+                        mov.setCantidad((double)t_datos.getValueAt(ren, 7));
+                    if(c_tmovimiento.getSelectedItem().toString().compareTo("Salida")==0)
+                        ejem.setExistencias(ejem.getExistencias()-mov.getCantidad());
+                    else
+                        ejem.setExistencias(ejem.getExistencias()+mov.getCantidad());
+                    session.update(ejem);
+                }
                 mov.setPartida(part);
                 mov.setPartidaExterna(parEx);
+                mov.setEjemplar(ejem);
                 alm.setNotas(t_notas.getText());
                 alm.addMovimiento(mov);
             }
@@ -4248,7 +4623,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
             t_fecha.setText(alm.getFecha().toLocaleString());
             t_notas.setText(alm.getNotas());
         } 
-        catch (HibernateException he) 
+        catch (Exception he) 
         {
             he.printStackTrace();
             session.getTransaction().rollback();
@@ -4314,9 +4689,23 @@ public class nuevoAlmacen extends javax.swing.JPanel {
     }
     public void operacion(boolean buscap, boolean nreferencia, boolean buscao, boolean folio, boolean lsubtotal, boolean tsubtotal, boolean liva, boolean tiva, boolean ltotal, boolean ttotal)
     {
+        if(c_toperacion.getSelectedItem().toString().compareTo("Inventario")==0)
+        {
+            cb_sin_orden.setVisible(true);
+            cb_sin_orden.setSelected(false);
+        }
+        else
+        {
+            cb_sin_orden.setVisible(false);
+            cb_sin_orden.setSelected(false);
+        }
+        
         b_buscapedido.setEnabled(buscap);
+        b_detalles.setEnabled(buscap);
         t_nreferencia.setEditable(nreferencia);
         b_buscaorden.setEnabled(buscao);
+        b_detalles.setEnabled(buscao);
+            
         if(c_toperacion.getSelectedItem().toString().compareTo("Operarios")==0)
         {
             

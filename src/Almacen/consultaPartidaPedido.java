@@ -8,6 +8,7 @@ package Almacen;
 
 import Hibernate.Util.HibernateUtil;
 import Hibernate.entidades.Almacen;
+import Hibernate.entidades.Ejemplar;
 import Hibernate.entidades.Movimiento;
 import Hibernate.entidades.Partida;
 import Hibernate.entidades.PartidaExterna;
@@ -489,6 +490,113 @@ public class consultaPartidaPedido extends javax.swing.JDialog {
                             session.close();
                     }
                 }
+                
+                if(valor.compareTo("Inventario")==0)
+                {
+                    try
+                    {
+                        session.beginTransaction().begin();
+                        if(movimiento.compareTo("Entrada")==0)
+                        {
+                            String[] columnas = new String [] {"Id","N° Parte","Descripción","Medida","Pedidos","X Surtir","Entrada","Costo c/u","Total"};
+                            Class[] types = new Class [] 
+                            {
+                                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                                java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class,
+                                java.lang.Double.class
+                            };
+                            Query query = session.createQuery("SELECT DISTINCT part FROM PartidaExterna part "
+                                    + "where part.pedido.idPedido="+Integer.parseInt(t_pedido.getText()));
+                            List partidas = query.list();
+                            model=new MyModel(partidas.size(), columnas, types);
+                            t_datos.setModel(model);
+                            for(int a=0; a<partidas.size(); a++)
+                            {
+                                PartidaExterna par = (PartidaExterna) partidas.get(a);
+                                Movimiento[] mov=(Movimiento[])par.getMovimientos().toArray(new Movimiento[0]);
+                                double entradas=0.0d, devoluciones=0.0d;
+                                for(int b=0; b<mov.length; b++)
+                                {
+                                    Almacen alm=mov[b].getAlmacen();
+                                    if(alm.getTipoMovimiento()==1 && alm.getOperacion()==7)
+                                        entradas+=mov[b].getCantidad();
+                                    if(alm.getTipoMovimiento()==2 && alm.getOperacion()==7)
+                                        devoluciones+=mov[b].getCantidad();
+                                }
+                                double total_almacen=entradas-devoluciones;
+                                double total=par.getCantidad()-total_almacen;
+                                model.setValueAt(par.getIdPartidaExterna(), a, 0);
+                                model.setValueAt(par.getEjemplar().getIdParte(), a, 1);
+                                model.setValueAt(par.getDescripcion(), a, 2);
+                                model.setValueAt(par.getUnidad(), a, 3);
+                                model.setValueAt(par.getCantidad(), a, 4);
+                                model.setValueAt(total, a, 5);
+                                model.setValueAt(0.0d, a, 6);
+                                model.setValueAt(par.getCosto(), a, 7);
+                                model.setValueAt(0.0d, a, 8);
+                            }
+                        }
+                        if(movimiento.compareTo("Salida")==0)
+                        {
+                            String[] columnas = new String [] {"Id","N° Parte","Descripción","Medida","Pedidos","En almacen","Devolución","Costo c/u","Total"};
+                            Class[] types = new Class [] 
+                            {
+                                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                                java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class,
+                                java.lang.Double.class
+                            };
+                            Query query = session.createQuery("SELECT DISTINCT part FROM PartidaExterna part "
+                                    + "LEFT JOIN FETCH part.movimientos movPart "
+                                    + "LEFT JOIN movPart.almacen alm "
+                                    + "where alm.operacion=7 and part.pedido.idPedido="+Integer.parseInt(t_pedido.getText()));
+                            List partidas = query.list();
+                            model=new MyModel(partidas.size(), columnas, types);
+                            t_datos.setModel(model);
+                            for(int a=0; a<partidas.size(); a++)
+                            {
+                                PartidaExterna par = (PartidaExterna) partidas.get(a);
+                                Ejemplar eje=par.getEjemplar();
+                                Movimiento[] mov = (Movimiento[])session.createCriteria(Movimiento.class).add(Restrictions.eq("partidaExterna.idPartidaExterna", par.getIdPartidaExterna())).list().toArray(new Movimiento[0]);
+                                double entradas=0, devoluciones=0;
+                                for(int b=0; b<mov.length; b++)
+                                {
+                                    Almacen alm=mov[b].getAlmacen();
+                                    if(alm.getTipoMovimiento()==1 && alm.getOperacion()==7)
+                                        entradas+=mov[b].getCantidad();
+                                    if(alm.getTipoMovimiento()==2 && alm.getOperacion()==7)
+                                        devoluciones+=mov[b].getCantidad();
+                                }
+                                double total_Pedido=entradas-devoluciones;
+                                double total=eje.getExistencias();
+                                if(total>=total_Pedido)
+                                    total=total_Pedido;
+                                model.setValueAt(par.getIdPartidaExterna(), a, 0);
+                                model.setValueAt(par.getEjemplar().getIdParte(), a, 1);
+                                model.setValueAt(par.getDescripcion(), a, 2);
+                                model.setValueAt(par.getUnidad(), a, 3);
+                                model.setValueAt(par.getCantidad(), a, 4);
+                                model.setValueAt(total, a, 5);
+                                model.setValueAt(0.0d, a, 6);
+
+                                if(par.getCosto()!=null)
+                                    model.setValueAt(par.getCosto(), a, 7);
+                                else
+                                    model.setValueAt(0.0d, a, 7);
+                                model.setValueAt(0.0d, a, 8);
+                            }
+                        }
+                        session.beginTransaction().commit();
+                    }catch(Exception e)
+                    {
+                        e.printStackTrace();
+                        session.beginTransaction().rollback();
+                    }
+                    finally
+                    {
+                        if(session.isOpen()==true)
+                            session.close();
+                    }
+                }
             
                 if(valor.compareTo("Adicional")==0)
                 {
@@ -749,25 +857,25 @@ public class consultaPartidaPedido extends javax.swing.JDialog {
                     column.setPreferredWidth(10);
                     break;
                 case 1:
-                    if( (tipo.compareTo("Pedido")==0 && valor.compareTo("Externo")==0) || (tipo.compareTo("Venta")==0) )
+                    if( (tipo.compareTo("Pedido")==0 && (valor.compareTo("Externo")==0 || valor.compareTo("Inventario")==0)) || (tipo.compareTo("Venta")==0) )
                         column.setPreferredWidth(100);
                     else
                         column.setPreferredWidth(10);
                     break;
                 case 2:
-                    if( (tipo.compareTo("Pedido")==0 && valor.compareTo("Externo")==0) || (tipo.compareTo("Venta")==0) )
+                    if( (tipo.compareTo("Pedido")==0 && (valor.compareTo("Externo")==0 || valor.compareTo("Inventario")==0)) || (tipo.compareTo("Venta")==0) )
                         column.setPreferredWidth(350);
                     else
                         column.setPreferredWidth(10);
                     break;
                 case 3:
-                    if( (tipo.compareTo("Pedido")==0 && valor.compareTo("Externo")==0) || (tipo.toString().compareTo("Venta")==0) )
+                    if( (tipo.compareTo("Pedido")==0 && (valor.compareTo("Externo")==0 || valor.compareTo("Inventario")==0)) || (tipo.toString().compareTo("Venta")==0) )
                         column.setPreferredWidth(20);
                     else
                         column.setPreferredWidth(100);
                     break;
                 case 4:               
-                    if( (tipo.compareTo("Pedido")==0 && valor.compareTo("Externo")==0) || (tipo.compareTo("Venta")==0) )
+                    if( (tipo.compareTo("Pedido")==0 && (valor.compareTo("Externo")==0 || valor.compareTo("Inventario")==0)) || (tipo.compareTo("Venta")==0) )
                         column.setPreferredWidth(50);
                     else
                         column.setPreferredWidth(350);

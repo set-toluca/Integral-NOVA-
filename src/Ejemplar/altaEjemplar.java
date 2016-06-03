@@ -355,9 +355,40 @@ public class altaEjemplar extends javax.swing.JDialog {
                 {
 
                     session.beginTransaction();
-                    if(consultaArticulo()==false)
+                    boolean nuevo=true;
+                    Ejemplar art = (Ejemplar)session.createCriteria(Ejemplar.class).add(Restrictions.eq("idParte", this.t_numero.getText())).setMaxResults(1).uniqueResult();
+                    if(art!=null)
                     {
-                        Ejemplar art= new Ejemplar();
+                        if(art.getInventario()==inventario)
+                        {
+                            session.getTransaction().rollback();
+                            this.setAlwaysOnTop(false);
+                            JOptionPane.showMessageDialog(null, "¡El artículo ya existe!");
+                            this.setAlwaysOnTop(true);
+                        }
+                        else
+                        {
+                            if(inventario==1)
+                            {
+                                art.setInventario(1);
+                                session.update(art);
+                                session.beginTransaction().commit();
+                                this.setAlwaysOnTop(false);
+                                JOptionPane.showMessageDialog(null, "Registro almacenado");
+                                this.setAlwaysOnTop(true);
+                            }
+                            else
+                            {
+                                session.getTransaction().rollback();
+                                this.setAlwaysOnTop(false);
+                                JOptionPane.showMessageDialog(null, "¡El artículo ya existe en el catalogo de almacen!");
+                                this.setAlwaysOnTop(true);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        art= new Ejemplar();
                         art.setIdParte(t_numero.getText().trim());
                         if(t_modelo.getText().compareTo("")!=0)
                             art.setModelo(Integer.parseInt(t_modelo.getText()));
@@ -391,13 +422,6 @@ public class altaEjemplar extends javax.swing.JDialog {
                         this.setAlwaysOnTop(true);
                         borra_cajas();
                         t_modelo.requestFocus();
-                    }
-                    else
-                    {
-                        session.getTransaction().rollback();
-                        this.setAlwaysOnTop(false);
-                        JOptionPane.showMessageDialog(null, "¡El artículo ya existe!");
-                        this.setAlwaysOnTop(true);
                     }
                 }
                 catch (HibernateException he) 
@@ -573,28 +597,5 @@ public class altaEjemplar extends javax.swing.JDialog {
         }
     }
     
-    private boolean consultaArticulo()
-    {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try
-        {
-            //if(t_modelo.getText().compareTo("")!=0 && c_marca.getComponentCount()>0 && c_tipo.getComponentCount()>0 && c_catalogo.getComponentCount()>0)
-           // {
-
-                session.beginTransaction().begin();
-                Ejemplar art = (Ejemplar)session.createCriteria(Ejemplar.class).add(Restrictions.eq("idParte", this.t_numero.getText())).setMaxResults(1).uniqueResult();
-                if(art!=null)
-                    return true;
-                else
-                    return false;
-           // }
-        }
-        catch(Exception e){}
-        finally
-        {
-            session.close();
-        }
-        return false;
-    }
     private Ejemplar returnStatus = RET_CANCEL;
 }

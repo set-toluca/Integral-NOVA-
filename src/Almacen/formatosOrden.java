@@ -73,14 +73,22 @@ public class formatosOrden {
                 }
                 else
                 {
-                    ord=mov[0].getPartidaExterna().getPedido().getOrden();
+                    if(miAlmacen.getOperacion()==8)
+                    {
+                        ord=miAlmacen.getOrden();
+                    }
+                    else
+                        ord=mov[0].getPartidaExterna().getPedido().getOrden();
                     //ord=miAlmacen.getPedido().getPartida().getOrdenByIdOrden();
                     //ord=mov[0].getOrden();
                 }
             }
-            File folder = new File("reportes/"+ord.getIdOrden());
+            String complemento="";
+            if(ord!=null)
+                complemento="/"+ord.getIdOrden();
+            File folder = new File("reportes"+complemento);
             folder.mkdirs();
-            reporte.Abrir(PageSize.LETTER, "Almacen", "reportes/"+ord.getIdOrden()+"/"+valor+"-"+miAlmacen.getIdAlmacen()+"-almacen.pdf");
+            reporte.Abrir(PageSize.LETTER, "Almacen", "reportes"+complemento+"/"+valor+"-"+miAlmacen.getIdAlmacen()+"-almacen.pdf");
             Font font = new Font(Font.FontFamily.HELVETICA, 6, Font.BOLD);
             BaseColor contenido=BaseColor.WHITE;
             int centro=Element.ALIGN_CENTER;
@@ -112,38 +120,27 @@ public class formatosOrden {
                     }
                     else
                     {
-                        tabla.addCell(reporte.celda("-", font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
-                        tabla.addCell(reporte.celda("", font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
-                        if(mov[i].getPartidaExterna().getNoParte()!=null)
-                            tabla.addCell(reporte.celda(mov[i].getPartidaExterna().getNoParte(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        if(miAlmacen.getOperacion()==8)
+                        {
+                            tabla.addCell(reporte.celda("-", font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
+                            tabla.addCell(reporte.celda("", font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                            tabla.addCell(reporte.celda(mov[i].getEjemplar().getIdParte(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                            tabla.addCell(reporte.celda(mov[i].getEjemplar().getCatalogo(), font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
+                            tabla.addCell(reporte.celda(mov[i].getEjemplar().getMedida(), font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
+                            tabla.addCell(reporte.celda(formatoPorcentaje.format(mov[i].getCantidad()), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        }
                         else
-                            tabla.addCell(reporte.celda(" ", font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
-                        tabla.addCell(reporte.celda(mov[i].getPartidaExterna().getDescripcion(), font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
-                        tabla.addCell(reporte.celda(mov[i].getPartidaExterna().getUnidad(), font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
-                        tabla.addCell(reporte.celda(formatoPorcentaje.format(mov[i].getCantidad()), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
-                    }
-                    if(ren==20)//20
-                    {
-                        reporte.writer.newPage();
-                        reporte.agregaObjeto(tabla);
-                        reporte.agregaObjeto(new Paragraph(" "));
-                        reporte.agregaObjeto(new Paragraph(" "));
-                        reporte.agregaObjeto(new Paragraph(" "));
-                        reporte.agregaObjeto(new Paragraph(" "));
-                        reporte.agregaObjeto(new Paragraph(" "));
-                        reporte.agregaObjeto(new Paragraph(" "));
-                        reporte.agregaObjeto(new Paragraph(" "));
-                        reporte.agregaObjeto(new Paragraph(" "));
-                        reporte.agregaObjeto(tabla);          
-                        reporte.agregaObjeto(new Paragraph(" "));
-                        reporte.agregaObjeto(new Paragraph(" "));
-                        reporte.agregaObjeto(new Paragraph(" "));
-                        reporte.agregaObjeto(new Paragraph(" "));
-                        
-                        tabla=reporte.crearTabla(6, tam, 100, Element.ALIGN_LEFT);
-                        cabeceraCompra(reporte, bf, tabla, miAlmacen, ord);
-                        ren=-1;
-                        renglon=0;
+                        {
+                            tabla.addCell(reporte.celda("-", font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
+                            tabla.addCell(reporte.celda("", font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                            if(mov[i].getPartidaExterna().getNoParte()!=null)
+                                tabla.addCell(reporte.celda(mov[i].getPartidaExterna().getNoParte(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                            else
+                                tabla.addCell(reporte.celda(" ", font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                            tabla.addCell(reporte.celda(mov[i].getPartidaExterna().getDescripcion(), font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
+                            tabla.addCell(reporte.celda(mov[i].getPartidaExterna().getUnidad(), font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
+                            tabla.addCell(reporte.celda(formatoPorcentaje.format(mov[i].getCantidad()), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        }
                     }
                     ren++;
                 }
@@ -161,6 +158,7 @@ public class formatosOrden {
             tabla.addCell(reporte.celda(miAlmacen.getNotas(), font, contenido, izquierda, 7,1,Rectangle.BOTTOM));
             session.beginTransaction().rollback();
 
+            tabla.setHeaderRows(1);
             reporte.agregaObjeto(tabla);
             reporte.agregaObjeto(new Paragraph(" "));
             reporte.agregaObjeto(new Paragraph(" "));
@@ -174,7 +172,7 @@ public class formatosOrden {
             reporte.agregaObjeto(new Paragraph(" "));
             reporte.agregaObjeto(tabla);
             reporte.cerrar();
-            reporte.visualizar("reportes/"+ord.getIdOrden()+"/"+valor+"-"+miAlmacen.getIdAlmacen()+"-almacen.pdf");
+            reporte.visualizar("reportes"+complemento+"/"+valor+"-"+miAlmacen.getIdAlmacen()+"-almacen.pdf");
         }catch(Exception e)
         {
             System.out.println(e);
@@ -197,14 +195,14 @@ public class formatosOrden {
             reporte.contenido.roundRectangle(35, 755, 280, 10, 0);
             reporte.contenido.roundRectangle(35, 735, 280, 20, 0);
             ////*2
-            reporte.contenido.roundRectangle(35, 388, 280, 10, 0);
-            reporte.contenido.roundRectangle(35, 368, 280, 20, 0);
+            reporte.contenido.roundRectangle(35, 358, 280, 10, 0);
+            reporte.contenido.roundRectangle(35, 338, 280, 20, 0);
             ////         
             reporte.inicioTexto();
             reporte.contenido.setFontAndSize(bf, 13);
             reporte.contenido.setColorFill(BaseColor.BLACK);
             reporte.agregaObjeto(reporte.crearImagen("imagenes/grande300115.jpg", 335, -23, 30));
-            /*2*/reporte.agregarImagen(reporte.crearImagen("imagenes/grande300115.jpg", 100, -390, 30));
+            /*2*/reporte.agregarImagen(reporte.crearImagen("imagenes/grande300115.jpg", 100, -420, 30));
             reporte.contenido.setFontAndSize(bf, 12);
             reporte.contenido.setColorFill(BaseColor.BLACK);
             if(miAlmacen.getTipoMovimiento()==1)
@@ -213,11 +211,15 @@ public class formatosOrden {
                     reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimientos en Almacén (Entrada de Material): "+almacen.getIdAlmacen(), 35, 767, 0);
                 if(miAlmacen.getOperacion()==5)
                     reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimientos de Almacén (Devolución de material de operarios): "+almacen.getIdAlmacen(), 35, 767, 0);
+                if(miAlmacen.getOperacion()==8)
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimientos de Almacén (Devolución de consumible): "+almacen.getIdAlmacen(), 35, 767 , 0);            
                 //*********2
                 if(miAlmacen.getOperacion()==4)
-                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimientos en Almacén (Entrada de Material): "+almacen.getIdAlmacen(), 35, 400, 0);                
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimientos en Almacén (Entrada de Material): "+almacen.getIdAlmacen(), 35, 370, 0);                
                 if(miAlmacen.getOperacion()==5)
-                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimientos de Almacén (Devolución de material de operarios): "+almacen.getIdAlmacen(), 35, 400 , 0);            
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimientos de Almacén (Devolución de material de operarios): "+almacen.getIdAlmacen(), 35, 370 , 0);            
+                if(miAlmacen.getOperacion()==8)
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimientos de Almacén (Devolución de consumible): "+almacen.getIdAlmacen(), 35, 370 , 0);            
                 ////
             }
             else
@@ -226,51 +228,63 @@ public class formatosOrden {
                     reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimiento de Almacén (Devolución de material a proveedor): "+almacen.getIdAlmacen(), 35, 767, 0);
                 if(miAlmacen.getOperacion()==5)
                     reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimientos de Almacén (Entrega de material a operarios): "+almacen.getIdAlmacen(), 35, 767, 0);
+                if(miAlmacen.getOperacion()==8)
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimientos de Almacén (Entrega de consumible): "+almacen.getIdAlmacen(), 35, 767, 0);
                 //*********2
                 if(miAlmacen.getOperacion()==4)
-                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimiento de Almacén (Devolución de material a proveedor): "+almacen.getIdAlmacen(), 35, 400, 0);
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimiento de Almacén (Devolución de material a proveedor): "+almacen.getIdAlmacen(), 35, 370, 0);
                 if(miAlmacen.getOperacion()==5)
-                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimientos de Almacén (Entrega de material a operarios): "+almacen.getIdAlmacen(), 35, 400, 0);
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimientos de Almacén (Entrega de material a operarios): "+almacen.getIdAlmacen(), 35, 370, 0);
+                if(miAlmacen.getOperacion()==8)
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Movimientos de Almacén (Entrega de consumible): "+almacen.getIdAlmacen(), 35, 370, 0);
                 ///
             }
 
             reporte.contenido.setFontAndSize(bf, 7);
             reporte.contenido.showTextAligned(PdfContentByte.ALIGN_RIGHT, "Fecha:"+new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()), 306, 757, 0);
-            /*2*/reporte.contenido.showTextAligned(PdfContentByte.ALIGN_RIGHT, "Fecha:"+new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()), 306, 390, 0);
+            /*2*/reporte.contenido.showTextAligned(PdfContentByte.ALIGN_RIGHT, "Fecha:"+new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()), 306, 360, 0);
 
-            ord = (Orden)session.get(Orden.class, ord.getIdOrden()); 
+            if(ord!=null)
+                ord = (Orden)session.get(Orden.class, ord.getIdOrden()); 
 
             //************************datos de movimiento****************************
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");//YYYY-MM-DD HH:MM:SS
             reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Materiales y Refacciones del Almacén", 40, 757 , 0);
-            /*2*/reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Materiales y Refacciones del Almacén", 40, 390 , 0); 
+            /*2*/reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Materiales y Refacciones del Almacén", 40, 360 , 0); 
             reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "N°. Movimiento: "+almacen.getIdAlmacen(), 40, 747, 0);
-            /*2*/ reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "N°. Movimiento: "+almacen.getIdAlmacen(), 40, 380, 0);
+            /*2*/ reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "N°. Movimiento: "+almacen.getIdAlmacen(), 40, 350, 0);
             if(almacen.getTipoMovimiento()==1)
                 reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo de Movimiento : Entrada", 120, 747, 0);
             else
                 reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo de Movimiento : Salida", 120, 747, 0);
             ////**2
             if(almacen.getTipoMovimiento()==1)
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo de Movimiento : Entrada", 120, 380, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo de Movimiento : Entrada", 120, 350, 0);
             else
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo de Movimiento : Salida", 120, 380, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo de Movimiento : Salida", 120, 350, 0);
             ////
 
             if(almacen.getOperacion()==4)
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo de Operación : Compañía", 220, 747, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Operación : Compañía", 220, 747, 0);
             if(almacen.getOperacion()==5)
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo de Operación : Operarios", 220, 747, 0);
-
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Operación : Operarios", 220, 747, 0);
+            if(almacen.getOperacion()==8)
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Operación : Consumibles", 220, 747, 0);
+            
             ////**2
             if(almacen.getOperacion()==4)
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo de Operación : Compañía", 220, 380, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Operación : Compañía", 220, 350, 0);
             if(almacen.getOperacion()==5)
-                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo de Operación : Operarios", 220, 380, 0);
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Operación : Operarios", 220, 350, 0);
+            if(almacen.getOperacion()==8)
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Operación : Consumibles", 220, 350, 0);
             ////
 
-            reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "N°. Orden: "+ord.getIdOrden(), 40, 737, 0);
-            /*2*/ reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "N°. Orden: "+ord.getIdOrden(), 40, 370, 0);
+            if(ord!=null)
+            {
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "N°. Orden: "+ord.getIdOrden(), 40, 737, 0);
+                /*2*/ reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "N°. Orden: "+ord.getIdOrden(), 40, 340, 0);
+            }
 
             //Firmas de material 
             if(miAlmacen.getTipoMovimiento()==1)

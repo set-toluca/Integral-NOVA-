@@ -544,5 +544,13 @@
             </key>
             <one-to-many class="Hibernate.entidades.Pedido" />
         </set>
+        <set name="movimientos" table="movimiento" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_movimiento">
+                    <comment>movimientos de la orden en consumibles</comment>
+                </column>
+            </key>
+            <one-to-many class="Hibernate.entidades.Movimiento" />
+        </set>
     </class>
 </hibernate-mapping>

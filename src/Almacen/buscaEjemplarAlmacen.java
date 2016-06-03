@@ -1,4 +1,4 @@
-package Ejemplar;
+package Almacen;
 
 import Integral.Herramientas;
 import Integral.Render1;
@@ -6,7 +6,6 @@ import Hibernate.Util.HibernateUtil;
 import java.util.List;
 import javax.swing.InputMap;
 import javax.swing.JOptionPane;
-import Hibernate.entidades.Ejemplar;
 import Hibernate.entidades.Usuario;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -18,71 +17,56 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-public class buscaEjemplar extends javax.swing.JDialog {
+public class buscaEjemplarAlmacen extends javax.swing.JDialog {
 
-    public static final Ejemplar RET_CANCEL =null;
+    public static final Object[] RET_CANCEL =null;
     InputMap map = new InputMap();
     DefaultTableModel model;
-    String[] columnas = new String [] {"No Parte","Modelo","Marca", "Tipo", "Catalogo", "Medida"};
+    String[] columnas = new String [] {"No Parte","Modelo","Marca","Tipo","Catalogo","Medida","Existencia","Operario","-"};
     String sessionPrograma="";
     Herramientas h;
     Usuario usr;
-    int tipo=0;
+    String orden;
     
-    public buscaEjemplar(java.awt.Frame parent, boolean modal, String ses, Usuario usuario, int tipo) {
+    public buscaEjemplarAlmacen(java.awt.Frame parent, boolean modal, String ses, Usuario usuario, String orden) {
         super(parent, modal);
-        this.tipo=tipo;
+        this.orden=orden;
         sessionPrograma=ses;
         usr=usuario;
         initComponents();
         getRootPane().setDefaultButton(jButton1);
         t_datos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        String consulta="from Ejemplar em where em.idParte like '%" + t_busca.getText() +"%'";        
-        if(tipo<2)
-            consulta+=" and inventario="+tipo;
-        executeHQLQuery(consulta);
+        t_datos.setModel(ModeloTablaReporte(0, columnas));
+        formatoTabla();
+        executeHQLQuery();
     }
     
     DefaultTableModel ModeloTablaReporte(int renglones, String columnas[])
         {
-            model = new DefaultTableModel(new Object [renglones][6], columnas)
+            model = new DefaultTableModel(new Object [renglones][columnas.length], columnas)
             {
                 Class[] types = new Class [] {
-                    java.lang.String.class, 
-                    java.lang.String.class,
-                    java.lang.String.class,
-                    java.lang.String.class,
-                    java.lang.String.class,
-                    java.lang.String.class
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, 
+                    java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
                 };
                 boolean[] canEdit = new boolean [] {
-                    false, false, false, false, false, false
+                    false, false, false, false, false, false, false, false, false
                 };
 
                 @Override
                 public void setValueAt(Object value, int row, int col)
-                 {
+                {
                         Vector vector = (Vector)this.dataVector.elementAt(row);
                         Object celda = ((Vector)this.dataVector.elementAt(row)).elementAt(col);
-                        switch(col)
-                        {
-                            case 0:
-                                    vector.setElementAt(value, col);
-                                    this.dataVector.setElementAt(vector, row);
-                                    fireTableCellUpdated(row, col);
-                                    break;
-
-                            default:
-                                    vector.setElementAt(value, col);
-                                    this.dataVector.setElementAt(vector, row);
-                                    fireTableCellUpdated(row, col);
-                                    break;
-                        }
-                    }
+                        vector.setElementAt(value, col);
+                        this.dataVector.setElementAt(vector, row);
+                        fireTableCellUpdated(row, col);
+                }
                 
                 @Override
                 public Class getColumnClass(int columnIndex) {
@@ -98,13 +82,13 @@ public class buscaEjemplar extends javax.swing.JDialog {
         }
 
     
-    private void doClose(Ejemplar o) {
+    private void doClose(Object[] o) {
         returnStatus = o;
         setVisible(false);
         dispose();
     }
     
-    public Ejemplar getReturnStatus() {
+    public Object[] getReturnStatus() {
         return returnStatus;
     }
     /** This method is called from within the constructor to
@@ -270,10 +254,7 @@ public class buscaEjemplar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void t_buscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_buscaKeyReleased
-        String consulta="from Ejemplar em where em.idParte like '%" + t_busca.getText() +"%'";        
-        if(tipo<2)
-            consulta+=" and inventario="+tipo;
-        executeHQLQuery(consulta);
+        executeHQLQuery();
     }//GEN-LAST:event_t_buscaKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -285,12 +266,34 @@ public class buscaEjemplar extends javax.swing.JDialog {
         {
             if(t_datos.getSelectedRow()>=0)
             {
-                Ejemplar op= new Ejemplar();
-                op.setIdParte(t_datos.getValueAt(t_datos.getSelectedRow(), 0).toString());
-                op.setCatalogo(t_datos.getValueAt(t_datos.getSelectedRow(), 4).toString());
-                op.setMedida(t_datos.getValueAt(t_datos.getSelectedRow(), 5).toString());
-                if(t_datos.getValueAt(t_datos.getSelectedRow(), 1)!=null)
-                    op.setModelo(Integer.parseInt(t_datos.getValueAt(t_datos.getSelectedRow(), 1).toString()));
+                Object[] op;
+                if(orden.compareTo("")==0)
+                {
+                    op= new Object[]{
+                        t_datos.getValueAt(t_datos.getSelectedRow(), 0).toString(),
+                        t_datos.getValueAt(t_datos.getSelectedRow(), 1).toString(),
+                        t_datos.getValueAt(t_datos.getSelectedRow(), 2).toString(),
+                        t_datos.getValueAt(t_datos.getSelectedRow(), 3).toString(),
+                        t_datos.getValueAt(t_datos.getSelectedRow(), 4).toString(),
+                        t_datos.getValueAt(t_datos.getSelectedRow(), 5).toString(),
+                        Double.parseDouble(t_datos.getValueAt(t_datos.getSelectedRow(), 6).toString()),
+                        Double.parseDouble(t_datos.getValueAt(t_datos.getSelectedRow(), 8).toString())
+                    };
+                }
+                else
+                {
+                    op= new Object[]{
+                        t_datos.getValueAt(t_datos.getSelectedRow(), 0).toString(),
+                        t_datos.getValueAt(t_datos.getSelectedRow(), 1).toString(),
+                        t_datos.getValueAt(t_datos.getSelectedRow(), 2).toString(),
+                        t_datos.getValueAt(t_datos.getSelectedRow(), 3).toString(),
+                        t_datos.getValueAt(t_datos.getSelectedRow(), 4).toString(),
+                        t_datos.getValueAt(t_datos.getSelectedRow(), 5).toString(),
+                        Double.parseDouble(t_datos.getValueAt(t_datos.getSelectedRow(), 6).toString()),
+                        Double.parseDouble(t_datos.getValueAt(t_datos.getSelectedRow(), 7).toString()),
+                        Double.parseDouble(t_datos.getValueAt(t_datos.getSelectedRow(), 8).toString())
+                    };
+                }
                 doClose(op);
             }
             else
@@ -330,42 +333,42 @@ public class buscaEjemplar extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
         
-    private List<Object[]> executeHQLQuery(String hql) {
+    private void executeHQLQuery() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            System.out.println(hql);
             session.beginTransaction();
-            Query q = session.createQuery(hql);
-            List resultList = q.list();
-            if(resultList.size()>0)
+            Query q;
+            if(orden.compareTo("")==0)
             {
-                t_datos.setModel(ModeloTablaReporte(resultList.size(), columnas));
-                int i=0;
-                for (Object o : resultList) 
-                {
-                    Ejemplar actor = (Ejemplar) o;
-                    model.setValueAt(actor.getIdParte(), i, 0);
-                    if(actor.getModelo()!=null)
-                        model.setValueAt(actor.getModelo(), i, 1);
-                    if(actor.getMarca()!=null)
-                        model.setValueAt(actor.getMarca().getIdMarca(), i, 2);
-                    if(actor.getTipo()!=null)
-                        model.setValueAt(actor.getTipo().getTipoNombre(), i, 3);
-                    model.setValueAt(actor.getCatalogo(), i, 4);
-                    model.setValueAt(actor.getMedida(), i, 5);
-                    i++;
-                }
+                q = session.createSQLQuery("select id_parte as id, if(modelo is null,'', modelo) as modelo, if(id_marca is null, '', id_marca) as marca, if(tipo_nombre is null,'', tipo_nombre) as tipo, id_catalogo, medida, existencias, 0.0 as cero " +
+                                             "from ejemplar where id_catalogo like '"+t_busca.getText()+"%'");
             }
             else
-                t_datos.setModel(ModeloTablaReporte(0, columnas));
-                formatoTabla();
-                session.getTransaction().commit();
-                session.disconnect();
-                return resultList;
+            {
+                q = session.createSQLQuery("select ejemplar.id_Parte as id, if(modelo is null,'', modelo) as modelo, if(id_marca is null, '', id_marca) as marca, if(tipo_nombre is null,'', tipo_nombre) as tipo, id_catalogo, medida, 0.0 as cero, " +
+                                            "( (select if(sum(movimiento.cantidad) is null, 0, sum(movimiento.cantidad)) from ejemplar left join movimiento on ejemplar.id_Parte=movimiento.id_Parte " +
+                                            "left join almacen on movimiento.id_almacen=almacen.id_almacen where ejemplar.id_Parte=id and almacen.id_orden="+orden+" and almacen.tipo_movimiento=2 and almacen.operacion=8) - " +
+                                            "(select if(sum(movimiento.cantidad) is null, 0, sum(movimiento.cantidad)) from ejemplar left join movimiento on ejemplar.id_Parte=movimiento.id_Parte " +
+                                            "left join almacen on movimiento.id_almacen=almacen.id_almacen where ejemplar.id_Parte=id and almacen.id_orden="+orden+" and almacen.tipo_movimiento=1 and almacen.operacion=8) )as operario, existencias " +
+                                            "from ejemplar where id_catalogo like '"+t_busca.getText()+"%'");
+            }
+            q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+            List resultList = q.list();
+            model.setRowCount(0);
+            int i=0;
+            for (Object o : resultList) 
+            {
+                java.util.HashMap actor=(java.util.HashMap)o;
+                Object[] vector=new Object[]{actor.get("id"), actor.get("modelo"),actor.get("marca"),actor.get("tipo"), actor.get("id_catalogo"),actor.get("medida"),actor.get("existencias"),actor.get("operario"),actor.get("cero")};
+                model.addRow(vector);
+            }
+            session.getTransaction().commit();
+            session.disconnect();
+            //return resultList;
         } catch (Exception he) {
             he.printStackTrace();
             List lista= null;
-            return lista;
+            //return lista;
         }
         finally
         {
@@ -375,7 +378,7 @@ public class buscaEjemplar extends javax.swing.JDialog {
         }
     }
 
-    private Ejemplar returnStatus = RET_CANCEL;
+    private Object[] returnStatus = RET_CANCEL;
     
     public void formatoTabla()
     {
