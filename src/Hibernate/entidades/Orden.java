@@ -126,6 +126,7 @@ public class Orden  implements java.io.Serializable {
      private Set mensajes = new HashSet(0);
      private Set partidasForIdOrden = new HashSet(0);
      private Set pedidos = new HashSet(0);
+     private Set movimientos = new HashSet(0);
 
     public Orden() {
     }
@@ -139,7 +140,7 @@ public class Orden  implements java.io.Serializable {
         this.clientes = clientes;
         this.fecha = fecha;
     }
-    public Orden(int idOrden, Usuario usuarioByREntregarAsigno, Reparacion reparacion, Usuario usuarioByIdModificado, Marca marca, Usuario usuarioByRAutorizacionInternaAsigno, Compania compania, Usuario usuarioByRCierre, Estatus estatus, Usuario usuarioByIdUserApertura, Empleado empleadoByRMecanica, Usuario usuarioByRElectricoAsigno, Usuario usuarioByRValuacionCierreAsigno, Usuario usuarioByAutorizaCompaniaAsigno, Usuario usuarioByRLevantamientoAsigno, Usuario usuarioByRExpedienteAsigno, Usuario usuarioByRRefaccionesAsigno, Empleado empleadoByRRefacciones, Usuario usuarioByRCotizaAsigno, Empleado empleadoByRElectrico, Tipo tipo, Empleado empleadoByRValuacion, Empleado empleadoByRHojalateria, Empleado empleadoByRCotiza, Empleado empleadoByRLevantamiento, Usuario usuarioByAutorizaClienteAsigno, Usuario usuarioByEnvioCompaniaAsigno, Clientes clientes, Usuario usuarioByRHojalateriaAsigno, Usuario usuarioByRFactura, Usuario usuarioByRSuspensionAsigno, Usuario usuarioByBloqueada, Usuario usuarioByRMecanicaAsigno, Empleado empleadoByRSuspension, Usuario usuarioByRValuacionAsigno, Usuario usuarioByRReparacionInicioAsigno, Empleado empleadoByRExpediente, Ciclo ciclo, Ajustador ajustador, Boolean garantia, String comentario, Date fecha, Date hora, String siniestro, String poliza, String noReporte, Date fechaSiniestro, String inciso, String noMotor, String noPlacas, Integer modelo, String noSerie, String noEconomico, Double deducible, Double demerito, String tipoCliente, Date fechaEstatus, Date fechaTaller, Date fechaCliente, Date RExpedienteFecha, Date RLevantamientoInicio, Date RLevantamientoCierre, Date RCotizaInicio, Date RCotizaCierre, Date autorizaCliente, Date RAutorizacionInterna, Date RValuacionInicio, Date envioCompania, Date autorizaCompania, Date RValuacionCierre, Date metaValuacion, Date inicioRefacciones, Date cierreRefacciones, Date metaRefacciones, Date RReparacionInicio, Date RHojalateriaFecha, Date RMecanicaFecha, Date RSuspensionFecha, Date RElectricoFecha, Date RReparacionCierre, Date metaReparacion, Date REntregarFecha, Integer noFactura, Date fehaFectura, Date fechaCierre, Integer idObservacion, String session, String ventana, Double refPresupuesto, Double refAutorizadas, Double moPresupuestada, Double moDirecta, Boolean autorizadoFacturar, String color, String propietario, String codigoAsegurado, String tipoVehiculo, String contratante, String Km, double vales, Empleado empleadoByRPintura, Date RPinturaFecha, Usuario usuarioByRPinturaAsigno, Set archivos, Set partidasForEnlazada, Set notas, Set adicionaleses, Set agendas, Set inventarios, Set facturas, Set fotos, Set mensajes, Set partidasForIdOrden, Set pedidos) {
+    public Orden(int idOrden, Usuario usuarioByREntregarAsigno, Reparacion reparacion, Usuario usuarioByIdModificado, Marca marca, Usuario usuarioByRAutorizacionInternaAsigno, Compania compania, Usuario usuarioByRCierre, Estatus estatus, Usuario usuarioByIdUserApertura, Empleado empleadoByRMecanica, Usuario usuarioByRElectricoAsigno, Usuario usuarioByRValuacionCierreAsigno, Usuario usuarioByAutorizaCompaniaAsigno, Usuario usuarioByRLevantamientoAsigno, Usuario usuarioByRExpedienteAsigno, Usuario usuarioByRRefaccionesAsigno, Empleado empleadoByRRefacciones, Usuario usuarioByRCotizaAsigno, Empleado empleadoByRElectrico, Tipo tipo, Empleado empleadoByRValuacion, Empleado empleadoByRHojalateria, Empleado empleadoByRCotiza, Empleado empleadoByRLevantamiento, Usuario usuarioByAutorizaClienteAsigno, Usuario usuarioByEnvioCompaniaAsigno, Clientes clientes, Usuario usuarioByRHojalateriaAsigno, Usuario usuarioByRFactura, Usuario usuarioByRSuspensionAsigno, Usuario usuarioByBloqueada, Usuario usuarioByRMecanicaAsigno, Empleado empleadoByRSuspension, Usuario usuarioByRValuacionAsigno, Usuario usuarioByRReparacionInicioAsigno, Empleado empleadoByRExpediente, Ciclo ciclo, Ajustador ajustador, Boolean garantia, String comentario, Date fecha, Date hora, String siniestro, String poliza, String noReporte, Date fechaSiniestro, String inciso, String noMotor, String noPlacas, Integer modelo, String noSerie, String noEconomico, Double deducible, Double demerito, String tipoCliente, Date fechaEstatus, Date fechaTaller, Date fechaCliente, Date RExpedienteFecha, Date RLevantamientoInicio, Date RLevantamientoCierre, Date RCotizaInicio, Date RCotizaCierre, Date autorizaCliente, Date RAutorizacionInterna, Date RValuacionInicio, Date envioCompania, Date autorizaCompania, Date RValuacionCierre, Date metaValuacion, Date inicioRefacciones, Date cierreRefacciones, Date metaRefacciones, Date RReparacionInicio, Date RHojalateriaFecha, Date RMecanicaFecha, Date RSuspensionFecha, Date RElectricoFecha, Date RReparacionCierre, Date metaReparacion, Date REntregarFecha, Integer noFactura, Date fehaFectura, Date fechaCierre, Integer idObservacion, String session, String ventana, Double refPresupuesto, Double refAutorizadas, Double moPresupuestada, Double moDirecta, Boolean autorizadoFacturar, String color, String propietario, String codigoAsegurado, String tipoVehiculo, String contratante, String Km, double vales, Empleado empleadoByRPintura, Date RPinturaFecha, Usuario usuarioByRPinturaAsigno, Set archivos, Set partidasForEnlazada, Set notas, Set adicionaleses, Set agendas, Set inventarios, Set facturas, Set fotos, Set mensajes, Set partidasForIdOrden, Set pedidos, Set movimientos) {
        this.idOrden = idOrden;
        this.usuarioByREntregarAsigno = usuarioByREntregarAsigno;
        this.reparacion = reparacion;
@@ -254,6 +255,7 @@ public class Orden  implements java.io.Serializable {
        this.mensajes = mensajes;
        this.partidasForIdOrden = partidasForIdOrden;
        this.pedidos= pedidos;
+       this.movimientos = movimientos;
     }
    
     public int getIdOrden() {
@@ -1097,6 +1099,13 @@ public class Orden  implements java.io.Serializable {
     
     public void setUsuarioByRPinturaAsigno(Usuario usuarioByRPinturaAsigno) {
         this.usuarioByRPinturaAsigno = usuarioByRPinturaAsigno;
+    }
+    public Set getMovimientos() {
+        return this.movimientos;
+    }
+    
+    public void setMovimientos(Set movimientos) {
+        this.movimientos = movimientos;
     }
 }
 

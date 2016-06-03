@@ -323,6 +323,12 @@ public class Integral extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu24 = new javax.swing.JMenu();
+        jMenu25 = new javax.swing.JMenu();
+        jMenuItem50 = new javax.swing.JMenuItem();
+        jMenuItem51 = new javax.swing.JMenuItem();
+        jMenuItem52 = new javax.swing.JMenuItem();
+        jMenuItem49 = new javax.swing.JMenuItem();
         p_tilulo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         l_nombre = new javax.swing.JLabel();
@@ -360,6 +366,9 @@ public class Integral extends javax.swing.JFrame {
         jMenu20 = new javax.swing.JMenu();
         jMenuItem19 = new javax.swing.JMenuItem();
         jMenuItem21 = new javax.swing.JMenuItem();
+        jMenu18 = new javax.swing.JMenu();
+        m_consultar_articulo1 = new javax.swing.JMenuItem();
+        m_editar_articulo1 = new javax.swing.JMenuItem();
         jMenuItem46 = new javax.swing.JMenuItem();
         jMenu21 = new javax.swing.JMenu();
         jMenu22 = new javax.swing.JMenu();
@@ -369,12 +378,6 @@ public class Integral extends javax.swing.JFrame {
         jMenu23 = new javax.swing.JMenu();
         jMenuItem30 = new javax.swing.JMenuItem();
         jMenuItem33 = new javax.swing.JMenuItem();
-        jMenu24 = new javax.swing.JMenu();
-        jMenu25 = new javax.swing.JMenu();
-        jMenuItem50 = new javax.swing.JMenuItem();
-        jMenuItem51 = new javax.swing.JMenuItem();
-        jMenuItem52 = new javax.swing.JMenuItem();
-        jMenuItem49 = new javax.swing.JMenuItem();
         jMenuItem48 = new javax.swing.JMenuItem();
         jMenuItem47 = new javax.swing.JMenuItem();
         m_administracion = new javax.swing.JMenu();
@@ -440,6 +443,34 @@ public class Integral extends javax.swing.JFrame {
         jMenuItem36 = new javax.swing.JMenuItem();
         jMenuItem43 = new javax.swing.JMenuItem();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+
+        jMenu24.setText("COI");
+
+        jMenu25.setText("Cuentas");
+
+        jMenuItem50.setText("Consultar");
+        jMenu25.add(jMenuItem50);
+
+        jMenuItem51.setText("Editar");
+        jMenu25.add(jMenuItem51);
+
+        jMenu24.add(jMenu25);
+
+        jMenuItem52.setText("Poliza de pagos");
+        jMenuItem52.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem52ActionPerformed(evt);
+            }
+        });
+        jMenu24.add(jMenuItem52);
+
+        jMenuItem49.setText("Poliza de Provisiones");
+        jMenuItem49.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem49ActionPerformed(evt);
+            }
+        });
+        jMenu24.add(jMenuItem49);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Integral Administración de Taller Automotriz v.2.1");
@@ -758,6 +789,26 @@ public class Integral extends javax.swing.JFrame {
         });
         jMenu20.add(jMenuItem21);
 
+        jMenu18.setText("Ejemplares");
+
+        m_consultar_articulo1.setText("Consultar");
+        m_consultar_articulo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_consultar_articulo1ActionPerformed(evt);
+            }
+        });
+        jMenu18.add(m_consultar_articulo1);
+
+        m_editar_articulo1.setText("Editar");
+        m_editar_articulo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_editar_articulo1ActionPerformed(evt);
+            }
+        });
+        jMenu18.add(m_editar_articulo1);
+
+        jMenu20.add(jMenu18);
+
         jMenuItem46.setText("Reportes");
         jMenuItem46.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -819,36 +870,6 @@ public class Integral extends javax.swing.JFrame {
         jMenu23.add(jMenuItem33);
 
         jMenu21.add(jMenu23);
-
-        jMenu24.setText("COI");
-
-        jMenu25.setText("Cuentas");
-
-        jMenuItem50.setText("Consultar");
-        jMenu25.add(jMenuItem50);
-
-        jMenuItem51.setText("Editar");
-        jMenu25.add(jMenuItem51);
-
-        jMenu24.add(jMenu25);
-
-        jMenuItem52.setText("Poliza de pagos");
-        jMenuItem52.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem52ActionPerformed(evt);
-            }
-        });
-        jMenu24.add(jMenuItem52);
-
-        jMenuItem49.setText("Poliza de Provisiones");
-        jMenuItem49.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem49ActionPerformed(evt);
-            }
-        });
-        jMenu24.add(jMenuItem49);
-
-        jMenu21.add(jMenu24);
 
         jMenuItem48.setText("Cuentas por Cobrar");
         jMenuItem48.addActionListener(new java.awt.event.ActionListener() {
@@ -4307,6 +4328,119 @@ public class Integral extends javax.swing.JFrame {
                 session.close();
     }//GEN-LAST:event_jMenuItem52ActionPerformed
 
+    private void m_consultar_articulo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_consultar_articulo1ActionPerformed
+        // TODO add your handling code here:
+        h.menu=0;
+        h.session(sessionPrograma);
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction().begin();
+            actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
+            if(actor.getConsultarEjemplar()==true)
+             {
+                buscaEjemplar obj = new buscaEjemplar(new javax.swing.JFrame(), true, sessionPrograma, actor, 0);
+                obj.t_busca.requestFocus();
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+                obj.setVisible(true);
+                Ejemplar orden_act=obj.getReturnStatus();
+
+                if (orden_act!=null)
+                {
+                    orden_act=(Ejemplar)session.get(Ejemplar.class, orden_act.getIdParte());
+                    pos=-1;
+                    for(int a=0; a<P_pestana.getTabCount(); a++)
+                    {
+                        if(P_pestana.getTitleAt(a)=="Edita Ejemplar")
+                        pos=a;
+                    }
+                    if(pos>=0)
+                    {
+                        P_pestana.setSelectedIndex(pos);
+                    }
+                    else
+                    {
+                        eEjemplar = new editaEjemplar(actor, sessionPrograma, 0);
+                        PanelPestanas btc=new PanelPestanas(P_pestana,-1, actor);
+                        P_pestana.addTab("Edita Ejemplar", eEjemplar);
+                        P_pestana.setSelectedComponent(eEjemplar);
+                        P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
+                        eEjemplar.t_modelo.requestFocus();
+                    }
+                    eEjemplar.borra_cajas();
+                    eEjemplar.cajas(true, true, true, true, true, true, true, true);
+                    eEjemplar.t_numero.setText(orden_act.getIdParte());
+                    eEjemplar.NS=""+orden_act.getIdParte();
+                    if(orden_act.getModelo()!=null)
+                        eEjemplar.t_modelo.setText(""+orden_act.getModelo());
+                    else
+                        eEjemplar.t_modelo.setText("");
+                    if(orden_act.getMarca()!=null)
+                        eEjemplar.c_marca.setSelectedItem(""+orden_act.getMarca().getIdMarca());
+                    if(orden_act.getMarca()!=null)
+                        eEjemplar.c_tipo.setSelectedItem(""+orden_act.getTipo().getTipoNombre());
+                    eEjemplar.t_catalogo.setText(""+orden_act.getCatalogo());
+                    if(orden_act.getComentario()!=null)
+                        eEjemplar.t_comentario.setText(orden_act.getComentario());
+                    else
+                        eEjemplar.t_comentario.setText("");
+                }
+            }
+            else
+                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+        }catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        if(session!=null)
+            if(session.isOpen())
+                session.close();
+    }//GEN-LAST:event_m_consultar_articulo1ActionPerformed
+
+    private void m_editar_articulo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_editar_articulo1ActionPerformed
+        // TODO add your handling code here:
+        h.menu=0;
+        h.session(sessionPrograma);
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction().begin();
+            actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
+            if(actor.getEditarEjemplar()==true)
+            {
+                pos=-1;
+                for(int a=0; a<P_pestana.getTabCount(); a++)
+                {
+                    if(P_pestana.getTitleAt(a)=="Edita Ejemplar")
+                    pos=a;
+                }
+                if(pos>=0)
+                {
+                    P_pestana.setSelectedIndex(pos);
+                    eEjemplar.t_modelo.requestFocus();
+                }
+                else
+                {
+                    eEjemplar = new editaEjemplar(actor,sessionPrograma, 0);
+                    PanelPestanas btc=new PanelPestanas(P_pestana,-1, actor);
+                    P_pestana.addTab("Edita Ejemplar", eEjemplar);
+                    P_pestana.setSelectedComponent(eEjemplar);
+                    P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
+                    eEjemplar.t_modelo.requestFocus();
+                }
+            }
+            else
+                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+        }catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        if(session!=null)
+            if(session.isOpen())
+                session.close();
+    }//GEN-LAST:event_m_editar_articulo1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4359,6 +4493,7 @@ public class Integral extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu15;
     private javax.swing.JMenu jMenu16;
     private javax.swing.JMenu jMenu17;
+    private javax.swing.JMenu jMenu18;
     private javax.swing.JMenu jMenu19;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu20;
@@ -4428,6 +4563,7 @@ public class Integral extends javax.swing.JFrame {
     private javax.swing.JMenuItem m_consulta_clientes;
     private javax.swing.JMenuItem m_consultar;
     private javax.swing.JMenuItem m_consultar_articulo;
+    private javax.swing.JMenuItem m_consultar_articulo1;
     private javax.swing.JMenuItem m_consultar_catalogo;
     private javax.swing.JMenuItem m_consultar_concepto;
     private javax.swing.JMenuItem m_consultar_especialidad;
@@ -4439,6 +4575,7 @@ public class Integral extends javax.swing.JFrame {
     private javax.swing.JMenu m_edita_ciclo;
     private javax.swing.JMenuItem m_edita_clientes;
     private javax.swing.JMenuItem m_editar_articulo;
+    private javax.swing.JMenuItem m_editar_articulo1;
     private javax.swing.JMenuItem m_editar_catalogo;
     private javax.swing.JMenuItem m_editar_concepto;
     private javax.swing.JMenuItem m_editar_especialidad;
