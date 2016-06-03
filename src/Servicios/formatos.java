@@ -315,7 +315,7 @@ public class formatos extends javax.swing.JPanel {
             reporte.Abrir(PageSize.LETTER, "Hoja de Unidad", "reportes/" + ord.getIdOrden() + "/" + valor + "-unidad.pdf");
 
             try {
-                reporte.agregaObjeto(reporte.crearImagen(ord.getCompania().getFoto(), 30, -123, 45));
+                reporte.agregaObjeto(reporte.crearImagen("imagenes/empresa300115.jpg", 30, -123, 45));
             } catch (Exception e) {
             }
 
