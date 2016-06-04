@@ -182,18 +182,19 @@ public class ajusteInventario extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(l_comentario)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(l_catalogo)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(l_tipo))
-                            .addComponent(l_marca))))
-                .addGap(18, 18, 18)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel2)
+                        .addGap(7, 7, 7))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(l_tipo)
+                            .addComponent(l_marca)
+                            .addComponent(l_catalogo)
+                            .addComponent(l_comentario))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,6 +270,18 @@ public class ajusteInventario extends javax.swing.JPanel {
         jLabel6.setText("Ajuste:");
 
         jTextField4.setEditable(false);
+        jTextField4.setText("0.0");
+        jTextField4.setToolTipText("");
+        jTextField4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField4FocusLost(evt);
+            }
+        });
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
         jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField4KeyTyped(evt);
@@ -385,6 +398,7 @@ public class ajusteInventario extends javax.swing.JPanel {
         // TODO add your handling code here:
         borrar();
         jTextField4.setEditable(false);
+        jTextField4.setText("0.0");
         jTextArea1.setEditable(false);
         jComboBox1.setEnabled(false);
         h=new Herramientas(this.actor, 0);
@@ -406,26 +420,60 @@ public class ajusteInventario extends javax.swing.JPanel {
                 {
                     orden_act=(Ejemplar)session.get(Ejemplar.class, orden_act.getIdParte());
                     //parte
-                    jTextField1.setText(orden_act.getIdParte());
+                    try{
+                        jTextField1.setText(orden_act.getIdParte());
+                    }catch(Exception e){
+                        jTextField1.setText("");
+                    }
                     //marca
-                    jTextField7.setText(orden_act.getMarca().getMarcaNombre());
+                    try{
+                        jTextField7.setText(orden_act.getMarca().getMarcaNombre());
+                    }catch(Exception e){
+                        jTextField7.setText("");
+                    }
                     //tipo
-                    jTextField8.setText(orden_act.getTipo().getTipoNombre());
+                    try{
+                        jTextField8.setText(orden_act.getTipo().getTipoNombre());
+                    }catch(Exception e){
+                        jTextField8.setText("");
+                    }
                     //modelo
-                    jTextField5.setText(orden_act.getModelo().toString());
+                    try{
+                        jTextField5.setText(orden_act.getModelo().toString());
+                    }catch(Exception e){
+                        jTextField5.setText("");
+                    }                    
                     //medida
-                    jTextField9.setText(orden_act.getMedida());
+                    try{
+                        jTextField9.setText(orden_act.getMedida());
+                    }catch(Exception e){
+                        jTextField9.setText("");
+                    }
                     //catalogo
-                    jTextField6.setText(orden_act.getCatalogo());
+                    try{
+                        jTextField6.setText(orden_act.getCatalogo());
+                    }catch(Exception e){
+                        jTextField6.setText("");
+                    }
                     //existencias
-                    jTextField3.setText(orden_act.getExistencias().toString());
+                    try{
+                        jTextField3.setText(orden_act.getExistencias().toString());
+                    }catch(Exception e){
+                        jTextField3.setText("");
+                    }
                     //comentario
-                    if(orden_act.getComentario().compareTo("")!=0)
-                        t_comentario.setText(orden_act.getComentario());
-                    else
+                    try{
+                        if(orden_act.getComentario().toString().compareTo("")!=0){
+                            t_comentario.setText(orden_act.getComentario());
+                        }else{
+                            t_comentario.setText("Sin Comentarios...");
+                        }
+                    }catch(Exception e){
                         t_comentario.setText("Sin Comentarios...");
-                  
+                    }
+                    
                     jTextField4.setEditable(true);
+                    jTextField4.setText("0.0");
                     jTextArea1.setEditable(true);
                     jComboBox1.setEnabled(true);
                     jButton3.setEnabled(true);
@@ -484,6 +532,7 @@ public class ajusteInventario extends javax.swing.JPanel {
                                 JOptionPane.showMessageDialog(null, "Ajuste Almacenado con la Clave "+respuesta);
                                 borrar();
                                 jTextField4.setEditable(false);
+                                jTextField4.setText("0.0");
                                 jComboBox1.setEnabled(false);
                                 jTextArea1.setEditable(false);
                                 jButton3.setEnabled(false);
@@ -528,6 +577,7 @@ public class ajusteInventario extends javax.swing.JPanel {
                                     JOptionPane.showMessageDialog(null, "Ajuste Almacenado con la Clave "+respuesta);
                                     borrar();
                                     jTextField4.setEditable(false);
+                                    jTextField4.setText("0.0");
                                     jComboBox1.setEnabled(false);
                                     jTextArea1.setEditable(false);
                                     jButton3.setEnabled(false);
@@ -559,18 +609,18 @@ public class ajusteInventario extends javax.swing.JPanel {
         Integer  IdAlmacen = null;
         try 
         {
-            session.beginTransaction();
+            session.beginTransaction().begin();
             IdAlmacen=(Integer) session.save(obj);
             Almacen alm = (Almacen)session.get(Almacen.class, IdAlmacen);
             
-                //MOVIMIENTOS
-                Movimiento move = new Movimiento();
+               //MOVIMIENTOS
+               Movimiento move = new Movimiento();
                 move.setAlmacen(alm);
                 move.setCantidad(Double.parseDouble(jTextField4.getText()));
                 Ejemplar ejemplar=(Ejemplar)session.get(Ejemplar.class, jTextField1.getText());
                 move.setEjemplar(ejemplar);
                 alm.addMovimiento(move);
-                
+
                 //EJEMPLARES
                 if(jComboBox1.getSelectedItem().toString().compareTo("Entrada")==0){
                     ejemplar.setExistencias(Double.parseDouble(ejemplar.getExistencias().toString())+Double.parseDouble(jTextField4.getText().toString()));
@@ -585,8 +635,8 @@ public class ajusteInventario extends javax.swing.JPanel {
         } 
         catch (HibernateException he) 
         {
+            session.beginTransaction().rollback();
             he.printStackTrace();
-            session.getTransaction().rollback();
             IdAlmacen= null;
         }   
         finally
@@ -609,6 +659,7 @@ public class ajusteInventario extends javax.swing.JPanel {
         // TODO add your handling code here:
         borrar();
         jTextField4.setEditable(false);
+        jTextField4.setText("0.0");
         jTextArea1.setEditable(false);
         jComboBox1.setEnabled(false);
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -619,6 +670,17 @@ public class ajusteInventario extends javax.swing.JPanel {
         if(jTextArea1.getText().length()>=255)
         evt.consume();
     }//GEN-LAST:event_jTextArea1KeyTyped
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+        this.jTextField4FocusLost(null);
+    }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void jTextField4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField4FocusLost
+        // TODO add your handling code here:
+        double ajuste=Double.parseDouble(jTextField4.getText());
+        jTextField4.setText(String.valueOf(ajuste));
+    }//GEN-LAST:event_jTextField4FocusLost
     
     public void borrar(){
         jTextField1.setText("");
