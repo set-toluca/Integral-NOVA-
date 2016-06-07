@@ -3576,7 +3576,7 @@ public class Integral extends javax.swing.JFrame {
             actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
             if(actor.getConsultaMovimientoAlmacen()==true)
             {
-                buscaAlmacen obj = new buscaAlmacen(new javax.swing.JFrame(), true, this.actor);
+                /*buscaAlmacen obj = new buscaAlmacen(new javax.swing.JFrame(), true, this.actor);
                 obj.t_busca.requestFocus();
                 Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
                 obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
@@ -3584,27 +3584,27 @@ public class Integral extends javax.swing.JFrame {
 
                 Almacen alm=obj.getReturnStatus();
                 if(alm!=null)
-                {
+                {*/
                     h.session(sessionPrograma);
                     pos=P_pestana.indexOfTab("Consulta Almacen");
                     if(pos>=0)
                     {
                         P_pestana.setSelectedIndex(pos);    
-                        muestra_almacen.actual=alm;
-                        muestra_almacen.busca();
+                        //muestra_almacen.actual=alm;
+                        //muestra_almacen.busca();
                     }
                     else
                     {
                         muestra_almacen=null;
-                        muestra_almacen = new muestraAlmacen(actor, sessionPrograma, alm);
-                        muestra_almacen.busca();
+                        muestra_almacen = new muestraAlmacen(actor, sessionPrograma, null);
+                        //muestra_almacen.busca();
                         PanelPestanas btc=new PanelPestanas(P_pestana,15,actor);
                         P_pestana.addTab("Consulta Almacen", muestra_almacen);
                         P_pestana.setSelectedComponent(muestra_almacen);
                         P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
                     }
                     System.gc();
-                }
+                //}
             }
             else
                 JOptionPane.showMessageDialog(null, "¡Acceso denegado!");    

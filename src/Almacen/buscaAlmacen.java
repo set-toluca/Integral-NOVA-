@@ -528,12 +528,12 @@ public class buscaAlmacen extends javax.swing.JDialog {
                             model.setValueAt("Salida", i, 5);
                             model.setValueAt("Venta", i, 6);
                         }
-                        if(actor.getOperacion()==1)
+                        if(actor.getOperacion()==7)
                         {
                             model.setValueAt("Devolución", i, 5);
                             model.setValueAt("P.Consumibles", i, 6);
                         }
-                        if(actor.getOperacion()==1)
+                        if(actor.getOperacion()==8)
                         {
                             model.setValueAt("Salida", i, 5);
                             model.setValueAt("Consumibles", i, 6);

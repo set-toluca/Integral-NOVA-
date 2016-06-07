@@ -81,7 +81,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         formatoTabla();
         b_buscapedido.setEnabled(true);
         b_buscaorden.setEnabled(false);
-        b_detalles.setEnabled(false);
+        //b_detalles.setEnabled(false);
         cb_sin_orden.setVisible(false);
         cb_sin_orden.setSelected(false);
     }
@@ -2172,6 +2172,10 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         {
             System.out.println();
         }
+        finally
+        {
+            this.b_recargarActionPerformed(null);
+        }
         if(session!=null)
             if(session.isOpen())
                 session.close();
@@ -2183,7 +2187,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         h.desbloqueaOrden();
         c_tmovimiento.setSelectedIndex(0);
         c_toperacion.setSelectedIndex(0);
-        b_detalles.setEnabled(false);
+        //b_detalles.setEnabled(false);
         cb_sin_orden.setVisible(false);
         cb_sin_orden.setSelected(false);
         limpiar_tabla();
@@ -2368,7 +2372,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         c_toperacion.setSelectedItem("Inventario");
         cb_sin_orden.setSelected(false);
         b_buscaorden.setEnabled(true);
-        b_detalles.setEnabled(true);
+        //b_detalles.setEnabled(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -2377,7 +2381,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         c_toperacion.setSelectedItem("Inventario");
         cb_sin_orden.setSelected(false);
         b_buscaorden.setEnabled(true);
-        b_detalles.setEnabled(true);
+        //b_detalles.setEnabled(true);
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void cb_sin_ordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_sin_ordenActionPerformed
@@ -2395,14 +2399,14 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         if(cb_sin_orden.isSelected()==true)
         {
             b_buscaorden.setEnabled(false);
-            b_detalles.setEnabled(false);
+            //b_detalles.setEnabled(false);
             b_mas.setEnabled(true);
             b_menos.setEnabled(true);
         }
         else
         {
             b_buscaorden.setEnabled(true);
-            b_detalles.setEnabled(true);
+            //b_detalles.setEnabled(true);
             b_mas.setEnabled(false);
             b_menos.setEnabled(false);
         }
@@ -4701,10 +4705,10 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         }
         
         b_buscapedido.setEnabled(buscap);
-        b_detalles.setEnabled(buscap);
+        //b_detalles.setEnabled(buscap);
         t_nreferencia.setEditable(nreferencia);
         b_buscaorden.setEnabled(buscao);
-        b_detalles.setEnabled(buscao);
+        //b_detalles.setEnabled(buscao);
             
         if(c_toperacion.getSelectedItem().toString().compareTo("Operarios")==0)
         {
