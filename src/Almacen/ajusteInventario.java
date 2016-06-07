@@ -16,6 +16,7 @@ import Hibernate.entidades.Usuario;
 import Integral.Herramientas;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -499,84 +500,35 @@ public class ajusteInventario extends javax.swing.JPanel {
             //actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
             if(jTextField4.getText().compareTo("")!=0){
                 if(jTextArea1.getText().compareTo("")!=0){
-                    Date fecha_almacen = new Date();
-                    DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                    if(jComboBox1.getSelectedItem().toString().compareTo("Entrada")==0){
-                        //ENTRADA
-                        try{
-                            Almacen almacen = new Almacen();
-                            almacen.setUsuario(actor);
-                            almacen.setEntrego("");
-                            String valor=dateFormat.format(fecha_almacen);
-                            String [] fecha = valor.split("-");
-                            String [] hora=fecha[2].split(":");
-                            String [] aux=hora[0].split(" ");
-                            fecha[2]=aux[0];
-                            hora[0]=aux[1];
-                            Calendar calendario = Calendar.getInstance();
-                            calendario.set(
-                                Integer.parseInt(fecha[2]),
-                                Integer.parseInt(fecha[1])-1,
-                                Integer.parseInt(fecha[0]),
-                                Integer.parseInt(hora[0]),
-                                Integer.parseInt(hora[1]),
-                                Integer.parseInt(hora[2]));
-                            almacen.setFecha(calendario.getTime());
-                            almacen.setTipoMovimiento(1);
-                            almacen.setOperacion(9);
-                            almacen.setNotas(jTextArea1.getText());
-                            
-                            Integer respuesta = guardaAlmacen(almacen);
-                            if(respuesta!=null){
-                                //session.close();
-                                JOptionPane.showMessageDialog(null, "Ajuste Almacenado con la Clave "+respuesta);
-                                Almacen actual=new Almacen();
-                                actual.setIdAlmacen(respuesta);
-                                formatosOrden f1=new formatosOrden(this.actor, this.sessionPrograma, actual);
-                                f1.formato();
-                                borrar();
-                                jTextField4.setEditable(false);
-                                jTextField4.setText("0.0");
-                                jComboBox1.setEnabled(false);
-                                jTextArea1.setEditable(false);
-                                jButton3.setEnabled(false);
-                                jButton1.setEnabled(false);
-                            }else{
-                                JOptionPane.showMessageDialog(null, "Error al Relaizar el Ajuste");
-                            }
-                        }catch(Exception e){
-                            e.printStackTrace();
-                            JOptionPane.showMessageDialog(this, "Error al Realizar el Ajuste");
-                        }
-                    }else{
-                        //SALIDA
-                        if(Double.parseDouble(jTextField4.getText())> Double.parseDouble(jTextField3.getText())){
-                            JOptionPane.showMessageDialog(this, "El Número Máximo para Realizar el Ajuste es "+jTextField3.getText());
-                        }else{
-                            //hacemos algo
+                    if(Double.parseDouble(jTextField4.getText())>0.0){
+                        Date fecha_almacen = new Date();
+                        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                        if(jComboBox1.getSelectedItem().toString().compareTo("Entrada")==0){
+                            //ENTRADA
                             try{
                                 Almacen almacen = new Almacen();
                                 almacen.setUsuario(actor);
-                            almacen.setEntrego("");
-                            String valor=dateFormat.format(fecha_almacen);
-                            String [] fecha = valor.split("-");
-                            String [] hora=fecha[2].split(":");
-                            String [] aux=hora[0].split(" ");
-                            fecha[2]=aux[0];
-                            hora[0]=aux[1];
-                            Calendar calendario = Calendar.getInstance();
-                            calendario.set(
-                                Integer.parseInt(fecha[2]),
-                                Integer.parseInt(fecha[1])-1,
-                                Integer.parseInt(fecha[0]),
-                                Integer.parseInt(hora[0]),
-                                Integer.parseInt(hora[1]),
-                                Integer.parseInt(hora[2]));
-                            almacen.setFecha(calendario.getTime());
-                            almacen.setTipoMovimiento(2);
-                            almacen.setOperacion(9);
-                            almacen.setNotas(jTextArea1.getText());
-                            Integer respuesta = guardaAlmacen(almacen);
+                                almacen.setEntrego("");
+                                String valor=dateFormat.format(fecha_almacen);
+                                String [] fecha = valor.split("-");
+                                String [] hora=fecha[2].split(":");
+                                String [] aux=hora[0].split(" ");
+                                fecha[2]=aux[0];
+                                hora[0]=aux[1];
+                                Calendar calendario = Calendar.getInstance();
+                                calendario.set(
+                                    Integer.parseInt(fecha[2]),
+                                    Integer.parseInt(fecha[1])-1,
+                                    Integer.parseInt(fecha[0]),
+                                    Integer.parseInt(hora[0]),
+                                    Integer.parseInt(hora[1]),
+                                    Integer.parseInt(hora[2]));
+                                almacen.setFecha(calendario.getTime());
+                                almacen.setTipoMovimiento(1);
+                                almacen.setOperacion(9);
+                                almacen.setNotas(jTextArea1.getText());
+
+                                Integer respuesta = guardaAlmacen(almacen);
                                 if(respuesta!=null){
                                     //session.close();
                                     JOptionPane.showMessageDialog(null, "Ajuste Almacenado con la Clave "+respuesta);
@@ -592,14 +544,68 @@ public class ajusteInventario extends javax.swing.JPanel {
                                     jButton3.setEnabled(false);
                                     jButton1.setEnabled(false);
                                 }else{
-                                    JOptionPane.showMessageDialog(null, "Error al Realizar el Ajuste");
+                                    JOptionPane.showMessageDialog(null, "Error al Relaizar el Ajuste");
                                 }
-                            
                             }catch(Exception e){
                                 e.printStackTrace();
-                                JOptionPane.showMessageDialog(null, "Error al Realizar el Ajuste");
+                                JOptionPane.showMessageDialog(this, "Error al Realizar el Ajuste");
+                            }
+                        }else{
+                            //SALIDA
+                            if(Double.parseDouble(jTextField4.getText())> Double.parseDouble(jTextField3.getText())){
+                                JOptionPane.showMessageDialog(this, "El Número Máximo para Realizar el Ajuste es "+jTextField3.getText());
+                            }else{
+                                //hacemos algo
+                                try{
+                                    Almacen almacen = new Almacen();
+                                    almacen.setUsuario(actor);
+                                almacen.setEntrego("");
+                                String valor=dateFormat.format(fecha_almacen);
+                                String [] fecha = valor.split("-");
+                                String [] hora=fecha[2].split(":");
+                                String [] aux=hora[0].split(" ");
+                                fecha[2]=aux[0];
+                                hora[0]=aux[1];
+                                Calendar calendario = Calendar.getInstance();
+                                calendario.set(
+                                    Integer.parseInt(fecha[2]),
+                                    Integer.parseInt(fecha[1])-1,
+                                    Integer.parseInt(fecha[0]),
+                                    Integer.parseInt(hora[0]),
+                                    Integer.parseInt(hora[1]),
+                                    Integer.parseInt(hora[2]));
+                                almacen.setFecha(calendario.getTime());
+                                almacen.setTipoMovimiento(2);
+                                almacen.setOperacion(9);
+                                almacen.setNotas(jTextArea1.getText());
+                                Integer respuesta = guardaAlmacen(almacen);
+                                    if(respuesta!=null){
+                                        //session.close();
+                                        JOptionPane.showMessageDialog(null, "Ajuste Almacenado con la Clave "+respuesta);
+                                        Almacen actual=new Almacen();
+                                        actual.setIdAlmacen(respuesta);
+                                        formatosOrden f1=new formatosOrden(this.actor, this.sessionPrograma, actual);
+                                        f1.formato();
+                                        borrar();
+                                        jTextField4.setEditable(false);
+                                        jTextField4.setText("0.0");
+                                        jComboBox1.setEnabled(false);
+                                        jTextArea1.setEditable(false);
+                                        jButton3.setEnabled(false);
+                                        jButton1.setEnabled(false);
+                                    }else{
+                                        JOptionPane.showMessageDialog(null, "Error al Realizar el Ajuste");
+                                    }
+
+                                }catch(Exception e){
+                                    e.printStackTrace();
+                                    JOptionPane.showMessageDialog(null, "Error al Realizar el Ajuste");
+                                }
                             }
                         }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "El Ajuste debe ser mayor a 0.0");
+                        jTextField4.requestFocus();
                     }
                 }else{
                     jTextArea1.requestFocus();
@@ -657,9 +663,8 @@ public class ajusteInventario extends javax.swing.JPanel {
     
     private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
         // TODO add your handling code here:
-        if(!Character.isDigit(evt.getKeyChar()) && !Character.isISOControl(evt.getKeyChar()))
-        {
-            Toolkit.getDefaultToolkit().beep();
+        char caracter = evt.getKeyChar();
+        if(((caracter < '0') || (caracter > '9')) && (caracter != KeyEvent.VK_BACK_SPACE) && (caracter !='.')){
             evt.consume();
         }
     }//GEN-LAST:event_jTextField4KeyTyped
