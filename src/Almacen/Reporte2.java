@@ -9,6 +9,7 @@ package Almacen;
 import Hibernate.Util.HibernateUtil;
 import Hibernate.entidades.Almacen;
 import Hibernate.entidades.Configuracion;
+import Hibernate.entidades.Ejemplar;
 import Hibernate.entidades.Movimiento;
 import Hibernate.entidades.Partida;
 import Hibernate.entidades.PartidaExterna;
@@ -1008,16 +1009,11 @@ public class Reporte2 extends javax.swing.JPanel {
         };
         if(t_busca.getText().compareTo("")!=0)
         {
-            String consulta="SELECT mov from Movimiento mov "
-            + "LEFT JOIN mov.partida par "
-            + "LEFT JOIN par.ordenByIdOrden ord "
-            + "where ord.idOrden='"+t_busca.getText();
+            String consulta="SELECT mov from Movimiento mov LEFT JOIN mov.partida par LEFT JOIN par.ordenByIdOrden ord"
+                    + " where ord.idOrden='"+t_busca.getText();
             
-            String consultaEx="SELECT mov from Movimiento mov "
-            + "LEFT JOIN mov.partidaExterna pex "
-            + "LEFT JOIN pex.pedido ped "
-            + "LEFT JOIN ped.orden ord "
-            + "where ord.idOrden='"+t_busca.getText()+"'";
+            String consultaEx="SELECT mov from Movimiento mov LEFT JOIN mov.partidaExterna pex LEFT JOIN pex.pedido ped LEFT JOIN ped.orden ord "
+            + "where (ord.idOrden='"+t_busca.getText()+"' OR mov.almacen.orden.idOrden='"+t_busca.getText()+"')";
             
             if(cb_tipo.getSelectedItem().toString().compareTo("PROVEEDORES")==0)
             {
@@ -1027,7 +1023,7 @@ public class Reporte2 extends javax.swing.JPanel {
             else
             {
                 consulta+="' and mov.almacen.operacion=5 order By mov.partida.idEvaluacion, mov.partida.subPartida asc";
-                consultaEx+=" and mov.almacen.operacion=5";
+                consultaEx+=" and mov.almacen.operacion in (5,8)";
             }
 
 
@@ -1086,15 +1082,23 @@ public class Reporte2 extends javax.swing.JPanel {
                     {
                         Movimiento mov = (Movimiento)resultListEx.get(b);
                         Almacen alm =mov.getAlmacen();
-                        PartidaExterna par=mov.getPartidaExterna();
                         model1.setValueAt("-", i, 0);
-                        model1.setValueAt(par.getDescripcion(), i, 1);
+                        if(mov.getPartidaExterna()!=null)
+                        {
+                            PartidaExterna par=mov.getPartidaExterna();
+                            model1.setValueAt(par.getDescripcion(), i, 1);
+                        }
+                        else
+                        {
+                            Ejemplar par=mov.getEjemplar();
+                            model1.setValueAt(par.getCatalogo(), i, 1);
+                        }
                         model1.setValueAt(mov.getCantidad(), i, 2);
                         model1.setValueAt(alm.getEntrego(), i, 3);
                         model1.setValueAt(alm.getFecha().toString(), i, 4);
                         model1.setValueAt(""+alm.getIdAlmacen(), i, 5);
                         //model.setValueAt(""+alm.getTipoMovimiento(), i, 6);
-                        if(alm.getOperacion()==5)
+                        if(alm.getOperacion()==5 || alm.getOperacion()==8)
                         {
                             if(alm.getTipoMovimiento()==1)
                             {
@@ -1200,11 +1204,11 @@ public class Reporte2 extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String consulta="SELECT DISTINCT obj from Almacen obj where obj.operacion<5 ";
+        String consulta="SELECT DISTINCT obj from Almacen obj where obj.operacion in(1,2,3,4,7) ";
         if(t_fecha1.getText().compareTo("AAAA-MM-DD")!=0)
-        consulta+="and obj.fecha >= '"+t_fecha1.getText()+"' ";
+        consulta+="and DATE(obj.fecha) >= '"+t_fecha1.getText()+"' ";
         if(t_fecha2.getText().compareTo("AAAA-MM-DD")!=0)
-        consulta+="and obj.fecha <= '"+t_fecha2.getText()+"'";
+        consulta+="and DATE(obj.fecha) <= '"+t_fecha2.getText()+"'";
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         try
@@ -1238,7 +1242,7 @@ public class Reporte2 extends javax.swing.JPanel {
                         if(actor.getOperacion()==1)
                         {
                             renglon[4]="Entrada";
-                            renglon[5]="P. Interno";
+                            renglon[5]="P.Valuación";
                             Movimiento [] mov=(Movimiento[])actor.getMovimientos().toArray(new Movimiento[0]);
                             if(mov.length>0)
                             {
@@ -1254,7 +1258,7 @@ public class Reporte2 extends javax.swing.JPanel {
                         if(actor.getOperacion()==2)
                         {
                             renglon[4]="Entrada";
-                            renglon[5]="P. Externo";
+                            renglon[5]="P.Externo";
                             //renglon[5]=actor.getPedido().getOrden().getIdOrden();
                             renglon[6]="Ext";
                             Movimiento [] mov=(Movimiento[])actor.getMovimientos().toArray(new Movimiento[0]);
@@ -1271,7 +1275,7 @@ public class Reporte2 extends javax.swing.JPanel {
                         if(actor.getOperacion()==3)
                         {
                             renglon[4]="Entrada";
-                            renglon[5]="P. Adicional";
+                            renglon[5]="P.Directo";
                             renglon[6]=""+actor.getPedido().getOrden().getIdOrden();
                             Movimiento [] mov=(Movimiento[])actor.getMovimientos().toArray(new Movimiento[0]);
                             if(mov.length>0)
@@ -1293,10 +1297,22 @@ public class Reporte2 extends javax.swing.JPanel {
                             {
                                 renglon[6]=""+mov[0].getPartida().getOrdenByIdOrden().getIdOrden();
                                 double tot=0.0d;
-                                /*for(int x=0; x<mov.length; x++)
+                                renglon[7]=BigDecimal.valueOf(tot).setScale(2, RoundingMode.HALF_UP).doubleValue();
+                            }
+                        }
+                        if(actor.getOperacion()==7)
+                        {
+                            renglon[4]="Entrada";
+                            renglon[5]="P.Inventario";
+                            renglon[6]="INV";
+                            Movimiento [] mov=(Movimiento[])actor.getMovimientos().toArray(new Movimiento[0]);
+                            if(mov.length>0)
+                            {
+                                double tot=0.0d;
+                                for(int x=0; x<mov.length; x++)
                                 {
-                                    tot+=mov[x].getPartida().getCantPcp()*mov[x].getPartida().getPcp();
-                                }*/
+                                    tot+=mov[x].getPartidaExterna().getCantidad()*mov[x].getPartidaExterna().getCosto();
+                                }
                                 renglon[7]=BigDecimal.valueOf(tot).setScale(2, RoundingMode.HALF_UP).doubleValue();
                             }
                         }
@@ -1307,7 +1323,7 @@ public class Reporte2 extends javax.swing.JPanel {
                         if(actor.getOperacion()==1)
                         {
                             renglon[4]="Devolución";
-                            renglon[5]="P. Interno";
+                            renglon[5]="P.Valuación";
                             Movimiento [] mov=(Movimiento[])actor.getMovimientos().toArray(new Movimiento[0]);
                             if(mov.length>0)
                             {
@@ -1323,7 +1339,7 @@ public class Reporte2 extends javax.swing.JPanel {
                         if(actor.getOperacion()==2)
                         {
                             renglon[4]="Devolución";
-                            renglon[5]="P. Externo";
+                            renglon[5]="P.Externo";
                             renglon[6]="Ext";
                             Movimiento [] mov=(Movimiento[])actor.getMovimientos().toArray(new Movimiento[0]);
                             if(mov.length>0)
@@ -1339,7 +1355,7 @@ public class Reporte2 extends javax.swing.JPanel {
                         if(actor.getOperacion()==3)
                         {
                             renglon[4]="Devolución";
-                            renglon[5]="P. Adicional";
+                            renglon[5]="P.Directo";
                             renglon[6]=""+actor.getPedido().getOrden().getIdOrden();
                             Movimiento [] mov=(Movimiento[])actor.getMovimientos().toArray(new Movimiento[0]);
                             if(mov.length>0)
@@ -1361,19 +1377,39 @@ public class Reporte2 extends javax.swing.JPanel {
                             {
                                 renglon[6]=""+mov[0].getPartida().getOrdenByIdOrden().getIdOrden();
                                 double tot=0.0d;
-                                /*for(int x=0; x<mov.length; x++)
+                                renglon[7]=BigDecimal.valueOf(tot).setScale(2, RoundingMode.HALF_UP).doubleValue();
+                            }
+                        }
+                        if(actor.getOperacion()==7)
+                        {
+                            renglon[4]="Devolución";
+                            renglon[5]="P.Inventario";
+                            renglon[6]="INV";
+                            Movimiento [] mov=(Movimiento[])actor.getMovimientos().toArray(new Movimiento[0]);
+                            if(mov.length>0)
+                            {
+                                double tot=0.0d;
+                                for(int x=0; x<mov.length; x++)
                                 {
-                                    tot+=mov[x].getPartida().getCantPcp()*mov[x].getPartida().getPcp();
-                                }*/
+                                    tot+=mov[x].getPartidaExterna().getCantidad()*mov[x].getPartidaExterna().getCosto();
+                                }
                                 renglon[7]=BigDecimal.valueOf(tot).setScale(2, RoundingMode.HALF_UP).doubleValue();
                             }
                         }
                     }
-                    if(actor.getTipoDocumento().compareTo("R")==0)
-                    renglon[8]="Remisión";
+                    if(actor.getDocumento()!=null)
+                    {
+                        if(actor.getTipoDocumento().compareTo("R")==0)
+                        renglon[8]="Remisión";
+                        else
+                        renglon[8]="Factura";
+                        renglon[9]=actor.getDocumento();
+                    }
                     else
-                    renglon[8]="Factura";
-                    renglon[9]=actor.getDocumento();
+                    {
+                        renglon[8]="";
+                        renglon[9]="";
+                    }
                     model.addRow(renglon);
                 }
             }
@@ -1702,6 +1738,7 @@ public class Reporte2 extends javax.swing.JPanel {
             try
             {
              ArrayList datos = new ArrayList();
+             System.out.println(consultar);
              Query query = session.createSQLQuery(consultar);
              query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
              datos = (ArrayList) query.list();

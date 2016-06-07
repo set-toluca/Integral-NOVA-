@@ -78,7 +78,10 @@ public class formatosOrden {
                         ord=miAlmacen.getOrden();
                     }
                     else
-                        ord=mov[0].getPartidaExterna().getPedido().getOrden();
+                    {
+                        if(miAlmacen.getOperacion()!=9)
+                            ord=mov[0].getPartidaExterna().getPedido().getOrden();
+                    }
                     //ord=miAlmacen.getPedido().getPartida().getOrdenByIdOrden();
                     //ord=mov[0].getOrden();
                 }
@@ -120,7 +123,7 @@ public class formatosOrden {
                     }
                     else
                     {
-                        if(miAlmacen.getOperacion()==8)
+                        if(miAlmacen.getOperacion()==8 || miAlmacen.getOperacion()==9)
                         {
                             tabla.addCell(reporte.celda("-", font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
                             tabla.addCell(reporte.celda("", font, contenido, derecha, 0,1,Rectangle.RECTANGLE));

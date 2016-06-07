@@ -1702,6 +1702,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                                     b_recargar.requestFocus();
                                                     formatosPedido fa=new formatosPedido(this.usr, this.sessionPrograma, almacen);
                                                     fa.formato();
+                                                    this.b_recargarActionPerformed(null);
                                                 }
                                                 else
                                                     b_guardar.requestFocus();
@@ -1725,6 +1726,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                             b_recargar.requestFocus();
                                             formatosPedido fa=new formatosPedido(this.usr, this.sessionPrograma, almacen);
                                             fa.formato();
+                                            this.b_recargarActionPerformed(null);
                                         }
                                         else
                                             b_guardar.requestFocus();
@@ -1767,6 +1769,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                                 b_recargar.requestFocus();
                                                 formatosPedido fa=new formatosPedido(this.usr, this.sessionPrograma, almacen);
                                                 fa.formato();
+                                                this.b_recargarActionPerformed(null);
                                             }
                                             else
                                                 b_guardar.requestFocus();
@@ -1789,6 +1792,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                             b_recargar.requestFocus();
                                             formatosPedido fa=new formatosPedido(this.usr, this.sessionPrograma, almacen);
                                             fa.formato();
+                                            this.b_recargarActionPerformed(null);
                                         }
                                         else
                                             b_guardar.requestFocus();
@@ -1831,6 +1835,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                                 b_recargar.requestFocus();
                                                 formatosOrden fa=new formatosOrden(this.usr, this.sessionPrograma, almacen);
                                                 fa.formato();
+                                                this.b_recargarActionPerformed(null);
                                             }
                                             else
                                                 b_guardar.requestFocus();
@@ -1853,6 +1858,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                             b_recargar.requestFocus();
                                             formatosOrden fa=new formatosOrden(this.usr, this.sessionPrograma, almacen);
                                             fa.formato();
+                                            this.b_recargarActionPerformed(null);
                                         }
                                         else
                                             b_guardar.requestFocus();
@@ -1898,6 +1904,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                                     b_recargar.requestFocus();
                                                     formatosPedido fa=new formatosPedido(this.usr, this.sessionPrograma, almacen);
                                                     fa.formato();
+                                                    this.b_recargarActionPerformed(null);
                                                 }
                                                 else
                                                     b_guardar.requestFocus();
@@ -1921,6 +1928,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                             b_recargar.requestFocus();
                                             formatosPedido fa=new formatosPedido(this.usr, this.sessionPrograma, almacen);
                                             fa.formato();
+                                            this.b_recargarActionPerformed(null);
                                         }
                                         else
                                             b_guardar.requestFocus();
@@ -1961,6 +1969,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                         b_recargar.requestFocus();
                                         formatosOrden fa=new formatosOrden(this.usr, this.sessionPrograma, almacen);
                                         fa.formato();
+                                        this.b_recargarActionPerformed(null);
                                     }
                                     else
                                         b_guardar.requestFocus();
@@ -1998,6 +2007,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                         b_recargar.requestFocus();
                                         formatosOrden fa=new formatosOrden(this.usr, this.sessionPrograma, almacen);
                                         fa.formato();
+                                        this.b_recargarActionPerformed(null);
                                     }
                                     else
                                         b_guardar.requestFocus();
@@ -2034,6 +2044,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                             b_recargar.requestFocus();
                                             formatosOrden fa=new formatosOrden(this.usr, this.sessionPrograma, almacen);
                                             fa.formato();
+                                            this.b_recargarActionPerformed(null);
                                         }
                                         else
                                             b_guardar.requestFocus();
@@ -2072,6 +2083,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                     b_recargar.requestFocus();
                                     formatosPedido fa=new formatosPedido(this.usr, this.sessionPrograma, almacen);
                                     fa.formato();
+                                    this.b_recargarActionPerformed(null);
                                 }
                                 else
                                 b_guardar.requestFocus();
@@ -2112,6 +2124,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                         b_recargar.requestFocus();
                                         formatosOrden fa=new formatosOrden(this.usr, this.sessionPrograma, almacen);
                                         fa.formato();
+                                        this.b_recargarActionPerformed(null);
                                     }
                                     else
                                         b_guardar.requestFocus();
@@ -2150,6 +2163,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                         b_recargar.requestFocus();
                                         formatosOrden fa=new formatosOrden(this.usr, this.sessionPrograma, almacen);
                                         fa.formato();
+                                        this.b_recargarActionPerformed(null);
                                     }
                                     else
                                         b_guardar.requestFocus();
@@ -2171,10 +2185,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         }catch(Exception e)
         {
             System.out.println();
-        }
-        finally
-        {
-            this.b_recargarActionPerformed(null);
         }
         if(session!=null)
             if(session.isOpen())

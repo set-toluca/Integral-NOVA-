@@ -603,7 +603,12 @@ public class muestraAlmacen extends javax.swing.JPanel {
             actual=alm;
             busca();
             t_notas.setEnabled(true);
-            
+            jButton1.setEnabled(true);
+            b_recargar.setEnabled(true);
+            r1.setEnabled(true);
+            r2.setEnabled(true);
+            t_folio.setEnabled(true);
+            t_er.setEnabled(true);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

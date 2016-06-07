@@ -77,8 +77,8 @@ public class Existencias extends javax.swing.JPanel {
             tabla_tamaños();
             formatotabla();
             ArrayList datos = new ArrayList();
-            Query query = session.createSQLQuery("select ejemplar.id_Parte, marca.marca_nombre, ejemplar.tipo_nombre, ejemplar.modelo, ejemplar.id_catalogo, ejemplar.comentario, ejemplar.medida, ejemplar.existencias from ejemplar \n" +
-"inner join marca on marca.id_marca=ejemplar.id_marca where ejemplar.inventario=1;");
+            Query query = session.createSQLQuery("select ejemplar.id_Parte, id_marca as mar, if(id_marca is not null, (select marca_nombre from marca where id_marca=mar),'')as marca_nombre, ejemplar.tipo_nombre, ejemplar.modelo, ejemplar.id_catalogo, ejemplar.comentario, ejemplar.medida, ejemplar.existencias from ejemplar \n" +
+                            "where ejemplar.inventario=1");
             query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
             datos = (ArrayList)query.list();
              Object[] objeto = new Object[t_datos.getColumnCount()];
@@ -89,11 +89,7 @@ public class Existencias extends javax.swing.JPanel {
                 }else{
                     objeto[0]=" ";
                 }
-                if(map.get("marca_nombre")!=null){
-                    objeto[1]=(map.get("marca_nombre"));
-                }else{
-                    objeto[1]=" ";
-                }
+                objeto[1]=(map.get("marca_nombre"));
                 if(map.get("tipo_nombre")!=null){
                     objeto[2]=(map.get("tipo_nombre"));
                 }else{
