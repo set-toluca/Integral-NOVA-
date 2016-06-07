@@ -494,10 +494,9 @@ public class ajusteInventario extends javax.swing.JPanel {
         // TODO add your handling code here:
          h=new Herramientas(actor, 0);
         h.session(sessionPrograma);
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        //Session session = HibernateUtil.getSessionFactory().openSession();
         try{
-            actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
-            
+            //actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
             if(jTextField4.getText().compareTo("")!=0){
                 if(jTextArea1.getText().compareTo("")!=0){
                     Date fecha_almacen = new Date();
@@ -529,7 +528,12 @@ public class ajusteInventario extends javax.swing.JPanel {
                             
                             Integer respuesta = guardaAlmacen(almacen);
                             if(respuesta!=null){
+                                //session.close();
                                 JOptionPane.showMessageDialog(null, "Ajuste Almacenado con la Clave "+respuesta);
+                                Almacen actual=new Almacen();
+                                actual.setIdAlmacen(respuesta);
+                                formatosOrden f1=new formatosOrden(this.actor, this.sessionPrograma, actual);
+                                f1.formato();
                                 borrar();
                                 jTextField4.setEditable(false);
                                 jTextField4.setText("0.0");
@@ -574,7 +578,12 @@ public class ajusteInventario extends javax.swing.JPanel {
                             almacen.setNotas(jTextArea1.getText());
                             Integer respuesta = guardaAlmacen(almacen);
                                 if(respuesta!=null){
+                                    //session.close();
                                     JOptionPane.showMessageDialog(null, "Ajuste Almacenado con la Clave "+respuesta);
+                                    Almacen actual=new Almacen();
+                                    actual.setIdAlmacen(respuesta);
+                                    formatosOrden f1=new formatosOrden(this.actor, this.sessionPrograma, actual);
+                                    f1.formato();
                                     borrar();
                                     jTextField4.setEditable(false);
                                     jTextField4.setText("0.0");
