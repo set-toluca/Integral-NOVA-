@@ -1771,7 +1771,7 @@ public class Reportes extends javax.swing.JPanel {
                         {
                             if(partidas[p].getPedido()!=null)
                             {
-                                if(partidas[p].getPedido().getUsuarioByAutorizo()!=null && partidas[p].getPedido().getUsuarioByAutorizo2()!=null)
+                                if(partidas[p].getPedido().getUsuarioByAutorizo()!=null)
                                 {
                                     suma+=Math.round(partidas[p].getCantPcp()*partidas[p].getPcp());
                                 }
@@ -1784,7 +1784,7 @@ public class Reportes extends javax.swing.JPanel {
                             {
                                 for(int a=0; a<adicionales.length; a++)
                                 {
-                                    if(adicionales[a].getUsuarioByAutorizo()!=null && adicionales[a].getUsuarioByAutorizo2()!=null)
+                                    if(adicionales[a].getUsuarioByAutorizo()!=null)
                                     {
                                         PartidaExterna[] pe = (PartidaExterna[])adicionales[a].getPartidaExternas().toArray(new PartidaExterna[0]);
                                         for(int b=0; b<pe.length; b++)

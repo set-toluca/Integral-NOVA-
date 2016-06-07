@@ -196,6 +196,7 @@ public class Reporte2 extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
 
         muestra.setTitle("Consultar Movimiento");
+        muestra.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 
         centro.setLayout(new java.awt.BorderLayout());
         muestra.getContentPane().add(centro, java.awt.BorderLayout.CENTER);
@@ -373,6 +374,11 @@ public class Reporte2 extends javax.swing.JPanel {
             }
         ));
         t_datos.getTableHeader().setReorderingAllowed(false);
+        t_datos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                t_datosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(t_datos);
 
         jButton4.setBackground(new java.awt.Color(2, 135, 242));
@@ -681,6 +687,11 @@ public class Reporte2 extends javax.swing.JPanel {
                 "Pedido", "Proveedor", "Fecha De Mov.", "N° Mov.", "Operación", "Tipo Doc.", "N° doc."
             }
         ));
+        t_datos2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                t_datos2MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(t_datos2);
 
         jButton7.setBackground(new java.awt.Color(2, 135, 242));
@@ -757,7 +768,7 @@ public class Reporte2 extends javax.swing.JPanel {
                 .addGap(7, 7, 7))
         );
 
-        jLabel8.setText("otas: P.INTERNO=PEDIDO INTERNO,   P.ADICIONAL= PEDIDO ADICIONAL.");
+        jLabel8.setText("Notas: P.VALUACION=PEDIDO VALUACION,   P.DIRECTO= PEDIDO DIRECTO,  P.COMPAÑIA=SURTE COMPAÑIA.");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1730,10 +1741,10 @@ public class Reporte2 extends javax.swing.JPanel {
             }else{
                 filtro="";
             }
-            String consultar="select distinct almacen.id_pedido as id, almacen.fecha, almacen.id_almacen, almacen.documento, if(tipo_documento='R', 'REMISIÓN', 'FACTURA') as tipo_documento, if(almacen.operacion=1, 'P. INTERNA', 'P. ADICIONAL') as operacion,\n" +
-    "(select distinct proveedor.nombre from proveedor inner join pedido on pedido.id_proveedor=proveedor.id_proveedor inner join almacen on almacen.id_pedido=pedido.id_pedido where almacen.id_pedido=id) as proveedor\n" +
-    "from almacen inner join partida on partida.id_pedido=almacen.id_pedido \n" +
-    "where almacen.operacion in(1,2,3,4,5,8) and almacen.tipo_movimiento=1"+filtro+" and partida.id_orden="+Integer.parseInt(orden.getText())+";";
+            String consultar="select distinct almacen.id_pedido as id, almacen.fecha, almacen.id_almacen, almacen.documento, if(tipo_documento='R', 'REMISIÓN', 'FACTURA') as tipo_documento, if(almacen.operacion=1, 'P.VALUACION', if(almacen.operacion=2, 'P.EXTERNA', if(almacen.operacion=3, 'P.DIRECTA', if(almacen.operacion=4, 'P.COMPAÑIA', 'P.INVENTARIO')))) as operacion, \n" +
+"(select distinct proveedor.nombre from proveedor inner join pedido on pedido.id_proveedor=proveedor.id_proveedor inner join almacen on almacen.id_pedido=pedido.id_pedido where almacen.id_pedido=id) as proveedor \n" +
+"from almacen left join pedido on almacen.id_pedido=pedido.id_pedido left join partida on partida.id_pedido=almacen.id_pedido\n" +
+"where almacen.operacion in(1,3,4) and almacen.tipo_movimiento=1"+filtro+" and (almacen.id_orden="+orden.getText()+" or pedido.id_orden="+orden.getText()+" or partida.id_orden="+orden.getText()+");";
             Session session = HibernateUtil.getSessionFactory().openSession();
             try
             {
@@ -1811,6 +1822,48 @@ public class Reporte2 extends javax.swing.JPanel {
           
         }
     }//GEN-LAST:event_ordenKeyPressed
+
+    private void t_datosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_datosMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            if(t_datos.getSelectedRow()>-1)
+            {
+                Almacen alm=new Almacen();
+                alm.setIdAlmacen(Integer.parseInt(t_datos.getValueAt(t_datos.getSelectedRow(), 3).toString()));
+                muestra_almacen = new muestraAlmacen(this.usr, sessionPrograma, alm);
+                muestra_almacen.busca();
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                centro.removeAll();
+                centro.add(muestra_almacen);
+                muestra.setSize(900,600);
+                muestra.setLocation((d.width/2)-(muestra.getWidth()/2), (d.height/2)-(muestra.getHeight()/2));
+                centro.repaint();
+                centro.updateUI();
+                muestra.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_t_datosMouseClicked
+
+    private void t_datos2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_datos2MouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            if(t_datos2.getSelectedRow()>-1)
+            {
+                Almacen alm=new Almacen();
+                alm.setIdAlmacen(Integer.parseInt(t_datos2.getValueAt(t_datos2.getSelectedRow(), 3).toString()));
+                muestra_almacen = new muestraAlmacen(this.usr, sessionPrograma, alm);
+                muestra_almacen.busca();
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                centro.removeAll();
+                centro.add(muestra_almacen);
+                muestra.setSize(900,600);
+                muestra.setLocation((d.width/2)-(muestra.getWidth()/2), (d.height/2)-(muestra.getHeight()/2));
+                centro.repaint();
+                centro.updateUI();
+                muestra.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_t_datos2MouseClicked
 
     DefaultTableModel ModeloTablaReporte(int renglones, String columnas[], final Class[] tipos, final boolean[] edo, DefaultTableModel modelo)
     {

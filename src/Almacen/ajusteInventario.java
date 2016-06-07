@@ -665,8 +665,10 @@ public class ajusteInventario extends javax.swing.JPanel {
         // TODO add your handling code here:
         char caracter = evt.getKeyChar();
         if(((caracter < '0') || (caracter > '9')) && (caracter != KeyEvent.VK_BACK_SPACE) && (caracter !='.')){
-            evt.consume();
+                evt.consume();
         }
+        if(jTextField4.getText().contains(".")==true && caracter =='.')
+            evt.consume();
     }//GEN-LAST:event_jTextField4KeyTyped
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

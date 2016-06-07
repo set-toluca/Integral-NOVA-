@@ -568,17 +568,22 @@ public class muestraAlmacen extends javax.swing.JPanel {
             Session session = HibernateUtil.getSessionFactory().openSession();
             try
             {
-                actual=(Almacen)session.get(Almacen.class, actual.getIdAlmacen());
-                actual.setEntrego(t_er.getText());
-                actual.setNotas(t_notas.getText());
-                if(r1.isSelected())
-                    actual.setTipoDocumento("F");
-                else
-                    actual.setTipoDocumento("R");
-                actual.setDocumento(t_folio.getText());
-                session.update(actual);
-                session.beginTransaction().commit();
-                JOptionPane.showMessageDialog(null, "Registro actualizado");
+                usr=(Usuario)session.get(Usuario.class, usr.getIdUsuario());
+                if(usr.getMovimientoAlmacen()==true)
+                {
+                    actual=(Almacen)session.get(Almacen.class, actual.getIdAlmacen());
+                    actual.setEntrego(t_er.getText());
+                    actual.setNotas(t_notas.getText());
+                    if(r1.isSelected())
+                        actual.setTipoDocumento("F");
+                    else
+                        actual.setTipoDocumento("R");
+                    actual.setDocumento(t_folio.getText());
+                    session.update(actual);
+                    session.beginTransaction().commit();
+                    JOptionPane.showMessageDialog(null, "Registro actualizado");
+                }else
+                    JOptionPane.showMessageDialog(null, "Acceso denegado");
             }catch(Exception e)
             {
                 session.beginTransaction().rollback();

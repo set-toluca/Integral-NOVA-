@@ -5,6 +5,9 @@
     <Container class="javax.swing.JDialog" name="muestra">
       <Properties>
         <Property name="title" type="java.lang.String" value="Consultar Movimiento"/>
+        <Property name="modalityType" type="java.awt.Dialog$ModalityType" editor="org.netbeans.modules.form.editors.EnumEditor">
+          <Value id="APPLICATION_MODAL"/>
+        </Property>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -480,6 +483,9 @@
                       <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="t_datosMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1044,6 +1050,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="t_datos2MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1170,7 +1179,7 @@
             </Container>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
-                <Property name="text" type="java.lang.String" value="otas: P.INTERNO=PEDIDO INTERNO,   P.ADICIONAL= PEDIDO ADICIONAL."/>
+                <Property name="text" type="java.lang.String" value="Notas: P.VALUACION=PEDIDO VALUACION,   P.DIRECTO= PEDIDO DIRECTO,  P.COMPA&#xd1;IA=SURTE COMPA&#xd1;IA."/>
               </Properties>
             </Component>
           </SubComponents>
