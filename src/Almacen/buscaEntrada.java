@@ -17,7 +17,6 @@ import Hibernate.entidades.Almacen;
 import Hibernate.entidades.Movimiento;
 import Hibernate.entidades.Pedido;
 import Hibernate.entidades.Usuario;
-import java.util.List;
 import java.util.Vector;
 import javax.swing.InputMap;
 import javax.swing.JOptionPane;
@@ -33,7 +32,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 /**

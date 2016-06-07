@@ -30,7 +30,6 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 /**
@@ -494,6 +493,11 @@ public class buscaAlmacen extends javax.swing.JDialog {
                             model.setValueAt("Devolucion", i, 5);
                             model.setValueAt("Consumibles", i, 6);
                         }
+                        if(actor.getOperacion()==9)
+                        {
+                            model.setValueAt("Entrada", i, 5);
+                            model.setValueAt("Ajuste", i, 6);
+                        }
                     }
                     else
                     {
@@ -537,6 +541,11 @@ public class buscaAlmacen extends javax.swing.JDialog {
                         {
                             model.setValueAt("Salida", i, 5);
                             model.setValueAt("Consumibles", i, 6);
+                        }
+                        if(actor.getOperacion()==9)
+                        {
+                            model.setValueAt("Salida", i, 5);
+                            model.setValueAt("Ajuste", i, 6);
                         }
                     }
                     i++;

@@ -737,12 +737,13 @@
             <Component class="javax.swing.JComboBox" name="c_toperacion">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
+                  <StringArray count="6">
                     <StringItem index="0" value="Pedido"/>
                     <StringItem index="1" value="Compa&#xf1;&#xed;a"/>
                     <StringItem index="2" value="Operarios"/>
                     <StringItem index="3" value="Venta"/>
                     <StringItem index="4" value="Inventario"/>
+                    <StringItem index="5" value="Ajuste"/>
                   </StringArray>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

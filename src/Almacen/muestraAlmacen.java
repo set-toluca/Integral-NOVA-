@@ -387,7 +387,7 @@ public class muestraAlmacen extends javax.swing.JPanel {
         l_toperacion.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_toperacion.setText("Operación");
 
-        c_toperacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pedido", "Compañía", "Operarios", "Venta", "Inventario" }));
+        c_toperacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pedido", "Compañía", "Operarios", "Venta", "Inventario", "Ajuste" }));
         c_toperacion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         c_toperacion.setEnabled(false);
 
@@ -722,11 +722,17 @@ public class muestraAlmacen extends javax.swing.JPanel {
                 case 6:
                     c_toperacion.setSelectedItem("Venta");
                     l_tipo_pedido.setText("");
+                    break;
                 case 7:
                     c_toperacion.setSelectedItem("Pedido");
                     l_tipo_pedido.setText("Inventario");
+                    break;
                 case 8:
                     c_toperacion.setSelectedItem("Inventario");
+                    l_tipo_pedido.setText("");
+                    break;
+                case 9:
+                    c_toperacion.setSelectedItem("Ajuste");
                     l_tipo_pedido.setText("");
                     break;
             }

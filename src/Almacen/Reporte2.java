@@ -1720,8 +1720,8 @@ public class Reporte2 extends javax.swing.JPanel {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
+        model2=(DefaultTableModel)t_datos2.getModel();
         if (orden.getText().compareTo("") != 0) {
-            model2=(DefaultTableModel)t_datos2.getModel();
             String filtro=""; 
             if(jComboBox1.getSelectedItem()=="Remision"){
             filtro=" and tipo_documento='R'";
@@ -1733,7 +1733,7 @@ public class Reporte2 extends javax.swing.JPanel {
             String consultar="select distinct almacen.id_pedido as id, almacen.fecha, almacen.id_almacen, almacen.documento, if(tipo_documento='R', 'REMISIÓN', 'FACTURA') as tipo_documento, if(almacen.operacion=1, 'P. INTERNA', 'P. ADICIONAL') as operacion,\n" +
     "(select distinct proveedor.nombre from proveedor inner join pedido on pedido.id_proveedor=proveedor.id_proveedor inner join almacen on almacen.id_pedido=pedido.id_pedido where almacen.id_pedido=id) as proveedor\n" +
     "from almacen inner join partida on partida.id_pedido=almacen.id_pedido \n" +
-    "where almacen.operacion<5 and almacen.tipo_movimiento=1"+filtro+" and partida.id_orden="+Integer.parseInt(orden.getText())+";";
+    "where almacen.operacion in(1,2,3,4,5,8) and almacen.tipo_movimiento=1"+filtro+" and partida.id_orden="+Integer.parseInt(orden.getText())+";";
             Session session = HibernateUtil.getSessionFactory().openSession();
             try
             {
@@ -1756,8 +1756,8 @@ public class Reporte2 extends javax.swing.JPanel {
                             objeto[1]=map.get("proveedor");
                             objeto[2]=map.get("fecha");
                             objeto[3]=map.get("id_almacen");
-                            objeto[4]=map.get("tipo_documento");
-                            objeto[5]=map.get("operacion");
+                            objeto[4]=map.get("operacion");
+                            objeto[5]=map.get("tipo_documento");
                             objeto[6]=map.get("documento");
                             model2.addRow(objeto);
                         }
@@ -1776,10 +1776,12 @@ public class Reporte2 extends javax.swing.JPanel {
             if(session!=null)
             if(session.isOpen())
             session.close();
-            }else{
-             model2.getDataVector().removeAllElements();
-                    t_datos2.removeAll();
-                    JOptionPane.showMessageDialog(null, "Ingrese un N° de Orden.");
+        }
+        else
+        {
+            model2.getDataVector().removeAllElements();
+            t_datos2.removeAll();
+            JOptionPane.showMessageDialog(null, "Ingrese un N° de Orden.");
         }
     }//GEN-LAST:event_jButton9ActionPerformed
 
