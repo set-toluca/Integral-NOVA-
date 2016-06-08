@@ -1488,6 +1488,7 @@ public class nuevoPedido extends javax.swing.JPanel {
                         model.setCeldaEditable(t_datos.getRowCount()-1, x, true);
                 }
                 sumaTotales();
+                formatoTabla();
                 if(t_datos.getRowCount()!=0)
                     b_calendario.setEnabled(true);
                 else

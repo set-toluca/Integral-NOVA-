@@ -287,9 +287,9 @@ private void buscaDato()
 {
     String consulta="from Ajustador obj where obj.nombreAjustador like '%" + t_busca.getText() +"%'";
     List <Object[]> resultList=executeHQLQuery(consulta);
+    model= (DefaultTableModel)t_datos.getModel();
     if(resultList.size()>0)
     {
-        model= (DefaultTableModel)t_datos.getModel();
         model.setRowCount(0);
         int i=0;
         for (Object o : resultList) 

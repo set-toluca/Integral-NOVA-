@@ -94,7 +94,7 @@ public class Observacion extends javax.swing.JPanel implements ActionListener{
 
         texto.setBackground(new java.awt.Color(204, 255, 255));
         texto.setColumns(20);
-        texto.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        texto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         texto.setRows(3);
         texto.setToolTipText("Escribir comentario");
         texto.addKeyListener(new java.awt.event.KeyAdapter() {

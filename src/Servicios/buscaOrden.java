@@ -192,7 +192,7 @@ public class buscaOrden extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel1.setText("Contiene:");
 
-        c_filtro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No de orden", "No Aseguradora", "Nombre de Aseguradora", "No Siniestro", "No Poliza", "No Reporte", "No de Inciso", "Nombre del cliente", "Tipo", "Marca", "No motor", "No serie", "No Economico", "No placas", "Estatus", " " }));
+        c_filtro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No de orden", "No Aseguradora", "Nombre de Aseguradora", "No Siniestro", "No Poliza", "No Reporte", "No de Inciso", "Nombre del cliente", "Tipo", "Marca", "No motor", "No serie", "No Economico", "No placas", "Estatus" }));
         c_filtro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 c_filtroActionPerformed(evt);
@@ -618,7 +618,7 @@ private void buscaDato()
                 break;
 
             case "Tipo":
-                consulta+=" where tipo.tipo_nombre like '%"+t_busca.getText()+"%'";
+                consulta+=" where tipo_nombre like '%"+t_busca.getText()+"%'";
                 break;
 
             case "Marca":

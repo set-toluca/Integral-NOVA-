@@ -3382,7 +3382,7 @@ public class ModificarOrden extends javax.swing.JPanel {
 
                     session.update(registro);
                     session.getTransaction().commit();
-                    orden_act=null;
+                    //orden_act=null;
                     ID=true;
                 }
             }

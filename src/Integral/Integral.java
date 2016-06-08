@@ -359,6 +359,7 @@ public class Integral extends javax.swing.JFrame {
         jMenuItem31 = new javax.swing.JMenuItem();
         m_compras = new javax.swing.JMenu();
         jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
         jMenu17 = new javax.swing.JMenu();
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem34 = new javax.swing.JMenuItem();
@@ -713,6 +714,14 @@ public class Integral extends javax.swing.JFrame {
             }
         });
         m_compras.add(jMenuItem14);
+
+        jMenuItem13.setText("Refacciones Cotiza");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        m_compras.add(jMenuItem13);
 
         jMenu17.setText("Pedidos");
 
@@ -4538,6 +4547,51 @@ public class Integral extends javax.swing.JFrame {
                 session.close();
     }//GEN-LAST:event_jMenuItem54ActionPerformed
 
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        // TODO add your handling code here:
+        h.menu=0;
+        h.session(sessionPrograma);
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction().begin();
+            actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
+            if(actor.getEditaPorcentaje()==true || actor.getEditaPrecioCu()==true)
+            {
+                pos=-1;
+                for(int a=0; a<P_pestana.getTabCount(); a++)
+                {
+                    if(P_pestana.getTitleAt(a)=="Ref. cotiza")
+                    pos=a;
+                }
+                if(pos>=0)
+                {
+                    P_pestana.setSelectedIndex(pos);
+                    Modificar_Orden_Valuacion.t_orden.requestFocus();
+                }
+                else
+                {
+                    Modificar_Orden_Valuacion = new ModificarOrden(actor, t_periodo.getText().toString(), 4, sessionPrograma,ruta);
+                    PanelPestanas btc=new PanelPestanas(P_pestana,4,actor);
+                    P_pestana.addTab("Ref. cotiza", Modificar_Orden_Valuacion);
+                    P_pestana.setSelectedComponent(Modificar_Orden_Valuacion);
+                    P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
+                    Modificar_Orden_Valuacion.t_orden.requestFocus();
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+            }
+        }catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        if(session!=null)
+        if(session.isOpen())
+        session.close();
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4610,6 +4664,7 @@ public class Integral extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;

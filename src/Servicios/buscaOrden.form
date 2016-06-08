@@ -155,7 +155,7 @@
             <Component class="javax.swing.JComboBox" name="c_filtro">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="16">
+                  <StringArray count="15">
                     <StringItem index="0" value="No de orden"/>
                     <StringItem index="1" value="No Aseguradora"/>
                     <StringItem index="2" value="Nombre de Aseguradora"/>
@@ -171,7 +171,6 @@
                     <StringItem index="12" value="No Economico"/>
                     <StringItem index="13" value="No placas"/>
                     <StringItem index="14" value="Estatus"/>
-                    <StringItem index="15" value=" "/>
                   </StringArray>
                 </Property>
               </Properties>
