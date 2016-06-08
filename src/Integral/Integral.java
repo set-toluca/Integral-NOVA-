@@ -6,6 +6,8 @@
 
 package Integral;
 
+import Ajustador.buscaAjustador;
+import Ajustador.editaAjustador;
 import Almacen.Existencias;
 import Almacen.ajusteInventario;
 import Almacen.Reporte2;
@@ -87,6 +89,7 @@ import Contabilidad.buscaNota;
 import Empleados.buscaEmpleado;
 import Empleados.modificaEmpleado;
 import Grupo.editaGrupo;
+import Hibernate.entidades.Ajustador;
 import Operaciones.ResponsablesOP;
 import java.awt.AWTEvent;
 import java.awt.Color;
@@ -101,6 +104,7 @@ import Valuacion.Reportes;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -437,6 +441,9 @@ public class Integral extends javax.swing.JFrame {
         jMenu12 = new javax.swing.JMenu();
         m_consultar_concepto = new javax.swing.JMenuItem();
         m_editar_concepto = new javax.swing.JMenuItem();
+        m_edita_ciclo1 = new javax.swing.JMenu();
+        jMenuItem38 = new javax.swing.JMenuItem();
+        jMenuItem27 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
@@ -1236,6 +1243,26 @@ public class Integral extends javax.swing.JFrame {
         jMenu15.add(jMenu12);
 
         m_catalogos.add(jMenu15);
+
+        m_edita_ciclo1.setText("Ajustador");
+
+        jMenuItem38.setText("Consulta");
+        jMenuItem38.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem38ActionPerformed(evt);
+            }
+        });
+        m_edita_ciclo1.add(jMenuItem38);
+
+        jMenuItem27.setText("Edita");
+        jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem27ActionPerformed(evt);
+            }
+        });
+        m_edita_ciclo1.add(jMenuItem27);
+
+        m_catalogos.add(m_edita_ciclo1);
 
         m_administracion.add(m_catalogos);
 
@@ -4471,8 +4498,8 @@ public class Integral extends javax.swing.JFrame {
         {
             session.beginTransaction().begin();
             actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
-            if(actor.getGenerarFactura()==true)
-            {
+          //  if(actor.getGenerarFactura()==true)
+            //{
                 pos=P_pestana.indexOfTab("Existencias");
                 if(pos>=0)
                 {
@@ -4488,9 +4515,9 @@ public class Integral extends javax.swing.JFrame {
                     P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
                 }
                 System.gc();
-            }
-            else
-                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+            //}
+           // else
+             //   JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
         }catch(Exception e)
         {
             e.printStackTrace();
@@ -4509,8 +4536,8 @@ public class Integral extends javax.swing.JFrame {
         {
             session.beginTransaction().begin();
             actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
-            if(actor.getGenerarFactura()==true)
-            {
+//            if(actor.getGenerarFactura()==true)
+//            {
                 pos=P_pestana.indexOfTab("Ajuste Inventario");
                 if(pos>=0)
                 {
@@ -4526,9 +4553,9 @@ public class Integral extends javax.swing.JFrame {
                     P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
                 }
                 System.gc();
-            }
-            else
-                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+//            }
+//            else
+//                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
         }catch(Exception e)
         {
             e.printStackTrace();
@@ -4537,6 +4564,110 @@ public class Integral extends javax.swing.JFrame {
             if(session.isOpen())
                 session.close();
     }//GEN-LAST:event_jMenuItem54ActionPerformed
+   private editaAjustador eAjustador;
+    private buscaAjustador bAjustador;
+    private void jMenuItem38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem38ActionPerformed
+        // TODO add your handling code here:
+        h.menu=0;
+        h.session(sessionPrograma);
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction().begin();
+            actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
+//            if(actor.getEditaPeriodo()==true)
+//             {
+                buscaAjustador obj = new buscaAjustador(new javax.swing.JFrame(), true, sessionPrograma, actor);
+                obj.t_busca.requestFocus();
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+                obj.setVisible(true);
+                List orden_act=obj.getReturnStatus();
+
+               if (orden_act!=null)
+                {
+                    pos=-1;
+                    for(int a=0; a<P_pestana.getTabCount(); a++)
+                    {
+                        if(P_pestana.getTitleAt(a)=="Edita Ajustador")
+                        pos=a;
+                    }
+                    if(pos>=0)
+                    {
+                        P_pestana.setSelectedIndex(pos);
+                    }
+                    else
+                    {
+                        eAjustador = new editaAjustador(actor, sessionPrograma);
+                        PanelPestanas btc=new PanelPestanas(P_pestana,-1, actor);
+                        P_pestana.addTab("Edita Ajustador", eAjustador);
+                        P_pestana.setSelectedComponent(eAjustador);
+                        P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
+                        eAjustador.t_ajustador.requestFocus();
+                    }
+                    eAjustador.borra_cajas();
+                    eAjustador.cajas(true, true, true, true);
+                    eAjustador.t_ajustador.setText(""+orden_act.get(0));
+                    eAjustador.t_descripcion.setText(""+orden_act.get(1));
+                } 
+//            }
+//            else
+//                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+        }catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        if(session!=null)
+            if(session.isOpen())
+                session.close();
+        
+    }//GEN-LAST:event_jMenuItem38ActionPerformed
+    
+    private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
+        // TODO add your handling code here:
+         h.menu=0;
+        h.session(sessionPrograma);
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction().begin();
+            actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
+            if(actor!=null)
+            {
+                pos=-1;
+                for(int a=0; a<P_pestana.getTabCount(); a++)
+                {
+                    if(P_pestana.getTitleAt(a)=="E. Ajustador")
+                    pos=a;
+                }
+                if(pos>=0)
+                {
+                    P_pestana.setSelectedIndex(pos);
+                    eAjustador.t_ajustador.requestFocus();
+                }
+                else
+                {
+                    eAjustador = new editaAjustador(actor,sessionPrograma);
+                    PanelPestanas btc=new PanelPestanas(P_pestana,-1, actor);
+                    P_pestana.addTab("E. Ajustador", eAjustador);
+                    P_pestana.setSelectedComponent(eAjustador);
+                    P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
+                    eAjustador.t_ajustador.requestFocus();
+                    eAjustador.cajas(false, false, false, false);
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+            }
+        }catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        if(session!=null)
+            if(session.isOpen())
+                session.close();
+    }//GEN-LAST:event_jMenuItem27ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -4624,6 +4755,7 @@ public class Integral extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
+    private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem28;
     private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem3;
@@ -4635,6 +4767,7 @@ public class Integral extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem35;
     private javax.swing.JMenuItem jMenuItem36;
     private javax.swing.JMenuItem jMenuItem37;
+    private javax.swing.JMenuItem jMenuItem38;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem42;
     private javax.swing.JMenuItem jMenuItem43;
@@ -4672,6 +4805,7 @@ public class Integral extends javax.swing.JFrame {
     private javax.swing.JMenuItem m_consultar_reparacion;
     private javax.swing.JMenuItem m_consultar_tipo;
     private javax.swing.JMenu m_edita_ciclo;
+    private javax.swing.JMenu m_edita_ciclo1;
     private javax.swing.JMenuItem m_edita_clientes;
     private javax.swing.JMenuItem m_editar_articulo;
     private javax.swing.JMenuItem m_editar_articulo1;
