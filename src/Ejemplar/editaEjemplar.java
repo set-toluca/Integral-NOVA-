@@ -48,7 +48,7 @@ public class editaEjemplar extends javax.swing.JPanel {
     Marca marca;
     Tipo tipo;
     Catalogo catalogo;
-    String[] columnas = new String [] {"Clave","Modelo","Marca","Tipo", "Catálogo", "Comentarios", "Foto", "Inventario"};
+    String[] columnas = new String [] {"Clave","Modelo","Marca","Tipo", "Catálogo", "Comentarios", "Foto", "Medida","Precio","Inventario"};
     String[] marc;
     String[] tip;
     int[] catalog;
@@ -66,6 +66,7 @@ public class editaEjemplar extends javax.swing.JPanel {
     {
         initComponents();
         this.inventario=inventario;
+        t_precio.setValue(0.00);
         cargaMarca();
         cargaTipo();
         sessionPrograma=ses;
@@ -78,7 +79,7 @@ public class editaEjemplar extends javax.swing.JPanel {
     
     DefaultTableModel ModeloTablaReporte(int renglones, String columnas[])
     {
-        model = new DefaultTableModel(new Object [renglones][6], columnas)
+        model = new DefaultTableModel(new Object [renglones][10], columnas)
         {
             Class[] types = new Class [] {
                 java.lang.Integer.class,
@@ -87,11 +88,13 @@ public class editaEjemplar extends javax.swing.JPanel {
                 java.lang.String.class,
                 java.lang.String.class,
                 java.lang.String.class,
-                java.lang.Integer.class,
-                java.lang.String.class            
+                java.lang.String.class,
+                java.lang.String.class,
+                java.lang.Double.class,
+                java.lang.Integer.class            
             };
             boolean[] canEdit = new boolean [] {
-                false,false,false,false,false,false, false, false
+                false,false,false,false,false,false, false, false, false, false
             };
             public void setValueAt(Object value, int row, int col)
             {
@@ -159,6 +162,8 @@ public class editaEjemplar extends javax.swing.JPanel {
         p_foto = new javax.swing.JPanel();
         medida = new javax.swing.JComboBox();
         l_tipo1 = new javax.swing.JLabel();
+        l_modelo1 = new javax.swing.JLabel();
+        t_precio = new javax.swing.JFormattedTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -299,7 +304,7 @@ public class editaEjemplar extends javax.swing.JPanel {
                         .addComponent(Eliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Selecciona2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(t_busca)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -402,7 +407,7 @@ public class editaEjemplar extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,6 +440,12 @@ public class editaEjemplar extends javax.swing.JPanel {
         l_tipo1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         l_tipo1.setText("Unidad:");
 
+        l_modelo1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        l_modelo1.setText("Precio:");
+
+        t_precio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        t_precio.setEnabled(false);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -443,7 +454,7 @@ public class editaEjemplar extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 304, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(b_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(b_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -468,14 +479,20 @@ public class editaEjemplar extends javax.swing.JPanel {
                         .addGap(37, 37, 37)
                         .addComponent(t_catalogo))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(p_foto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(p_foto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(l_tipo1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(medida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(33, 33, 33)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(l_tipo1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(medida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(l_modelo1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(t_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -507,7 +524,10 @@ public class editaEjemplar extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_tipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(medida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(medida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(l_modelo1)
+                        .addComponent(t_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(42, 42, 42)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -521,9 +541,9 @@ public class editaEjemplar extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -603,6 +623,7 @@ public class editaEjemplar extends javax.swing.JPanel {
                         
                         actor.setCatalogo(t_catalogo.getText());
                         actor.setComentario(t_comentario.getText());
+                        actor.setPrecio(Double.parseDouble(t_precio.getValue().toString()));
                         if(entro_foto==1)
                         {
                             if(nombreFoto.compareTo("")==0)
@@ -714,15 +735,8 @@ public class editaEjemplar extends javax.swing.JPanel {
                 c_tipo.setSelectedItem(t_datos.getValueAt(t_datos.getSelectedRow(), 3).toString());
             else
                 c_tipo.setSelectedItem("NA");
-            
-            if(t_datos.getValueAt(t_datos.getSelectedRow(), 7)!=null)
-                medida.setSelectedItem(t_datos.getValueAt(t_datos.getSelectedRow(), 7).toString());
-            else
-                medida.setSelectedItem("NA");
             t_catalogo.setText(t_datos.getValueAt(t_datos.getSelectedRow(), 4).toString());
-            
             t_comentario.setText(t_datos.getValueAt(t_datos.getSelectedRow(), 5).toString());
-            
             try
             {
                 p_foto.removeAll();
@@ -735,6 +749,12 @@ public class editaEjemplar extends javax.swing.JPanel {
                 p_foto.removeAll();
                 p_foto.repaint();
             }
+            if(t_datos.getValueAt(t_datos.getSelectedRow(), 7)!=null)
+                medida.setSelectedItem(t_datos.getValueAt(t_datos.getSelectedRow(), 7).toString());
+            else
+                medida.setSelectedItem("NA");
+            t_precio.setValue(t_datos.getValueAt(t_datos.getSelectedRow(), 8));
+            
             this.cajas(true, true, true, true, true, true, true, true);
         }
         else
@@ -926,6 +946,7 @@ public class editaEjemplar extends javax.swing.JPanel {
     private javax.swing.JLabel l_catalogo;
     private javax.swing.JLabel l_marca;
     private javax.swing.JLabel l_modelo;
+    private javax.swing.JLabel l_modelo1;
     private javax.swing.JLabel l_tipo;
     private javax.swing.JLabel l_tipo1;
     private javax.swing.JComboBox medida;
@@ -936,6 +957,7 @@ public class editaEjemplar extends javax.swing.JPanel {
     private javax.swing.JTable t_datos;
     public javax.swing.JTextField t_modelo;
     public javax.swing.JTextField t_numero;
+    private javax.swing.JFormattedTextField t_precio;
     // End of variables declaration//GEN-END:variables
 
     public void cargaMarca()
@@ -987,6 +1009,7 @@ public class editaEjemplar extends javax.swing.JPanel {
         t_numero.setText("");
         t_modelo.setText("");
         t_comentario.setText("");
+        t_precio.setValue(0.00);
         t_catalogo.setText("");
         p_foto.removeAll();
         archivo=null;
@@ -1002,6 +1025,7 @@ public class editaEjemplar extends javax.swing.JPanel {
         c_tipo.setEnabled(tipo);
         t_catalogo.setEnabled(catalogo);
         t_comentario.setEnabled(comentario);
+        t_precio.setEnabled(comentario);
         b_cancelar.setEnabled(cancelar);
         b_guardar.setEnabled(guardar);
         medida.setEnabled(tipo);
@@ -1085,10 +1109,12 @@ public class editaEjemplar extends javax.swing.JPanel {
                     model.setValueAt(actor.getImagen(), i, 6);
                 else
                     model.setValueAt("", i, 6);
+                model.setValueAt(actor.getMedida(), i, 7);
+                model.setValueAt(actor.getPrecio(), i, 8);
                 if(actor.getInventario()!=null)
-                    model.setValueAt(actor.getInventario(), i, 7);
+                    model.setValueAt(actor.getInventario(), i, 9);
                 else
-                    model.setValueAt("", i, 7);
+                    model.setValueAt("", i, 9);
                 i++;
             }
         }
@@ -1134,6 +1160,18 @@ public class editaEjemplar extends javax.swing.JPanel {
                       break;
                   case 5:
                       column.setPreferredWidth(100);
+                      break;
+                  case 6:
+                      column.setPreferredWidth(0);
+                      break;
+                  case 7:
+                      column.setPreferredWidth(40);
+                      break;
+                  case 8:
+                      column.setPreferredWidth(40);
+                      break;
+                  case 9:
+                      column.setPreferredWidth(0);
                       break;
                   default:
                       column.setPreferredWidth(40);

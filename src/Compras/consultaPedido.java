@@ -1197,9 +1197,12 @@ public class consultaPedido extends javax.swing.JPanel {
         session = HibernateUtil.getSessionFactory().openSession();
         try
         {
-            session.beginTransaction().begin();
-            pedido = (Pedido)session.get(Pedido.class, Integer.parseInt(t_pedido.getText()));
-            session.beginTransaction().commit();
+            if(t_pedido.getText().compareTo("")!=0)
+            {
+                session.beginTransaction().begin();
+                pedido = (Pedido)session.get(Pedido.class, Integer.parseInt(t_pedido.getText()));
+                session.beginTransaction().commit();
+            }
         }catch(Exception e){e.printStackTrace();}
         finally
         {

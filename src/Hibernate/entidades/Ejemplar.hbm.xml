@@ -29,6 +29,9 @@
         <property name="existencias" type="java.lang.Double">
             <column name="existencias" />
         </property>
+        <property name="precio" type="java.lang.Double">
+            <column name="precio" />
+        </property>
         <property name="comentario" type="string">
             <column name="comentario" length="100" />
         </property>

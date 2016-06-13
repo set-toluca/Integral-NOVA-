@@ -23,6 +23,9 @@
         <property name="cantidad" type="java.lang.Double">
             <column name="cantidad" precision="22" scale="0" />
         </property>
+        <property name="valor" type="java.lang.Double">
+            <column name="valor" precision="22" scale="0" />
+        </property>
         <property name="chatarra" type="boolean">
             <column name="chatarra" not-null="true" />
         </property>

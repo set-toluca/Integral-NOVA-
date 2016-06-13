@@ -15,6 +15,7 @@ public class Movimiento  implements java.io.Serializable {
      private Almacen almacen;
      private Ejemplar ejemplar;
      private Double cantidad;
+     private Double valor;
      private boolean chatarra;
 
     public Movimiento() {
@@ -24,12 +25,13 @@ public class Movimiento  implements java.io.Serializable {
     public Movimiento(boolean chatarra) {
         this.chatarra = chatarra;
     }
-    public Movimiento(PartidaExterna partidaExterna, Partida partida, Almacen almacen, Double cantidad, boolean chatarr, Ejemplar ejemplar) {
+    public Movimiento(PartidaExterna partidaExterna, Partida partida, Almacen almacen, Double cantidad, boolean chatarr, Double valor, Ejemplar ejemplar) {
        this.partidaExterna = partidaExterna;
        this.partida = partida;
        this.almacen = almacen;
        this.cantidad = cantidad;
        this.chatarra = chatarra;
+       this.valor=valor;
        this.ejemplar=ejemplar;
     }
    
@@ -77,6 +79,14 @@ public class Movimiento  implements java.io.Serializable {
     
     public void setCantidad(Double cantidad) {
         this.cantidad = cantidad;
+    }
+    
+    public Double getValor() {
+        return this.valor;
+    }
+    
+    public void setValor(Double valor) {
+        this.valor = valor;
     }
     public boolean isChatarra() {
         return this.chatarra;

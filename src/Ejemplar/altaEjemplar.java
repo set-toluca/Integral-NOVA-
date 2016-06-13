@@ -48,6 +48,7 @@ public class altaEjemplar extends javax.swing.JDialog {
         user=u;
         sessionPrograma=ses;
         initComponents();
+        t_precio.setValue(0.00);
         cargaMarca();
         cargaTipo();
         this.t_numero.requestFocus();
@@ -125,6 +126,8 @@ public class altaEjemplar extends javax.swing.JDialog {
         p_foto = new javax.swing.JPanel();
         l_tipo1 = new javax.swing.JLabel();
         medida = new javax.swing.JComboBox();
+        l_modelo1 = new javax.swing.JLabel();
+        t_precio = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alta de articulos");
@@ -226,6 +229,11 @@ public class altaEjemplar extends javax.swing.JDialog {
 
         medida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PZAS", "LTS", "MTS", "CMS", "MMS", "GRS", "MLS", "KGS", "HRS", "MIN", "KIT", "FT", "LB", "JGO", "NA" }));
 
+        l_modelo1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        l_modelo1.setText("Precio:");
+
+        t_precio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -247,14 +255,18 @@ public class altaEjemplar extends javax.swing.JDialog {
                                 .addComponent(l_tipo)
                                 .addGap(18, 18, 18)
                                 .addComponent(c_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 27, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(t_numero, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(48, 48, 48)
                                 .addComponent(l_modelo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(t_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(l_modelo1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(t_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -278,7 +290,7 @@ public class altaEjemplar extends javax.swing.JDialog {
                                         .addComponent(medida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(16, 16, 16)
                                 .addComponent(p_foto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(17, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,7 +299,9 @@ public class altaEjemplar extends javax.swing.JDialog {
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(t_numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(l_modelo)
-                    .addComponent(t_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(t_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(l_modelo1)
+                    .addComponent(t_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(c_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -415,6 +429,7 @@ public class altaEjemplar extends javax.swing.JDialog {
                             guardaFoto(nombreFoto);
                             art.setImagen(nombreFoto);
                         }
+                        art.setPrecio(Double.parseDouble(t_precio.getValue().toString()));
                         session.save(art);
                         session.getTransaction().commit();
                         this.setAlwaysOnTop(false);
@@ -519,6 +534,7 @@ public class altaEjemplar extends javax.swing.JDialog {
     private javax.swing.JLabel l_comentario;
     private javax.swing.JLabel l_marca;
     private javax.swing.JLabel l_modelo;
+    private javax.swing.JLabel l_modelo1;
     private javax.swing.JLabel l_tipo;
     private javax.swing.JLabel l_tipo1;
     private javax.swing.JComboBox medida;
@@ -527,6 +543,7 @@ public class altaEjemplar extends javax.swing.JDialog {
     public javax.swing.JTextArea t_comentario;
     public javax.swing.JTextField t_modelo;
     public javax.swing.JTextField t_numero;
+    private javax.swing.JFormattedTextField t_precio;
     // End of variables declaration//GEN-END:variables
 
     private List<Object[]> executeHQLQuery(String hql) {
@@ -551,6 +568,7 @@ public class altaEjemplar extends javax.swing.JDialog {
         t_catalogo.setText("");
         t_comentario.setText("");
         this.t_numero.setText("");
+        this.t_precio.setValue(0.00);
         entro_foto=0;
         archivo=null;
         p_foto.removeAll();

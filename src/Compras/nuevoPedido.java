@@ -3070,8 +3070,6 @@ public class nuevoPedido extends javax.swing.JPanel {
                     for(int ren=0; ren<t_datos.getRowCount(); ren++)
                     {
                         PartidaExterna px=new PartidaExterna();
-                        //px.setPartida(t_datos.getValueAt(ren, 0).toString());
-                        //px.setIdValuacion(t_datos.getValueAt(ren, 1).toString());
                         Ejemplar ej=(Ejemplar)session.get(Ejemplar.class, t_datos.getValueAt(ren, 2).toString());
                         px.setEjemplar(ej);
                         px.setDescripcion(t_datos.getValueAt(ren, 4).toString());
@@ -3090,6 +3088,11 @@ public class nuevoPedido extends javax.swing.JPanel {
                         }
                         px.setCantidad((double) t_datos.getValueAt(ren, 7));
                         px.setCosto((double) t_datos.getValueAt(ren, 8));
+                        if(ej.getPrecio()>0)
+                            ej.setPrecio((ej.getPrecio()+px.getCosto())/2);
+                        else
+                            ej.setPrecio(px.getCosto());
+                        session.update(ej);
                         px.setPedido(obj);
                         px.setOriCon("-");
                         px.setD(0.0);

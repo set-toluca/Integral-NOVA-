@@ -4624,6 +4624,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                     else
                         ejem.setExistencias(ejem.getExistencias()+mov.getCantidad());
                     session.update(ejem);
+                    mov.setValor(ejem.getPrecio());
                 }
                 mov.setPartida(part);
                 mov.setPartidaExterna(parEx);
