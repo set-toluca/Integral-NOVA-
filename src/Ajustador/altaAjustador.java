@@ -6,10 +6,8 @@
 
 package Ajustador;
 
-import Ciclo.*;
 import Hibernate.Util.HibernateUtil;
 import Hibernate.entidades.Ajustador;
-import Hibernate.entidades.Ciclo;
 import Hibernate.entidades.Usuario;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -50,8 +48,6 @@ public class altaAjustador extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        t_ajustador = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         t_descripcion = new javax.swing.JTextField();
         b_cancelar = new javax.swing.JButton();
@@ -59,26 +55,11 @@ public class altaAjustador extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Alta de ciclos");
+        setTitle("Alta Ajustador");
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setPreferredSize(new java.awt.Dimension(461, 162));
-
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel8.setText("Clave:");
-
-        t_ajustador.setNextFocusableComponent(t_descripcion);
-        t_ajustador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_ajustadorActionPerformed(evt);
-            }
-        });
-        t_ajustador.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                t_ajustadorKeyTyped(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel9.setText("Ajustador:");
@@ -100,7 +81,6 @@ public class altaAjustador extends javax.swing.JDialog {
         b_cancelar.setIcon(new ImageIcon("imagenes/cancelar.png"));
         b_cancelar.setText("Cancelar");
         b_cancelar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        b_cancelar.setNextFocusableComponent(t_ajustador);
         b_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_cancelarActionPerformed(evt);
@@ -127,47 +107,33 @@ public class altaAjustador extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(b_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(b_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel8))
-                                .addGap(21, 21, 21)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(t_ajustador, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(t_descripcion))))
+                        .addGap(0, 200, Short.MAX_VALUE)
+                        .addComponent(b_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(b_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(13, 13, 13))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(24, 24, 24)
+                        .addComponent(t_descripcion)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(b_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(b_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(t_ajustador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(t_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(76, 76, 76)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(t_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(b_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 12, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -197,7 +163,7 @@ public class altaAjustador extends javax.swing.JDialog {
     }//GEN-LAST:event_t_descripcionKeyTyped
 
     private void b_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cancelarActionPerformed
-        t_ajustador.requestFocus();
+
         int opt=JOptionPane.showConfirmDialog(this, "¡Los datos capturados se eliminarán!");
         System.out.println(opt);
         if(opt==0)
@@ -208,16 +174,15 @@ public class altaAjustador extends javax.swing.JDialog {
         b_cancelar.requestFocus();
         h=new Herramientas(user, 0);
         h.session(sessionPrograma);
-        if(t_ajustador.getText().compareTo("")!=0)
+        if(t_descripcion.getText().compareTo("")!=0)
         {
             try
             {
                 session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
-                if(consultaAjustador(t_ajustador.getText())==false)
+                if(consultaAjustador(t_descripcion.getText())==false)
                 {
                     Ajustador ajuste= new Ajustador();
-                    ajuste.setIdAjustador(Integer.parseInt(t_ajustador.getText()));
                     ajuste.setNombreAjustador(t_descripcion.getText());
 
                     Integer ID=(Integer) session.save(ajuste);
@@ -227,7 +192,6 @@ public class altaAjustador extends javax.swing.JDialog {
                     {
                         JOptionPane.showMessageDialog(null, "Registro almacenado");
                         borra_cajas();
-                        t_ajustador.requestFocus();
                     }
                 }
                 else
@@ -235,7 +199,6 @@ public class altaAjustador extends javax.swing.JDialog {
                     session.getTransaction().rollback();
                     JOptionPane.showMessageDialog(null, "¡El Ajustador ya existe!");
                     borra_cajas();
-                    t_ajustador.requestFocus();
                 }
             }
             catch (HibernateException he)
@@ -252,21 +215,8 @@ public class altaAjustador extends javax.swing.JDialog {
         else
         {
             JOptionPane.showMessageDialog(null, "¡Debe introducir el Ajustador!");
-            t_ajustador.requestFocus();
         }
     }//GEN-LAST:event_b_guardarActionPerformed
-
-    private void t_ajustadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_ajustadorKeyTyped
-        char car = evt.getKeyChar();
-        if(this.t_ajustador.getText().length()>=2)
-            evt.consume();
-        if((car<'0' || car>'9'))
-            evt.consume();
-    }//GEN-LAST:event_t_ajustadorKeyTyped
-
-    private void t_ajustadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_ajustadorActionPerformed
-        t_descripcion.requestFocus();
-    }//GEN-LAST:event_t_ajustadorActionPerformed
     /**
      * @param args the command line arguments
      */   
@@ -274,10 +224,8 @@ public class altaAjustador extends javax.swing.JDialog {
     private javax.swing.JButton b_cancelar;
     private javax.swing.JButton b_guardar;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    public javax.swing.JTextField t_ajustador;
     public javax.swing.JTextField t_descripcion;
     // End of variables declaration//GEN-END:variables
 
@@ -299,13 +247,12 @@ public class altaAjustador extends javax.swing.JDialog {
 
     private void borra_cajas()
     {
-        t_ajustador.setText("");
         t_descripcion.setText("");
     }
     
     private boolean consultaAjustador(String ajustador)
     {
-        List <Object[]> resultList=executeHQLQuery("from Ajustador obj where obj.idAjustador='"+ajustador+"'");
+        List <Object[]> resultList=executeHQLQuery("from Ajustador obj where obj.nombreAjustador='"+ajustador+"'");
         if(resultList.size()>0)
             return true;
         else

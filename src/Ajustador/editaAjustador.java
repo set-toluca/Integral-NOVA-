@@ -419,7 +419,6 @@ public class editaAjustador extends javax.swing.JPanel {
             Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
             obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
             obj.setVisible(true);
-            obj.t_ajustador.requestFocus();
             borra_cajas();
             cajas(false, false, false, false);
             buscaDato();

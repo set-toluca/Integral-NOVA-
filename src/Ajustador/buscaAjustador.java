@@ -323,7 +323,7 @@ private void buscaDato()
                       column.setPreferredWidth(150);
                       break;                 
                   default:
-                      column.setPreferredWidth(40);
+                      column.setPreferredWidth(39);
                       break;                     
               }
         }
