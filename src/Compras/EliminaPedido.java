@@ -1545,7 +1545,7 @@ public class EliminaPedido extends javax.swing.JPanel {
                     model.setColumnaEditable(7, false);
                     model.setColumnaEditable(8, false);
                     model.setColumnaEditable(9, false);
-                    b_eliminar.setEnabled(false);
+                    b_eliminar.setEnabled(true);
                 }
                 else
                 {

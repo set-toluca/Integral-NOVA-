@@ -92,7 +92,7 @@ public class muestraAlmacen extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jDialog1 = new javax.swing.JDialog();
+        datos = new javax.swing.JDialog();
         l_compania = new javax.swing.JLabel();
         t_compania = new javax.swing.JTextField();
         l_siniestro = new javax.swing.JLabel();
@@ -138,7 +138,7 @@ public class muestraAlmacen extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        jDialog1.setTitle("Datos de la Orden de Taller");
+        datos.setTitle("Datos de la Orden de Taller");
 
         l_compania.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         l_compania.setText("Compañía:");
@@ -184,13 +184,13 @@ public class muestraAlmacen extends javax.swing.JPanel {
         t_tipo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         t_tipo.setEnabled(false);
 
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog1Layout.createSequentialGroup()
+        javax.swing.GroupLayout datosLayout = new javax.swing.GroupLayout(datos.getContentPane());
+        datos.getContentPane().setLayout(datosLayout);
+        datosLayout.setHorizontalGroup(
+            datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(l_tipo)
                     .addComponent(l_marca)
                     .addComponent(l_modelo)
@@ -199,7 +199,7 @@ public class muestraAlmacen extends javax.swing.JPanel {
                     .addComponent(l_compania)
                     .addComponent(l_serie))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(t_compania)
                     .addComponent(t_asegurado)
                     .addComponent(t_siniestro)
@@ -209,35 +209,35 @@ public class muestraAlmacen extends javax.swing.JPanel {
                     .addComponent(t_tipo))
                 .addContainerGap())
         );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog1Layout.createSequentialGroup()
+        datosLayout.setVerticalGroup(
+            datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_tipo)
                     .addComponent(t_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_marca)
                     .addComponent(t_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_modelo)
                     .addComponent(t_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_serie)
                     .addComponent(t_serie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_siniestro)
                     .addComponent(t_siniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_compania)
                     .addComponent(t_compania, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_asegurado)
                     .addComponent(t_asegurado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -426,6 +426,11 @@ public class muestraAlmacen extends javax.swing.JPanel {
         jButton3.setBackground(new java.awt.Color(51, 51, 255));
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Ver mas");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelProveedor1Layout = new javax.swing.GroupLayout(jPanelProveedor1);
         jPanelProveedor1.setLayout(jPanelProveedor1Layout);
@@ -617,15 +622,23 @@ public class muestraAlmacen extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        datos.setSize(400, 200);
+        datos.setLocation((d.width/2)-(datos.getWidth()/2), (d.height/2)-(datos.getHeight()/2));
+        datos.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_recargar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox c_tmovimiento;
     private javax.swing.JComboBox c_toperacion;
+    private javax.swing.JDialog datos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JDialog jDialog1;
     private javax.swing.JPanel jPanelM;
     private javax.swing.JPanel jPanelMalmacen;
     private javax.swing.JPanel jPanelProveedor1;
@@ -1145,23 +1158,31 @@ public class muestraAlmacen extends javax.swing.JPanel {
     {
         if(c_tmovimiento.getSelectedItem().toString().compareTo("Entrada")==0)
         {
-            if(c_toperacion.getSelectedItem().toString().compareTo("Pedido")==0 || c_toperacion.getSelectedItem().toString().compareTo("Pedido Externo")==0 || c_toperacion.getSelectedItem().toString().compareTo("Compañía")==0)
-                miTitulo="Movimientos de Almacén (Entrada de material de proveedor)";
+            if(c_toperacion.getSelectedItem().toString().compareTo("Pedido")==0)
+                miTitulo="ENTRADA DE MATERIAL DE PEDIDO";
+            if(c_toperacion.getSelectedItem().toString().compareTo("Compañía")==0)
+                miTitulo="ENTRADA DE MATERIAL DE LA COMPAÑIA";
             if(c_toperacion.getSelectedItem().toString().compareTo("Operarios")==0)
-                miTitulo="Movimientos de Almacén (Devolución de material de operarios)";
+                miTitulo="DEVOLUCION DE MATERIAL OPERARIOS";
             if(c_toperacion.getSelectedItem().toString().compareTo("Venta")==0)
-                miTitulo="Movimientos de Almacén (Devolución de ventas)";
+                miTitulo="DEVOLUCION DE MATERIAL SALIDA EXTERNA";
+            if(c_toperacion.getSelectedItem().toString().compareTo("Inventario")==0)
+                miTitulo="DEVOLUCION DE CONSUMIBLES";
         }
         else
         {
-            if(c_toperacion.getSelectedItem().toString().compareTo("Pedido")==0 || c_toperacion.getSelectedItem().toString().compareTo("Pedido Externo")==0 || c_toperacion.getSelectedItem().toString().compareTo("Compañía")==0)
-                miTitulo="Movimientos de Almacén (Devolución de material a proveedor)";
+            if(c_toperacion.getSelectedItem().toString().compareTo("Pedido")==0)
+                miTitulo="DEVOLUCION DE MATERIAL DE PEDIDO";
+            if(c_toperacion.getSelectedItem().toString().compareTo("Compañía")==0)
+                miTitulo="DEVOLUCION DE MATERIAL A LA COMPAÑIA";
             if(c_toperacion.getSelectedItem().toString().compareTo("Operarios")==0)
-                miTitulo="Movimientos de Almacén (Entrega de material a operarios)";
+                miTitulo="ENTREGA DE MATERIAL A OPERARIOS";
             if(c_toperacion.getSelectedItem().toString().compareTo("Venta")==0)
-                miTitulo="Movimientos de Almacén (Entrega de ventas)";
+                miTitulo="SALIDA DE MATERIAL EXTERNO";
+            if(c_toperacion.getSelectedItem().toString().compareTo("Inventario")==0)
+                miTitulo="SALIDA DE CONSUMIBLES";
         }
-        jPanelMalmacen.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), miTitulo, javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
+        jPanelMalmacen.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), miTitulo, javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP));
     }
     
     private void borra_cajas()

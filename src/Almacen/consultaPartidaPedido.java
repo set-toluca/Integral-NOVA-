@@ -255,7 +255,7 @@ public class consultaPartidaPedido extends javax.swing.JDialog {
             if(tipo.compareTo("Pedido")==0)
             {
                 Pedido pedido=(Pedido)session.get(Pedido.class, Integer.parseInt(t_pedido.getText()));
-                if(valor.compareTo("Interno")==0)
+                if(valor.compareTo("Valuacion")==0)
                 {
                     session.beginTransaction().begin();
                     if(movimiento.compareTo("Entrada")==0)
@@ -598,7 +598,7 @@ public class consultaPartidaPedido extends javax.swing.JDialog {
                     }
                 }
             
-                if(valor.compareTo("Adicional")==0)
+                if(valor.compareTo("Directo")==0)
                 {
                     try
                     {

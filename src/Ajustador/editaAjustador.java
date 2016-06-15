@@ -106,6 +106,8 @@ public class editaAjustador extends javax.swing.JPanel {
         Eliminar1 = new javax.swing.JButton();
         Selecciona1 = new javax.swing.JButton();
         bt_actualiza1 = new javax.swing.JButton();
+        t_busca = new javax.swing.JTextField();
+        b_busca = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         t_ajustador = new javax.swing.JTextField();
@@ -211,41 +213,64 @@ public class editaAjustador extends javax.swing.JPanel {
             }
         });
 
+        t_busca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_buscaActionPerformed(evt);
+            }
+        });
+        t_busca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                t_buscaKeyTyped(evt);
+            }
+        });
+
+        b_busca.setIcon(new ImageIcon("imagenes/buscar1.png"));
+        b_busca.setToolTipText("Busca una partida");
+        b_busca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_buscaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(116, Short.MAX_VALUE)
-                .addComponent(bt_actualiza1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Selecciona1)
-                .addGap(18, 18, 18)
-                .addComponent(Eliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Selecciona2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 106, Short.MAX_VALUE)
+                        .addComponent(bt_actualiza1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Selecciona1)
+                        .addGap(18, 18, 18)
+                        .addComponent(Eliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Selecciona2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(t_busca)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(b_busca, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(t_busca)
+                    .addComponent(b_busca, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Selecciona2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Eliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Selecciona1)
                     .addComponent(bt_actualiza1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(40, Short.MAX_VALUE)))
         );
 
         jPanel4.setBackground(new java.awt.Color(254, 254, 254));
@@ -398,7 +423,7 @@ public class editaAjustador extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 491, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -563,11 +588,48 @@ public class editaAjustador extends javax.swing.JPanel {
             if(session.isOpen())
                 session.close();
     }//GEN-LAST:event_b_guardarActionPerformed
+int x=0;
+    private void t_buscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_buscaActionPerformed
+        // TODO add your handling code here:
+       if(this.t_busca.getText().compareToIgnoreCase("")!=0)
+        {
+            //buscaCuentas();
+            if(x>=t_datos.getRowCount())
+            {
+                x=0;
+                java.awt.Rectangle r = t_datos.getCellRect( x, 1, true);
+                t_datos.scrollRectToVisible(r);
+            }
+            for(; x<t_datos.getRowCount(); x++)
+            {
+                if(t_datos.getValueAt(x, 1).toString().indexOf(t_busca.getText().toUpperCase()) != -1)
+                {
+                    t_datos.setRowSelectionInterval(x, x);
+                    t_datos.setColumnSelectionInterval(1, 1);
+                    java.awt.Rectangle r = t_datos.getCellRect( x, 1, true);
+                    t_datos.scrollRectToVisible(r);
+                    break;
+                }
+            }
+            x++;
+        }
+    }//GEN-LAST:event_t_buscaActionPerformed
+
+    private void b_buscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_buscaActionPerformed
+        // TODO add your handling code here:
+         this.t_buscaActionPerformed(null);
+    }//GEN-LAST:event_b_buscaActionPerformed
+
+    private void t_buscaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_buscaKeyTyped
+        // TODO add your handling code here:
+         
+    }//GEN-LAST:event_t_buscaKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Eliminar1;
     private javax.swing.JButton Selecciona1;
     private javax.swing.JButton Selecciona2;
+    private javax.swing.JButton b_busca;
     private javax.swing.JButton b_cancelar;
     private javax.swing.JButton b_guardar;
     private javax.swing.JButton bt_actualiza1;
@@ -579,6 +641,7 @@ public class editaAjustador extends javax.swing.JPanel {
     public javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextField t_ajustador;
+    private javax.swing.JTextField t_busca;
     private javax.swing.JTable t_datos;
     public javax.swing.JTextField t_descripcion;
     // End of variables declaration//GEN-END:variables

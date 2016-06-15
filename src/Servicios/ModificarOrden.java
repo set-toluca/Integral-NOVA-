@@ -126,7 +126,6 @@ public class ModificarOrden extends javax.swing.JPanel {
             p_ventanas.addTab("Pedidos", p_genera_pedidos);
             p_ventanas.addTab("Avance de Pedidos", p_avance_pedidos);
             p_ventanas.addTab("Compara Cotizaciones", p_compara_cotizaciones);
-            p_ventanas.addTab("Conciliacion", p_conciliacion);
         }
         if(menu==8)
         {

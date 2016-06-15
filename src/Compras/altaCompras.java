@@ -2198,7 +2198,7 @@ public class altaCompras extends javax.swing.JPanel {
                                         registroNuevo.setProveedorByIdEmpresa(emp);
                                         registroNuevo.setUsuarioByIdUsuario(user);
                                         registroNuevo.setFechaPedido(calendario.getTime());
-                                        registroNuevo.setTipoPedido("Interno");
+                                        registroNuevo.setTipoPedido("Valuacion");
                                         user=(Usuario)session.get(Usuario.class, user.getIdUsuario());
                                         registroNuevo.setEmpleado(user.getEmpleado());
                                         List vec =new ArrayList();
@@ -2327,7 +2327,7 @@ public class altaCompras extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(t_pedidos.getSelectedRow()> -1)
         {
-            if(t_pedidos.getValueAt(t_pedidos.getSelectedRow(), 3).toString().compareTo("Interno")==0)
+            if(t_pedidos.getValueAt(t_pedidos.getSelectedRow(), 3).toString().compareTo("Valuacion")==0)
             {
                 f1=new Formatos(this.user, this.sessionPrograma, this.ord, t_pedidos.getValueAt(t_pedidos.getSelectedRow(), 0).toString());
                 f1.pedidos();
@@ -2348,7 +2348,7 @@ public class altaCompras extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(t_pedidos.getSelectedRow()> -1)
         {
-            if(t_pedidos.getValueAt(t_pedidos.getSelectedRow(), 3).toString().compareTo("Interno")==0)
+            if(t_pedidos.getValueAt(t_pedidos.getSelectedRow(), 3).toString().compareTo("Valuacion")==0)
             {
                 f1=new Formatos(this.user, this.sessionPrograma, this.ord, t_pedidos.getValueAt(t_pedidos.getSelectedRow(), 0).toString());
                 f1.ordenCompra();
@@ -3102,7 +3102,7 @@ public class altaCompras extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(t_pedidos.getSelectedRow()> -1)
         {
-            if(t_pedidos.getValueAt(t_pedidos.getSelectedRow(), 3).toString().compareTo("Interno")==0)
+            if(t_pedidos.getValueAt(t_pedidos.getSelectedRow(), 3).toString().compareTo("Valuacion")==0)
             {
                 f1=new Formatos(this.user, this.sessionPrograma, this.ord, t_pedidos.getValueAt(t_pedidos.getSelectedRow(), 0).toString());
                 f1.ordenCompraDCG(cb_tipo.getSelectedItem().toString());
