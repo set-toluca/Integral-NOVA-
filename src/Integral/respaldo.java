@@ -287,8 +287,8 @@ public class respaldo extends javax.swing.JPanel {
                 String servidor=elementList.get(7).getText();
                 String puerto=elementList.get(8).getText();
                 //System.out.println("mysqldump --opt --user="+usuario+" -password="+clave+" --host="+servidor+" "+base+" > r.sql");
-                System.out.println("mysqldump --opt --user="+usuario+" --password="+clave+" --host="+servidor+" "+base);
-                Process child = runtime.exec("mysqldump --opt --user="+usuario+" --password="+clave+" --host="+servidor+" --port:"+puerto+" "+base);
+                System.out.println("mysqldump --opt --user="+usuario+" --password="+clave+" --host="+servidor+" --port="+puerto+" "+base);
+                Process child = runtime.exec("mysqldump --opt --user="+usuario+" --password="+clave+" --host="+servidor+" --port="+puerto+" "+base);
                 
                 InputStreamReader irs = new InputStreamReader(child.getInputStream());
                 BufferedReader br = new BufferedReader(irs);

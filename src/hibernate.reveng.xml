@@ -52,4 +52,6 @@
   <table-filter match-name="adicionales"/>
   <table-filter match-name="ciclo"/>
   <table-filter match-name="archivo_factura"/>
+  <table-filter match-name="herramienta"/>
+  <table-filter match-name="responsiva"/>
 </hibernate-reverse-engineering>

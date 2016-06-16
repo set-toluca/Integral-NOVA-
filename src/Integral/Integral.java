@@ -11,6 +11,7 @@ import Ajustador.editaAjustador;
 import Almacen.Existencias;
 import Almacen.ajusteInventario;
 import Almacen.Reporte2;
+import Almacen.Responsiva;
 import Catalogo.buscaCatalogo;
 import Catalogo.editaCatalogo;
 import Ciclo.buscaCiclo;
@@ -35,7 +36,6 @@ import Especialidad.editaEspecialidad;
 import Estatus.buscaEstatus;
 import Estatus.editaEstatus;
 import Hibernate.Util.HibernateUtil;
-import Hibernate.entidades.Almacen;
 import Hibernate.entidades.Catalogo;
 import Hibernate.entidades.Ciclo;
 import Hibernate.entidades.Clientes;
@@ -60,7 +60,6 @@ import javax.swing.ImageIcon;
 import Hibernate.entidades.Usuario;
 import Marca.buscaMarca;
 import Marca.editaMarca;
-import Perdidas.editaPerdidas;
 import Proveedor.buscaProveedor;
 import Proveedor.editaProveedor;
 import Proveedor.nuevoProveedor;
@@ -74,7 +73,6 @@ import Tipo.editaTipo;
 import Usuarios.altaUsuario;
 import Usuarios.buscaUsuarios;
 import Usuarios.editaUsuario;
-import Almacen.buscaAlmacen;
 import Almacen.muestraAlmacen;
 import Almacen.nuevoAlmacen;
 import Contabilidad.Cuentas;
@@ -89,7 +87,6 @@ import Contabilidad.buscaNota;
 import Empleados.buscaEmpleado;
 import Empleados.modificaEmpleado;
 import Grupo.editaGrupo;
-import Hibernate.entidades.Ajustador;
 import Operaciones.ResponsablesOP;
 import java.awt.AWTEvent;
 import java.awt.Color;
@@ -104,7 +101,6 @@ import Valuacion.Reportes;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  *
@@ -131,6 +127,7 @@ public class Integral extends javax.swing.JFrame {
     private Provision provision;
     private ResponsablesOP panel_responsables;
     private Configuracion configuracion;
+    private Responsiva responsiva;
     NuevaFactura nuevaFactura;
     Cuentas cxc;
     
@@ -380,6 +377,8 @@ public class Integral extends javax.swing.JFrame {
         m_editar_articulo1 = new javax.swing.JMenuItem();
         jMenuItem46 = new javax.swing.JMenuItem();
         jMenuItem53 = new javax.swing.JMenuItem();
+        jMenu26 = new javax.swing.JMenu();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem54 = new javax.swing.JMenuItem();
         jMenu21 = new javax.swing.JMenu();
         jMenu22 = new javax.swing.JMenu();
@@ -846,6 +845,18 @@ public class Integral extends javax.swing.JFrame {
             }
         });
         jMenu20.add(jMenuItem53);
+
+        jMenu26.setText("Herramientas");
+
+        jMenuItem10.setText("Responsiva");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu26.add(jMenuItem10);
+
+        jMenu20.add(jMenu26);
 
         jMenuItem54.setText("Ajuste Inventario");
         jMenuItem54.addActionListener(new java.awt.event.ActionListener() {
@@ -4723,6 +4734,42 @@ public class Integral extends javax.swing.JFrame {
         session.close();
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction().begin();
+            actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
+            if(actor.getMovimientoAlmacen()==true)
+            {
+                pos=P_pestana.indexOfTab("Responsivas");
+                if(pos>=0)
+                {
+                    P_pestana.setSelectedIndex(pos);    
+                }
+                else
+                {
+                    responsiva = null;
+                    responsiva = new Responsiva(actor, sessionPrograma);
+                    PanelPestanas btc=new PanelPestanas(P_pestana, 60,actor);
+                    P_pestana.addTab("Responsivas", responsiva);
+                    P_pestana.setSelectedComponent(responsiva);
+                    P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
+                }
+                System.gc();
+            }
+            else
+                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        if(session!=null)
+            if(session.isOpen())
+                session.close();
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4784,6 +4831,7 @@ public class Integral extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu23;
     private javax.swing.JMenu jMenu24;
     private javax.swing.JMenu jMenu25;
+    private javax.swing.JMenu jMenu26;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
@@ -4793,6 +4841,7 @@ public class Integral extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
