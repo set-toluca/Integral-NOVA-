@@ -825,9 +825,14 @@ public class AXA extends javax.swing.JDialog {
         jLabel20.setText("Metodo de Pago:");
 
         t_metodo_pago.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        t_metodo_pago.setText("NO IDENTIFICADO");
+        t_metodo_pago.setText("98");
         t_metodo_pago.setToolTipText("Metodo de pago del monto de la factura");
         t_metodo_pago.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_metodo_pago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_metodo_pagoActionPerformed(evt);
+            }
+        });
         t_metodo_pago.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 t_metodo_pagoKeyTyped(evt);
@@ -2775,6 +2780,10 @@ public class AXA extends javax.swing.JDialog {
             }catch(Exception e){e.printStackTrace();};
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void t_metodo_pagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_metodo_pagoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_t_metodo_pagoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1665,7 +1665,7 @@ public class FacturarOrden extends javax.swing.JPanel {
                                                 //fecha_fiscal
                                                 //serie
                                                 //folio
-                                                nuevaFactura.setMetodoPago("NO IDENTIFICADO");
+                                                nuevaFactura.setMetodoPago("98");
                                                 nuevaFactura.setCuentaPago("");
                                                 nuevaFactura.setMoneda("MXN");
                                                 nuevaFactura.setFactorCambio(1.0d);
