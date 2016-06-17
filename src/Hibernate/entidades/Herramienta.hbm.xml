@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 16/06/2016 03:01:05 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
-    <class name="Hibernate.entidades.Herramienta" table="herramienta" catalog="nova">
+    <class name="Hibernate.entidades.Herramienta" table="herramienta">
         <id name="idHerramienta" type="java.lang.String">
             <column name="id_herramienta" length="10"/>
         </id>

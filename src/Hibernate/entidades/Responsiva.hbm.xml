@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 16/06/2016 03:01:05 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
-    <class name="Hibernate.entidades.Responsiva" table="responsiva" catalog="nova">
+    <class name="Hibernate.entidades.Responsiva" table="responsiva">
         <id name="idResponsiva" type="java.lang.Integer">
             <column name="id_responsiva" />
             <generator class="identity" />
