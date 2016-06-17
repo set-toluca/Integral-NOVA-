@@ -32,6 +32,12 @@
         <property name="precio" type="java.lang.Double">
             <column name="precio" />
         </property>
+        <property name="maximo" type="java.lang.Double">
+            <column name="maximo" />
+        </property>
+        <property name="minimo" type="java.lang.Double">
+            <column name="minimo" />
+        </property>
         <property name="comentario" type="string">
             <column name="comentario" length="100" />
         </property>

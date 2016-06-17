@@ -87,6 +87,9 @@ import Contabilidad.buscaNota;
 import Empleados.buscaEmpleado;
 import Empleados.modificaEmpleado;
 import Grupo.editaGrupo;
+import Herramientas.buscaHerramienta;
+import Herramientas.editaHerramienta;
+import Hibernate.entidades.Herramienta;
 import Operaciones.ResponsablesOP;
 import java.awt.AWTEvent;
 import java.awt.Color;
@@ -165,6 +168,7 @@ public class Integral extends javax.swing.JFrame {
     private editaConceptos eConceptos;
     private configuracion panel_configuracion;
     private respaldo panel_respaldo;
+    private editaHerramienta eHerramienta;
     editaEjemplar eEjemplar;
     final Herramientas h;
     static Integral entrada;
@@ -378,6 +382,8 @@ public class Integral extends javax.swing.JFrame {
         jMenuItem46 = new javax.swing.JMenuItem();
         jMenuItem53 = new javax.swing.JMenuItem();
         jMenu26 = new javax.swing.JMenu();
+        jMenuItem40 = new javax.swing.JMenuItem();
+        jMenuItem39 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem54 = new javax.swing.JMenuItem();
         jMenu21 = new javax.swing.JMenu();
@@ -847,6 +853,22 @@ public class Integral extends javax.swing.JFrame {
         jMenu20.add(jMenuItem53);
 
         jMenu26.setText("Herramientas");
+
+        jMenuItem40.setText("Consultar");
+        jMenuItem40.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem40ActionPerformed(evt);
+            }
+        });
+        jMenu26.add(jMenuItem40);
+
+        jMenuItem39.setText("Editar");
+        jMenuItem39.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem39ActionPerformed(evt);
+            }
+        });
+        jMenu26.add(jMenuItem39);
 
         jMenuItem10.setText("Responsiva");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
@@ -4741,7 +4763,7 @@ public class Integral extends javax.swing.JFrame {
         {
             session.beginTransaction().begin();
             actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
-            if(actor.getMovimientoAlmacen()==true)
+            if(actor.getResponsiva()==true)
             {
                 pos=P_pestana.indexOfTab("Responsivas");
                 if(pos>=0)
@@ -4769,6 +4791,129 @@ public class Integral extends javax.swing.JFrame {
             if(session.isOpen())
                 session.close();
     }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem40ActionPerformed
+        h.menu=0;
+        h.session(sessionPrograma);
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction().begin();
+            actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
+            if(actor!=null && actor.getHerramienta()==true)
+             {
+                buscaHerramienta obj = new buscaHerramienta(new javax.swing.JFrame(), true, sessionPrograma, actor);
+                obj.t_busca.requestFocus();
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+                obj.setVisible(true);
+                Herramienta orden_act=obj.getReturnStatus();
+
+                if (orden_act!=null)
+                {
+                    orden_act=(Herramienta)session.get(Herramienta.class, orden_act.getIdHerramienta());
+                    pos=-1;
+                    for(int a=0; a<P_pestana.getTabCount(); a++)
+                    {
+                        if(P_pestana.getTitleAt(a)=="Edita Herramientas")
+                        pos=a;
+                    }
+                    if(pos>=0)
+                    {
+                        P_pestana.setSelectedIndex(pos);
+                    }
+                    else
+                    {
+                        eHerramienta = new editaHerramienta(actor,sessionPrograma);
+                        PanelPestanas btc=new PanelPestanas(P_pestana,-1, actor);
+                        P_pestana.addTab("Edita Herrmienta", eHerramienta);
+                        P_pestana.setSelectedComponent(eHerramienta);
+                        P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
+                        eHerramienta.t_nombre.requestFocus();
+                        
+                    }
+                      eHerramienta.borra_cajas();
+                      eHerramienta.cajas(true, true, true, true, true, true, true);
+                      eHerramienta.t_numero.setText(orden_act.getIdHerramienta());
+                      eHerramienta.NS=""+orden_act.getIdHerramienta();
+                      eHerramienta.t_nombre.setText(orden_act.getNombre());
+                    if(orden_act.getUbicacion()!=null)
+                        eHerramienta.t_ubicacion.setText(orden_act.getUbicacion());
+                    
+                    if(orden_act.getExistencias()!=null)
+                        eHerramienta.t_existencia.setText(String.valueOf(orden_act.getExistencias()));
+                    
+                    if(orden_act.getComentario()!=null)
+                        eHerramienta.t_comentario.setText(orden_act.getComentario());
+                    
+                     try
+                        {
+                            if(orden_act.getImagen()!=null)
+                                eHerramienta.p_foto.removeAll();
+                                Imagen op;
+                                eHerramienta.nombreFoto=orden_act.getImagen();
+                                op=new Imagen("herramienta/miniatura/"+eHerramienta.nombreFoto, 144, 135, 1, 1, 144, 135);
+                                eHerramienta.p_foto.add(op);
+                                eHerramienta.p_foto.repaint();
+                            
+                        }catch(Exception e){
+                            eHerramienta.p_foto.removeAll();
+                            eHerramienta.p_foto.repaint();
+                        }  
+                }
+            }
+            else
+                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+        }catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        if(session!=null)
+            if(session.isOpen())
+                session.close();
+    }//GEN-LAST:event_jMenuItem40ActionPerformed
+
+    private void jMenuItem39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem39ActionPerformed
+        // TODO add your handling code here:
+        h.menu=0;
+        h.session(sessionPrograma);
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction().begin();
+            actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
+            if(actor!=null && actor.getHerramienta()==true)
+            {
+                pos=-1;
+                for(int a=0; a<P_pestana.getTabCount(); a++)
+                {
+                    if(P_pestana.getTitleAt(a)=="Edita Herramienta")
+                    pos=a;
+                }
+                if(pos>=0)
+                {
+                    P_pestana.setSelectedIndex(pos);
+                }
+                else
+                {
+                    eHerramienta = new editaHerramienta(actor,sessionPrograma);
+                    PanelPestanas btc=new PanelPestanas(P_pestana,-1, actor);
+                    P_pestana.addTab("Edita Herrmienta", eHerramienta);
+                    P_pestana.setSelectedComponent(eHerramienta);
+                    P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
+                    eHerramienta.t_nombre.requestFocus();
+                }
+            }
+            else
+                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+        }catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        if(session!=null)
+            if(session.isOpen())
+                session.close();
+    }//GEN-LAST:event_jMenuItem39ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -4872,7 +5017,9 @@ public class Integral extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem36;
     private javax.swing.JMenuItem jMenuItem37;
     private javax.swing.JMenuItem jMenuItem38;
+    private javax.swing.JMenuItem jMenuItem39;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem40;
     private javax.swing.JMenuItem jMenuItem42;
     private javax.swing.JMenuItem jMenuItem43;
     private javax.swing.JMenuItem jMenuItem44;

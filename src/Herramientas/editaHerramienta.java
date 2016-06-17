@@ -1,10 +1,8 @@
-package Ejemplar;
+package Herramientas;
 
 import Hibernate.Util.HibernateUtil;
 import Hibernate.entidades.Catalogo;
-import Hibernate.entidades.Ejemplar;
-import Hibernate.entidades.Marca;
-import Hibernate.entidades.Tipo;
+import Hibernate.entidades.Herramienta;
 import Hibernate.entidades.Usuario;
 import Integral.ExtensionFileFilter;
 import java.awt.Color;
@@ -27,10 +25,12 @@ import Integral.Imagen;
 import Integral.Render1;
 import java.awt.Desktop;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -39,19 +39,15 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.hibernate.Criteria;
 
-public class editaEjemplar extends javax.swing.JPanel {
+public class editaHerramienta extends javax.swing.JPanel {
 
     private Session session;
-    private Ejemplar actor;
+    private Herramienta actor;
     DefaultTableModel model;
-    Marca marca;
-    Tipo tipo;
     Catalogo catalogo;
-    String[] columnas = new String [] {"Clave","Modelo","Marca","Tipo", "Catálogo", "Comentarios", "Foto", "Medida","Precio","Maximo","Minimo","Inventario"};
-    String[] marc;
-    String[] tip;
-    int[] catalog;
+    String[] columnas = new String [] {"Clave","Nombre", "Foto","Ubicación", "Existencias", "Comentarios"};
     Usuario usr;
     String sessionPrograma="";
     Herramientas h;
@@ -59,27 +55,23 @@ public class editaEjemplar extends javax.swing.JPanel {
     int x=0;
     int entro_foto=0;
     File archivo=null;
-    String nombreFoto="";
+    public String nombreFoto="";
     int inventario=0;
     
-    public editaEjemplar(Usuario usuario, String ses, int inventario) 
+    public editaHerramienta(Usuario usuario, String ses) 
     {
         initComponents();
-        this.inventario=inventario;
-        t_precio.setValue(0.00);
-        cargaMarca();
-        cargaTipo();
         sessionPrograma=ses;
         formatoTabla();
         usr=usuario;
         buscaDato();
         borra_cajas();
-        cajas(false, false, false, false, false, false, false, false);
+        cajas(false, false, false, false, false, false, false);
     }
     
     DefaultTableModel ModeloTablaReporte(int renglones, String columnas[])
     {
-        model = new DefaultTableModel(new Object [renglones][10], columnas)
+        model = new DefaultTableModel(new Object [renglones][6], columnas)
         {
             Class[] types = new Class [] {
                 java.lang.Integer.class,
@@ -87,16 +79,10 @@ public class editaEjemplar extends javax.swing.JPanel {
                 java.lang.String.class, 
                 java.lang.String.class,
                 java.lang.String.class,
-                java.lang.String.class,
-                java.lang.String.class,
-                java.lang.String.class,
-                java.lang.Double.class,
-                java.lang.Double.class,
-                java.lang.Double.class,
-                java.lang.Integer.class            
+                java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false,false,false,false,false,false, false, false, false, false, false, false
+                false,false,false,false,false, false
             };
             public void setValueAt(Object value, int row, int col)
             {
@@ -104,6 +90,11 @@ public class editaEjemplar extends javax.swing.JPanel {
                 Object celda = ((Vector)this.dataVector.elementAt(row)).elementAt(col);
                 switch(col)
                 {
+                    case 0:
+                        vector.setElementAt(value, col);
+                        this.dataVector.setElementAt(vector, row);
+                        fireTableCellUpdated(row, col);
+                        break;
                     default:
                         vector.setElementAt(value, col);
                         this.dataVector.setElementAt(vector, row);
@@ -143,33 +134,23 @@ public class editaEjemplar extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         t_numero = new javax.swing.JTextField();
-        l_modelo = new javax.swing.JLabel();
-        t_modelo = new javax.swing.JTextField();
         l_marca = new javax.swing.JLabel();
-        c_marca = new javax.swing.JComboBox();
         l_tipo = new javax.swing.JLabel();
-        c_tipo = new javax.swing.JComboBox();
-        l_catalogo = new javax.swing.JLabel();
         b_guardar = new javax.swing.JButton();
         b_cancelar = new javax.swing.JButton();
-        t_catalogo = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         t_comentario = new javax.swing.JTextArea();
         p_foto = new javax.swing.JPanel();
-        medida = new javax.swing.JComboBox();
-        l_tipo1 = new javax.swing.JLabel();
         l_modelo1 = new javax.swing.JLabel();
-        t_precio = new javax.swing.JFormattedTextField();
-        l_tipo2 = new javax.swing.JLabel();
-        l_tipo3 = new javax.swing.JLabel();
-        t_minimo = new javax.swing.JFormattedTextField();
-        t_maximo = new javax.swing.JFormattedTextField();
+        t_existencia = new javax.swing.JFormattedTextField();
+        t_nombre = new javax.swing.JTextField();
+        t_ubicacion = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Edita de Ejemplares", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Edita de Herramientas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Lista", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 11))); // NOI18N
@@ -179,14 +160,14 @@ public class editaEjemplar extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Clave", "Modelo", "Marca", "Tipo", "Catálogo", "Comentarios:", "Foto"
+                "Clave", "Nombre", "Foto", "Ubicación", "Existencias", "Comentarios"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, true, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -334,7 +315,7 @@ public class editaEjemplar extends javax.swing.JPanel {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Actualizar", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 11))); // NOI18N
 
         jLabel20.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel20.setText("No° parte");
+        jLabel20.setText("Clave:");
 
         t_numero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -342,23 +323,11 @@ public class editaEjemplar extends javax.swing.JPanel {
             }
         });
 
-        l_modelo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        l_modelo.setText("Modelo:");
-
-        t_modelo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                t_modeloKeyTyped(evt);
-            }
-        });
-
         l_marca.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        l_marca.setText("Marca:");
+        l_marca.setText("Nombre:");
 
         l_tipo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        l_tipo.setText("Tipo:");
-
-        l_catalogo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        l_catalogo.setText("Catálogo:");
+        l_tipo.setText("Ubicación:");
 
         b_guardar.setBackground(new java.awt.Color(2, 135, 242));
         b_guardar.setForeground(new java.awt.Color(254, 254, 254));
@@ -383,12 +352,6 @@ public class editaEjemplar extends javax.swing.JPanel {
         b_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_cancelarActionPerformed(evt);
-            }
-        });
-
-        t_catalogo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                t_catalogoKeyTyped(evt);
             }
         });
 
@@ -432,45 +395,35 @@ public class editaEjemplar extends javax.swing.JPanel {
         );
         p_fotoLayout.setVerticalGroup(
             p_fotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 134, Short.MAX_VALUE)
         );
 
-        medida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PZAS", "LTS", "MTS", "CMS", "MMS", "GRS", "MLS", "KGS", "HRS", "MIN", "KIT", "FT", "LB", "JGO", "NA" }));
-        medida.setEnabled(false);
-
-        l_tipo1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        l_tipo1.setText("Unidad:");
-
         l_modelo1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        l_modelo1.setText("Precio:");
+        l_modelo1.setText("Existencias:");
 
-        t_precio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        t_precio.setEnabled(false);
-        t_precio.addActionListener(new java.awt.event.ActionListener() {
+        t_existencia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        t_existencia.setEnabled(false);
+        t_existencia.setValue(0.0d);
+        t_existencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_precioActionPerformed(evt);
+                t_existenciaActionPerformed(evt);
+            }
+        });
+        t_existencia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                t_existenciaKeyTyped(evt);
             }
         });
 
-        l_tipo2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        l_tipo2.setText("Minimo:");
-
-        l_tipo3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        l_tipo3.setText("Maximo:");
-
-        t_minimo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        t_minimo.setEnabled(false);
-        t_minimo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_minimoActionPerformed(evt);
+        t_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                t_nombreKeyTyped(evt);
             }
         });
 
-        t_maximo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        t_maximo.setEnabled(false);
-        t_maximo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_maximoActionPerformed(evt);
+        t_ubicacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                t_ubicacionKeyTyped(evt);
             }
         });
 
@@ -487,94 +440,51 @@ public class editaEjemplar extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(b_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addGap(38, 38, 38)
-                        .addComponent(t_numero))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(l_modelo)
-                        .addGap(47, 47, 47)
-                        .addComponent(t_modelo))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(l_marca)
-                        .addGap(54, 54, 54)
-                        .addComponent(c_marca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(l_tipo)
-                        .addGap(63, 63, 63)
-                        .addComponent(c_tipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(l_catalogo)
-                        .addGap(37, 37, 37)
-                        .addComponent(t_catalogo))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(p_foto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(l_tipo1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(medida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(l_tipo2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(t_minimo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(p_foto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(l_modelo1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(t_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(l_tipo3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(t_maximo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addComponent(t_existencia, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addComponent(l_marca)
+                            .addComponent(l_tipo))
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(t_ubicacion)
+                            .addComponent(t_nombre)
+                            .addComponent(t_numero))))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(t_numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(l_modelo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(t_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(t_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(l_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(l_catalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(t_catalogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(t_ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(p_foto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(l_modelo1)
-                        .addComponent(t_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(l_tipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(medida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(l_tipo2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(l_tipo3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(t_minimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(t_maximo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                    .addComponent(l_modelo1)
+                    .addComponent(t_existencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(75, 75, 75)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(b_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -624,79 +534,75 @@ public class editaEjemplar extends javax.swing.JPanel {
         if(opt==0)
         {
             borra_cajas();
-            cajas(false, false, false, false, false, false, false, false);
+            cajas(false, false, false, false, false, false, false);
         }
     }//GEN-LAST:event_b_cancelarActionPerformed
 
     private void b_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_guardarActionPerformed
         h=new Herramientas(usr, 0);
         h.session(sessionPrograma);
-        if(t_catalogo.getText().compareTo("")!=0)
+        if(t_numero.getText().compareTo("")!=0)
         {
-            if(t_numero.getText().compareTo("")!=0)
+            if(t_nombre.getText().compareTo("")!=0)
             {
                 try
                 {
                     session = HibernateUtil.getSessionFactory().openSession();
                     session.beginTransaction();
-                    actor = (Ejemplar)session.createCriteria(Ejemplar.class).add(Restrictions.eq("idParte", this.t_numero.getText())).add(Restrictions.ne("idParte", NS)).setMaxResults(1).uniqueResult();
+                    actor = (Herramienta)session.createCriteria(Herramienta.class).add(Restrictions.eq("idHerramienta", this.t_numero.getText())).add(Restrictions.ne("idHerramienta", NS)).setMaxResults(1).uniqueResult();
                     if(actor==null)
                     {
-                        Query q = session.createQuery("update Ejemplar obj set obj.idParte='"+t_numero.getText().trim()+"' where obj.idParte='"+NS+"'");
-                        q.executeUpdate();                                    
-                        actor=(Ejemplar)session.get(Ejemplar.class, t_numero.getText());
-                        if(t_modelo.getText().compareTo("")!=0)
-                            actor.setModelo(Integer.parseInt(t_modelo.getText()));
-                        else
-                            actor.setModelo(null);
-                        if(c_marca.getSelectedIndex()>0)
+                        Query qry = session.createSQLQuery("select if(sum(cantidad) is null, 0, sum(cantidad)) as suma from responsiva where id_herramienta='"+t_numero.getText()+"';");
+                        qry.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+                        ArrayList n=(ArrayList)qry.list();
+                        java.util.HashMap map = (java.util.HashMap)n.get(0);
+                        double suma=Double.parseDouble(map.get("suma").toString());
+                        double nuevo=Double.parseDouble(t_existencia.getText().toString());
+                        if(suma<=nuevo)
                         {
-                            marca = (Marca)session.get(Marca.class, this.marc[c_marca.getSelectedIndex()]);//Articulo
-                            actor.setMarca(marca);
-                        }
-                        else
-                            actor.setMarca(null);
-                        
-                        if(c_tipo.getSelectedIndex()>0)
-                        {
-                            tipo = (Tipo)session.get(Tipo.class, this.tip[c_tipo.getSelectedIndex()]);//Articulo
-                            actor.setTipo(tipo);
-                        }
-                        else
-                            actor.setTipo(null);
-                        
-                        actor.setMedida(medida.getSelectedItem().toString());
-                        
-                        actor.setCatalogo(t_catalogo.getText());
-                        actor.setComentario(t_comentario.getText());
-                        actor.setPrecio(Double.parseDouble(t_precio.getValue().toString()));
-                        actor.setMaximo(Double.parseDouble(t_maximo.getValue().toString()));
-                        actor.setMinimo(Double.parseDouble(t_minimo.getValue().toString()));
-                        if(entro_foto==1)
-                        {
-                            if(nombreFoto.compareTo("")==0)
+                            Query q = session.createQuery("update Herramienta obj set obj.idHerramienta='"+t_numero.getText().trim()+"' where obj.idHerramienta='"+NS+"'");
+                            q.executeUpdate();                                    
+                            actor=(Herramienta)session.get(Herramienta.class, t_numero.getText());
+                            if(t_numero.getText().compareTo("")!=0)
+                                actor.setIdHerramienta(t_numero.getText());
+
+                            if(t_nombre.getText().compareTo("")!=0)
+                                actor.setNombre(t_nombre.getText());
+
+                            if(entro_foto==1)
                             {
-                                Random rng=new Random();
-                                long  dig8 = rng.nextInt(90000000)+10000000;
-                                nombreFoto=""+dig8+".jpg";
+                                nombreFoto="";
+                                if(nombreFoto.compareTo("")==0)
+                                {
+                                    Random rng=new Random();
+                                    long  dig8 = rng.nextInt(90000000)+10000000;
+                                    nombreFoto=""+dig8+".jpg";
+                                }
+                                guardaFoto(nombreFoto);
+                                actor.setImagen(nombreFoto);
+                            }else{
+                                actor.setImagen(null);
                             }
-                            guardaFoto(nombreFoto);
-                            actor.setImagen(nombreFoto);
+                            actor.setUbicacion(t_ubicacion.getText());
+                            actor.setExistencias(Double.parseDouble(t_existencia.getText().toString()));                        
+                            actor.setComentario(t_comentario.getText());
+                            session.update(actor);
+                            session.getTransaction().commit();
+                            borra_cajas();
+                            buscaDato();
+                            cajas(false, false, false, false, false, false, false);
+                            JOptionPane.showMessageDialog(null, "Registro Actualizado");
                         }
-                        session.update(actor);
-                        session.getTransaction().commit();
-                        borra_cajas();
-                        cargaMarca();
-                        cargaTipo();
-                        buscaDato();
-                        cajas(false, false, false, false, false, false, false, false);
-                        JOptionPane.showMessageDialog(null, "Registro Actualizado");
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Hay "+suma+" Herramientas asignadas en responsivas.");
+                        }
                     }
                     else
                     {
                         session.getTransaction().rollback();
                         session.close();
-                        JOptionPane.showMessageDialog(null, "Ya existe un ejemplar con el mismo numero de parte");
+                        JOptionPane.showMessageDialog(null, "Ya existe una Herramienta con el mismo numero de código.");
                     }
                 }
                 catch (HibernateException he)
@@ -709,24 +615,24 @@ public class editaEjemplar extends javax.swing.JPanel {
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "¡El número de parte no puede ir vacio!");
+                JOptionPane.showMessageDialog(null, "¡El nombre no puede estar vacio!");
                 t_numero.requestFocus();
             }
         }
         else
-            JOptionPane.showMessageDialog(null, "¡Debe introducir la descripcion!");
+            JOptionPane.showMessageDialog(null, "¡Debe introducir un Código!");
     }//GEN-LAST:event_b_guardarActionPerformed
 
     private void Selecciona2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Selecciona2ActionPerformed
         h=new Herramientas(usr, 0);
         h.session(sessionPrograma);     
-        altaEjemplar obj = new altaEjemplar(new javax.swing.JFrame(), true, usr, sessionPrograma, inventario);
+        altaHerramienta obj = new altaHerramienta(new javax.swing.JFrame(), true, usr, sessionPrograma);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
         obj.setVisible(true);
         obj.getReturnStatus();
         this.borra_cajas();
-        cajas(false, false, false, false, false, false, false, false);
+        cajas(false, false, false, false, false, false, false);
         buscaDato();
     }//GEN-LAST:event_Selecciona2ActionPerformed
 
@@ -743,19 +649,23 @@ public class editaEjemplar extends javax.swing.JPanel {
                 boolean respuesta=eliminar(t_datos.getValueAt(t_datos.getSelectedRow(), 0).toString());
                 if(respuesta==true)
                 { 
-                    JOptionPane.showMessageDialog(null, "El Ejemplar ha sido eliminado");
+                    JOptionPane.showMessageDialog(null, "La Herramienta ha sido eliminado");
                     borra_cajas();
-                    cajas(false, false, false, false, false, false, false, false);
+                    cajas(false, false, false, false, false, false, false);
                     buscaDato();
                 }
+            }else{
+                borra_cajas();
+                cajas(false, false, false, false, false, false, false);
+                buscaDato();
             }
         }
        else
        {
            JOptionPane.showMessageDialog(null, "Selecciona el ejemplar que desees eliminar");
-           t_modelo.requestFocus();
+           t_nombre.requestFocus();
        }
-       cajas(false, false, false, false, false, false, false, false);
+       cajas(false, false, false, false, false, false, false);
     }//GEN-LAST:event_Eliminar1ActionPerformed
 
     private void Selecciona1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Selecciona1ActionPerformed
@@ -764,48 +674,45 @@ public class editaEjemplar extends javax.swing.JPanel {
         if(t_datos.getSelectedRow()>=0)
         {
             borra_cajas();
-            cargaMarca();
-            cargaTipo();
+            
             File archivo=null;
             entro_foto=0;
             NS=t_datos.getValueAt(t_datos.getSelectedRow(), 0).toString();
             t_numero.setText(t_datos.getValueAt(t_datos.getSelectedRow(), 0).toString());
             
             if(t_datos.getValueAt(t_datos.getSelectedRow(), 1)!=null)
-                t_modelo.setText(t_datos.getValueAt(t_datos.getSelectedRow(), 1).toString());
+                t_nombre.setText(t_datos.getValueAt(t_datos.getSelectedRow(), 1).toString());
             else
-                t_modelo.setText("");
-            if(t_datos.getValueAt(t_datos.getSelectedRow(), 2)!=null)
-                c_marca.setSelectedItem(t_datos.getValueAt(t_datos.getSelectedRow(), 2).toString());
-            else
-                c_marca.setSelectedItem("NA");
-            if(t_datos.getValueAt(t_datos.getSelectedRow(), 3)!=null)
-                c_tipo.setSelectedItem(t_datos.getValueAt(t_datos.getSelectedRow(), 3).toString());
-            else
-                c_tipo.setSelectedItem("NA");
-            t_catalogo.setText(t_datos.getValueAt(t_datos.getSelectedRow(), 4).toString());
-            t_comentario.setText(t_datos.getValueAt(t_datos.getSelectedRow(), 5).toString());
+                t_nombre.setText("");
+            
+            if(t_datos.getValueAt(t_datos.getSelectedRow(), 3)!=null){
+                t_ubicacion.setText(t_datos.getValueAt(t_datos.getSelectedRow(), 3).toString());
+            }else
+                t_ubicacion.setText("");
+            if(t_datos.getValueAt(t_datos.getSelectedRow(), 4)!=null){
+                t_existencia.setText(t_datos.getValueAt(t_datos.getSelectedRow(), 4).toString());
+            }else
+                t_existencia.setText("0.0");
+            
+            if(t_datos.getValueAt(t_datos.getSelectedRow(), 5)!=null){
+                t_comentario.setText(t_datos.getValueAt(t_datos.getSelectedRow(), 5).toString());
+            }else
+                t_comentario.setText("");
             try
             {
                 p_foto.removeAll();
                 Imagen op;
-                nombreFoto=t_datos.getValueAt(t_datos.getSelectedRow(), 6).toString();
-                op=new Imagen("ejemplar/miniatura/"+nombreFoto, 144, 135, 1, 1, 144, 135);
+                nombreFoto=t_datos.getValueAt(t_datos.getSelectedRow(), 2).toString();
+                op=new Imagen("herramienta/miniatura/"+nombreFoto, 144, 135, 1, 1, 144, 135);
                 p_foto.add(op);
                 p_foto.repaint();
             }catch(Exception e){
                 p_foto.removeAll();
                 p_foto.repaint();
-            }
-            if(t_datos.getValueAt(t_datos.getSelectedRow(), 7)!=null)
-                medida.setSelectedItem(t_datos.getValueAt(t_datos.getSelectedRow(), 7).toString());
-            else
-                medida.setSelectedItem("NA");
-            t_precio.setValue(t_datos.getValueAt(t_datos.getSelectedRow(), 8));
-            t_maximo.setValue(t_datos.getValueAt(t_datos.getSelectedRow(), 9));
-            t_minimo.setValue(t_datos.getValueAt(t_datos.getSelectedRow(), 10));
+            }  
+           
             
-            this.cajas(true, true, true, true, true, true, true, true);
+            this.cajas(true, true, true, true, true, true, true);
         }
         else
         JOptionPane.showMessageDialog(null, "¡No hay un ejemplar seleccionado!");
@@ -813,17 +720,17 @@ public class editaEjemplar extends javax.swing.JPanel {
 
     private void bt_actualiza1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_actualiza1ActionPerformed
         this.borra_cajas();
-        cajas(false, false, false, false, false, false, false, false);
+        cajas(false, false, false, false, false, false, false);
         buscaDato();
+        p_foto.removeAll();
+        p_foto.repaint();
     }//GEN-LAST:event_bt_actualiza1ActionPerformed
 
-    private void t_modeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_modeloKeyTyped
-        char car = evt.getKeyChar();
-        if(t_modelo.getText().length()>=4)
+    private void t_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_nombreKeyTyped
+         evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
+        if(t_nombre.getText().length()>=100)
             evt.consume();
-        if((car<'0' || car>'9'))
-            evt.consume();
-    }//GEN-LAST:event_t_modeloKeyTyped
+    }//GEN-LAST:event_t_nombreKeyTyped
 
     private void t_comentarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_comentarioKeyTyped
         evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
@@ -834,13 +741,9 @@ public class editaEjemplar extends javax.swing.JPanel {
     private void t_numeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_numeroKeyTyped
         // TODO add your handling code here:
         evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
-        if(t_numero.getText().length()>=35)
+        if(t_numero.getText().length()>=10)
             evt.consume();
     }//GEN-LAST:event_t_numeroKeyTyped
-
-    private void t_catalogoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_catalogoKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_t_catalogoKeyTyped
 
     private void t_buscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_buscaActionPerformed
         // TODO add your handling code here:
@@ -855,7 +758,7 @@ public class editaEjemplar extends javax.swing.JPanel {
             }
             for(; x<t_datos.getRowCount(); x++)
             {
-                if(t_datos.getValueAt(x, 0).toString().indexOf(t_busca.getText().toUpperCase()) != -1)
+                if(t_datos.getValueAt(x, 1).toString().indexOf(t_busca.getText().toUpperCase()) != -1)
                 {
                     t_datos.setRowSelectionInterval(x, x);
                     t_datos.setColumnSelectionInterval(1, 1);
@@ -870,28 +773,7 @@ public class editaEjemplar extends javax.swing.JPanel {
 
     private void b_buscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_buscaActionPerformed
         // TODO add your handling code here:
-        if(this.t_busca.getText().compareToIgnoreCase("")!=0)
-        {
-            //buscaCuentas();
-            if(x>=t_datos.getRowCount())
-            {
-                x=0;
-                java.awt.Rectangle r = t_datos.getCellRect( x, 1, true);
-                t_datos.scrollRectToVisible(r);
-            }
-            for(; x<t_datos.getRowCount(); x++)
-            {
-                if(t_datos.getValueAt(x, 0).toString().indexOf(t_busca.getText().toUpperCase()) != -1)
-                {
-                    t_datos.setRowSelectionInterval(x, x);
-                    t_datos.setColumnSelectionInterval(1, 1);
-                    java.awt.Rectangle r = t_datos.getCellRect( x, 1, true);
-                    t_datos.scrollRectToVisible(r);
-                    break;
-                }
-            }
-            x++;
-        }
+        this.t_buscaActionPerformed(null);
     }//GEN-LAST:event_b_buscaActionPerformed
 
     private void bt_actualiza2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_actualiza2ActionPerformed
@@ -949,7 +831,7 @@ public class editaEjemplar extends javax.swing.JPanel {
 
     private void p_fotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_fotoMouseClicked
         // TODO add your handling code here:
-        if(t_numero.isEnabled()==true)
+        if(t_nombre.isEnabled()==true)
         {
             JFileChooser selector=new JFileChooser();
             selector.setFileFilter(new ExtensionFileFilter("JPG and JPEG", new String[] { "JPG", "JPEG" }));
@@ -975,17 +857,26 @@ public class editaEjemplar extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_p_fotoMouseClicked
 
-    private void t_precioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_precioActionPerformed
+    private void t_ubicacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_ubicacionKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_t_precioActionPerformed
+         evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
+        if(t_ubicacion.getText().length()>=50)
+            evt.consume();
+    }//GEN-LAST:event_t_ubicacionKeyTyped
 
-    private void t_minimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_minimoActionPerformed
+    private void t_existenciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_existenciaKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_t_minimoActionPerformed
+        char caracter = evt.getKeyChar();
+        if(((caracter < '0') || (caracter > '9')) && (caracter != KeyEvent.VK_BACK_SPACE) && (caracter !='.')){
+                evt.consume();
+        }
+        if(t_existencia.getText().contains(".")==true && caracter =='.')
+            evt.consume();
+    }//GEN-LAST:event_t_existenciaKeyTyped
 
-    private void t_maximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_maximoActionPerformed
+    private void t_existenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_existenciaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_t_maximoActionPerformed
+    }//GEN-LAST:event_t_existenciaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Eliminar1;
@@ -996,8 +887,6 @@ public class editaEjemplar extends javax.swing.JPanel {
     private javax.swing.JButton b_guardar;
     private javax.swing.JButton bt_actualiza1;
     private javax.swing.JButton bt_actualiza2;
-    public javax.swing.JComboBox c_marca;
-    public javax.swing.JComboBox c_tipo;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -1005,100 +894,43 @@ public class editaEjemplar extends javax.swing.JPanel {
     public javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel l_catalogo;
     private javax.swing.JLabel l_marca;
-    private javax.swing.JLabel l_modelo;
     private javax.swing.JLabel l_modelo1;
     private javax.swing.JLabel l_tipo;
-    private javax.swing.JLabel l_tipo1;
-    private javax.swing.JLabel l_tipo2;
-    private javax.swing.JLabel l_tipo3;
-    private javax.swing.JComboBox medida;
-    private javax.swing.JPanel p_foto;
+    public javax.swing.JPanel p_foto;
     private javax.swing.JTextField t_busca;
-    public javax.swing.JTextField t_catalogo;
     public javax.swing.JTextArea t_comentario;
     private javax.swing.JTable t_datos;
-    private javax.swing.JFormattedTextField t_maximo;
-    private javax.swing.JFormattedTextField t_minimo;
-    public javax.swing.JTextField t_modelo;
+    public javax.swing.JFormattedTextField t_existencia;
+    public javax.swing.JTextField t_nombre;
     public javax.swing.JTextField t_numero;
-    private javax.swing.JFormattedTextField t_precio;
+    public javax.swing.JTextField t_ubicacion;
     // End of variables declaration//GEN-END:variables
 
-    public void cargaMarca()
-    {
-        List <Object[]> resultList=executeHQLQuery("from Marca");
-        if(resultList.size()>0)
-        {
-            c_marca.removeAllItems();
-            marc= new String [resultList.size()+1];
-            c_marca.addItem("NA");
-            marc[0]="";
-            int x=1;
-            for (Object o : resultList)
-            {
-                marca = (Marca) o;
-                c_marca.addItem(marca.getIdMarca());
-                marc[x]=marca.getIdMarca();
-                x++;
-            }
-        }
-        if(session.isOpen())            
-            session.close();
-    }
 
-    public void cargaTipo()
-    {
-        List <Object[]> resultList=executeHQLQuery("from Tipo");
-        if(resultList.size()>0)
-        {
-            c_tipo.removeAllItems();
-            tip= new String [resultList.size()+1];
-            c_tipo.addItem("NA");
-            tip[0]="";
-            int x=1;
-            for (Object o : resultList)
-            {
-                tipo = (Tipo) o;
-                c_tipo.addItem(tipo.getTipoNombre());
-                tip[x]=tipo.getTipoNombre();
-                x++;
-            }
-        }
-        if(session.isOpen())            
-            session.close();
-    }
-
+    
     public void borra_cajas()
     {
         t_numero.setText("");
-        t_modelo.setText("");
+        t_nombre.setText("");
+        t_ubicacion.setText("");
         t_comentario.setText("");
-        t_precio.setValue(0.00);
-        t_maximo.setValue(0.00);
-        t_minimo.setValue(0.00);
-        t_catalogo.setText("");
+        t_existencia.setValue(0.00);
         p_foto.removeAll();
         archivo=null;
         nombreFoto="";
         entro_foto=0;
     }
 
-    public void cajas(boolean numero, boolean nombre, boolean marca, boolean tipo, boolean catalogo, boolean comentario, boolean cancelar, boolean guardar)
+    public void cajas(boolean numero, boolean nombre, boolean ubicacion, boolean existencias, boolean comentario, boolean cancelar, boolean guardar)
     {
         t_numero.setEnabled(numero);
-        t_modelo.setEnabled(nombre);
-        c_marca.setEnabled(marca);
-        c_tipo.setEnabled(tipo);
-        t_catalogo.setEnabled(catalogo);
+        t_nombre.setEnabled(nombre);
+        t_ubicacion.setEnabled(ubicacion);
         t_comentario.setEnabled(comentario);
-        t_precio.setEnabled(comentario);
+        t_existencia.setEnabled(existencias);
         b_cancelar.setEnabled(cancelar);
         b_guardar.setEnabled(guardar);
-        medida.setEnabled(tipo);
-        t_maximo.setEnabled(tipo);
-        t_minimo.setEnabled(tipo);
     }
     
     private List<Object[]> executeHQLQuery(String hql) {
@@ -1116,15 +948,16 @@ public class editaEjemplar extends javax.swing.JPanel {
         }
     }
     
-    private boolean eliminar(String idEjemplar)
+    private boolean eliminar(String idHerramienta)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try
         {
             session.beginTransaction();
-            actor = (Ejemplar)session.get(Ejemplar.class, idEjemplar);
+            actor = (Herramienta)session.get(Herramienta.class, idHerramienta);
             
-            if(actor.getPartidas().isEmpty()==false)
+           // if(actor.getPartidas.isEmpty()==false)
+            if(actor ==null)
             {
                 session.getTransaction().rollback();
                 JOptionPane.showMessageDialog(null, "¡El ejemplar esta en uso, no se puede eliminar!");
@@ -1151,9 +984,7 @@ public class editaEjemplar extends javax.swing.JPanel {
     
     private void buscaDato()
     {
-        String consulta="from Ejemplar obj";
-        if(inventario<2)
-            consulta+=" where inventario="+inventario;
+        String consulta="from Herramienta obj";
         List <Object[]> resultList=executeHQLQuery(consulta);
         if(resultList.size()>0)
         {
@@ -1161,32 +992,14 @@ public class editaEjemplar extends javax.swing.JPanel {
             int i=0;
             for (Object o : resultList)
             {
-                actor = (Ejemplar) o;
-                model.setValueAt(actor.getIdParte(), i, 0);
-                if(actor.getModelo()!=null)
-                    model.setValueAt(actor.getModelo(), i, 1);
-                if(actor.getMarca()!=null)
-                    model.setValueAt(actor.getMarca().getIdMarca(), i, 2);
-                if(actor.getTipo()!=null)
-                    model.setValueAt(actor.getTipo().getTipoNombre(), i, 3);
-                model.setValueAt(actor.getCatalogo(), i, 4);
-                if(actor.getComentario()!=null)
-                    model.setValueAt(actor.getComentario(), i, 5);
-                else
-                    model.setValueAt("", i, 5);
+                actor = (Herramienta) o;
+                model.setValueAt(actor.getIdHerramienta(), i, 0);
+                model.setValueAt(actor.getNombre(), i, 1);
+                model.setValueAt(actor.getImagen(), i, 2);
+                model.setValueAt(actor.getUbicacion(), i, 3);
+                model.setValueAt(Double.parseDouble(actor.getExistencias().toString()), i, 4);
+                model.setValueAt(actor.getComentario(), i, 5);
                 
-                if(actor.getImagen()!=null)
-                    model.setValueAt(actor.getImagen(), i, 6);
-                else
-                    model.setValueAt("", i, 6);
-                model.setValueAt(actor.getMedida(), i, 7);
-                model.setValueAt(actor.getPrecio(), i, 8);
-                model.setValueAt(actor.getMaximo(), i, 9);
-                model.setValueAt(actor.getMinimo(), i, 10);
-                if(actor.getInventario()!=null)
-                    model.setValueAt(actor.getInventario(), i, 11);
-                else
-                    model.setValueAt("", i, 11);
                 i++;
             }
         }
@@ -1216,28 +1029,25 @@ public class editaEjemplar extends javax.swing.JPanel {
               switch(i)
               {
                   case 0:
+                      column.setPreferredWidth(50);
+                      break;
+                  case 1:
+                      column.setPreferredWidth(150);
+                      break;
+                  case 2:
+                      column.setPreferredWidth(80);
+                      break;
+                  case 3:
                       column.setPreferredWidth(100);
                       break;
                   case 4:
-                      column.setPreferredWidth(200);
+                      column.setPreferredWidth(70);
                       break;
                   case 5:
-                      column.setPreferredWidth(200);
-                      break;
-                  case 7:
-                      column.setPreferredWidth(50);
-                      break;
-                  case 8:
-                      column.setPreferredWidth(80);
-                      break;
-                  case 9:
-                      column.setPreferredWidth(80);
-                      break;
-                  case 10:
-                      column.setPreferredWidth(80);
+                      column.setPreferredWidth(150);
                       break;
                   default:
-                      column.setPreferredWidth(5);
+                      column.setPreferredWidth(40);
                       break; 
               }
         }
@@ -1251,14 +1061,14 @@ public class editaEjemplar extends javax.swing.JPanel {
     try {        
         if(archivo.exists()==true)
         {
-            File folder = new File("ejemplar");
+            File folder = new File("herramienta");
             folder.mkdirs();
-            folder = new File("ejemplar/miniatura");
+            folder = new File("herramienta/miniatura");
             folder.mkdirs();
             Random rng=new Random();
             long  dig8 = rng.nextInt(90000000)+10000000;
-            File destino = new File("ejemplar/"+no);
-            File miniatura = new File("ejemplar/miniatura/"+no);
+            File destino = new File("herramienta/"+no);
+            File miniatura = new File("herramienta/miniatura/"+no);
             String ruta=archivo.getPath();
             javax.swing.JPanel p=new Imagen(ruta, 385, 250, 0, 0, 385, 250);
             BufferedImage dibujo =new BufferedImage(385, 250, BufferedImage.TYPE_INT_RGB);

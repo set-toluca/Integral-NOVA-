@@ -2026,8 +2026,8 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                     }
                     if(c_tmovimiento.getSelectedItem().toString().compareTo("Salida")==0)
                     {
-                        if(autorizaOperarios()==true)
-                        {//para pedido op
+                        //if(autorizaOperarios()==true)
+                        //{//para pedido op
                             if(t_er.getText().compareTo("")!=0)
                             {
                                 if(t_datos.getRowCount()>0)
@@ -2060,7 +2060,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                 JOptionPane.showMessageDialog(null, "Ingresa el nombre del que entrego/recibio");
                                 t_er.requestFocus();
                             }
-                        }
+                        //}
                     }
                     break;
 

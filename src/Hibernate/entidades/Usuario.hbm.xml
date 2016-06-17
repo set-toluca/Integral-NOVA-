@@ -357,6 +357,12 @@
         <property name="editaTaller" type="java.lang.Boolean">
             <column name="edita_taller" />
         </property>
+        <property name="herramienta" type="java.lang.Boolean">
+            <column name="herramienta" />
+        </property>
+        <property name="responsiva" type="java.lang.Boolean">
+            <column name="responsiva" />
+        </property>
         <set name="pedidosForAutorizo" table="pedido" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="autorizo" length="10">

@@ -165,6 +165,8 @@ public class editaUsuario extends javax.swing.JPanel {
         cb_consulta_muestra = new javax.swing.JCheckBox();
         cb_cancela_muestra = new javax.swing.JCheckBox();
         cb_autoriza_entregas = new javax.swing.JCheckBox();
+        cb_herramienta = new javax.swing.JCheckBox();
+        cb_responsiva = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         cb_generar_ciclo = new javax.swing.JCheckBox();
         cb_editar_ciclo = new javax.swing.JCheckBox();
@@ -1018,6 +1020,12 @@ public class editaUsuario extends javax.swing.JPanel {
         cb_autoriza_entregas.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         cb_autoriza_entregas.setText("Autoriza Entrega");
 
+        cb_herramienta.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_herramienta.setText("Herramienta");
+
+        cb_responsiva.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_responsiva.setText("Responsivas");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1031,12 +1039,14 @@ public class editaUsuario extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cb_movimiento_muestra)
-                    .addComponent(cb_consulta_muestra)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cb_cancela_muestra)
-                        .addGap(18, 18, 18)
-                        .addComponent(cb_autoriza_entregas)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                    .addComponent(cb_cancela_muestra)
+                    .addComponent(cb_consulta_muestra))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cb_responsiva)
+                    .addComponent(cb_autoriza_entregas)
+                    .addComponent(cb_herramienta))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1047,9 +1057,13 @@ public class editaUsuario extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cb_cancela_movimiento))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(cb_movimiento_muestra)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cb_movimiento_muestra)
+                    .addComponent(cb_herramienta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cb_consulta_muestra)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cb_consulta_muestra)
+                    .addComponent(cb_responsiva))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cb_cancela_muestra)
@@ -1423,6 +1437,9 @@ public class editaUsuario extends javax.swing.JPanel {
                             usr_edit.setMivimientoMuestra(this.cb_movimiento_muestra.isSelected());
                             usr_edit.setConsultaMuestra(this.cb_consulta_muestra.isSelected());
                             usr_edit.setCancelaMuestra(this.cb_cancela_muestra.isSelected());
+                            usr_edit.setHerramienta(this.cb_herramienta.isSelected());
+                            usr_edit.setResponsiva(this.cb_responsiva.isSelected());
+                            
                             usr_edit.setGenerarCiclo(this.cb_generar_ciclo.isSelected());
                             usr_edit.setEditarCiclo(this.cb_editar_ciclo.isSelected());
                             usr_edit.setEditaPrecioAutorizado(this.cb_edita_costo.isSelected());
@@ -1585,6 +1602,7 @@ public class editaUsuario extends javax.swing.JPanel {
     private javax.swing.JCheckBox cb_generar_ciclo;
     private javax.swing.JCheckBox cb_generar_factura;
     private javax.swing.JCheckBox cb_generar_pedido;
+    private javax.swing.JCheckBox cb_herramienta;
     private javax.swing.JCheckBox cb_movimiento_almacen;
     private javax.swing.JCheckBox cb_movimiento_muestra;
     private javax.swing.JCheckBox cb_partidas_adicionales;
@@ -1596,6 +1614,7 @@ public class editaUsuario extends javax.swing.JPanel {
     private javax.swing.JCheckBox cb_reporte_pedido;
     private javax.swing.JCheckBox cb_reportes;
     private javax.swing.JCheckBox cb_respaldar_ordenes;
+    private javax.swing.JCheckBox cb_responsiva;
     private javax.swing.JCheckBox cb_restaurar_ordenes;
     private javax.swing.JCheckBox cb_s_consultar;
     private javax.swing.JCheckBox cb_s_editar;
@@ -1744,6 +1763,8 @@ public class editaUsuario extends javax.swing.JPanel {
                     this.cb_movimiento_muestra.setSelected(usr_edit.getMivimientoMuestra());
                     this.cb_consulta_muestra.setSelected(usr_edit.getConsultaMuestra());
                     this.cb_cancela_muestra.setSelected(usr_edit.getCancelaMuestra());
+                    this.cb_herramienta.setSelected(usr_edit.getHerramienta());
+                    this.cb_responsiva.setSelected(usr_edit.getResponsiva());
                     
                     this.cb_s_consultar.setSelected(usr_edit.getConsultaTaller());
                     this.cb_s_editar.setSelected(usr_edit.getEditaTaller());
@@ -1869,6 +1890,8 @@ public class editaUsuario extends javax.swing.JPanel {
             this.cb_movimiento_muestra.setSelected(false);
             this.cb_consulta_muestra.setSelected(false);
             this.cb_cancela_muestra.setSelected(false);
+            this.cb_herramienta.setSelected(false);
+            this.cb_responsiva.setSelected(false);
             
             
             

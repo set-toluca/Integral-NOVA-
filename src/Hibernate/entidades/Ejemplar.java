@@ -22,6 +22,8 @@ public class Ejemplar  implements java.io.Serializable {
      private String medida;
      private Double existencias;
      private Double precio;
+     private Double maximo;
+     private Double minimo;
      private Set partidas = new HashSet(0);
      private Set partidasExternas= new HashSet(0);
      private Set movimientos= new HashSet(0);
@@ -33,7 +35,7 @@ public class Ejemplar  implements java.io.Serializable {
     public Ejemplar(String idParte) {
         this.idParte = idParte;
     }
-    public Ejemplar(String idParte, Marca marca, Tipo tipo, String catalogo, Integer modelo, String comentario, String imagen, Integer inventario, String medida, Double existencias, Double precio, Set partidas, Set partidasExternas, Set movimientos) {
+    public Ejemplar(String idParte, Marca marca, Tipo tipo, String catalogo, Integer modelo, String comentario, String imagen, Integer inventario, String medida, Double existencias, Double precio, Double maximo, Double minimo, Set partidas, Set partidasExternas, Set movimientos) {
        this.idParte = idParte;
        this.marca = marca;
        this.tipo = tipo;
@@ -45,6 +47,8 @@ public class Ejemplar  implements java.io.Serializable {
        this.medida=medida;
        this.existencias=existencias;
        this.precio = precio;
+       this.maximo = maximo;
+       this.minimo = minimo;
        this.partidas = partidas;
        this.partidasExternas=partidasExternas;
        this.movimientos=movimientos;
@@ -91,6 +95,21 @@ public class Ejemplar  implements java.io.Serializable {
     
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+    
+    public Double getMaximo() {
+        return this.maximo;
+    }
+    
+    public void setMaximo(Double maximo) {
+        this.maximo = maximo;
+    }
+    public Double getMinimo() {
+        return this.minimo;
+    }
+    
+    public void setMinimo(Double minimo) {
+        this.minimo = minimo;
     }
     public String getMedida() {
         return this.medida;

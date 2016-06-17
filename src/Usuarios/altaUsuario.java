@@ -168,6 +168,8 @@ public class altaUsuario extends javax.swing.JPanel {
         cb_consulta_muestra = new javax.swing.JCheckBox();
         cb_autoriza_entregas = new javax.swing.JCheckBox();
         cb_cancela_muestra = new javax.swing.JCheckBox();
+        cb_herramienta = new javax.swing.JCheckBox();
+        cb_responsiva = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         cb_generar_ciclo = new javax.swing.JCheckBox();
         cb_editar_ciclo = new javax.swing.JCheckBox();
@@ -1071,6 +1073,12 @@ public class altaUsuario extends javax.swing.JPanel {
         cb_cancela_muestra.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         cb_cancela_muestra.setText("Cancela muestras");
 
+        cb_herramienta.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_herramienta.setText("Herramienta");
+
+        cb_responsiva.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_responsiva.setText("Responsivas");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1084,26 +1092,34 @@ public class altaUsuario extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cb_movimiento_muestra)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cb_consulta_muestra)
-                            .addComponent(cb_cancela_muestra))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cb_autoriza_entregas)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(cb_consulta_muestra)
+                    .addComponent(cb_cancela_muestra))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cb_autoriza_entregas)
+                    .addComponent(cb_responsiva)
+                    .addComponent(cb_herramienta))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cb_movimiento_almacen)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cb_movimiento_almacen)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cb_consulta_almacen))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cb_herramienta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cb_responsiva)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cb_consulta_almacen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cb_cancela_movimiento)
-                            .addComponent(cb_cancela_muestra)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cb_cancela_movimiento)
+                                .addComponent(cb_cancela_muestra))
                             .addComponent(cb_autoriza_entregas)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cb_movimiento_muestra)
@@ -1405,6 +1421,8 @@ public class altaUsuario extends javax.swing.JPanel {
                                     this.cb_edita_costo.isSelected(),
                                     this.cb_s_consultar.isSelected(),
                                     this.cb_s_editar.isSelected(),
+                                    this.cb_herramienta.isSelected(),
+                                    this.cb_responsiva.isSelected(),
             /*aqui van los HashSet*/null,
                                     null,
                                     null,
@@ -1599,6 +1617,7 @@ public class altaUsuario extends javax.swing.JPanel {
     private javax.swing.JCheckBox cb_generar_ciclo;
     private javax.swing.JCheckBox cb_generar_factura;
     private javax.swing.JCheckBox cb_generar_pedido;
+    private javax.swing.JCheckBox cb_herramienta;
     private javax.swing.JCheckBox cb_movimiento_almacen;
     private javax.swing.JCheckBox cb_movimiento_muestra;
     private javax.swing.JCheckBox cb_partidas_adicionales;
@@ -1610,6 +1629,7 @@ public class altaUsuario extends javax.swing.JPanel {
     private javax.swing.JCheckBox cb_reporte_pedido;
     private javax.swing.JCheckBox cb_reportes;
     private javax.swing.JCheckBox cb_respaldar_ordenes;
+    private javax.swing.JCheckBox cb_responsiva;
     private javax.swing.JCheckBox cb_restaurar_ordenes;
     private javax.swing.JCheckBox cb_s_consultar;
     private javax.swing.JCheckBox cb_s_editar;
@@ -1734,7 +1754,8 @@ public class altaUsuario extends javax.swing.JPanel {
             this.cb_movimiento_muestra.setSelected(false);
             this.cb_consulta_muestra.setSelected(false);
             this.cb_cancela_muestra.setSelected(false);
-            
+            this.cb_herramienta.setSelected(false);
+            this.cb_responsiva.setSelected(false);
             
             
             //catalogos
