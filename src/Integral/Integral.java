@@ -14,8 +14,6 @@ import Almacen.Reporte2;
 import Almacen.Responsiva;
 import Catalogo.buscaCatalogo;
 import Catalogo.editaCatalogo;
-import Ciclo.buscaCiclo;
-import Ciclo.editaCiclo;
 import Clientes.buscaCliente;
 import Clientes.editaCliente;
 import Compania.NuevaCompania;
@@ -37,7 +35,6 @@ import Estatus.buscaEstatus;
 import Estatus.editaEstatus;
 import Hibernate.Util.HibernateUtil;
 import Hibernate.entidades.Catalogo;
-import Hibernate.entidades.Ciclo;
 import Hibernate.entidades.Clientes;
 import Hibernate.entidades.Compania;
 import Hibernate.entidades.Conceptos;
@@ -91,10 +88,8 @@ import Herramientas.buscaHerramienta;
 import Herramientas.editaHerramienta;
 import Hibernate.entidades.Herramienta;
 import Operaciones.ResponsablesOP;
-import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.AWTEventListener;
 import java.util.Random;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -159,7 +154,6 @@ public class Integral extends javax.swing.JFrame {
     private editaReparacion eReparacion;
     private editaTipo eTipo;
     private editaCatalogo eCatalogo;
-    private editaCiclo eCiclo;
     private Egresos egresos;
     private Existencias existencias;
     private ajusteInventario ajuste;
@@ -172,7 +166,6 @@ public class Integral extends javax.swing.JFrame {
     editaEjemplar eEjemplar;
     final Herramientas h;
     static Integral entrada;
-    static Tiempo tiempo=new Tiempo();
     private String periodo;
     String ruta;
     
@@ -186,6 +179,8 @@ public class Integral extends javax.swing.JFrame {
         List lista=ventana.getReturnStatus();
         ruta=ventana.ruta;
         ventana=null;
+        d=null;
+        medida=null;
         if(lista!=null)
         {
             initComponents();
@@ -217,8 +212,8 @@ public class Integral extends javax.swing.JFrame {
                 //*****guardamos el acceso en la BD
                 Random rng=new Random();
                 long  dig8 = rng.nextInt(90000000)+10000000;
+                rng=null;
                 sessionPrograma=""+dig8;
-                tiempo.Contar(actor, sessionPrograma);
                 session.beginTransaction().begin();
                 actor=(Usuario)session.get(Usuario.class, actor.getIdUsuario());
                 Configuracion con=(Configuracion)session.get(Configuracion.class, 1);
@@ -230,6 +225,7 @@ public class Integral extends javax.swing.JFrame {
                 t_periodo.setText(periodo);
                 this.setExtendedState(this.MAXIMIZED_BOTH);
                 this.p_logo.add(new Imagen("imagenes/empresa300115.jpg", 451, 210, 0, 0, 451, 210));
+                con=null;
                 if(session!=null)
                     if(session.isOpen())
                         session.close();
@@ -240,6 +236,7 @@ public class Integral extends javax.swing.JFrame {
             if(session!=null)
                 if(session.isOpen())
                     session.close();
+            session=null;
         }
         else
         {
@@ -247,16 +244,6 @@ public class Integral extends javax.swing.JFrame {
         }
         lista=null;
         h=new Herramientas(this.actor, 0);
-        
-        long eventMask = AWTEvent.MOUSE_MOTION_EVENT_MASK + AWTEvent.MOUSE_EVENT_MASK + AWTEvent.KEY_EVENT_MASK;
-        Toolkit.getDefaultToolkit().addAWTEventListener( 
-                new AWTEventListener()
-                {
-                    public void eventDispatched(AWTEvent e)
-                    {
-                        tiempo.Reiniciar();
-                    }
-                }, eventMask);
     }
 
     private void cerrarSession(){
@@ -264,7 +251,6 @@ public class Integral extends javax.swing.JFrame {
                 "Cerrar sessión", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
         {
             eliminaBloqueos();
-            tiempo.Detener();
             this.dispose();
             Integral.main(null);
         }
@@ -309,6 +295,7 @@ public class Integral extends javax.swing.JFrame {
         }
         if(session.isOpen())
             session.close(); 
+        session=null;
         return val;
     }
     
@@ -338,14 +325,14 @@ public class Integral extends javax.swing.JFrame {
         jMenuItem51 = new javax.swing.JMenuItem();
         jMenuItem52 = new javax.swing.JMenuItem();
         jMenuItem49 = new javax.swing.JMenuItem();
+        t_bienvenido1 = new javax.swing.JLabel();
+        t_periodo = new javax.swing.JLabel();
         p_tilulo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         l_nombre = new javax.swing.JLabel();
         p_usuario = new javax.swing.JPanel();
         t_bienvenido = new javax.swing.JLabel();
         t_usuario = new javax.swing.JLabel();
-        t_periodo = new javax.swing.JLabel();
-        t_bienvenido1 = new javax.swing.JLabel();
         p_centro = new javax.swing.JPanel();
         P_pestana = new javax.swing.JTabbedPane();
         p_inicio = new javax.swing.JPanel();
@@ -398,9 +385,6 @@ public class Integral extends javax.swing.JFrame {
         jMenuItem47 = new javax.swing.JMenuItem();
         m_administracion = new javax.swing.JMenu();
         m_catalogos = new javax.swing.JMenu();
-        m_edita_ciclo = new javax.swing.JMenu();
-        jMenuItem35 = new javax.swing.JMenuItem();
-        jMenuItem22 = new javax.swing.JMenuItem();
         jMenu16 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -461,7 +445,6 @@ public class Integral extends javax.swing.JFrame {
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem36 = new javax.swing.JMenuItem();
         jMenuItem43 = new javax.swing.JMenuItem();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
 
         jMenu24.setText("COI");
 
@@ -490,6 +473,14 @@ public class Integral extends javax.swing.JFrame {
             }
         });
         jMenu24.add(jMenuItem49);
+
+        t_bienvenido1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        t_bienvenido1.setForeground(new java.awt.Color(255, 255, 255));
+        t_bienvenido1.setText("Periodo:");
+
+        t_periodo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        t_periodo.setForeground(new java.awt.Color(255, 255, 255));
+        t_periodo.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Integral Administración de Taller Automotriz v.2.1");
@@ -548,14 +539,6 @@ public class Integral extends javax.swing.JFrame {
         t_usuario.setForeground(new java.awt.Color(255, 255, 255));
         t_usuario.setText("jLabel2");
 
-        t_periodo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        t_periodo.setForeground(new java.awt.Color(255, 255, 255));
-        t_periodo.setText("jLabel2");
-
-        t_bienvenido1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        t_bienvenido1.setForeground(new java.awt.Color(255, 255, 255));
-        t_bienvenido1.setText("Periodo:");
-
         javax.swing.GroupLayout p_usuarioLayout = new javax.swing.GroupLayout(p_usuario);
         p_usuario.setLayout(p_usuarioLayout);
         p_usuarioLayout.setHorizontalGroup(
@@ -564,17 +547,10 @@ public class Integral extends javax.swing.JFrame {
                 .addComponent(t_bienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(t_usuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 819, Short.MAX_VALUE)
-                .addComponent(t_bienvenido1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(t_periodo)
-                .addContainerGap())
+                .addContainerGap(935, Short.MAX_VALUE))
         );
         p_usuarioLayout.setVerticalGroup(
             p_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(p_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(t_bienvenido1)
-                .addComponent(t_periodo))
             .addGroup(p_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(t_bienvenido)
                 .addComponent(t_usuario))
@@ -965,26 +941,6 @@ public class Integral extends javax.swing.JFrame {
         m_administracion.setText("Administración");
 
         m_catalogos.setText("Catalogos");
-
-        m_edita_ciclo.setText("Ciclo");
-
-        jMenuItem35.setText("Consulta");
-        jMenuItem35.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem35ActionPerformed(evt);
-            }
-        });
-        m_edita_ciclo.add(jMenuItem35);
-
-        jMenuItem22.setText("Edita");
-        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem22ActionPerformed(evt);
-            }
-        });
-        m_edita_ciclo.add(jMenuItem22);
-
-        m_catalogos.add(m_edita_ciclo);
 
         jMenu16.setText("Capital Humano");
 
@@ -1390,14 +1346,6 @@ public class Integral extends javax.swing.JFrame {
         });
         m_itilerias.add(jMenuItem43);
 
-        jCheckBoxMenuItem1.setText("Cancelar  cierre automático");
-        jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxMenuItem1ActionPerformed(evt);
-            }
-        });
-        m_itilerias.add(jCheckBoxMenuItem1);
-
         jMenuBar1.add(m_itilerias);
 
         setJMenuBar(jMenuBar1);
@@ -1420,7 +1368,6 @@ public class Integral extends javax.swing.JFrame {
                 if(pos>=0)
                 {
                     P_pestana.setSelectedIndex(pos);
-                    Modificar_Orden.t_orden.requestFocus();
                 }
                 else
                 {
@@ -1431,6 +1378,7 @@ public class Integral extends javax.swing.JFrame {
                     P_pestana.setSelectedComponent(Modificar_Orden);
                     P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
                     Modificar_Orden.t_orden.requestFocus();
+                    btc=null;
                 }
                 System.gc();
             }
@@ -1445,6 +1393,7 @@ public class Integral extends javax.swing.JFrame {
         if(session!=null)
             if(session.isOpen())
                 session.close();
+        session=null;
     }//GEN-LAST:event_m_consultarActionPerformed
 
     private void m_aperturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_aperturaActionPerformed
@@ -1462,7 +1411,6 @@ public class Integral extends javax.swing.JFrame {
                 if(pos>=0)
                 {
                     P_pestana.setSelectedIndex(pos);
-                    Apertura_Orden.t_aseguradora.requestFocus();
                 }
                 else
                 {
@@ -1473,6 +1421,8 @@ public class Integral extends javax.swing.JFrame {
                     P_pestana.setSelectedComponent(Apertura_Orden);
                     P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
                     Apertura_Orden.t_aseguradora.requestFocus();
+                    Apertura_Orden=null;
+                    btc=null;
                 }
                 System.gc();
             }
@@ -1489,6 +1439,7 @@ public class Integral extends javax.swing.JFrame {
             if(session!=null)
                 if(session.isOpen())
                     session.close();
+            session=null;
         }
     }//GEN-LAST:event_m_aperturaActionPerformed
 
@@ -1537,21 +1488,23 @@ public class Integral extends javax.swing.JFrame {
                     P_pestana.setSelectedComponent(Modificar_Orden);
                     P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
                     Modificar_Orden.t_orden.requestFocus();
+                    btc=null;
                 }
-                System.gc();
                 Modificar_Orden.t_orden.setText(""+orden_act.getIdOrden());
                 Modificar_Orden.orden_act=orden_act;
                 Modificar_Orden.consultaOrden();
                 Modificar_Orden.b_busca_orden.requestFocus();
                 Modificar_Orden.p_ventanas.setSelectedIndex(0);
+                System.gc();
             }
         }catch(Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
         if(session!=null)
             if(session.isOpen())
                 session.close();
+        session=null;
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -1852,7 +1805,6 @@ public class Integral extends javax.swing.JFrame {
             if(pos>=0)
             {
                 P_pestana.setSelectedIndex(pos);    
-                Modificar_Orden_Valuacion.t_orden.requestFocus();
             }
             else
             {
@@ -1863,6 +1815,8 @@ public class Integral extends javax.swing.JFrame {
                 P_pestana.setSelectedComponent(Modificar_Orden_Valuacion);
                 P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
                 Modificar_Orden_Valuacion.t_orden.requestFocus();
+                Modificar_Orden_Valuacion=null;
+                btc=null;
             }
             System.gc();
         }catch(Exception e)
@@ -1872,6 +1826,7 @@ public class Integral extends javax.swing.JFrame {
         if(session!=null)
             if(session.isOpen())
                 session.close();
+        session=null;
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -2880,6 +2835,8 @@ public class Integral extends javax.swing.JFrame {
                     P_pestana.addTab("Reportes Valuacion", reporteVal);
                     P_pestana.setSelectedComponent(reporteVal);
                     P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
+                    reporteVal=null;
+                    btc=null;
                 }
                 System.gc();
             }
@@ -2894,6 +2851,7 @@ public class Integral extends javax.swing.JFrame {
         if(session!=null)
             if(session.isOpen())
                 session.close();
+        session=null;
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void nuevo_proveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevo_proveedorActionPerformed
@@ -3262,7 +3220,6 @@ public class Integral extends javax.swing.JFrame {
                 if(pos>=0)
                 {
                     P_pestana.setSelectedIndex(pos);    
-                    generarCotizacion.t_orden.requestFocus();
                 }
                 else
                 {
@@ -3273,6 +3230,8 @@ public class Integral extends javax.swing.JFrame {
                     P_pestana.setSelectedComponent(generarCotizacion);
                     P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
                     generarCotizacion.t_orden.requestFocus();
+                    generarCotizacion=null;
+                    btc=null;
                 }
                 System.gc();
             }
@@ -3287,6 +3246,7 @@ public class Integral extends javax.swing.JFrame {
         if(session!=null)
             if(session.isOpen())
                 session.close();
+        session=null;
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
@@ -3343,6 +3303,8 @@ public class Integral extends javax.swing.JFrame {
                     P_pestana.setSelectedComponent(generarPedidos);
                     P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
                     generarPedidos.t_orden.requestFocus();
+                    generarPedidos=null;
+                    btc=null;
                 }
                 System.gc();
             }
@@ -3357,6 +3319,7 @@ public class Integral extends javax.swing.JFrame {
         if(session!=null)
             if(session.isOpen())
                 session.close();
+        session=null;
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
@@ -3702,7 +3665,6 @@ public class Integral extends javax.swing.JFrame {
                 if(pos>=0)
                 {
                     P_pestana.setSelectedIndex(pos);    
-                    preFac.t_orden.requestFocus();
                 }
                 else
                 {
@@ -3713,6 +3675,8 @@ public class Integral extends javax.swing.JFrame {
                     P_pestana.setSelectedComponent(preFac);
                     P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
                     preFac.t_orden.requestFocus();
+                    preFac=null;
+                    btc=null;
                 }
                 System.gc();
             }
@@ -3725,6 +3689,7 @@ public class Integral extends javax.swing.JFrame {
         if(session!=null)
             if(session.isOpen())
                 session.close();
+        session=null;
     }//GEN-LAST:event_jMenuItem20ActionPerformed
 
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
@@ -3763,109 +3728,6 @@ public class Integral extends javax.swing.JFrame {
             if(session.isOpen())
                 session.close();
     }//GEN-LAST:event_jMenuItem19ActionPerformed
-
-    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
-        // TODO add your handling code here:
-        h.menu=0;
-        h.session(sessionPrograma);
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try
-        {
-            session.beginTransaction().begin();
-            actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
-            if(actor.getEditaPeriodo()==true)
-            {
-                pos=-1;
-                for(int a=0; a<P_pestana.getTabCount(); a++)
-                {
-                    if(P_pestana.getTitleAt(a)=="E. Ciclo")
-                    pos=a;
-                }
-                if(pos>=0)
-                {
-                    P_pestana.setSelectedIndex(pos);
-                    eCiclo.t_ciclo.requestFocus();
-                }
-                else
-                {
-                    eCiclo = new editaCiclo(actor,sessionPrograma);
-                    PanelPestanas btc=new PanelPestanas(P_pestana,-1, actor);
-                    P_pestana.addTab("E. Ciclo", eCiclo);
-                    P_pestana.setSelectedComponent(eCiclo);
-                    P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
-                    eCiclo.t_ciclo.requestFocus();
-                    eCiclo.cajas(false, false, false, false);
-                }
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
-            }
-        }catch(Exception e)
-        {
-            System.out.println(e);
-        }
-        if(session!=null)
-            if(session.isOpen())
-                session.close();
-    }//GEN-LAST:event_jMenuItem22ActionPerformed
-
-    private void jMenuItem35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem35ActionPerformed
-        // TODO add your handling code here:
-        h.menu=0;
-        h.session(sessionPrograma);
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try
-        {
-            session.beginTransaction().begin();
-            actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
-            if(actor.getEditaPeriodo()==true)
-             {
-                buscaCiclo obj = new buscaCiclo(new javax.swing.JFrame(), true, sessionPrograma, actor);
-                obj.t_busca.requestFocus();
-                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-                obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
-                obj.setVisible(true);
-                Ciclo orden_act=obj.getReturnStatus();
-
-                if (orden_act!=null)
-                {
-                    orden_act=(Ciclo)session.get(Ciclo.class, orden_act.getIdCiclo());
-                    pos=-1;
-                    for(int a=0; a<P_pestana.getTabCount(); a++)
-                    {
-                        if(P_pestana.getTitleAt(a)=="Edita Ciclo")
-                        pos=a;
-                    }
-                    if(pos>=0)
-                    {
-                        P_pestana.setSelectedIndex(pos);
-                    }
-                    else
-                    {
-                        eCiclo = new editaCiclo(actor, sessionPrograma);
-                        PanelPestanas btc=new PanelPestanas(P_pestana,-1, actor);
-                        P_pestana.addTab("Edita Ciclo", eCiclo);
-                        P_pestana.setSelectedComponent(eCiclo);
-                        P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
-                        eCiclo.t_ciclo.requestFocus();
-                    }
-                    eCiclo.borra_cajas();
-                    eCiclo.cajas(false, false, false, false);
-                    eCiclo.t_ciclo.setText(""+orden_act.getIdCiclo());
-                    eCiclo.t_descripcion.setText(""+orden_act.getDescripcion());
-                }
-            }
-            else
-                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
-        }catch(Exception e)
-        {
-            System.out.println(e);
-        }
-        if(session!=null)
-            if(session.isOpen())
-                session.close();
-    }//GEN-LAST:event_jMenuItem35ActionPerformed
 
     private void jMenuItem36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem36ActionPerformed
         // TODO add your handling code here:
@@ -4067,14 +3929,6 @@ public class Integral extends javax.swing.JFrame {
                 session.close();
     }//GEN-LAST:event_jMenuItem33ActionPerformed
 
-    private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        if(jCheckBoxMenuItem1.isSelected()==true)
-            tiempo.Detener();
-        else
-            tiempo.Contar(actor, sessionPrograma);
-    }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
-
     private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
         // TODO add your handling code here:
         h.menu=0;
@@ -4132,7 +3986,6 @@ public class Integral extends javax.swing.JFrame {
             if(pos>=0)
             {
                 P_pestana.setSelectedIndex(pos);    
-                Modificar_Orden_Valuacion.t_orden.requestFocus();
             }
             else
             {
@@ -4143,6 +3996,8 @@ public class Integral extends javax.swing.JFrame {
                 P_pestana.setSelectedComponent(panel_responsables);
                 P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
                 panel_responsables.t_orden.requestFocus();
+                panel_responsables=null;
+                btc=null;
             }
             System.gc();
         }catch(Exception e)
@@ -4152,6 +4007,7 @@ public class Integral extends javax.swing.JFrame {
         if(session!=null)
             if(session.isOpen())
                 session.close();
+        session=null;
     }//GEN-LAST:event_jMenuItem31ActionPerformed
 
     private void jMenuItem42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem42ActionPerformed
@@ -4578,8 +4434,8 @@ public class Integral extends javax.swing.JFrame {
         {
             session.beginTransaction().begin();
             actor = (Usuario)session.get(Usuario.class, actor.getIdUsuario());
-//            if(actor.getGenerarFactura()==true)
-//            {
+            if(actor.getMovimientoAlmacen()==true)
+            {
                 pos=P_pestana.indexOfTab("Ajuste Inventario");
                 if(pos>=0)
                 {
@@ -4595,9 +4451,9 @@ public class Integral extends javax.swing.JFrame {
                     P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
                 }
                 System.gc();
-//            }
-//            else
-//                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+            }
+            else
+                JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
         }catch(Exception e)
         {
             e.printStackTrace();
@@ -4731,16 +4587,18 @@ public class Integral extends javax.swing.JFrame {
                 if(pos>=0)
                 {
                     P_pestana.setSelectedIndex(pos);
-                    Modificar_Orden_Valuacion.t_orden.requestFocus();
                 }
                 else
                 {
+                    Modificar_Orden_Valuacion=null;
                     Modificar_Orden_Valuacion = new ModificarOrden(actor, t_periodo.getText().toString(), 4, sessionPrograma,ruta);
                     PanelPestanas btc=new PanelPestanas(P_pestana,4,actor);
                     P_pestana.addTab("Ref. cotiza", Modificar_Orden_Valuacion);
                     P_pestana.setSelectedComponent(Modificar_Orden_Valuacion);
                     P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
                     Modificar_Orden_Valuacion.t_orden.requestFocus();
+                    Modificar_Orden_Valuacion=null;
+                    btc=null;
                 }
             }
             else
@@ -4754,6 +4612,7 @@ public class Integral extends javax.swing.JFrame {
         if(session!=null)
         if(session.isOpen())
         session.close();
+        session=null;
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
@@ -4955,7 +4814,6 @@ public class Integral extends javax.swing.JFrame {
     public javax.swing.JTabbedPane P_pestana;
     private javax.swing.JMenuItem busca_proveedor;
     private javax.swing.JMenuItem edita_proveedor;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
@@ -4999,7 +4857,6 @@ public class Integral extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
-    private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem25;
@@ -5013,7 +4870,6 @@ public class Integral extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem32;
     private javax.swing.JMenuItem jMenuItem33;
     private javax.swing.JMenuItem jMenuItem34;
-    private javax.swing.JMenuItem jMenuItem35;
     private javax.swing.JMenuItem jMenuItem36;
     private javax.swing.JMenuItem jMenuItem37;
     private javax.swing.JMenuItem jMenuItem38;
@@ -5055,7 +4911,6 @@ public class Integral extends javax.swing.JFrame {
     private javax.swing.JMenuItem m_consultar_puestos;
     private javax.swing.JMenuItem m_consultar_reparacion;
     private javax.swing.JMenuItem m_consultar_tipo;
-    private javax.swing.JMenu m_edita_ciclo;
     private javax.swing.JMenu m_edita_ciclo1;
     private javax.swing.JMenuItem m_edita_clientes;
     private javax.swing.JMenuItem m_editar_articulo;

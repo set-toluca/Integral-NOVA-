@@ -52,6 +52,7 @@ import org.hibernate.criterion.Restrictions;
 import Integral.Herramientas;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import org.hibernate.Criteria;
@@ -60,7 +61,7 @@ import org.hibernate.Criteria;
  *
  * @author I.S.C Salvador
  */
-public class AperturaOrden extends javax.swing.JPanel {
+public final class AperturaOrden extends javax.swing.JPanel {
 
     Pattern patronEntero=Pattern.compile("[☺☻♥♦.♣♠•◘○◙♂♀♪♫☼►◄↕‼¶§▬↨↑↓→←∟↔▲▼ !\"#$%&'()*+,--/:;<=>?@A-z{|}~⌂ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜø£Ø×ƒáìóúñÑªº¿®¬½¼¡«»░▒▓│┤ÁÂÀ©╣║╗╝¢¥┐└┴┬├─┼ãÃ╚╔╩╦╠═╬¤ðÐÊËÈıÍÎÏ┘┌█▄¦Ì▀ÓßÔÒõÕµþÞÚÛÙýÝ¯´­±┬¾¶§÷¸°¨·¹³²■ ]*");
     Matcher encaja=patronEntero.matcher("1");
@@ -94,7 +95,7 @@ public class AperturaOrden extends javax.swing.JPanel {
                 ruta="";
             b.close();
             f.close();
-        }catch(Exception e){e.printStackTrace();}
+        }catch(IOException e){System.out.println(e);}
         cargaEstatus();
         edita_cliente();
         l_id_cliente.setVisible(false);
@@ -1635,41 +1636,19 @@ public class AperturaOrden extends javax.swing.JPanel {
                 if(consultaCliente(t_nombre_cliente.getText())==false)
                 {
                     Clientes nuevoCliente = new Clientes();
-                    if(t_nombre_cliente.getText().compareTo("")!=0)
-                        nuevoCliente.setNombre(t_nombre_cliente.getText());
-
-                    if(t_direccion_cliente.getText().compareTo("")!=0)
-                        nuevoCliente.setDireccion(t_direccion_cliente.getText());
-
-                    if(t_colonia_cliente.getText().compareTo("")!=0)
-                        nuevoCliente.setColonia(t_colonia_cliente.getText());
-
+                    nuevoCliente.setNombre(t_nombre_cliente.getText());
+                    nuevoCliente.setDireccion(t_direccion_cliente.getText());
+                    nuevoCliente.setColonia(t_colonia_cliente.getText());
                     if(t_cp_cliente.getText().compareTo("")!=0)
                         nuevoCliente.setCp(Integer.parseInt(t_cp_cliente.getText()));
-
-                    if(t_rfc_cliente.getText().compareTo("")!=0)
-                        nuevoCliente.setRfc(t_rfc_cliente.getText());
-
-                    if(t_poblacion_cliente.getText().compareTo("")!=0)
-                        nuevoCliente.setPoblacion(t_poblacion_cliente.getText());
-
-                    if(c_estado_cliente.getSelectedItem().toString().compareTo("")!=0)
-                        nuevoCliente.setEstado(c_estado_cliente.getSelectedItem().toString());
-
-                    if(t_telefono_cliente.getText().compareTo("")!=0)
-                        nuevoCliente.setTelefono(t_telefono_cliente.getText());
-
-                    if(t_email_cliente.getText().compareTo("")!=0)
-                        nuevoCliente.setEmail(t_email_cliente.getText());
-
-                    if(t_contacto_cliente.getText().compareTo("")!=0)
-                        nuevoCliente.setContacto(t_contacto_cliente.getText());
-
-                    if(t_nextel_cliente.getText().compareTo("")!=0)
-                        nuevoCliente.setNextel(t_nextel_cliente.getText());
-                    
+                    nuevoCliente.setRfc(t_rfc_cliente.getText());
+                    nuevoCliente.setPoblacion(t_poblacion_cliente.getText());
+                    nuevoCliente.setEstado(c_estado_cliente.getSelectedItem().toString());
+                    nuevoCliente.setTelefono(t_telefono_cliente.getText());
+                    nuevoCliente.setEmail(t_email_cliente.getText());
+                    nuevoCliente.setContacto(t_contacto_cliente.getText());
+                    nuevoCliente.setNextel(t_nextel_cliente.getText());
                     nuevoCliente.setPais("MX");
-
                     boolean respuesta=guardarCliente(nuevoCliente);
                     System.out.println(nuevoCliente.getIdClientes());
                     if(respuesta==true)
@@ -1685,20 +1664,13 @@ public class AperturaOrden extends javax.swing.JPanel {
                         t_email_cliente.setEnabled(false);
                         t_contacto_cliente.setEnabled(false);
                         t_nextel_cliente.setEnabled(false);
-
-
                         b_nuevo_cliente.setEnabled(true);
                         b_guardar_cliente.setEnabled(false);
-
                         JOptionPane.showMessageDialog(null, "¡El Cliente se ha guardado!");
-
                         cb_asegurado.requestFocus();
                     }
                     else
-                    {
                         JOptionPane.showMessageDialog(null, "¡Error al guardar!");
-                        t_tipo.requestFocus();
-                    }
                 }
                 else
                 {
@@ -1771,35 +1743,30 @@ public class AperturaOrden extends javax.swing.JPanel {
     private void t_siniestroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_siniestroKeyTyped
         // TODO add your handling code here:
         evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
-        char car = evt.getKeyChar();
         if(t_siniestro.getText().length()>=20)
             evt.consume();
     }//GEN-LAST:event_t_siniestroKeyTyped
 
     private void t_polizaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_polizaKeyTyped
         // TODO add your handling code here:
-        char car = evt.getKeyChar();
         if(t_poliza.getText().length()>=20) 
             evt.consume();
     }//GEN-LAST:event_t_polizaKeyTyped
 
     private void t_reporteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_reporteKeyTyped
         // TODO add your handling code here:
-        char car = evt.getKeyChar();
         if(t_reporte.getText().length()>=11) 
             evt.consume();
     }//GEN-LAST:event_t_reporteKeyTyped
 
     private void t_incisoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_incisoKeyTyped
         // TODO add your handling code here:
-        char car = evt.getKeyChar();
         if(t_inciso.getText().length()>=10) 
             evt.consume();
     }//GEN-LAST:event_t_incisoKeyTyped
 
     private void t_nombre_clienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_nombre_clienteKeyTyped
         // TODO add your handling code here:
-        char car = evt.getKeyChar();
         evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
         if(t_nombre_cliente.getText().length()>=150) 
             evt.consume();
@@ -1808,7 +1775,6 @@ public class AperturaOrden extends javax.swing.JPanel {
     private void t_direccion_clienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_direccion_clienteKeyTyped
         // TODO add your handling code here:
         evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
-        char car = evt.getKeyChar();
         if(t_direccion_cliente.getText().length()>=150) 
             evt.consume();
     }//GEN-LAST:event_t_direccion_clienteKeyTyped
@@ -1816,7 +1782,6 @@ public class AperturaOrden extends javax.swing.JPanel {
     private void t_colonia_clienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_colonia_clienteKeyTyped
         // TODO add your handling code here:
         evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
-        char car = evt.getKeyChar();
         if(t_colonia_cliente.getText().length()>=150) 
             evt.consume();
     }//GEN-LAST:event_t_colonia_clienteKeyTyped
@@ -1824,7 +1789,6 @@ public class AperturaOrden extends javax.swing.JPanel {
     private void t_rfc_clienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_rfc_clienteKeyTyped
         // TODO add your handling code here:
         evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
-        char car = evt.getKeyChar();
         if(t_rfc_cliente.getText().length()>=13) 
             evt.consume();
     }//GEN-LAST:event_t_rfc_clienteKeyTyped
@@ -1832,7 +1796,6 @@ public class AperturaOrden extends javax.swing.JPanel {
     private void t_poblacion_clienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_poblacion_clienteKeyTyped
         // TODO add your handling code here:
         evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
-        char car = evt.getKeyChar();
         if(t_poblacion_cliente.getText().length()>=150) 
             evt.consume();
     }//GEN-LAST:event_t_poblacion_clienteKeyTyped
@@ -1854,7 +1817,6 @@ public class AperturaOrden extends javax.swing.JPanel {
         }
         else
         t_fecha_cliente.setText("DD-MM-AAAA");
-        b_guardar.requestFocus();
     }//GEN-LAST:event_b_fecha_clienteActionPerformed
 
     private void b_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_guardarActionPerformed
@@ -1881,18 +1843,10 @@ public class AperturaOrden extends javax.swing.JPanel {
                                 Marca mr =new Marca();
                                 aseguradora.setIdCompania(Integer.parseInt(t_aseguradora.getText()));
                                 registro.setCompania(aseguradora);
-
-                                if(t_siniestro.getText().compareTo("")!=0)
-                                    registro.setSiniestro(t_siniestro.getText());
-
-                                if(t_poliza.getText().compareTo("")!=0)
-                                    registro.setPoliza(t_poliza.getText());
-
-                                if(t_reporte.getText().compareTo("")!=0)
-                                    registro.setNoReporte(t_reporte.getText());
-
-                                if(t_inciso.getText().compareTo("")!=0)
-                                    registro.setInciso(t_inciso.getText());
+                                registro.setSiniestro(t_siniestro.getText());
+                                registro.setPoliza(t_poliza.getText());
+                                registro.setNoReporte(t_reporte.getText());
+                                registro.setInciso(t_inciso.getText());
 
                                 if(t_fecha_siniestro.getText().compareTo("DD-MM-AAAA")!=0)
                                 {
@@ -1915,21 +1869,12 @@ public class AperturaOrden extends javax.swing.JPanel {
                                     mr.setIdMarca(t_marca.getText());
                                     registro.setMarca(mr);
                                 }
-
-                                if(t_motor.getText().compareTo("")!=0)
-                                    registro.setNoMotor(t_motor.getText());
-
-                                if(t_placas.getText().compareTo("")!=0)
-                                    registro.setNoPlacas(t_placas.getText());
-
-                                if(t_modelo.getText().compareTo("")!=0)
-                                    registro.setModelo(Integer.parseInt(t_modelo.getText()));
-
-                                if(t_serie.getText().compareTo("")!=0)
-                                    registro.setNoSerie(t_serie.getText());
-
-                                if(t_economico.getText().compareTo("")!=0)
-                                    registro.setNoEconomico(t_economico.getText());
+                                
+                                registro.setNoMotor(t_motor.getText());
+                                registro.setNoPlacas(t_placas.getText());
+                                registro.setModelo(Integer.parseInt(t_modelo.getText()));
+                                registro.setNoSerie(t_serie.getText());
+                                registro.setNoEconomico(t_economico.getText());
 
                                 if(t_nombre_cliente.getText().compareTo("")!=0)
                                 {
@@ -1960,7 +1905,6 @@ public class AperturaOrden extends javax.swing.JPanel {
 
                                     registro.setFechaCliente(calendario2.getTime());
                                 }
-
                                 
                                 //**********guardamos en estatus de la orden******************
                                 String [] campos = t_fecha_estatus.getText().split("-");
@@ -1970,7 +1914,6 @@ public class AperturaOrden extends javax.swing.JPanel {
                                 calendario3.set(Calendar.DAY_OF_MONTH, Integer.parseInt(campos[0]));
 
                                 registro.setFechaEstatus(calendario3.getTime());
-
                                 Estatus est = new Estatus();
                                 est.setEstatusNombre(c_estatus.getSelectedItem().toString());
                                 registro.setEstatus(est);
@@ -2177,7 +2120,6 @@ public class AperturaOrden extends javax.swing.JPanel {
             t_km.setText("");
             t_color.setText("");
             this.cargaEstatus();
-            //this.cargaSiniestro();
             c_estatus.setSelectedItem(0);
             t_fecha_interna.setText("DD-MM-AAAA");
             t_fecha_cliente.setText("DD-MM-AAAA");
@@ -2312,9 +2254,7 @@ public class AperturaOrden extends javax.swing.JPanel {
     private void t_marcaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_marcaFocusLost
         // TODO add your handling code here:
         if(t_marca.getText().length()>4)
-        {
             t_marca.setText(t_marca.getText().substring(0, 4));
-        }
         buscaMarca();
     }//GEN-LAST:event_t_marcaFocusLost
 
@@ -2326,8 +2266,6 @@ public class AperturaOrden extends javax.swing.JPanel {
 
     private void b_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_tipoActionPerformed
         // TODO add your handling code here:
-        h.session(sessionPrograma);
-
         buscaTipo obj = new buscaTipo(new javax.swing.JFrame(), true, this.sessionPrograma, this.usr);
         obj.t_busca.requestFocus();
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -2336,13 +2274,9 @@ public class AperturaOrden extends javax.swing.JPanel {
 
         String actor=obj.getReturnStatus();
         if(actor!=null)
-        {
             t_tipo.setText(actor);
-        }
         else
-        {
             t_tipo.setText("");
-        }
     }//GEN-LAST:event_b_tipoActionPerformed
 
     private void t_tipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_tipoKeyTyped
@@ -2355,9 +2289,7 @@ public class AperturaOrden extends javax.swing.JPanel {
     private void t_tipoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_tipoFocusLost
         // TODO add your handling code here:
         if(t_tipo.getText().length()>10)
-        {
             t_tipo.setText(t_tipo.getText().substring(0, 10));
-        }
         buscaTipo();
     }//GEN-LAST:event_t_tipoFocusLost
 
@@ -2369,8 +2301,6 @@ public class AperturaOrden extends javax.swing.JPanel {
 
     private void b_fecha_internaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_fecha_internaActionPerformed
         // TODO add your handling code here:
-        h.session(sessionPrograma);
-
         calendario cal =new calendario(new javax.swing.JFrame(), true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         cal.setLocation((d.width/2)-(cal.getWidth()/2), (d.height/2)-(cal.getHeight()/2));
@@ -2414,129 +2344,97 @@ public class AperturaOrden extends javax.swing.JPanel {
     private void t_siniestroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_siniestroFocusLost
         // TODO add your handling code here:
         if(t_siniestro.getText().length()>20)
-        {
             t_siniestro.setText(t_siniestro.getText().substring(0, 20));
-        }
     }//GEN-LAST:event_t_siniestroFocusLost
 
     private void t_polizaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_polizaFocusLost
         // TODO add your handling code here:
         if(t_poliza.getText().length()>20)
-        {
             t_poliza.setText(t_poliza.getText().substring(0, 20));
-        }
     }//GEN-LAST:event_t_polizaFocusLost
 
     private void t_reporteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_reporteFocusLost
         // TODO add your handling code here:
         if(t_reporte.getText().length()>11)
-        {
             t_reporte.setText(t_reporte.getText().substring(0, 11));
-        }
     }//GEN-LAST:event_t_reporteFocusLost
 
     private void t_incisoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_incisoFocusLost
         // TODO add your handling code here:
         if(t_inciso.getText().length()>10)
-        {
             t_inciso.setText(t_inciso.getText().substring(0, 10));
-        }
     }//GEN-LAST:event_t_incisoFocusLost
 
     private void t_placasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_placasFocusLost
         // TODO add your handling code here:
         if(t_placas.getText().length()>8)
-        {
             t_placas.setText(t_placas.getText().substring(0, 8));
-        }
     }//GEN-LAST:event_t_placasFocusLost
 
     private void t_motorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_motorFocusLost
         // TODO add your handling code here:
         if(t_motor.getText().length()>15)
-        {
             t_motor.setText(t_motor.getText().substring(0, 15));
-        }
     }//GEN-LAST:event_t_motorFocusLost
 
     private void t_serieFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_serieFocusLost
         // TODO add your handling code here:
         if(t_serie.getText().length()>20)
-        {
             t_serie.setText(t_serie.getText().substring(0, 20));
-        }
     }//GEN-LAST:event_t_serieFocusLost
 
     private void t_economicoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_economicoFocusLost
         // TODO add your handling code here:
         if(t_economico.getText().length()>5)
-        {
             t_economico.setText(t_economico.getText().substring(0, 5));
-        }
     }//GEN-LAST:event_t_economicoFocusLost
 
     private void t_nombre_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_nombre_clienteFocusLost
         // TODO add your handling code here:
         if(t_nombre_cliente.getText().length()>150)
-        {
             t_nombre_cliente.setText(t_nombre_cliente.getText().substring(0, 150));
-        }
     }//GEN-LAST:event_t_nombre_clienteFocusLost
 
     private void t_direccion_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_direccion_clienteFocusLost
         // TODO add your handling code here:
         if(t_direccion_cliente.getText().length()>150)
-        {
             t_direccion_cliente.setText(t_direccion_cliente.getText().substring(0, 150));
-        }
     }//GEN-LAST:event_t_direccion_clienteFocusLost
 
     private void t_colonia_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_colonia_clienteFocusLost
         // TODO add your handling code here:
         if(t_colonia_cliente.getText().length()>150)
-        {
             t_colonia_cliente.setText(t_colonia_cliente.getText().substring(0, 150));
-        }
     }//GEN-LAST:event_t_colonia_clienteFocusLost
 
     private void t_contacto_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_contacto_clienteFocusLost
         // TODO add your handling code here:
         if(t_contacto_cliente.getText().length()>150)
-        {
             t_contacto_cliente.setText(t_contacto_cliente.getText().substring(0, 150));
-        }
     }//GEN-LAST:event_t_contacto_clienteFocusLost
 
     private void t_nextel_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_nextel_clienteFocusLost
         // TODO add your handling code here:
         if(t_nextel_cliente.getText().length()>13)
-        {
             t_nextel_cliente.setText(t_nextel_cliente.getText().substring(0, 13));
-        }
     }//GEN-LAST:event_t_nextel_clienteFocusLost
 
     private void t_poblacion_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_poblacion_clienteFocusLost
         // TODO add your handling code here:
         if(t_poblacion_cliente.getText().length()>150)
-        {
             t_poblacion_cliente.setText(t_poblacion_cliente.getText().substring(0, 150));
-        }
     }//GEN-LAST:event_t_poblacion_clienteFocusLost
 
     private void t_rfc_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_rfc_clienteFocusLost
         // TODO add your handling code here:
         if(t_rfc_cliente.getText().length()>13)
-        {
             t_rfc_cliente.setText(t_rfc_cliente.getText().substring(0, 13));
-        }
     }//GEN-LAST:event_t_rfc_clienteFocusLost
 
     private void t_email_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_email_clienteFocusLost
         // TODO add your handling code here:
         if(t_email_cliente.getText().length()>100)
-        {
             t_email_cliente.setText(t_email_cliente.getText().substring(0, 100));
-        }
     }//GEN-LAST:event_t_email_clienteFocusLost
 
     private void t_email_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_email_clienteActionPerformed
@@ -2603,9 +2501,7 @@ public class AperturaOrden extends javax.swing.JPanel {
     private void t_kmFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_kmFocusLost
         // TODO add your handling code here:
         if(t_km.getText().length()>10)
-        {
             t_km.setText(t_km.getText().substring(0, 10));
-        }
     }//GEN-LAST:event_t_kmFocusLost
 
     private void t_kmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_kmActionPerformed
@@ -2623,9 +2519,7 @@ public class AperturaOrden extends javax.swing.JPanel {
     private void t_colorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_colorFocusLost
         // TODO add your handling code here:
         if(t_color.getText().length()>20)
-        {
             t_color.setText(t_color.getText().substring(0, 19));
-        }
     }//GEN-LAST:event_t_colorFocusLost
 
     private void t_colorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_colorActionPerformed
@@ -2917,9 +2811,7 @@ private void buscaCompania()
                     Query q = session.createQuery("from Tipo com where com.tipoNombre='" + t_tipo.getText() + "'");
                     List resultList = q.list();        
                     if(resultList.size()<=0)
-                    {
                         t_tipo.setText("");
-                    }
                 }catch(Exception e)
                 {
                     System.out.println(e);

@@ -1031,9 +1031,7 @@ public class Responsables extends javax.swing.JPanel {
     }//GEN-LAST:event_t_expedienteActionPerformed
 
     private void b_meta_valuacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_meta_valuacionActionPerformed
-        // TODO add your handling code here:
-        h.session(sessionPrograma);
-        
+        // TODO add your handling code here:       
         calendario cal =new calendario(new javax.swing.JFrame(), true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         cal.setLocation((d.width/2)-(cal.getWidth()/2), (d.height/2)-(cal.getHeight()/2));
@@ -1045,10 +1043,7 @@ public class Responsables extends javax.swing.JPanel {
             String dia=Integer.toString(miCalendario.get(Calendar.DATE));;
             String mes = Integer.toString(miCalendario.get(Calendar.MONTH)+1);
             String anio = Integer.toString(miCalendario.get(Calendar.YEAR));
-            
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");//YYYY-MM-DD HH:MM:SS
             String valor=dia+"-"+mes+"-"+anio+" 00:00:00";
-            
             boolean resp=guardaEmpleado(null, "meta_valuacion", valor);//empleadoByRExpediente
             if(resp=true)
                 t_meta_valuacion.setText(dia+"-"+mes+"-"+anio);
@@ -1057,17 +1052,13 @@ public class Responsables extends javax.swing.JPanel {
                 t_meta_valuacion.setText("DD/MM/AAAA");
                 JOptionPane.showMessageDialog(null, "¡Error al actualizar el campo!");
             }
-            
         }
         else
         t_meta_valuacion.setText("DD/MM/AAAA");
-        //b_meta_valuacion.requestFocus();
     }//GEN-LAST:event_b_meta_valuacionActionPerformed
 
     private void b_meta_refaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_meta_refaccionesActionPerformed
         // TODO add your handling code here:
-        h.session(sessionPrograma);
-        
         calendario cal =new calendario(new javax.swing.JFrame(), true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         cal.setLocation((d.width/2)-(cal.getWidth()/2), (d.height/2)-(cal.getHeight()/2));
@@ -1079,10 +1070,7 @@ public class Responsables extends javax.swing.JPanel {
             String dia=Integer.toString(miCalendario.get(Calendar.DATE));;
             String mes = Integer.toString(miCalendario.get(Calendar.MONTH)+1);
             String anio = Integer.toString(miCalendario.get(Calendar.YEAR));
-            
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");//YYYY-MM-DD HH:MM:SS
             String valor=dia+"-"+mes+"-"+anio+" 00:00:00";
-            
             boolean resp=guardaEmpleado(null, "meta_refacciones", valor);//empleadoByRExpediente
             if(resp=true)
                 t_meta_refacciones.setText(dia+"-"+mes+"-"+anio);
@@ -1094,28 +1082,21 @@ public class Responsables extends javax.swing.JPanel {
         }
         else
         t_meta_refacciones.setText("DD/MM/AAAA");
-        //b_meta_valuacion.requestFocus();
     }//GEN-LAST:event_b_meta_refaccionesActionPerformed
 
     private void b_meta_reparacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_meta_reparacionActionPerformed
         // TODO add your handling code here:
-        h.session(sessionPrograma);
-        
         calendario cal =new calendario(new javax.swing.JFrame(), true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         cal.setLocation((d.width/2)-(cal.getWidth()/2), (d.height/2)-(cal.getHeight()/2));
         cal.setVisible(true);
-
         Calendar miCalendario=cal.getReturnStatus();
         if(miCalendario!=null)
         {
             String dia=Integer.toString(miCalendario.get(Calendar.DATE));;
             String mes = Integer.toString(miCalendario.get(Calendar.MONTH)+1);
             String anio = Integer.toString(miCalendario.get(Calendar.YEAR));
-            
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");//YYYY-MM-DD HH:MM:SS
             String valor=dia+"-"+mes+"-"+anio+" 00:00:00";
-            
             boolean resp=guardaEmpleado(null, "meta_reparacion", valor);//empleadoByRExpediente
             if(resp=true)
                 t_meta_reparacion.setText(dia+"-"+mes+"-"+anio);
@@ -1128,7 +1109,6 @@ public class Responsables extends javax.swing.JPanel {
         }
         else
         t_meta_reparacion.setText("DD/MM/AAAA");
-        //b_meta_valuacion.requestFocus();
     }//GEN-LAST:event_b_meta_reparacionActionPerformed
 
     private void t_facturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_facturaKeyTyped
@@ -1141,7 +1121,6 @@ public class Responsables extends javax.swing.JPanel {
     }//GEN-LAST:event_t_facturaKeyTyped
 
     private void b_buscar_expedienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_buscar_expedienteActionPerformed
-        h.session(sessionPrograma);
         buscaEmpleado obj = new buscaEmpleado(new javax.swing.JFrame(), true, usr, this.sessionPrograma);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
@@ -1156,16 +1135,12 @@ public class Responsables extends javax.swing.JPanel {
             if(resp=false)
                 JOptionPane.showMessageDialog(null, "¡Error al actualizar el campo!");
             else
-            {
                 enviaCorreo("Asignación de expediente orden ("+orden+")", "Hola buen dia, "+actor.getNombre()+" se te comunica que te fue asignado el expediente de la orden en mención", actor.getEmail());
-            }
         }
     }//GEN-LAST:event_b_buscar_expedienteActionPerformed
 
     private void b_buscar_levantamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_buscar_levantamentoActionPerformed
         // TODO add your handling code here:
-        h.session(sessionPrograma);
-        
         buscaEmpleado obj = new buscaEmpleado(new javax.swing.JFrame(), true, usr, sessionPrograma);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
@@ -1187,8 +1162,6 @@ public class Responsables extends javax.swing.JPanel {
 
     private void b_buscar_cotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_buscar_cotizarActionPerformed
         // TODO add your handling code here:
-        h.session(sessionPrograma);
-        
         buscaEmpleado obj = new buscaEmpleado(new javax.swing.JFrame(), true, usr, sessionPrograma);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
@@ -1209,8 +1182,6 @@ public class Responsables extends javax.swing.JPanel {
 
     private void b_buscar_valuacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_buscar_valuacionActionPerformed
         // TODO add your handling code here:
-        h.session(sessionPrograma);
-        
         buscaEmpleado obj = new buscaEmpleado(new javax.swing.JFrame(), true, usr, sessionPrograma);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
@@ -1233,8 +1204,6 @@ public class Responsables extends javax.swing.JPanel {
 
     private void b_buscar_refaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_buscar_refaccionesActionPerformed
         // TODO add your handling code here:
-        h.session(sessionPrograma);
-        
         buscaEmpleado obj = new buscaEmpleado(new javax.swing.JFrame(), true, usr, sessionPrograma);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
@@ -1256,82 +1225,68 @@ public class Responsables extends javax.swing.JPanel {
 
     private void b_borrar_expedienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_borrar_expedienteActionPerformed
         // TODO add your handling code here:
-        h.session(sessionPrograma);
-        
-            if(t_expediente.getText().compareTo("")!=0)
-            {
-                Date fecha = new Date();
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");//YYYY-MM-DD HH:MM:SS
-                String valor=dateFormat.format(fecha);
-                
-                boolean resp=quitaEmpleado("expediente", valor);
-                if(resp==false)
-                    JOptionPane.showMessageDialog(null, "¡Error al actualizar el campo!");
-            }
+        if(t_expediente.getText().compareTo("")!=0)
+        {
+            Date fecha = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");//YYYY-MM-DD HH:MM:SS
+            String valor=dateFormat.format(fecha);
+            boolean resp=quitaEmpleado("expediente", valor);
+            if(resp==false)
+                JOptionPane.showMessageDialog(null, "¡Error al actualizar el campo!");
+        }
     }//GEN-LAST:event_b_borrar_expedienteActionPerformed
 
     private void b_borrar_levantamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_borrar_levantamentoActionPerformed
         // TODO add your handling code here:
-        h.session(sessionPrograma);
-        
         if(t_levantamiento.getText().compareTo("")!=0)
-            {
-                Date fecha = new Date();
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");//YYYY-MM-DD HH:MM:SS
-                String valor=dateFormat.format(fecha);
-                
-                boolean resp=quitaEmpleado("levantamiento", valor);
-                if(resp==false)
-                    JOptionPane.showMessageDialog(null, "¡Error al actualizar el campo!");
-            }
+        {
+            Date fecha = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");//YYYY-MM-DD HH:MM:SS
+            String valor=dateFormat.format(fecha);
+
+            boolean resp=quitaEmpleado("levantamiento", valor);
+            if(resp==false)
+                JOptionPane.showMessageDialog(null, "¡Error al actualizar el campo!");
+        }
     }//GEN-LAST:event_b_borrar_levantamentoActionPerformed
 
     private void b_borrar_valuacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_borrar_valuacionActionPerformed
         // TODO add your handling code here:
-        h.session(sessionPrograma);
-        
         if(t_valuacion.getText().compareTo("")!=0)
-            {
-                Date fecha = new Date();
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");//YYYY-MM-DD HH:MM:SS
-                String valor=dateFormat.format(fecha);
-                
-                boolean resp=quitaEmpleado("valuacion", valor);
-                if(resp==false)
-                    JOptionPane.showMessageDialog(null, "¡Error al actualizar el campo!");
-            }
+        {
+            Date fecha = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");//YYYY-MM-DD HH:MM:SS
+            String valor=dateFormat.format(fecha);
+            boolean resp=quitaEmpleado("valuacion", valor);
+            if(resp==false)
+                JOptionPane.showMessageDialog(null, "¡Error al actualizar el campo!");
+        }
     }//GEN-LAST:event_b_borrar_valuacionActionPerformed
 
     private void b_borrar_refaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_borrar_refaccionesActionPerformed
         // TODO add your handling code here:
-        h.session(sessionPrograma);
-        
         if(t_refacciones.getText().compareTo("")!=0)
-            {
-                Date fecha = new Date();
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");//YYYY-MM-DD HH:MM:SS
-                String valor=dateFormat.format(fecha);
-                
-                boolean resp=quitaEmpleado("refacciones", valor);
-                if(resp==false)
-                    JOptionPane.showMessageDialog(null, "¡Error al actualizar el campo!");
-            }
+        {
+            Date fecha = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");//YYYY-MM-DD HH:MM:SS
+            String valor=dateFormat.format(fecha);
+            boolean resp=quitaEmpleado("refacciones", valor);
+            if(resp==false)
+                JOptionPane.showMessageDialog(null, "¡Error al actualizar el campo!");
+        }
     }//GEN-LAST:event_b_borrar_refaccionesActionPerformed
 
     private void b_borrar_cotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_borrar_cotizarActionPerformed
         // TODO add your handling code here:
-        h.session(sessionPrograma);
-        
         if(t_cotizar.getText().compareTo("")!=0)
-            {
-                Date fecha = new Date();
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");//YYYY-MM-DD HH:MM:SS
-                String valor=dateFormat.format(fecha);
-                
-                boolean resp=quitaEmpleado("cotizar", valor);
-                if(resp==false)
-                    JOptionPane.showMessageDialog(null, "¡Error al actualizar el campo!");
-            }
+        {
+            Date fecha = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");//YYYY-MM-DD HH:MM:SS
+            String valor=dateFormat.format(fecha);
+            boolean resp=quitaEmpleado("cotizar", valor);
+            if(resp==false)
+                JOptionPane.showMessageDialog(null, "¡Error al actualizar el campo!");
+        }
     }//GEN-LAST:event_b_borrar_cotizarActionPerformed
 
     private void cb_autoriza_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_autoriza_clienteActionPerformed
@@ -1649,40 +1604,25 @@ public class Responsables extends javax.swing.JPanel {
             this.b_buscar_levantamento.setEnabled(levantamiento);      
             this.b_borrar_levantamento.setEnabled(levantamiento);      
 
-            //if(objeto.getRLevantamientoCierre()==null)
-            //    cotizar=false;
             this.b_buscar_cotizar.setEnabled(cotizar);
             this.b_borrar_cotizar.setEnabled(cotizar);
 
             this.cb_autoriza_cliente.setEnabled(autorizacion_cliente);
 
-            //if(objeto.getAutorizaCliente()==null)
-            //    autoriza_interna=false;
             this.cb_autoriza_interna.setEnabled(autoriza_interna);
-            //if(objeto.getRAutorizacionInterna()==null)
-            //    valuacion=false;
+
             this.b_buscar_valuacion.setEnabled(valuacion);
             this.b_borrar_valuacion.setEnabled(valuacion);
 
-            //if(objeto.getRValuacionInicio()==null)
-            //    envio_compania=false;
             this.cb_envio_compania.setEnabled(envio_compania);
 
-            //if(objeto.getEnvioCompania()==null)
-            //    autoriza_compania=false;
             this.cb_autoriza_compania.setEnabled(autoriza_compania);
 
-            //if(objeto.getAutorizaCompania()==null)
-            //    autoriza_valuacion=false;
             this.cb_autoriza_valuacion.setEnabled(autoriza_valuacion);
 
-            //if(objeto.getRValuacionCierre()==null)
-            //    refacciones=false;
             this.b_buscar_refacciones.setEnabled(refacciones);
             this.b_borrar_refacciones.setEnabled(refacciones);
 
-            //if(objeto.getInicioRefacciones()==null)
-            //    autoriza_reparacion=false;
             this.cb_autoriza_reparacion.setEnabled(autoriza_reparacion);
 
             this.cb_entrega_unidad.setEnabled(entrega_unidad);
@@ -2130,7 +2070,6 @@ public class Responsables extends javax.swing.JPanel {
                         objeto.setRCotizaInicio(calendario3.getTime());
                         op=1;
                     }
-                    //objeto.setRCotizaCierre(null);
                     objeto.setUsuarioByRCotizaAsigno(usr);
                     session.update(objeto);
                     session.getTransaction().commit();
@@ -2138,14 +2077,12 @@ public class Responsables extends javax.swing.JPanel {
                     l_cotizar.setText(obj.getNombre());
                     if(op==1)
                         t_inicio_cotizar.setText(valor);
-                    //t_cierre_cotizar.setText("");
                     l_autorizo_cotizar.setText(usr.getIdUsuario());
                     permisos(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                     JOptionPane.showMessageDialog(null, "¡Asignación actualizada!");
                     return true;
                                 
                case "autoriza_cliente":
-                   //dd-MM-yyyy HH:mm:mm
                     fecha = valor.split("-");
                     hora=fecha[2].split(":");
                     aux=hora[0].split(" ");
@@ -2170,7 +2107,6 @@ public class Responsables extends javax.swing.JPanel {
                     return true;
                    
               case "autoriza_interna":
-                    //dd-MM-yyyy HH:mm:mm
                     fecha = valor.split("-");
                     hora=fecha[2].split(":");
                     aux=hora[0].split(" ");
@@ -2195,7 +2131,6 @@ public class Responsables extends javax.swing.JPanel {
                     return true;
                                       
                 case "valuacion":
-                    //dd-MM-yyyy HH:mm:mm
                     fecha = valor.split("-");
                     hora=fecha[2].split(":");
                     aux=hora[0].split(" ");
@@ -2227,14 +2162,11 @@ public class Responsables extends javax.swing.JPanel {
                     if(op==1)
                         t_inicio_valuacion.setText(valor);
                     l_autorizo_valuacion.setText(usr.getIdUsuario());
-                    //t_cierre_valuacion.setText("");
-                    //l_autorizo_cierre_valuacion.setText(usr.getIdUsuario());
                     permisos(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                     JOptionPane.showMessageDialog(null, "¡Asignación actualizada!");
                     return true;
                    
                case "envio_compania":
-                    //dd-MM-yyyy HH:mm:mm
                     fecha = valor.split("-");
                     hora=fecha[2].split(":");
                     aux=hora[0].split(" ");
@@ -2259,7 +2191,6 @@ public class Responsables extends javax.swing.JPanel {
                     return true;
                    
                case "autoriza_compania":
-                    //dd-MM-yyyy HH:mm:mm
                     fecha = valor.split("-");
                     hora=fecha[2].split(":");
                     aux=hora[0].split(" ");
@@ -2284,7 +2215,6 @@ public class Responsables extends javax.swing.JPanel {
                     return true;
                        
                 case "autoriza_valuacion":
-                    //dd-MM-yyyy HH:mm:mm
                     fecha = valor.split("-");
                     hora=fecha[2].split(":");
                     aux=hora[0].split(" ");
@@ -2309,7 +2239,6 @@ public class Responsables extends javax.swing.JPanel {
                     return true;
                     
                 case "refacciones":
-                    //dd-MM-yyyy HH:mm:mm
                     fecha = valor.split("-");
                     hora=fecha[2].split(":");
                     aux=hora[0].split(" ");
@@ -2337,14 +2266,12 @@ public class Responsables extends javax.swing.JPanel {
                     l_refacciones.setText(obj.getNombre());
                     if(op==1)
                         t_inicio_refacciones.setText(valor);
-                    //t_cierre_refacciones.setText("");
                     l_autorizo_refacciones.setText(usr.getIdUsuario());
                     permisos(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                     JOptionPane.showMessageDialog(null, "¡Asignación actualizada!");
                     return true;
                     
                 case "autoriza_reparacion":
-                    //dd-MM-yyyy HH:mm:mm
                     fecha = valor.split("-");
                     hora=fecha[2].split(":");
                     aux=hora[0].split(" ");
@@ -2371,7 +2298,6 @@ public class Responsables extends javax.swing.JPanel {
                     return true;
                     
                 case "entrega_unidad":
-                    //dd-MM-yyyy HH:mm:mm
                     fecha = valor.split("-");
                     hora=fecha[2].split(":");
                     aux=hora[0].split(" ");
@@ -2397,7 +2323,6 @@ public class Responsables extends javax.swing.JPanel {
                     return true;
 
                 case "cierra_orden":
-                    //dd-MM-yyyy HH:mm:mm
                     fecha = valor.split("-");
                     hora=fecha[2].split(":");
                     aux=hora[0].split(" ");
@@ -2424,7 +2349,6 @@ public class Responsables extends javax.swing.JPanel {
                     return true;
                     
                 case "factura":
-                    //dd-MM-yyyy HH:mm:mm
                     fecha = valor.split("-");
                     hora=fecha[2].split(":");
                     aux=hora[0].split(" ");
@@ -2451,7 +2375,6 @@ public class Responsables extends javax.swing.JPanel {
                     return true;
                     
                 case "meta_valuacion":
-                    //dd-MM-yyyy HH:mm:mm
                     fecha = valor.split("-");
                     hora=fecha[2].split(":");
                     aux=hora[0].split(" ");
@@ -2473,7 +2396,6 @@ public class Responsables extends javax.swing.JPanel {
                     return true;
 
                 case "meta_refacciones":
-                    //dd-MM-yyyy HH:mm:mm
                     fecha = valor.split("-");
                     hora=fecha[2].split(":");
                     aux=hora[0].split(" ");
@@ -2495,7 +2417,6 @@ public class Responsables extends javax.swing.JPanel {
                     return true;
 
                 case "meta_reparacion":
-                    //dd-MM-yyyy HH:mm:mm
                     fecha = valor.split("-");
                     hora=fecha[2].split(":");
                     aux=hora[0].split(" ");
@@ -2839,7 +2760,6 @@ public class Responsables extends javax.swing.JPanel {
         String puerto="";
         String envia="";
         String clave="";
-        //String from="";
         String cc="";
         String texto = null;
         

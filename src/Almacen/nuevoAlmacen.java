@@ -784,11 +784,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         t_datos.setFillsViewportHeight(true);
         t_datos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         t_datos.getTableHeader().setReorderingAllowed(false);
-        t_datos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                t_datosMouseClicked(evt);
-            }
-        });
         jScrollPane4.setViewportView(t_datos);
         t_datos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
@@ -1099,8 +1094,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                     model.setColumnaEditable(8, true);
                                 }
                             }
-                            //else
-                                //JOptionPane.showMessageDialog(null, "¡No se pueden agregar partidas duplicadas!");
                         }
                         sumaTotales();
                     }
@@ -1140,8 +1133,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                 model.setColumnaEditable(8, true);
                                 sumaTotales();
                             }
-                            //else
-                                //JOptionPane.showMessageDialog(null, "¡No se pueden agregar partidas duplicadas!");
                         }
                     }               
                 }
@@ -1256,7 +1247,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                             {
                                 model.addRow(vector);
                                 model.setColumnaEditable(7, true);
-                                //sumaTotales();
                             }
                         } 
                     }
@@ -1469,26 +1459,10 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         h.session(sessionPrograma);
         h.desbloqueaOrden();
         h.desbloqueaPedido();
-        
         t_datos.setModel(model);
         formatoTabla();
         borra_cajas();
         limpiar_tabla();
-        /*switch (c_tmovimiento.getSelectedIndex())
-        {
-            case 0:
-                t_datos.setModel(model);
-                formatoTabla();
-                borra_cajas();
-                limpiar_tabla();
-                break;
-            case 1:
-                t_datos.setModel(model);
-                formatoTabla();
-                borra_cajas();
-                limpiar_tabla();
-                break;
-        } */  
         titulos();
     }//GEN-LAST:event_c_tmovimientoItemStateChanged
 
@@ -1574,64 +1548,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         else
             JOptionPane.showMessageDialog(null, "¡Selecciona la partida que desees eliminar!");
     }//GEN-LAST:event_b_menosActionPerformed
-
-    private void t_datosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_datosMouseClicked
-        /*if(c_toperacion.getSelectedItem().toString().compareTo("Pedido")==0 )
-        {
-            if(t_datos.getSelectedRow()>=0)
-            {
-                if(t_datos.getSelectedColumn()==3)
-                {
-                    codigo.removeAllItems();
-                    codigo.addItem("S/C");
-                    codigo.setSelectedItem("S/C");
-                    codigo.addItem("Agregar");
-                    Session session = HibernateUtil.getSessionFactory().openSession();
-                    try
-                    {
-                        session.beginTransaction().begin();
-                        Partida partida=(Partida) session.createCriteria(Partida.class).add(Restrictions.eq("pedido.idPedido", (Integer.parseInt(t_pedido.getText())))).add(Restrictions.eq("idPartida", Integer.parseInt(t_datos.getValueAt(t_datos.getSelectedRow(), 0).toString()))).setMaxResults(1).uniqueResult();
-                        if(partida!=null)
-                        {
-                            Ejemplar[] codigos = (Ejemplar[]) partida.getCatalogo().getEjemplars().toArray(new Ejemplar[0]);
-                            if(codigos!=null)
-                            {
-                                Ejemplar codigoAux= new Ejemplar();
-                                for(int k=0;k<codigos.length;k++)
-                                {
-                                    for(int f=0;f<(codigos.length-1)-k;f++)
-                                    {
-                                        if (codigos[f].getIdParte().compareTo(codigos[f+1].getIdParte())==1)
-                                        {
-                                            codigoAux=codigos[f];
-                                            codigos[f]=codigos[f+1];
-                                            codigos[f+1]=codigoAux;
-                                        }
-                                    }
-                                }
-                                if(codigos.length>0)
-                                {
-                                    for(int i=0; i<codigos.length; i++)
-                                    {
-                                        codigo.addItem(codigos[i].getIdParte());
-                                    }
-
-                                }
-                            }
-                        }
-                        session.beginTransaction().commit();
-                    }catch(Exception e)
-                    {
-                        System.out.println("Error"+e);
-                        e.printStackTrace();
-                    }
-                    if(session!=null)
-                        if(session.isOpen())
-                            session.close();
-                }
-            }
-        }*/
-    }//GEN-LAST:event_t_datosMouseClicked
 
     private void t_folioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_folioKeyTyped
         evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
@@ -2409,14 +2325,12 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         if(cb_sin_orden.isSelected()==true)
         {
             b_buscaorden.setEnabled(false);
-            //b_detalles.setEnabled(false);
             b_mas.setEnabled(true);
             b_menos.setEnabled(true);
         }
         else
         {
             b_buscaorden.setEnabled(true);
-            //b_detalles.setEnabled(true);
             b_mas.setEnabled(false);
             b_menos.setEnabled(false);
         }
@@ -2579,13 +2493,11 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                             java.lang.String.class, java.lang.String.class, java.lang.String.class,
                             java.lang.Double.class, java.lang.Double.class, java.lang.Double.class,
                             java.lang.Double.class, java.lang.Double.class
-                            //, java.lang.Boolean.class //para antes de entrada
                         };
                         Query query = session.createQuery("SELECT DISTINCT par FROM Partida par "
                                 + "LEFT JOIN FETCH par.movimientos movPart "
                                 + "LEFT JOIN movPart.almacen alm "
-                                + "where par.pedido.idPedido="+Integer.parseInt(t_pedido.getText())); //where alm.operacion=1 and 
-                                //+ "and par.pedido!="+null);
+                                + "where par.pedido.idPedido="+Integer.parseInt(t_pedido.getText()));
                         List partidas = query.list();
                         model=new nuevoAlmacen.MyModel(partidas.size(), columnas, types);
                         model.setColumnaEditable(8, true);
@@ -2625,7 +2537,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                             else
                                     model.setValueAt(par.getPcp(), a, 9);
                             model.setValueAt(0.0d, a, 10);
-                            //model.setValueAt(par.getOp(), a, 11); //para antes de entrada
                         }
                         for(int m=model.getRowCount()-1; m>=0; m--)
                         {
@@ -2769,7 +2680,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                     + "LEFT JOIN FETCH part.movimientos movPart "
                                     + "LEFT JOIN movPart.almacen alm "
                                     + "where alm.operacion=2 and part.pedido.idPedido="+Integer.parseInt(t_pedido.getText()));
-                                    //+ "and part.pedido!="+null);
                             List partidas = query.list();
                             model=new nuevoAlmacen.MyModel(partidas.size(), columnas, types);
                             model.setColumnaEditable(6, true);
@@ -2777,7 +2687,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                             for(int a=0; a<partidas.size(); a++)
                             {
                                 PartidaExterna par = (PartidaExterna) partidas.get(a);
-                                //Movimiento[] mov=(Movimiento[])par.getMovimientos().toArray(new Movimiento[0]);
                                 Movimiento[] mov = (Movimiento[])session.createCriteria(Movimiento.class).add(Restrictions.eq("partidaExterna.idPartidaExterna", par.getIdPartidaExterna())).list().toArray(new Movimiento[0]);
                                 double entradas=0, devoluciones=0, entregadas=0, devueltas=0;;
                                 for(int b=0; b<mov.length; b++)
@@ -3157,7 +3066,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                         for(int a=0; a<partidas.size(); a++)
                         {
                             Partida par = (Partida) partidas.get(a);
-                            //Movimiento[] mov=(Movimiento[])par.getMovimientos().toArray(new Movimiento[0]);
                             Movimiento[] mov = (Movimiento[])session.createCriteria(Movimiento.class).add(Restrictions.eq("partida.idPartida", par.getIdPartida())).list().toArray(new Movimiento[0]);
                             double entradas=0, devoluciones=0, entregadas=0, devueltas=0;;
                             for(int b=0; b<mov.length; b++)
@@ -3306,14 +3214,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                             double total=entregadas-devueltas;
                             model.setValueAt(par.getIdPartidaExterna(), a+partidas.size(), 0);
                             String gm="";
-                            /*if(par.getPedido().getPartida().isEspEle()==true)
-                                gm="E";
-                            if(par.getPedido().getPartida().isEspHoj()==true)
-                                gm="H";
-                            if(par.getPedido().getPartida().isEspMec()==true)
-                                gm="M";
-                            if(par.getPedido().getPartida().isEspSus()==true)
-                                gm="S";*/
                             model.setValueAt("-"+gm, a+partidas.size(), 1);
                             model.setValueAt("ADI.", a+partidas.size(), 2);
                             if(par.getNoParte()!=null)
@@ -4442,60 +4342,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         return true;
     } 
     
-    private boolean salidaOperarios()
-    {
-        for(int ren=0; ren<t_datos.getRowCount(); ren++)
-        {
-            if((double)t_datos.getValueAt(ren, 7)+(double)t_datos.getValueAt(ren, 8)<=(int)t_datos.getValueAt(ren, 9))
-                return true;
-            else
-            {
-                t_user.setText("");
-                t_contra.setText("");
-                t_motivo.setText("");
-                /*usrAut=null;
-                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-                autoriza.setSize(380, 300);//284, 177
-                autoriza.setLocation((d.width/2)-(autoriza.getWidth()/2), (d.height/2)-(autoriza.getHeight()/2));
-                autoriza.setVisible(true);
-                if(usrAut!=null)
-                {*/
-                    t_notas.setText(t_motivo.getText());
-                    t_notas.setEnabled(false);
-                    return true;
-                /*}
-                else
-                    return false;*/
-            }
-        }
-        return false;
-    }
-    
-    private boolean autorizaOperarios()
-    {
-        for(int ren=0; ren<t_datos.getRowCount(); ren++)
-        {
-            if((boolean)t_datos.getValueAt(ren, 9)==false)
-            {
-                JOptionPane.showMessageDialog(this, "La partida "+t_datos.getValueAt(ren, 1).toString()+" no esta autorizada por operaciones para ser entregada aun");
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    private boolean autorizaOperarios1()
-    {
-        for(int ren=0; ren<t_datos.getRowCount(); ren++)
-        {
-            if((boolean)t_datos.getValueAt(ren, 11)==false)
-            {
-                JOptionPane.showMessageDialog(this, "La partida "+t_datos.getValueAt(ren, 1).toString()+" no esta autorizada por operaciones para ser recibida aun");
-                return false;
-            }
-        }
-        return true;
-    }
     private Integer guardarAlmacen(Almacen obj) 
     {
         Session session = HibernateUtil.getSessionFactory().openSession();

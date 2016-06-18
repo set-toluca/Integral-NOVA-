@@ -749,17 +749,6 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
         b_enviar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         b_enviar.setPressedIcon(new ImageIcon("imagenes/send2.png"));
         b_enviar.setRolloverIcon(new ImageIcon("imagenes/send1.png"));
-        b_enviar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                b_enviarMouseReleased(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                b_enviarMouseExited(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                b_enviarMouseEntered(evt);
-            }
-        });
         b_enviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_enviarActionPerformed(evt);
@@ -1661,8 +1650,6 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        //h=new Herramientas(user, 0);
-        //h.session(sessionPrograma);
         Session session = HibernateUtil.getSessionFactory().openSession();
         try
         {
@@ -1671,7 +1658,6 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
             formatoPorcentaje.setMinimumFractionDigits(2);
             session.beginTransaction().begin();
             BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
-            //Orden ord=buscaApertura();
             PDF reporte = new PDF();
             Date fecha = new Date();
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyyHH-mm-ss");//YYYY-MM-DD HH:MM:SS
@@ -2299,16 +2285,6 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
                                 }
                             }
                         }
-
-                        /*if(ren==37)
-                        {
-                            reporte.agregaObjeto(tabla);
-                            reporte.writer.newPage();
-                            tabla=reporte.crearTabla(10, tam, 100, Element.ALIGN_LEFT);
-                            cabecera1(reporte, bf, tabla);
-                            ren=-1;
-                        }
-                        ren++;*/
             }
             tabla.setHeaderRows(1);
             reporte.agregaObjeto(tabla);
@@ -2863,18 +2839,6 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
         }
     }//GEN-LAST:event_b_exel1ActionPerformed
 
-    private void b_enviarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_enviarMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_b_enviarMouseReleased
-
-    private void b_enviarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_enviarMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_b_enviarMouseExited
-
-    private void b_enviarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_enviarMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_b_enviarMouseEntered
-
     private void b_enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_enviarActionPerformed
         // TODO add your handling code here:
         EnviarCorreo en= new EnviarCorreo(new javax.swing.JFrame(), true, "","", "", null, this.user, this.sessionPrograma);
@@ -2925,7 +2889,6 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
                     Workbook libro = new HSSFWorkbook();
                     FileOutputStream archivo = new FileOutputStream(archivoXLS);
                     Sheet hoja = libro.createSheet("compra");
-                    //hoja.protectSheet("04650077");
                     for(int ren=0;ren<(t_datos.getRowCount()+1);ren++)
                     {
                         Row fila = hoja.createRow(ren);
@@ -3180,7 +3143,6 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
                             break;
                         case "Pintura":
                             cr.add(Restrictions.or(Restrictions.or(Restrictions.ne("intPinMin", -1.0d), Restrictions.ne("intPinMed", -1.0d)), Restrictions.ne("intPinMax", -1.0d)));
-                            //cr.add(Restrictions.sqlRestriction(" AND(intPinMin>-1 OR intPinMed>-1 OR intPinMax>-1) "));
                             break;
                     }
                     cr.addOrder(Order.asc("idEvaluacion"));
@@ -3391,7 +3353,6 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
     {
         TableCellRenderer textNormal = new DefaultTableHeaderCellRenderer();        
         TableCellRenderer headerRenderer = new VerticalTableHeaderCellRenderer();
-        Enumeration columns = t_datos.getColumnModel().getColumns();
         
         for(int x=0; x<t_datos.getColumnModel().getColumnCount(); x++)
         {

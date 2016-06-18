@@ -21,14 +21,10 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import Hibernate.entidades.Usuario;
-import Hibernate.entidades.Ciclo;
 import Hibernate.Util.HibernateUtil;
 import java.awt.HeadlessException;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Calendar;
-import java.util.Formatter;
-import org.hibernate.Criteria;
 
 /**
  *
@@ -48,7 +44,6 @@ public class acceso extends javax.swing.JDialog {
         map.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false), "pressed");
         map.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true), "released");   
         initComponents();
-        this.c_periodo.setEnabled(false);
         this.t_usuario.setEnabled(false);
         this.t_clave.setEnabled(false);
         this.bentrar.setEnabled(false);
@@ -64,7 +59,7 @@ public class acceso extends javax.swing.JDialog {
     private void doClose(Usuario actor) {
         returnStatus=new ArrayList();
         returnStatus.add(actor);
-        returnStatus.add(c_periodo.getSelectedItem().toString());
+        returnStatus.add("16");
         dispose();
     }
     
@@ -88,8 +83,6 @@ public class acceso extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        c_periodo = new javax.swing.JComboBox();
-        l_periodo = new javax.swing.JLabel();
         progreso = new javax.swing.JProgressBar();
         b_conexion = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -173,12 +166,6 @@ public class acceso extends javax.swing.JDialog {
 
         jLabel5.setIcon(new ImageIcon("imagenes/procesos.png"));
 
-        c_periodo.setForeground(new java.awt.Color(51, 0, 255));
-
-        l_periodo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        l_periodo.setForeground(new java.awt.Color(204, 204, 0));
-        l_periodo.setText("PERIODO:");
-
         progreso.setString("");
         progreso.setStringPainted(true);
 
@@ -197,22 +184,15 @@ public class acceso extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(l_periodo))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(t_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                                .addComponent(t_clave))
-                            .addComponent(c_periodo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(t_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                            .addComponent(t_clave)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -232,11 +212,7 @@ public class acceso extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(c_periodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(l_periodo))
-                        .addGap(26, 26, 26)
+                        .addGap(57, 57, 57)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(t_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
@@ -342,7 +318,6 @@ public class acceso extends javax.swing.JDialog {
     }//GEN-LAST:event_t_claveKeyTyped
 
     private void b_conexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_conexionActionPerformed
-        this.c_periodo.setEnabled(false);
         this.t_usuario.setEnabled(false);
         this.t_clave.setEnabled(false);
         this.bentrar.setEnabled(false);
@@ -383,13 +358,11 @@ public class acceso extends javax.swing.JDialog {
     private javax.swing.JButton b_conexion;
     private javax.swing.JButton bentrar;
     private javax.swing.JButton bsalir;
-    private javax.swing.JComboBox c_periodo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel l_periodo;
     public javax.swing.JProgressBar progreso;
     private javax.swing.JPasswordField t_clave;
     private javax.swing.JTextField t_usuario;
@@ -409,74 +382,23 @@ public class acceso extends javax.swing.JDialog {
             Session session = HibernateUtil.getSessionFactory().openSession();
             try
             {
-                progreso.setString("INICIANDO SERVICIOS");
-                session.beginTransaction().begin();
-                Query qr=session.createSQLQuery("select id_ciclo from ciclo order by id_ciclo desc;");
-                qr.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-                List resultList=(ArrayList)qr.list();
-                
-                if(resultList==null)
-                {
-                    this.c_periodo.setEnabled(false);
-                    this.t_usuario.setEnabled(false);
-                    this.t_clave.setEnabled(false);
-                    this.bentrar.setEnabled(false);
-                    b_conexion.setVisible(true);
-                    progreso.setIndeterminate(false);
-                    progreso.setString("ERROR AL OBTENER DATOS");
-                    JOptionPane.showMessageDialog(null, "NO ESTA CONFIGURADO EL PROGRAMA CONTACTAR AL ADMINISTRADOR");
-                    System.exit(0);
-                }
-                else
-                {
-                    if(resultList.size()>0)
-                    {
-                        c_periodo.removeAllItems();
-                        int cuenta= resultList.size();
-                        for (int a=0; a<cuenta; a++)
-                        {
-                            java.util.HashMap ciclo=(java.util.HashMap)resultList.get(a);
-                            c_periodo.addItem(ciclo.get("id_ciclo"));
-                        }
-                        if(session.isOpen())
-                            session.close();
-                        this.c_periodo.setEnabled(true);
-                        this.t_usuario.setEnabled(true);
-                        this.t_clave.setEnabled(true);
-                        this.bentrar.setEnabled(true);
-                        b_conexion.setVisible(false);
-                        progreso.setIndeterminate(false);
-                        progreso.setString("LISTO");
-                        this.t_usuario.requestFocus();
-                    }
-                    else
-                    {
-                        Formatter fmt = new Formatter();
-                        Calendar cal = Calendar.getInstance();
-                        fmt = new Formatter();
-                        fmt.format("%ty", cal);
-                        int f= Integer.parseInt(fmt.toString());
-                        Ciclo nuevo= new Ciclo(f);
-                        session.save(nuevo);
-                        session.beginTransaction().commit();
-                        if(session.isOpen())
-                            session.close();
-                        cargaPeriodo();
-                        this.t_usuario.requestFocus();
-                    }
-                }
-                resultList=null;
+                this.t_usuario.setEnabled(true);
+                this.t_clave.setEnabled(true);
+                this.bentrar.setEnabled(true);
+                b_conexion.setVisible(false);
+                progreso.setIndeterminate(false);
+                progreso.setString("LISTO");
+                this.t_usuario.requestFocus();
                 this.setVisible(true);
             }catch(HibernateException | HeadlessException | NumberFormatException e)
             {
                 System.out.println("error "+e);
-                session.beginTransaction().commit();
-                if(session.isOpen())
-                    session.close();
             }
+            if(session.isOpen())
+               session.close();
+            session=null;
         }catch(Exception e)
         {
-            this.c_periodo.setEnabled(false);
             this.t_usuario.setEnabled(false);
             this.t_clave.setEnabled(false);
             this.bentrar.setEnabled(false);
