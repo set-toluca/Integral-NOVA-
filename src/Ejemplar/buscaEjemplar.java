@@ -119,6 +119,7 @@ public class buscaEjemplar extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         t_busca = new javax.swing.JTextField();
+        cb_tipo = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -144,16 +145,20 @@ public class buscaEjemplar extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Contiene:");
+        cb_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "clave", "Catalogo" }));
+
+        jLabel1.setText("contiene:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(cb_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(t_busca)
                 .addContainerGap())
         );
@@ -162,6 +167,7 @@ public class buscaEjemplar extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(t_busca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(0, 9, Short.MAX_VALUE))
         );
@@ -270,7 +276,11 @@ public class buscaEjemplar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void t_buscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_buscaKeyReleased
-        String consulta="from Ejemplar em where em.idParte like '%" + t_busca.getText() +"%'";        
+        String consulta;
+        if(cb_tipo.getSelectedItem().toString().compareTo("clave")==0)
+            consulta="from Ejemplar em where em.idParte like '%" + t_busca.getText() +"%'";        
+        else
+            consulta="from Ejemplar em where em.catalogo like '%" + t_busca.getText() +"%'";        
         if(tipo<2)
             consulta+=" and inventario="+tipo;
         executeHQLQuery(consulta);
@@ -319,6 +329,7 @@ public class buscaEjemplar extends javax.swing.JDialog {
     }//GEN-LAST:event_t_datosKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cb_tipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -333,7 +344,6 @@ public class buscaEjemplar extends javax.swing.JDialog {
     private List<Object[]> executeHQLQuery(String hql) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            System.out.println(hql);
             session.beginTransaction();
             Query q = session.createQuery(hql);
             List resultList = q.list();
@@ -396,19 +406,19 @@ public class buscaEjemplar extends javax.swing.JDialog {
             switch(i)
             {
                 case 0:
-                    column.setPreferredWidth(50);
+                    column.setPreferredWidth(100);
                     break;
                 case 1:
-                    column.setPreferredWidth(150);
+                    column.setPreferredWidth(10);
                     break;
                 case 2:
-                    column.setPreferredWidth(50);
+                    column.setPreferredWidth(10);
                     break;      
                 case 3:
-                    column.setPreferredWidth(80);
+                    column.setPreferredWidth(10);
                     break; 
                 case 4:
-                    column.setPreferredWidth(120);
+                    column.setPreferredWidth(150);
                     break; 
                 case 5:
                     column.setPreferredWidth(50);

@@ -104,6 +104,7 @@ public class buscaEjemplarAlmacen extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         t_busca = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        cb_tipo = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         t_datos = new javax.swing.JTable();
@@ -130,14 +131,18 @@ public class buscaEjemplarAlmacen extends javax.swing.JDialog {
 
         jLabel1.setText("Contiene:");
 
+        cb_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "clave", "Catalogo" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(cb_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(t_busca)
                 .addContainerGap())
         );
@@ -146,7 +151,8 @@ public class buscaEjemplarAlmacen extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(t_busca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(cb_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
@@ -322,6 +328,7 @@ public class buscaEjemplarAlmacen extends javax.swing.JDialog {
     }//GEN-LAST:event_t_datosKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cb_tipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -338,20 +345,26 @@ public class buscaEjemplarAlmacen extends javax.swing.JDialog {
         try {
             session.beginTransaction();
             Query q;
+            String texto="";
             if(orden.compareTo("")==0)
             {
-                q = session.createSQLQuery("select id_parte as id, if(modelo is null,'', modelo) as modelo, if(id_marca is null, '', id_marca) as marca, if(tipo_nombre is null,'', tipo_nombre) as tipo, id_catalogo, medida, existencias, 0.0 as cero " +
-                                             "from ejemplar where id_catalogo like '"+t_busca.getText()+"%'");
+                texto="select id_parte as id, if(modelo is null,'', modelo) as modelo, if(id_marca is null, '', id_marca) as marca, if(tipo_nombre is null,'', tipo_nombre) as tipo, id_catalogo, medida, existencias, 0.0 as cero " +
+                      "from ejemplar where ";
             }
             else
             {
-                q = session.createSQLQuery("select ejemplar.id_Parte as id, if(modelo is null,'', modelo) as modelo, if(id_marca is null, '', id_marca) as marca, if(tipo_nombre is null,'', tipo_nombre) as tipo, id_catalogo, medida, 0.0 as cero, " +
-                                            "( (select if(sum(movimiento.cantidad) is null, 0, sum(movimiento.cantidad)) from ejemplar left join movimiento on ejemplar.id_Parte=movimiento.id_Parte " +
-                                            "left join almacen on movimiento.id_almacen=almacen.id_almacen where ejemplar.id_Parte=id and almacen.id_orden="+orden+" and almacen.tipo_movimiento=2 and almacen.operacion=8) - " +
-                                            "(select if(sum(movimiento.cantidad) is null, 0, sum(movimiento.cantidad)) from ejemplar left join movimiento on ejemplar.id_Parte=movimiento.id_Parte " +
-                                            "left join almacen on movimiento.id_almacen=almacen.id_almacen where ejemplar.id_Parte=id and almacen.id_orden="+orden+" and almacen.tipo_movimiento=1 and almacen.operacion=8) )as operario, existencias " +
-                                            "from ejemplar where id_catalogo like '"+t_busca.getText()+"%'");
+                texto="select ejemplar.id_Parte as id, if(modelo is null,'', modelo) as modelo, if(id_marca is null, '', id_marca) as marca, if(tipo_nombre is null,'', tipo_nombre) as tipo, id_catalogo, medida, 0.0 as cero, " +
+                      "( (select if(sum(movimiento.cantidad) is null, 0, sum(movimiento.cantidad)) from ejemplar left join movimiento on ejemplar.id_Parte=movimiento.id_Parte " +
+                      "left join almacen on movimiento.id_almacen=almacen.id_almacen where ejemplar.id_Parte=id and almacen.id_orden="+orden+" and almacen.tipo_movimiento=2 and almacen.operacion=8) - " +
+                      "(select if(sum(movimiento.cantidad) is null, 0, sum(movimiento.cantidad)) from ejemplar left join movimiento on ejemplar.id_Parte=movimiento.id_Parte " +
+                      "left join almacen on movimiento.id_almacen=almacen.id_almacen where ejemplar.id_Parte=id and almacen.id_orden="+orden+" and almacen.tipo_movimiento=1 and almacen.operacion=8) )as operario, existencias " +
+                      "from ejemplar where ";
             }
+            if(cb_tipo.getSelectedItem().toString().compareTo("clave")==0)
+                texto+="ejemplar.id_Parte like '"+t_busca.getText()+"%'";
+            else
+                texto+="id_catalogo like '"+t_busca.getText()+"%'";
+            q = session.createSQLQuery(texto);
             q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
             List resultList = q.list();
             model.setRowCount(0);
@@ -399,19 +412,19 @@ public class buscaEjemplarAlmacen extends javax.swing.JDialog {
             switch(i)
             {
                 case 0:
-                    column.setPreferredWidth(50);
+                    column.setPreferredWidth(100);
                     break;
                 case 1:
-                    column.setPreferredWidth(150);
+                    column.setPreferredWidth(10);
                     break;
                 case 2:
-                    column.setPreferredWidth(50);
+                    column.setPreferredWidth(10);
                     break;      
                 case 3:
-                    column.setPreferredWidth(80);
+                    column.setPreferredWidth(10);
                     break; 
                 case 4:
-                    column.setPreferredWidth(120);
+                    column.setPreferredWidth(150);
                     break; 
                 case 5:
                     column.setPreferredWidth(50);

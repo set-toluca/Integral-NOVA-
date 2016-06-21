@@ -67,7 +67,9 @@ import Integral.PanelPestanas;
 import Integral.Render1;
 import Integral.VerticalBarUI;
 import Servicios.ModificarOrden;
+import Servicios.buscaOrden;
 import java.math.BigDecimal;
+import org.hibernate.Criteria;
 
 /**
  *
@@ -119,6 +121,15 @@ public class Reportes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pop = new javax.swing.JPopupMenu();
+        m1 = new javax.swing.JMenuItem();
+        m2 = new javax.swing.JMenuItem();
+        consumible = new javax.swing.JDialog();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        t_datos2 = new javax.swing.JTable();
+        t_suma = new javax.swing.JFormattedTextField();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -154,6 +165,9 @@ public class Reportes extends javax.swing.JPanel {
         t_asegurado4 = new javax.swing.JCheckBox();
         c_estado_cliente = new javax.swing.JComboBox();
         jLabel14 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        t_orden = new javax.swing.JTextField();
+        b_busca_cliente1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         cb_poliza = new javax.swing.JCheckBox();
         cb_siniestro = new javax.swing.JCheckBox();
@@ -182,9 +196,100 @@ public class Reportes extends javax.swing.JPanel {
         cb_factura = new javax.swing.JCheckBox();
         cb_tipo = new javax.swing.JCheckBox();
         cb_tot1 = new javax.swing.JCheckBox();
+        cb_consumible = new javax.swing.JCheckBox();
         jButton4 = new javax.swing.JButton();
         scroll = new javax.swing.JScrollPane();
         t_datos = new javax.swing.JTable();
+
+        m1.setText("Valuacion");
+        m1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m1ActionPerformed(evt);
+            }
+        });
+        pop.add(m1);
+
+        m2.setText("Consumibles");
+        m2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m2ActionPerformed(evt);
+            }
+        });
+        pop.add(m2);
+
+        consumible.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel9.setText("Material de consumible entregado por Almacen.");
+
+        t_datos2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "TIPO MOV.", "NO° PARTE", "DESCRIPCION", "CANTIDAD", "$ C/U", "$ TOTAL"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(t_datos2);
+
+        t_suma.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("$#,###.00"))));
+        t_suma.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        t_suma.setValue(0.0);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(t_suma, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(t_suma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout consumibleLayout = new javax.swing.GroupLayout(consumible.getContentPane());
+        consumible.getContentPane().setLayout(consumibleLayout);
+        consumibleLayout.setHorizontalGroup(
+            consumibleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        consumibleLayout.setVerticalGroup(
+            consumibleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Reportes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
@@ -515,13 +620,41 @@ public class Reportes extends javax.swing.JPanel {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
+        jLabel7.setText("OT:");
+
+        t_orden.setEditable(false);
+        t_orden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_ordenActionPerformed(evt);
+            }
+        });
+
+        b_busca_cliente1.setBackground(new java.awt.Color(2, 135, 242));
+        b_busca_cliente1.setIcon(new ImageIcon("imagenes/buscar.png"));
+        b_busca_cliente1.setToolTipText("Consultar clientes");
+        b_busca_cliente1.setMaximumSize(new java.awt.Dimension(32, 8));
+        b_busca_cliente1.setMinimumSize(new java.awt.Dimension(32, 8));
+        b_busca_cliente1.setPreferredSize(new java.awt.Dimension(32, 8));
+        b_busca_cliente1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_busca_cliente1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_orden)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(b_busca_cliente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -533,9 +666,16 @@ public class Reportes extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(b_busca_cliente1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel7)
+                                .addComponent(t_orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -625,6 +765,9 @@ public class Reportes extends javax.swing.JPanel {
         cb_tot1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         cb_tot1.setText("M.O. Cotizada Final");
 
+        cb_consumible.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_consumible.setText("Consumible");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -667,10 +810,11 @@ public class Reportes extends javax.swing.JPanel {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cb_factura)
                             .addComponent(cb_fecha_entrada)
-                            .addComponent(cb_tipo)))
+                            .addComponent(cb_tipo)
+                            .addComponent(cb_consumible)))
                     .addComponent(cb_tot_directa)
                     .addComponent(cb_compras))
-                .addGap(192, 337, Short.MAX_VALUE))
+                .addGap(192, 333, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -714,7 +858,8 @@ public class Reportes extends javax.swing.JPanel {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cb_placas)
                             .addComponent(cb_estatus)
-                            .addComponent(cb_tot1))))
+                            .addComponent(cb_tot1)
+                            .addComponent(cb_consumible))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cb_fecha_siniestro)
@@ -731,7 +876,7 @@ public class Reportes extends javax.swing.JPanel {
                                 .addComponent(cb_cia)
                                 .addComponent(cb_cliente))
                             .addComponent(cb_compras))))
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGap(0, 40, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Campos para el reporte", jPanel3);
@@ -751,7 +896,7 @@ public class Reportes extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 916, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 916, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
@@ -796,6 +941,7 @@ public class Reportes extends javax.swing.JPanel {
             }
         });
         t_datos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        t_datos.setComponentPopupMenu(pop);
         t_datos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         t_datos.getTableHeader().setReorderingAllowed(false);
         t_datos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1331,6 +1477,15 @@ public class Reportes extends javax.swing.JPanel {
             consulta+="com.clientes.estado='"+c_estado_cliente.getSelectedItem().toString()+"' ";
             entro=1;
         }
+        if(t_orden.getText().compareTo("")!=0)
+        {
+            if(entro==1)
+                consulta+="and ";
+            else
+                consulta+="where ";
+            consulta+="com.idOrden='" +t_orden.getText() +"' ";
+            entro=1;
+        }
         
         /*if(entro==1)
             consulta+="and ";
@@ -1577,7 +1732,14 @@ public class Reportes extends javax.swing.JPanel {
                     tam.add(80);
                     tam_pdf.add(15);
                 }
-
+                if(cb_consumible.isSelected()==true)
+                {
+                    tipos.add(java.lang.Double.class);
+                    col.add("Consumible");
+                    tam.add(80);
+                    tam_pdf.add(15);
+                }
+                
                 model=new MyModel(resultList.size(), (String[])col.toArray(new String[0]), (Class[])tipos.toArray(new Class[0]));
                 t_datos.setModel(model);
                 t_datos.setDefaultRenderer(String.class, formato);
@@ -1863,6 +2025,32 @@ public class Reportes extends javax.swing.JPanel {
                             t_datos.setValueAt("", ren, columna);
                         columna++;
                     }
+                    if(cb_consumible.isSelected()==true)
+                    {//realizar consulta materia entregado en movimientos almacen
+                        double consumible=0d;
+                        ArrayList datos = new ArrayList();
+                        Query query = session.createSQLQuery("select (select sum(cantidad*valor) from movimiento " +
+                                                            "left join almacen on almacen.id_almacen=movimiento.id_almacen " +
+                                                            "where tipo_movimiento=1 and almacen.operacion=8 and id_orden="+orden.getIdOrden()+")as entrada, (select sum(cantidad*valor) from movimiento " +
+                                                            "left join almacen on almacen.id_almacen=movimiento.id_almacen " +
+                                                            "where tipo_movimiento=2 and almacen.operacion=8 and id_orden="+orden.getIdOrden()+")as salida;");
+                        query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+                        datos = (ArrayList) query.list();
+                        if(datos.size()>0)
+                        {
+                            java.util.HashMap map = (java.util.HashMap) datos.get(0);
+                            double entrada=0.0d;
+                            double salida=0.0d;
+                            if(map.get("entrada")!=null)
+                                entrada=Double.parseDouble(map.get("entrada").toString());
+                            if(map.get("salida")!=null)
+                                salida=Double.parseDouble(map.get("salida").toString());
+                            consumible=salida-entrada;
+                        }
+                        BigDecimal con=new BigDecimal(consumible);
+                        t_datos.setValueAt(con.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue(), ren, columna);
+                        columna++;
+                    }
                     ren++;
                 }
             }
@@ -1945,6 +2133,8 @@ public class Reportes extends javax.swing.JPanel {
         cb_fecha_entrada.setSelected(false);
         cb_factura.setSelected(false);
         cb_tipo.setSelected(false);
+        cb_consumible.setSelected(false);
+        t_orden.setText("");
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void c_tipo_fechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_tipo_fechaActionPerformed
@@ -2220,61 +2410,116 @@ public class Reportes extends javax.swing.JPanel {
     private void t_datosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_datosMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) 
-        {
-            if(t_datos.getRowCount()>0 && t_datos.getSelectedRow()>=0)
-           {
-                Session session = HibernateUtil.getSessionFactory().openSession();
-                session.beginTransaction().begin();
-                Query q = session.createQuery("SELECT ord from Orden ord where ord.idOrden="+t_datos.getValueAt(t_datos.getSelectedRow(), 0));
-                List resultList = q.list();
-                if(resultList.size()>0)
+            m1ActionPerformed(null);
+    }//GEN-LAST:event_t_datosMouseClicked
+
+    private void t_ordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_ordenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_t_ordenActionPerformed
+
+    private void m1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m1ActionPerformed
+        // TODO add your handling code here:
+       if(t_datos.getRowCount()>0 && t_datos.getSelectedRow()>=0)
+       {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction().begin();
+            Query q = session.createQuery("SELECT ord from Orden ord where ord.idOrden="+t_datos.getValueAt(t_datos.getSelectedRow(), 0));
+            List resultList = q.list();
+            if(resultList.size()>0)
+            {
+                Object o =resultList.get(0);
+                Orden ord = (Orden) o;
+                usr = (Usuario)session.get(Usuario.class, usr.getIdUsuario());
+
+                int pos = -1;
+                for(int a=0; a<P_pestana.getTabCount(); a++)
                 {
-                    Object o =resultList.get(0);
-                    Orden ord = (Orden) o;
-                    usr = (Usuario)session.get(Usuario.class, usr.getIdUsuario());
-                    
-                    int pos = -1;
-                    for(int a=0; a<P_pestana.getTabCount(); a++)
-                    {
-                        if(P_pestana.getTitleAt(a)=="A. Valuacion")
-                            pos=a;
-                    }
-                    if(pos>=0)
-                    {
-                        P_pestana.setSelectedIndex(pos);
-                        Modificar_Orden.t_orden.requestFocus();
-                    }
-                    else
-                    {
-                        Modificar_Orden = new ModificarOrden(usr, this.periodo, 3, sessionPrograma, ruta);
-                        PanelPestanas btc=new PanelPestanas(P_pestana,3,usr);
-                        P_pestana.addTab("A. Valuacion", Modificar_Orden);
-                        P_pestana.setSelectedComponent(Modificar_Orden);
-                        P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
-                        Modificar_Orden.t_orden.requestFocus();
-                    }
-                    Modificar_Orden.t_orden.setText(""+ord.getIdOrden());
-                    Modificar_Orden.orden_act=ord;
-                    Modificar_Orden.consultaOrden();
-                    Modificar_Orden.b_busca_orden.requestFocus();
-                    Modificar_Orden.p_ventanas.setSelectedIndex(0);
-                    if(session!=null)
-                        if(session.isOpen())
-                            session.close();
+                    if(P_pestana.getTitleAt(a)=="A. Valuacion")
+                        pos=a;
+                }
+                if(pos>=0)
+                {
+                    P_pestana.setSelectedIndex(pos);
+                    Modificar_Orden.t_orden.requestFocus();
                 }
                 else
                 {
-                    if(session!=null)
-                        if(session.isOpen())
-                            session.close();
+                    Modificar_Orden = new ModificarOrden(usr, this.periodo, 3, sessionPrograma, ruta);
+                    PanelPestanas btc=new PanelPestanas(P_pestana,3,usr);
+                    P_pestana.addTab("A. Valuacion", Modificar_Orden);
+                    P_pestana.setSelectedComponent(Modificar_Orden);
+                    P_pestana.setTabComponentAt(P_pestana.getSelectedIndex(), btc);
+                    Modificar_Orden.t_orden.requestFocus();
                 }
-           }
+                Modificar_Orden.t_orden.setText(""+ord.getIdOrden());
+                Modificar_Orden.orden_act=ord;
+                Modificar_Orden.consultaOrden();
+                Modificar_Orden.b_busca_orden.requestFocus();
+                Modificar_Orden.p_ventanas.setSelectedIndex(0);
+                if(session!=null)
+                    if(session.isOpen())
+                        session.close();
+            }
+            else
+            {
+                if(session!=null)
+                    if(session.isOpen())
+                        session.close();
+            }
+       }
+    }//GEN-LAST:event_m1ActionPerformed
+
+    private void b_busca_cliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_busca_cliente1ActionPerformed
+        // TODO add your handling code here:
+        buscaOrden obj = new buscaOrden(new javax.swing.JFrame(), true, this.usr,0);
+        obj.t_busca.requestFocus();
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+        obj.setVisible(true);        
+        Orden orden_act=obj.getReturnStatus();
+        if (orden_act!=null)
+            this.t_orden.setText(""+orden_act.getIdOrden());
+        else
+            t_orden.setText("");
+    }//GEN-LAST:event_b_busca_cliente1ActionPerformed
+
+    private void m2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m2ActionPerformed
+        // TODO add your handling code here:
+        if(t_datos.getSelectedRow()>-1)
+        {
+            ArrayList datos = new ArrayList();
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction().begin();
+            Query query = session.createSQLQuery("select if(tipo_movimiento=1, 'Devolucion','Salida')as tipo, movimiento.id_Parte, id_catalogo, cantidad, valor, (cantidad*valor)as total from movimiento " +
+                                                "left join ejemplar on ejemplar.id_Parte=movimiento.id_Parte " +
+                                                "left join almacen on almacen.id_almacen=movimiento.id_almacen " +
+                                                "where almacen.operacion=8 and id_orden="+t_datos.getValueAt(t_datos.getSelectedRow(), 0));
+            query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+            datos = (ArrayList) query.list();
+            DefaultTableModel modelo=(DefaultTableModel)t_datos2.getModel();
+            modelo.setNumRows(0);
+            double suma=0.0d;
+            for(int c=0; c<datos.size(); c++)
+            {
+                java.util.HashMap map = (java.util.HashMap) datos.get(c);
+                modelo.addRow(new Object[]{map.get("tipo"),map.get("id_Parte"),map.get("id_catalogo"),map.get("cantidad"),map.get("valor"),map.get("total")});
+                if(map.get("tipo").toString().compareTo("Salida")==0)
+                    suma+=Double.parseDouble(map.get("total").toString());
+                else
+                    suma-=Double.parseDouble(map.get("total").toString());
+            }
+            t_suma.setValue(suma);
+            Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+            consumible.setSize(676, 375);
+            consumible.setLocation((d.width/2)-(consumible.getWidth()/2), (d.height/2)-(consumible.getHeight()/2));
+            consumible.setVisible(true);
         }
-    }//GEN-LAST:event_t_datosMouseClicked
+    }//GEN-LAST:event_m2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_busca_cliente;
+    private javax.swing.JButton b_busca_cliente1;
     private javax.swing.JButton b_buscar_aseguradora;
     private javax.swing.JButton b_fecha_siniestro;
     private javax.swing.JButton b_fecha_siniestro1;
@@ -2289,6 +2534,7 @@ public class Reportes extends javax.swing.JPanel {
     private javax.swing.JCheckBox cb_cia;
     private javax.swing.JCheckBox cb_cliente;
     private javax.swing.JCheckBox cb_compras;
+    private javax.swing.JCheckBox cb_consumible;
     private javax.swing.JCheckBox cb_economico;
     private javax.swing.JCheckBox cb_email;
     private javax.swing.JCheckBox cb_estatus;
@@ -2310,6 +2556,7 @@ public class Reportes extends javax.swing.JPanel {
     private javax.swing.JCheckBox cb_tot;
     private javax.swing.JCheckBox cb_tot1;
     private javax.swing.JCheckBox cb_tot_directa;
+    private javax.swing.JDialog consumible;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -2321,16 +2568,23 @@ public class Reportes extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField l_id_cliente;
     private javax.swing.JLabel l_nombre_aseguradora;
+    private javax.swing.JMenuItem m1;
+    private javax.swing.JMenuItem m2;
+    private javax.swing.JPopupMenu pop;
     private javax.swing.JScrollPane scroll;
     private javax.swing.JCheckBox t_asegurado1;
     private javax.swing.JCheckBox t_asegurado2;
@@ -2338,8 +2592,11 @@ public class Reportes extends javax.swing.JPanel {
     private javax.swing.JCheckBox t_asegurado4;
     public javax.swing.JTextField t_aseguradora;
     private javax.swing.JTable t_datos;
+    private javax.swing.JTable t_datos2;
     private javax.swing.JTextField t_fecha1;
     private javax.swing.JTextField t_fecha2;
+    private javax.swing.JTextField t_orden;
+    private javax.swing.JFormattedTextField t_suma;
     // End of variables declaration//GEN-END:variables
 
     public class MyModel extends DefaultTableModel

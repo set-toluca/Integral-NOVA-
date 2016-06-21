@@ -194,6 +194,12 @@ public class Reporte2 extends javax.swing.JPanel {
         jButton9 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        t_surtir = new javax.swing.JTable();
+        jButton15 = new javax.swing.JButton();
 
         muestra.setTitle("Consultar Movimiento");
         muestra.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
@@ -521,7 +527,7 @@ public class Reporte2 extends javax.swing.JPanel {
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addContainerGap())
@@ -661,7 +667,7 @@ public class Reporte2 extends javax.swing.JPanel {
                         .addComponent(cb_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -802,13 +808,94 @@ public class Reporte2 extends javax.swing.JPanel {
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Consultar Pedidos", jPanel4);
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButton13.setText("Consultar");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+
+        jButton14.setIcon(new ImageIcon("imagenes/exel.png"));
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+
+        t_surtir.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "NO° PARTE", "DESCRIPCION", "MAXIMO", "MINIMO", "EXISTENCIAS", "MEDIDA", "X SURTIR"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        t_surtir.setFillsViewportHeight(true);
+        jScrollPane5.setViewportView(t_surtir);
+
+        jButton15.setIcon(new ImageIcon("imagenes/pdf.png"));
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 985, Short.MAX_VALUE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jButton13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Consumibles x surtir", jPanel7);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1665,7 +1752,7 @@ public class Reporte2 extends javax.swing.JPanel {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-         h=new Herramientas(usr, 0);
+        h=new Herramientas(usr, 0);
         h.session(sessionPrograma);
         if(t_datos2.getRowCount()>0)
         {
@@ -1865,6 +1952,147 @@ public class Reporte2 extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_t_datos2MouseClicked
 
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        ArrayList datos = new ArrayList();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction().begin();
+        Query query = session.createSQLQuery("select id_Parte, id_catalogo, maximo, minimo, existencias, (maximo-existencias)surtir, medida  from ejemplar where existencias<=minimo and minimo>0");
+        query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+        datos = (ArrayList) query.list();
+        DefaultTableModel modelo=(DefaultTableModel)t_surtir.getModel();
+        modelo.setNumRows(0);
+        for(int c=0; c<datos.size(); c++)
+        {
+            java.util.HashMap map = (java.util.HashMap) datos.get(c);
+            modelo.addRow(new Object[]{map.get("id_Parte"),map.get("id_catalogo"),map.get("maximo"),map.get("minimo"),map.get("existencias"),map.get("medida"),map.get("surtir")});
+        }
+        if(session.isOpen())
+            session.close();
+        session=null;
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        h=new Herramientas(this.usr, 0);
+        h.session(sessionPrograma);
+        javax.swing.JFileChooser jF1= new javax.swing.JFileChooser();
+        jF1.setFileFilter(new ExtensionFileFilter("Excel document (*.xls)", new String[] { "xls" }));
+        String ruta = null;
+        if(jF1.showSaveDialog(null)==jF1.APPROVE_OPTION)
+        {
+            ruta = jF1.getSelectedFile().getAbsolutePath();
+            if(ruta!=null)
+            {
+                File archivoXLS = new File(ruta+".xls");
+                try
+                {
+                    if(archivoXLS.exists())
+                    archivoXLS.delete();
+                    archivoXLS.createNewFile();
+                    Workbook libro = new HSSFWorkbook();
+                    FileOutputStream archivo = new FileOutputStream(archivoXLS);
+                    Sheet hoja = libro.createSheet("Consumibles por surtir");
+                    for(int ren=0;ren<(t_surtir.getRowCount()+1);ren++)
+                    {
+                        Row fila = hoja.createRow(ren);
+                        for(int col=0; col<t_surtir.getColumnCount(); col++)
+                        {
+                            Cell celda = fila.createCell(col);
+                            if(ren==0)
+                            {
+                                celda.setCellValue(t_surtir.getColumnName(col));
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    celda.setCellValue(t_surtir.getValueAt(ren-1, col).toString());
+                                }catch(Exception e)
+                                {
+                                    celda.setCellValue("");
+                                }
+                            }
+                        }
+                    }
+                    libro.write(archivo);
+                    archivo.close();
+                    Desktop.getDesktop().open(archivoXLS);
+                }catch(Exception e)
+                {
+                    System.out.println(e);
+                    JOptionPane.showMessageDialog(this, "No se pudo realizar el reporte si el archivo esta abierto");
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+        h=new Herramientas(usr, 0);
+        h.session(sessionPrograma);
+        if(t_surtir.getRowCount()>0)
+        {
+            javax.swing.JFileChooser jF1= new javax.swing.JFileChooser();
+            jF1.setFileFilter(new ExtensionFileFilter("Excel document (*.pdf)", new String[] { "pdf" }));
+            String ruta = null;
+            if(jF1.showSaveDialog(null)==jF1.APPROVE_OPTION)
+            {
+                ruta = jF1.getSelectedFile().getAbsolutePath();
+                if(ruta!=null)
+                {
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    try
+                    {
+                        session.beginTransaction().begin();
+                        BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
+                        
+                        PDF reporte = new PDF();
+                        Date fecha = new Date();
+                        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyyHH-mm-ss");//YYYY-MM-DD HH:MM:SS
+                        String valor=dateFormat.format(fecha);
+
+                        reporte.Abrir2(PageSize.LETTER, "Reporte Pedidos Consumibles", ruta+".pdf");
+                        Font font = new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL);
+                        BaseColor contenido=BaseColor.WHITE;
+                        int centro=Element.ALIGN_CENTER;
+                        int izquierda=Element.ALIGN_LEFT;
+                        int derecha=Element.ALIGN_RIGHT;
+                        float[] nuevos=new float[]{100,310,80,80,80,50,80};
+
+                        PdfPTable tabla=reporte.crearTabla(nuevos.length, nuevos, 100, Element.ALIGN_CENTER);
+                        cabecera1(reporte, bf, tabla, "Consumibles por Surtir", 2);
+                        for(int ren=0; ren<t_surtir.getRowCount(); ren++)
+                        {
+                            for(int col=0; col<t_surtir.getColumnCount(); col++)
+                            {
+                                try
+                                {
+                                    tabla.addCell(reporte.celda(t_surtir.getValueAt(ren, col).toString(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                                }catch(Exception e)
+                                {
+                                    tabla.addCell(reporte.celda("", font, contenido, centro, 0,1,Rectangle.RECTANGLE));
+                                }
+                            }
+                        }
+                        tabla.setHeaderRows(1);
+                        reporte.agregaObjeto(tabla);
+                        reporte.cerrar();
+                        reporte.visualizar2(ruta+".pdf");
+                    }catch(Exception e)
+                    {
+                        System.out.println(e);
+                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(this, "No se pudo realizar el reporte si el archivo esta abierto.");
+                    }
+                    if(session!=null)
+                    if(session.isOpen())
+                    session.close();
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton15ActionPerformed
+
     DefaultTableModel ModeloTablaReporte(int renglones, String columnas[], final Class[] tipos, final boolean[] edo, DefaultTableModel modelo)
     {
         modelo = new DefaultTableModel(new Object [renglones][0], columnas)
@@ -1985,7 +2213,10 @@ public void cabecera1(PDF reporte, BaseFont bf, PdfPTable tabla, String titulo1,
             
                 for(int a=0; a<tabla.getNumberOfColumns(); a++)
                 {
-                    tabla.addCell(reporte.celda(t_datos2.getColumnName(a), font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
+                    if(op==2)
+                        tabla.addCell(reporte.celda(t_surtir.getColumnName(a), font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
+                    else
+                        tabla.addCell(reporte.celda(t_datos2.getColumnName(a), font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
                 }
        }catch(Exception e)
        {
@@ -2157,6 +2388,9 @@ public void cabecera1(PDF reporte, BaseFont bf, PdfPTable tabla, String titulo1,
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -2183,11 +2417,13 @@ public void cabecera1(PDF reporte, BaseFont bf, PdfPTable tabla, String titulo1,
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JDialog muestra;
     private javax.swing.JTextField orden;
@@ -2201,5 +2437,6 @@ public void cabecera1(PDF reporte, BaseFont bf, PdfPTable tabla, String titulo1,
     private javax.swing.JTextField t_fecha2;
     private javax.swing.JTextField t_fecha5;
     private javax.swing.JTextField t_fecha6;
+    private javax.swing.JTable t_surtir;
     // End of variables declaration//GEN-END:variables
 }

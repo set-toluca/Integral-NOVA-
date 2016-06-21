@@ -358,15 +358,16 @@ public class formatos extends javax.swing.JPanel {
 
             //********agregamos reparación******************************************
             reporte.texto("REPARACIÓN:", bf, BaseColor.BLACK, 13, 250, 220);
-
-            reporte.contenido.rectangle(85, 190, 455, 0);
-            reporte.contenido.rectangle(85, 170, 455, 0);
-            reporte.contenido.rectangle(85, 150, 455, 0);
-            reporte.contenido.rectangle(85, 130, 455, 0);
-            reporte.contenido.rectangle(85, 110, 455, 0);
-            reporte.contenido.rectangle(85, 90, 455, 0);
-            reporte.contenido.rectangle(85, 60, 455, 0);
-            reporte.contenido.rectangle(85, 40, 455, 0);
+            Font font1 = new Font(Font.FontFamily.HELVETICA, 13, Font.NORMAL);
+            reporte.parrafo("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"+ord.getComentario(), font1, 0);
+            reporte.contenido.rectangle(30, 190, 550, 0);
+            reporte.contenido.rectangle(30, 170, 550, 0);
+            reporte.contenido.rectangle(30, 150, 550, 0);
+            reporte.contenido.rectangle(30, 130, 550, 0);
+            reporte.contenido.rectangle(30, 110, 550, 0);
+            reporte.contenido.rectangle(30, 90, 550, 0);
+            reporte.contenido.rectangle(30, 70, 550, 0);
+            reporte.contenido.rectangle(30, 50, 550, 0);
 
             reporte.finTexto();
 
