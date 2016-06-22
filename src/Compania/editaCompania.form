@@ -81,7 +81,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jPanel4" max="32767" attributes="0"/>
-                          <Component id="p_foto" pref="129" max="32767" attributes="0"/>
+                          <Component id="p_foto" pref="147" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>

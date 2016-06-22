@@ -131,7 +131,7 @@ public class buscaEjemplarAlmacen extends javax.swing.JDialog {
 
         jLabel1.setText("Contiene:");
 
-        cb_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "clave", "Catalogo" }));
+        cb_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Catalogo", "clave", " " }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

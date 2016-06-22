@@ -471,7 +471,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setBackground(new java.awt.Color(51, 51, 255));
+        jButton1.setBackground(Color.RED);
         jButton1.setIcon(new ImageIcon("imagenes/ent-ped.png"));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2240,48 +2240,128 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         // TODO add your handling code here:
         c_tmovimiento.setSelectedItem("Entrada");
         c_toperacion.setSelectedItem("Pedido");
+        jButton1.setBackground(Color.RED);
+        jButton2.setBackground(new java.awt.Color(51, 51, 255));
+        jButton3.setBackground(new java.awt.Color(51, 51, 255));
+        jButton4.setBackground(new java.awt.Color(51, 51, 255));
+        jButton5.setBackground(new java.awt.Color(51, 51, 255));
+        jButton6.setBackground(new java.awt.Color(51, 51, 255));
+        jButton7.setBackground(new java.awt.Color(51, 51, 255));
+        jButton8.setBackground(new java.awt.Color(51, 51, 255));
+        jButton10.setBackground(new java.awt.Color(51, 51, 255));
+        jButton11.setBackground(new java.awt.Color(51, 51, 255));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         c_tmovimiento.setSelectedItem("Salida");
         c_toperacion.setSelectedItem("Pedido");
+        jButton2.setBackground(Color.RED);
+        jButton1.setBackground(new java.awt.Color(51, 51, 255));
+        jButton3.setBackground(new java.awt.Color(51, 51, 255));
+        jButton4.setBackground(new java.awt.Color(51, 51, 255));
+        jButton5.setBackground(new java.awt.Color(51, 51, 255));
+        jButton6.setBackground(new java.awt.Color(51, 51, 255));
+        jButton7.setBackground(new java.awt.Color(51, 51, 255));
+        jButton8.setBackground(new java.awt.Color(51, 51, 255));
+        jButton10.setBackground(new java.awt.Color(51, 51, 255));
+        jButton11.setBackground(new java.awt.Color(51, 51, 255));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         c_tmovimiento.setSelectedItem("Entrada");
         c_toperacion.setSelectedItem("Compañía");
+        jButton3.setBackground(Color.RED);
+        jButton2.setBackground(new java.awt.Color(51, 51, 255));
+        jButton1.setBackground(new java.awt.Color(51, 51, 255));
+        jButton4.setBackground(new java.awt.Color(51, 51, 255));
+        jButton5.setBackground(new java.awt.Color(51, 51, 255));
+        jButton6.setBackground(new java.awt.Color(51, 51, 255));
+        jButton7.setBackground(new java.awt.Color(51, 51, 255));
+        jButton8.setBackground(new java.awt.Color(51, 51, 255));
+        jButton10.setBackground(new java.awt.Color(51, 51, 255));
+        jButton11.setBackground(new java.awt.Color(51, 51, 255));
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         c_tmovimiento.setSelectedItem("Salida");
         c_toperacion.setSelectedItem("Compañía");
+        jButton4.setBackground(Color.RED);
+        jButton2.setBackground(new java.awt.Color(51, 51, 255));
+        jButton3.setBackground(new java.awt.Color(51, 51, 255));
+        jButton1.setBackground(new java.awt.Color(51, 51, 255));
+        jButton5.setBackground(new java.awt.Color(51, 51, 255));
+        jButton6.setBackground(new java.awt.Color(51, 51, 255));
+        jButton7.setBackground(new java.awt.Color(51, 51, 255));
+        jButton8.setBackground(new java.awt.Color(51, 51, 255));
+        jButton10.setBackground(new java.awt.Color(51, 51, 255));
+        jButton11.setBackground(new java.awt.Color(51, 51, 255));
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         c_tmovimiento.setSelectedItem("Salida");
         c_toperacion.setSelectedItem("Operarios");
+        jButton5.setBackground(Color.RED);
+        jButton2.setBackground(new java.awt.Color(51, 51, 255));
+        jButton3.setBackground(new java.awt.Color(51, 51, 255));
+        jButton4.setBackground(new java.awt.Color(51, 51, 255));
+        jButton1.setBackground(new java.awt.Color(51, 51, 255));
+        jButton6.setBackground(new java.awt.Color(51, 51, 255));
+        jButton7.setBackground(new java.awt.Color(51, 51, 255));
+        jButton8.setBackground(new java.awt.Color(51, 51, 255));
+        jButton10.setBackground(new java.awt.Color(51, 51, 255));
+        jButton11.setBackground(new java.awt.Color(51, 51, 255));
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         c_tmovimiento.setSelectedItem("Entrada");
         c_toperacion.setSelectedItem("Operarios");
+        jButton6.setBackground(Color.RED);
+        jButton2.setBackground(new java.awt.Color(51, 51, 255));
+        jButton3.setBackground(new java.awt.Color(51, 51, 255));
+        jButton4.setBackground(new java.awt.Color(51, 51, 255));
+        jButton5.setBackground(new java.awt.Color(51, 51, 255));
+        jButton1.setBackground(new java.awt.Color(51, 51, 255));
+        jButton7.setBackground(new java.awt.Color(51, 51, 255));
+        jButton8.setBackground(new java.awt.Color(51, 51, 255));
+        jButton10.setBackground(new java.awt.Color(51, 51, 255));
+        jButton11.setBackground(new java.awt.Color(51, 51, 255));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         c_tmovimiento.setSelectedItem("Salida");
         c_toperacion.setSelectedItem("Venta");
+        jButton7.setBackground(Color.RED);
+        jButton2.setBackground(new java.awt.Color(51, 51, 255));
+        jButton3.setBackground(new java.awt.Color(51, 51, 255));
+        jButton4.setBackground(new java.awt.Color(51, 51, 255));
+        jButton5.setBackground(new java.awt.Color(51, 51, 255));
+        jButton6.setBackground(new java.awt.Color(51, 51, 255));
+        jButton1.setBackground(new java.awt.Color(51, 51, 255));
+        jButton8.setBackground(new java.awt.Color(51, 51, 255));
+        jButton10.setBackground(new java.awt.Color(51, 51, 255));
+        jButton11.setBackground(new java.awt.Color(51, 51, 255));
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
         c_tmovimiento.setSelectedItem("Entrada");
         c_toperacion.setSelectedItem("Venta");
+        jButton8.setBackground(Color.RED);
+        jButton2.setBackground(new java.awt.Color(51, 51, 255));
+        jButton3.setBackground(new java.awt.Color(51, 51, 255));
+        jButton4.setBackground(new java.awt.Color(51, 51, 255));
+        jButton5.setBackground(new java.awt.Color(51, 51, 255));
+        jButton6.setBackground(new java.awt.Color(51, 51, 255));
+        jButton7.setBackground(new java.awt.Color(51, 51, 255));
+        jButton1.setBackground(new java.awt.Color(51, 51, 255));
+        jButton10.setBackground(new java.awt.Color(51, 51, 255));
+        jButton11.setBackground(new java.awt.Color(51, 51, 255));
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void b_detallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_detallesActionPerformed
@@ -2299,6 +2379,16 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         cb_sin_orden.setSelected(false);
         b_buscaorden.setEnabled(true);
         //b_detalles.setEnabled(true);
+        jButton10.setBackground(Color.RED);
+        jButton2.setBackground(new java.awt.Color(51, 51, 255));
+        jButton3.setBackground(new java.awt.Color(51, 51, 255));
+        jButton4.setBackground(new java.awt.Color(51, 51, 255));
+        jButton5.setBackground(new java.awt.Color(51, 51, 255));
+        jButton6.setBackground(new java.awt.Color(51, 51, 255));
+        jButton7.setBackground(new java.awt.Color(51, 51, 255));
+        jButton8.setBackground(new java.awt.Color(51, 51, 255));
+        jButton1.setBackground(new java.awt.Color(51, 51, 255));
+        jButton11.setBackground(new java.awt.Color(51, 51, 255));
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -2308,6 +2398,16 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         cb_sin_orden.setSelected(false);
         b_buscaorden.setEnabled(true);
         //b_detalles.setEnabled(true);
+        jButton11.setBackground(Color.RED);
+        jButton2.setBackground(new java.awt.Color(51, 51, 255));
+        jButton3.setBackground(new java.awt.Color(51, 51, 255));
+        jButton4.setBackground(new java.awt.Color(51, 51, 255));
+        jButton5.setBackground(new java.awt.Color(51, 51, 255));
+        jButton6.setBackground(new java.awt.Color(51, 51, 255));
+        jButton7.setBackground(new java.awt.Color(51, 51, 255));
+        jButton8.setBackground(new java.awt.Color(51, 51, 255));
+        jButton10.setBackground(new java.awt.Color(51, 51, 255));
+        jButton1.setBackground(new java.awt.Color(51, 51, 255));
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void cb_sin_ordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_sin_ordenActionPerformed

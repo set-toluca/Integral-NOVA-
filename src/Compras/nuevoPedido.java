@@ -1582,6 +1582,30 @@ public class nuevoPedido extends javax.swing.JPanel {
             else
                 JOptionPane.showMessageDialog(null, "¡Selecciona las partidas que desees eliminar!");
         }
+        if(c_tipo.getSelectedItem().toString().compareTo("Inventario")==0)
+        {
+            renglones = t_datos.getSelectedRows();
+            if(renglones.length>=0)
+            {
+                int opt=JOptionPane.showConfirmDialog(this, "¡El pedido se eliminará!");
+                if (JOptionPane.YES_OPTION == opt)
+                {
+                    for(int x=0; x<renglones.length; x++)
+                    {
+                        model.removeRow(t_datos.getSelectedRow());
+                    }
+                    sumaTotales();
+                    //JOptionPane.showMessageDialog(null, "¡Pedido eliminado!");
+                    if(t_datos.getRowCount()!=0)
+                        b_calendario.setEnabled(true);
+                    else
+                        b_calendario.setEnabled(false);
+                    t_plazo.setText("");
+                }
+            }
+            else
+                JOptionPane.showMessageDialog(null, "¡Selecciona las partidas que desees eliminar!");
+        }
     }//GEN-LAST:event_b_menosActionPerformed
 
     private void t_buscaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_buscaKeyTyped

@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import Integral.Herramientas;
 import Integral.PDF;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.AcroFields;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
@@ -97,6 +98,8 @@ public class formatos extends javax.swing.JPanel {
         b_encuenta1 = new javax.swing.JButton();
         b_fecha_promesa2 = new javax.swing.JButton();
         b_encuenta2 = new javax.swing.JButton();
+        b_fecha_promesa3 = new javax.swing.JButton();
+        b_fecha_promesa4 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -220,6 +223,30 @@ public class formatos extends javax.swing.JPanel {
             }
         });
 
+        b_fecha_promesa3.setBackground(new java.awt.Color(2, 135, 242));
+        b_fecha_promesa3.setForeground(new java.awt.Color(255, 255, 255));
+        b_fecha_promesa3.setIcon(new ImageIcon("imagenes/pdf_icon.png"));
+        b_fecha_promesa3.setText("Fecha Promesa");
+        b_fecha_promesa3.setToolTipText("Generar reporte");
+        b_fecha_promesa3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        b_fecha_promesa3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_fecha_promesa3ActionPerformed(evt);
+            }
+        });
+
+        b_fecha_promesa4.setBackground(new java.awt.Color(2, 135, 242));
+        b_fecha_promesa4.setForeground(new java.awt.Color(255, 255, 255));
+        b_fecha_promesa4.setIcon(new ImageIcon("imagenes/pdf_icon.png"));
+        b_fecha_promesa4.setText("Carta Aceptación");
+        b_fecha_promesa4.setToolTipText("Generar reporte");
+        b_fecha_promesa4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        b_fecha_promesa4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_fecha_promesa4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -231,14 +258,16 @@ public class formatos extends javax.swing.JPanel {
                     .addComponent(b_hoja_unidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(b_inv_tracto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(b_salida1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                    .addComponent(b_salida3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(b_salida3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(b_fecha_promesa4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(b_fecha_promesa1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(b_encuenta1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(b_fecha_promesa2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(b_encuenta2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(b_fecha_promesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(b_fecha_promesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(b_fecha_promesa3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(402, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -266,7 +295,11 @@ public class formatos extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_salida3)
                     .addComponent(b_encuenta2))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(b_fecha_promesa3)
+                    .addComponent(b_fecha_promesa4))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -288,7 +321,7 @@ public class formatos extends javax.swing.JPanel {
             reporte.Abrir(PageSize.LETTER, "Hoja de Unidad", "reportes/" + ord.getIdOrden() + "/" + valor + "-unidad.pdf");
 
             try {
-                reporte.agregaObjeto(reporte.crearImagen("imagenes/empresa300115.jpg", 30, -123, 45));
+                reporte.agregaObjeto(reporte.crearImagen(ord.getCompania().getFoto(), 30, -123, 45));
             } catch (Exception e) {
             }
 
@@ -715,63 +748,70 @@ public class formatos extends javax.swing.JPanel {
             reporte.Abrir(PageSize.LETTER, "Etiqueta de Expediente", "reportes/" + ord.getIdOrden() + "/" + valor + "-Etiqueta.pdf");
             int op = 39;
             if (ord.getCompania().getFoto() != null) {
-                reporte.agregaObjeto(reporte.crearImagen(ord.getCompania().getFoto(), 401, -86, 70, 50, 270));
-                op = -10;
+                reporte.agregaObjeto(reporte.crearImagen(ord.getCompania().getFoto(), 42, -54, 70, 50, 0));
+                op = -30;
             }
 
             reporte.contenido.setLineWidth(0.5f);
             reporte.contenido.setColorStroke(new GrayColor(0.2f));
             reporte.contenido.setColorFill(new GrayColor(0.9f));
-            reporte.contenido.roundRectangle(435, 440, 54, 301, 5);
+            reporte.contenido.roundRectangle(75, 700, 422, 54, 5);
 
             reporte.inicioTexto();
             try {
                 String nom = ord.getClientes().getNombre();
-                if (nom.length() > 29) {
-                    nom = nom.substring(0, 29);
+                if (nom.length() > 50) {
+                    nom = nom.substring(0, 50);
                 }
                 switch (ord.getTipoCliente()) {
                     case "1":
-                        reporte.texto("ASEG: " + nom, bf, BaseColor.BLACK, 7, 478, 665, 270);
+                        reporte.texto("ASEG: " + nom, bf, BaseColor.BLACK, 7, 158, 740, 0);
                         break;
                     case "2":
-                        reporte.texto("TERC:" + nom, bf, BaseColor.BLACK, 7, 478, 665, 270);
+                        reporte.texto("TERC:" + nom, bf, BaseColor.BLACK, 7, 158, 740, 0);
                         break;
                     case "3":
-                        reporte.texto("TERC.ASEG:" + nom, bf, BaseColor.BLACK, 7, 478, 665, 270);
+                        reporte.texto("TERC.ASEG:" + nom, bf, BaseColor.BLACK, 7, 158, 740, 0);
                         break;
 
                     case "4":
-                        reporte.texto("PART: " + nom, bf, BaseColor.BLACK, 7, 478, 665, 270);
+                        reporte.texto("PART: " + nom, bf, BaseColor.BLACK, 7, 158, 740, 0);
                         break;
                 }
             } catch (Exception e) {
             }
 
-            reporte.texto("EXP: " + orden, bf, BaseColor.BLACK, 7, 478, 490, 270);
-            reporte.texto("MARCA: " + ord.getMarca().getMarcaNombre(), bf, BaseColor.BLACK, 7, 468, 665, 270);
+            reporte.texto("EXP: " + orden, bf, BaseColor.BLACK, 7, 438, 740, 0);
+            reporte.texto("MARCA: " + ord.getMarca().getMarcaNombre(), bf, BaseColor.BLACK, 7, 158, 730,0);
 
-            reporte.texto("MODELO: " + ord.getModelo(), bf, BaseColor.BLACK, 7, 458, 665, 270);
-            reporte.texto("TIPO: " + ord.getTipo().getTipoNombre(), bf, BaseColor.BLACK, 7, 458, 590, 270);
+            reporte.texto("MODELO: " + ord.getModelo(), bf, BaseColor.BLACK, 7, 158, 720, 0);
+            reporte.texto("TIPO: " + ord.getTipo().getTipoNombre(), bf, BaseColor.BLACK, 7, 295, 730, 0);
 
             if (ord.getNoPlacas() != null) {
-                reporte.texto("PLACAS: " + ord.getNoPlacas(), bf, BaseColor.BLACK, 7, 448, 665, 270);
+                reporte.texto("PLACAS: " + ord.getNoPlacas(), bf, BaseColor.BLACK, 7, 158, 710, 0);
             } else {
-                reporte.texto("PLACAS: ", bf, BaseColor.BLACK, 8, 448, 665, 270);
+                reporte.texto("PLACAS: ", bf, BaseColor.BLACK, 8, 158, 710, 0);
             }
 
-            reporte.texto("FECHA: " + ord.getFecha().toString(), bf, BaseColor.BLACK, 7, 448, 590, 270);
+            reporte.texto("FECHA: " + ord.getFecha().toString(), bf, BaseColor.BLACK, 7, 295, 720, 0);
+            reporte.texto("COLOR: " + ord.getColor(), bf, BaseColor.BLACK, 7, 295, 710, 0);
 
             if (ord.getPoliza() != null) {
-                reporte.texto("NP: " + ord.getPoliza(), bf, BaseColor.BLACK, 7, 448, 520, 270);
+                reporte.texto("NP: " + ord.getPoliza(), bf, BaseColor.BLACK, 7, 405, 720, 0);
             } else {
-                reporte.texto("NP: ", bf, BaseColor.BLACK, 7, 448, 520, 270);
+                reporte.texto("NP: ", bf, BaseColor.BLACK, 7, 405, 720, 0);
             }
 
-            if (ord.getSiniestro() != null) {
-                reporte.texto("SIN: " + ord.getSiniestro(), bf, BaseColor.BLACK, 7, 468, 518, 270);
+            if (ord.getNoReporte()!= null) {
+                reporte.texto("REP: " + ord.getNoReporte(), bf, BaseColor.BLACK, 7, 405, 710, 0);
             } else {
-                reporte.texto("SIN: ", bf, BaseColor.BLACK, 7, 468, 518, 270);
+                reporte.texto("REP: ", bf, BaseColor.BLACK, 7, 405, 710, 0);
+            }
+            
+            if (ord.getSiniestro() != null) {
+                reporte.texto("SIN: " + ord.getSiniestro(), bf, BaseColor.BLACK, 7, 415, 730, 0);
+            } else {
+                reporte.texto("SIN: ", bf, BaseColor.BLACK, 7, 415, 730, 0);
             }
 
             reporte.finTexto();
@@ -788,7 +828,7 @@ public class formatos extends javax.swing.JPanel {
                 }
             }
             if (fotos.length > 0) {   // 395 360, 300 90
-                reporte.agregaObjeto(reporte.crearImagen("ordenes/" + ord.getIdOrden() + "/miniatura/" + fotos[0].getDescripcion(), op, -315, 360, 300, 0));
+                reporte.agregaObjeto(reporte.crearImagen("ordenes/" + ord.getIdOrden() + "/" + fotos[0].getDescripcion(), op, -315, 422, 258, 0));
             } else {
             }
 
@@ -1440,6 +1480,241 @@ public class formatos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_b_encuenta2ActionPerformed
 
+    private void b_fecha_promesa3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_fecha_promesa3ActionPerformed
+        // TODO add your handling code here:
+        h = new Herramientas(usr, 0);
+        h.session(sessionPrograma);
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Orden ord = (Orden) session.get(Orden.class, Integer.parseInt(orden));
+            Configuracion con = (Configuracion) session.get(Configuracion.class, 1);
+            Date fecha = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyyHH-mm-ss");//YYYY-MM-DD HH:MM:SS
+            DateFormat dateFormat1 = new SimpleDateFormat("dd-MM-yyyy");//YYYY-MM-DD HH:MM:SS
+            String valor = dateFormat.format(fecha);
+            File folder = new File("reportes/" + ord.getIdOrden());
+            folder.mkdirs();
+            PdfReader reader = new PdfReader("imagenes/PlantillaFechaPromesaAxa.pdf");
+            PdfStamper stamp = new PdfStamper(reader,
+                    new FileOutputStream("reportes/"+ord.getIdOrden()+"/"+valor+"FechaPromesaAxa.pdf"));
+            PdfContentByte cb
+                    = stamp.getUnderContent(1);
+            AcroFields fdfDoc = stamp.getAcroFields();
+            // Creo una fuente
+            BaseFont bf
+                    = BaseFont.createFont(BaseFont.HELVETICA,
+                            BaseFont.CP1252, BaseFont.EMBEDDED);
+
+            cb.beginText();
+            //fecha
+            fdfDoc.setField("FECHA", dateFormat1.format(fecha));
+            //FECHA INGRESO
+            try{
+                fdfDoc.setField("FECHA DE INGRESO", dateFormat1.format(ord.getFecha()));
+            }catch(Exception e){
+                fdfDoc.setField("FECHA DE INGRESO", "");
+            }
+            //siniestro
+            try{
+                fdfDoc.setField("SINIESTRO", ord.getSiniestro());
+            }catch(Exception e){
+                fdfDoc.setField("SINIESTRO", "");
+            }
+            //
+            try{
+                fdfDoc.setField("NOMBRE DE ASEGURADO", ord.getClientes().getNombre());
+            }catch(Exception e){
+                fdfDoc.setField("NOMBRE DE ASEGURADO", "");
+            }
+            
+            //taller
+            try{
+                fdfDoc.setField("NOMBRE DEL CENTRO DE REPARACION", " SERVICIO  AUTOMOTRIZ  NOVA  S.A  DE  C.V.");
+            }catch(Exception e){
+                fdfDoc.setField("NOMBRE DEL CENTRO DE REPARACION", "");
+            }
+            
+            //MARCA
+            try{
+                fdfDoc.setField("MARCA", ord.getMarca().getMarcaNombre());
+            }catch(Exception e){
+                fdfDoc.setField("MARCA", "");
+            }
+            
+            //TIPO
+            try{
+                fdfDoc.setField("TIPO", ord.getTipo().getTipoNombre());
+            }catch(Exception e){
+                fdfDoc.setField("TIPO", "");
+            }
+            
+            //MODELO
+            try{
+                fdfDoc.setField("MODELO", ""+ord.getModelo());
+            }catch(Exception e){
+                fdfDoc.setField("MODELO", "");
+            }
+            
+            //PLACAS
+            try{
+                if(ord.getNoPlacas()!=null)
+                    fdfDoc.setField("PLACAS", ""+ord.getNoPlacas());
+                else
+                    fdfDoc.setField("PLACAS", "");
+            }catch(Exception e){
+                fdfDoc.setField("PLACAS", "");
+            }
+            
+            //promesa
+            try{
+                fdfDoc.setField("FECHA PROMESA", ""+dateFormat1.format(ord.getFechaCliente()));
+            }catch(Exception e){
+                fdfDoc.setField("FECHA PROMESA", "");
+            }
+            cb.endText();
+
+            stamp.close();
+            PDF reporte = new PDF();
+            reporte.visualizar("reportes/"+ord.getIdOrden()+"/"+valor+"FechaPromesaAxa.pdf");
+            reporte.cerrar();
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(this, "No se pudo realizar el reporte si el archivo esta abierto");
+        }
+        if (session != null) {
+            if (session.isOpen()) {
+                session.close();
+            }
+        }
+    }//GEN-LAST:event_b_fecha_promesa3ActionPerformed
+
+    private void b_fecha_promesa4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_fecha_promesa4ActionPerformed
+        h = new Herramientas(usr, 0);
+        h.session(sessionPrograma);
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Orden ord = (Orden) session.get(Orden.class, Integer.parseInt(orden));
+            Configuracion con = (Configuracion) session.get(Configuracion.class, 1);
+            Date fecha = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyyHH-mm-ss");//YYYY-MM-DD HH:MM:SS
+            String valor = dateFormat.format(fecha);
+            File folder = new File("reportes/" + ord.getIdOrden());
+            folder.mkdirs();
+            PdfReader reader = new PdfReader("imagenes/CartaAceptacion.pdf");
+            PdfStamper stamp = new PdfStamper(reader,
+                    new FileOutputStream("reportes/"+ord.getIdOrden()+"/"+valor+"CartaAceptacion.pdf"));
+            PdfContentByte cb
+                    = stamp.getUnderContent(1);
+            AcroFields fdfDoc = stamp.getAcroFields();
+
+            // Creo una fuente
+            BaseFont bf
+                    = BaseFont.createFont(BaseFont.HELVETICA,
+                            BaseFont.CP1252, BaseFont.EMBEDDED);
+
+            cb.beginText();
+            Foto[] fotos = (Foto[]) ord.getFotos().toArray(new Foto[0]);
+            for (int k = 0; k < fotos.length - 1; k++) {
+                for (int f = 0; f < (fotos.length - 1) - k; f++) {
+                    if (fotos[f].getFecha().after(fotos[f + 1].getFecha()) == true) {
+                        Foto aux;
+                        aux = fotos[f];
+                        fotos[f] = fotos[f + 1];
+                        fotos[f + 1] = aux;
+                    }
+                }
+            }
+            if (fotos.length > 0) {   // 395 360, 300 90
+                Image img1, img2;
+                try{
+                    img1=Image.getInstance("ordenes/" + ord.getIdOrden() + "/" + fotos[0].getDescripcion());
+                    img1.setAbsolutePosition(50, 473);
+                    img1.scaleToFit(110, 100);
+                    cb.addImage(img1, true);
+                    if(ord.getCompania().getFoto()!=null)
+                    {
+                        img2=Image.getInstance(ord.getCompania().getFoto());
+                        img2.setAbsolutePosition(50, 730);
+                        img2.scaleToFit(110, 100);
+                        cb.addImage(img2, true);
+                    }
+                }catch(Exception e){}
+            }
+            //Nombre
+            try{
+                fdfDoc.setField("NOMBRE", ord.getClientes().getNombre());
+            }catch(Exception e){
+                fdfDoc.setField("NOMBRE", "");
+            }
+            
+            //taller
+            try{
+                fdfDoc.setField("TELEFONO", ord.getClientes().getTelefono());
+            }catch(Exception e){
+                fdfDoc.setField("TELEFONO", "");
+            }
+            
+            fdfDoc.setField("EN TALLER","SERVICIO AUTOMOTRIZ NOVA, S.A. DE C.V.");
+            
+            //marca
+            try{
+                fdfDoc.setField("MARCA", ord.getMarca().getMarcaNombre());
+            }catch(Exception e){
+                fdfDoc.setField("MARCA", "");
+            }
+            //TIPO
+            try{
+                fdfDoc.setField("TIPO DE UNIDAD", ord.getTipo().getTipoNombre());
+            }catch(Exception e){
+                fdfDoc.setField("TIPO DE UNIDAD", "");
+            }
+            
+            //MODELO
+            try{
+                fdfDoc.setField("ANIO", ""+ord.getModelo());
+            }catch(Exception e){
+                fdfDoc.setField("ANIO", "");
+            }
+            
+            //PLACAS
+            try{
+                if(ord.getNoPlacas()!=null)
+                    fdfDoc.setField("PLACAS", ""+ord.getNoPlacas());
+                else
+                    fdfDoc.setField("PLACAS", "");
+            }catch(Exception e){
+                fdfDoc.setField("PLACAS", "");
+            }
+            //COLOR
+            try{
+                fdfDoc.setField("COLOR", ""+ord.getColor());
+            }catch(Exception e){
+                fdfDoc.setField("COLOR", "");
+            }
+            //numero de siniestro
+            try{
+                fdfDoc.setField("SINIESTRO", ""+ord.getSiniestro());
+            }catch(Exception e){
+                fdfDoc.setField("SINIESTRO", "");
+            }
+            cb.endText();
+            stamp.close();
+            PDF reporte = new PDF();
+            reporte.visualizar("reportes/"+ord.getIdOrden()+"/"+valor+"CartaAceptacion.pdf");
+            //reporte.cerrar();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "No se pudo realizar el reporte si el archivo esta abierto");
+        }
+        if (session != null) {
+            if (session.isOpen()) {
+                session.close();
+            }
+        }
+    }//GEN-LAST:event_b_fecha_promesa4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_encuenta1;
@@ -1448,6 +1723,8 @@ public class formatos extends javax.swing.JPanel {
     private javax.swing.JButton b_fecha_promesa;
     private javax.swing.JButton b_fecha_promesa1;
     private javax.swing.JButton b_fecha_promesa2;
+    private javax.swing.JButton b_fecha_promesa3;
+    private javax.swing.JButton b_fecha_promesa4;
     private javax.swing.JButton b_hoja_unidad;
     private javax.swing.JButton b_inv_tracto;
     private javax.swing.JButton b_salida1;

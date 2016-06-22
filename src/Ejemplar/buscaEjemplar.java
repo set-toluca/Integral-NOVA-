@@ -145,7 +145,7 @@ public class buscaEjemplar extends javax.swing.JDialog {
             }
         });
 
-        cb_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "clave", "Catalogo" }));
+        cb_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Catalogo", "clave", " " }));
 
         jLabel1.setText("contiene:");
 
