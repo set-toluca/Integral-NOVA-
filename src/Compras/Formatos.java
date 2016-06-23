@@ -338,7 +338,7 @@ public class Formatos {
     
     void pedidosExternos(int pedido)
     {
-        h=new Herramientas(usr, 0);
+            h=new Herramientas(usr, 0);
             h.session(sessionPrograma);
             session = HibernateUtil.getSessionFactory().openSession();
             Pedido ped=(Pedido)session.get(Pedido.class, pedido);

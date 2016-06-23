@@ -63,8 +63,8 @@ public class PDF {
     }
     public void estatusAutoriza(String aut, String aut1)
     {
-        autoriza1=aut;
-        autoriza2=aut1;
+        autoriza1="";
+        autoriza2="";
     }
     /**
      * Abre un documento nuevo para escribir un pdf

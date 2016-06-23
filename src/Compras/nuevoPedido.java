@@ -3122,7 +3122,8 @@ public class nuevoPedido extends javax.swing.JPanel {
                         px.setD(0.0);
                         px.setR(0.0);
                         px.setM(0.0);
-                        obj.agregaPartidaExterna(px);
+                        //obj.agregaPartidaExterna(px);
+                        session.save(px);
                     }
                     obj.setEmpleado(emp);
                     session.update(obj);

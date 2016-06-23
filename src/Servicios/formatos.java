@@ -1406,6 +1406,7 @@ public class formatos extends javax.swing.JPanel {
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyyHH-mm-ss");//YYYY-MM-DD HH:MM:SS
             String valor = dateFormat.format(fecha);
             Calendar fecha1 = new GregorianCalendar();
+            fecha1.setTime(ord.getFecha());
             int año = fecha1.get(Calendar.YEAR);
             int mes = fecha1.get(Calendar.MONTH);
             int dia = fecha1.get(Calendar.DAY_OF_MONTH);
@@ -1421,8 +1422,6 @@ public class formatos extends javax.swing.JPanel {
             BaseFont bf
                     = BaseFont.createFont(BaseFont.HELVETICA,
                             BaseFont.CP1252, BaseFont.EMBEDDED);
-
-            //TALLER
             cb.beginText();
             
             //SINIESTRO
@@ -1452,7 +1451,7 @@ public class formatos extends javax.swing.JPanel {
             
             //EMAIL DEL ASEGURADO
             try{
-                fdfDoc.setField("Text5", "DYW010050000");
+                fdfDoc.setField("Text5", ord.getPoliza());
             }catch(Exception e){
                 fdfDoc.setField("Text5", "");
             }

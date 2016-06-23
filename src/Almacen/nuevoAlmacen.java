@@ -2757,9 +2757,9 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                 model.setValueAt(par.getUnidad(), a, 3);
                                 model.setValueAt(par.getCantidad(), a, 4);
                                 model.setValueAt(total, a, 5);
-                                model.setValueAt(0.0d, a, 6);
+                                model.setValueAt(total, a, 6);
                                 model.setValueAt(par.getCosto(), a, 7);
-                                model.setValueAt(0.0d, a, 8);
+                                model.setValueAt(total*par.getCosto(), a, 8);
                             }
                             for(int m=model.getRowCount()-1; m>=0; m--)
                             {
@@ -2882,9 +2882,9 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                                 model.setValueAt(par.getUnidad(), a, 3);
                                 model.setValueAt(par.getCantidad(), a, 4);
                                 model.setValueAt(total, a, 5);
-                                model.setValueAt(0.0d, a, 6);
+                                model.setValueAt(total, a, 6);
                                 model.setValueAt(par.getCosto(), a, 7);
-                                model.setValueAt(0.0d, a, 8);
+                                model.setValueAt(total*par.getCosto(), a, 8);
                             }
                             for(int m=model.getRowCount()-1; m>=0; m--)
                             {
