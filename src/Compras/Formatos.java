@@ -348,7 +348,7 @@ public class Formatos {
                 formatoPorcentaje.setMinimumFractionDigits(2);
 
                 session.beginTransaction().begin();
-                BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
+                BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.EMBEDDED);
 
                 PDF reporte = new PDF();
                 Date fecha = new Date();
@@ -357,8 +357,8 @@ public class Formatos {
                 File folder = new File("reportes/externos");
                 folder.mkdirs();
                 reporte.Abrir(PageSize.LETTER, "cabecera", "reportes/externos/"+valor+"-pedido.pdf");
-                Font font = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.BOLD);
-                BaseColor contenido=BaseColor.WHITE;
+                Font font = new Font(Font.FontFamily.HELVETICA, 8, Font.NORMAL);
+                BaseColor contenido=null;
                 int centro=Element.ALIGN_CENTER;
                 int izquierda=Element.ALIGN_LEFT;
                 int derecha=Element.ALIGN_RIGHT;
@@ -386,45 +386,46 @@ public class Formatos {
                     {
                         int r=i+1;
                         //consecutivo
-                        tabla.addCell(reporte.celda(""+r, font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
+                        tabla.addCell(reporte.celda(""+r, font, contenido, izquierda, 0,1,Rectangle.NO_BORDER));
 
                         //Partida y subpartida
                         if(cuentas[i].getPartida()!=null)
-                            tabla.addCell(reporte.celda(""+cuentas[i].getPartida()+ " "+cuentas[i].getIdValuacion(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                            tabla.addCell(reporte.celda(""+cuentas[i].getPartida()+ " "+cuentas[i].getIdValuacion(), font, contenido, derecha, 0,1,Rectangle.NO_BORDER));
                         else
-                            tabla.addCell(reporte.celda("", font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                            tabla.addCell(reporte.celda("", font, contenido, derecha, 0,1,Rectangle.NO_BORDER));
                             
 
                         //folio del articulo de articulo
-                        tabla.addCell(reporte.celda("", font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        tabla.addCell(reporte.celda("", font, contenido, derecha, 0,1,Rectangle.NO_BORDER));
                         if(ped.getTipoPedido().compareTo("Inventario")==0)
-                            tabla.addCell(reporte.celda(""+cuentas[i].getEjemplar().getIdParte(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                            tabla.addCell(reporte.celda(""+cuentas[i].getEjemplar().getIdParte(), font, contenido, derecha, 0,1,Rectangle.NO_BORDER));
                         else
-                            tabla.addCell(reporte.celda(""+cuentas[i].getNoParte(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                            tabla.addCell(reporte.celda(""+cuentas[i].getNoParte(), font, contenido, derecha, 0,1,Rectangle.NO_BORDER));
 
                         //Descripcion
-                        tabla.addCell(reporte.celda(cuentas[i].getDescripcion(), font, contenido, izquierda, 0,1,Rectangle.RECTANGLE));
+                        tabla.addCell(reporte.celda(cuentas[i].getDescripcion(), font, contenido, izquierda, 0,1,Rectangle.NO_BORDER));
 
                         //Medida
-                        tabla.addCell(reporte.celda(cuentas[i].getUnidad(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        tabla.addCell(reporte.celda(cuentas[i].getUnidad(), font, contenido, derecha, 0,1,Rectangle.NO_BORDER));
 
                         if(cuentas[i].getPlazo()!=null)//plazo de entrega
-                        tabla.addCell(reporte.celda(""+cuentas[i].getPlazo(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        tabla.addCell(reporte.celda(""+cuentas[i].getPlazo(), font, contenido, derecha, 0,1,Rectangle.NO_BORDER));
                         else
-                        tabla.addCell(reporte.celda("0", font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        tabla.addCell(reporte.celda("0", font, contenido, derecha, 0,1,Rectangle.NO_BORDER));
 
                         //cantidad a compra
-                        tabla.addCell(reporte.celda(""+cuentas[i].getCantidad(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        tabla.addCell(reporte.celda(""+cuentas[i].getCantidad(), font, contenido, derecha, 0,1,Rectangle.NO_BORDER));
                         
-                        tabla.addCell(reporte.celda(formatoPorcentaje.format(cuentas[i].getCosto()), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        tabla.addCell(reporte.celda(formatoPorcentaje.format(cuentas[i].getCosto()), font, contenido, derecha, 0,1,Rectangle.NO_BORDER));
                         
                         double sum=cuentas[i].getCantidad() * cuentas[i].getCosto();
                         total+=sum;
-                        tabla.addCell(reporte.celda(formatoPorcentaje.format(sum), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                        tabla.addCell(reporte.celda(formatoPorcentaje.format(sum), font, contenido, derecha, 0,1,Rectangle.UNDEFINED));
 
                     }
                 }
-                
+                tabla.addCell(reporte.celda("", font, contenido, derecha, 9,1,Rectangle.NO_BORDER));
+                tabla.addCell(reporte.celda("", font, contenido, derecha, 0,1,Rectangle.BOTTOM));
                 tabla.addCell(reporte.celda("[Los montos estan en Pesos]", font, contenido, izquierda, 4,1,Rectangle.NO_BORDER));
                 tabla.addCell(reporte.celda("Sub-total:", font, contenido, derecha, 5,1,Rectangle.NO_BORDER));
                 tabla.addCell(reporte.celda(formatoPorcentaje.format(total), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
@@ -902,6 +903,7 @@ public class Formatos {
         reporte.contenido.setColorFill(new GrayColor(0.9f));
         reporte.contenido.roundRectangle(35, 670, 240, 70, 5);
         reporte.contenido.roundRectangle(280, 670, 293, 70, 5);
+        reporte.contenido.roundRectangle(35, 655, 540, 11, 3);
 
         Configuracion con= (Configuracion)session.get(Configuracion.class, 1);
         reporte.inicioTexto();
@@ -912,7 +914,7 @@ public class Formatos {
         reporte.contenido.setColorFill(BaseColor.BLACK);
         reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Pedido a Proveedores", 35, 745, 0);
         reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Datos de Facturación", 450, 730, 0);
-        reporte.contenido.setFontAndSize(bf, 8);
+        reporte.contenido.setFontAndSize(bf, 9);
         reporte.contenido.showTextAligned(PdfContentByte.ALIGN_RIGHT, "Fecha:"+new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()), 570, 745, 0);
                 
         //ord = (Orden)session.get(Orden.class, ord.getIdOrden()); 
@@ -976,7 +978,7 @@ public class Formatos {
         reporte.agregaObjeto(new Paragraph(" "));
         reporte.agregaObjeto(new Paragraph(" "));
             
-            Font font = new Font(Font.FontFamily.HELVETICA, 6, Font.BOLD);
+            Font font = new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL);
             
             BaseColor cabecera=BaseColor.GRAY;
             BaseColor contenido=BaseColor.WHITE;
@@ -984,16 +986,16 @@ public class Formatos {
             int izquierda=Element.ALIGN_LEFT;
             int derecha=Element.ALIGN_RIGHT;
         
-            tabla.addCell(reporte.celda("#", font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
-            tabla.addCell(reporte.celda("Part P.", font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
-            tabla.addCell(reporte.celda("Folio", font, cabecera, centro, 0, 1,Rectangle.RECTANGLE));
-            tabla.addCell(reporte.celda("No° Parte", font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
-            tabla.addCell(reporte.celda("Descripción", font, cabecera, centro, 0, 1,Rectangle.RECTANGLE));
-            tabla.addCell(reporte.celda("Med", font, cabecera, centro, 0, 1,Rectangle.RECTANGLE));
-            tabla.addCell(reporte.celda("T.E.", font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
-            tabla.addCell(reporte.celda("Cant.", font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
-            tabla.addCell(reporte.celda("Costo C/U", font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
-            tabla.addCell(reporte.celda("Total", font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));            
+            tabla.addCell(reporte.celda("#", font, null, centro, 0, 1, Rectangle.NO_BORDER));
+            tabla.addCell(reporte.celda("Part P.", font, null, centro, 0, 1, Rectangle.LEFT));
+            tabla.addCell(reporte.celda("Folio", font, null, centro, 0, 1,Rectangle.LEFT));
+            tabla.addCell(reporte.celda("No° Parte", font, null, centro, 0, 1, Rectangle.LEFT));
+            tabla.addCell(reporte.celda("Descripción", font, null, centro, 0, 1,Rectangle.LEFT));
+            tabla.addCell(reporte.celda("Med", font, null, centro, 0, 1,Rectangle.LEFT));
+            tabla.addCell(reporte.celda("T.E.", font, null, centro, 0, 1, Rectangle.LEFT));
+            tabla.addCell(reporte.celda("Cant.", font, null, centro, 0, 1, Rectangle.LEFT));
+            tabla.addCell(reporte.celda("Costo C/U", font, null, centro, 0, 1, Rectangle.LEFT));
+            tabla.addCell(reporte.celda("Total", font, null, centro, 0, 1, Rectangle.LEFT));            
     }
     
     private void cabeceraCompra(PDF reporte, BaseFont bf, PdfPTable tabla, Pedido ped)
