@@ -11,6 +11,7 @@ import Hibernate.entidades.Almacen;
 import Hibernate.entidades.Configuracion;
 import Hibernate.entidades.Ejemplar;
 import Hibernate.entidades.Movimiento;
+import Hibernate.entidades.Orden;
 import Hibernate.entidades.Partida;
 import Hibernate.entidades.PartidaExterna;
 import Hibernate.entidades.Usuario;
@@ -20,6 +21,7 @@ import Integral.Herramientas;
 import Integral.PDF;
 import Integral.Render1;
 import Integral.calendario;
+import Servicios.buscaOrden;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
@@ -30,7 +32,6 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.GrayColor;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPTable;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -48,7 +49,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -60,10 +60,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -82,6 +80,7 @@ public class Reporte2 extends javax.swing.JPanel {
     String[] columnas2 = new String [] {"Pedido", "Proveedor", "Fecha De Mov.", "N° Mov.", "Tipo", "Operación", "Orden", "Monto", "Tipo Doc.", "N° Doc."};
     String[] columnas3 = new String [] {"Pedido", "Proveedor", "Fecha De Mov.", "N° Mov.", "Operación", "Tipo Doc.", "N° Doc."};
     FormatoTabla formato;
+    String valor;
     /**
      * Creates new form Reporte2
      */
@@ -128,6 +127,31 @@ public class Reporte2 extends javax.swing.JPanel {
         formatoTabla();
         formatoTabla1();
         formatoTabla2();
+    }
+    
+    public void consultaOrden()
+    {
+        DefaultTableModel modelo=(DefaultTableModel)t_unidad.getModel();
+        modelo.setNumRows(0);
+        valor=t_orden.getText();
+        if(valor.compareTo("")!=0)
+        {
+            ArrayList datos = new ArrayList();
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction().begin();
+            Query query = session.createSQLQuery("select if(almacen.tipo_movimiento=1, 'DEVOLUCION', 'SALIDA')as tipo, DATE_FORMAT(almacen.fecha, '%Y-%d-%m')as fecha, almacen.entrego, movimiento.id_Parte, ejemplar.id_catalogo, movimiento.cantidad, ejemplar.medida, movimiento.valor, (movimiento.cantidad*movimiento.valor) as total " +
+            "from movimiento left join ejemplar on ejemplar.id_Parte=movimiento.id_Parte left join almacen on almacen.id_almacen=movimiento.id_almacen where almacen.id_orden="+valor+" and almacen.operacion=8");
+            query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+            datos = (ArrayList) query.list();
+            for(int c=0; c<datos.size(); c++)
+            {
+                java.util.HashMap map = (java.util.HashMap) datos.get(c);
+                modelo.addRow(new Object[]{map.get("tipo"),map.get("fecha"),map.get("entrego"),map.get("id_Parte"),map.get("id_catalogo"),map.get("cantidad"),map.get("medida"),map.get("valor"),map.get("total")});
+            }
+            if(session.isOpen())
+                session.close();
+            session=null;
+        }
     }
 
     /**
@@ -200,6 +224,14 @@ public class Reporte2 extends javax.swing.JPanel {
         jScrollPane5 = new javax.swing.JScrollPane();
         t_surtir = new javax.swing.JTable();
         jButton15 = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        t_orden = new javax.swing.JTextField();
+        jButton16 = new javax.swing.JButton();
+        jButton17 = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        t_unidad = new javax.swing.JTable();
+        jButton18 = new javax.swing.JButton();
+        jButton19 = new javax.swing.JButton();
 
         muestra.setTitle("Consultar Movimiento");
         muestra.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
@@ -896,6 +928,107 @@ public class Reporte2 extends javax.swing.JPanel {
         );
 
         jTabbedPane1.addTab("Consumibles x surtir", jPanel7);
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        t_orden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_ordenActionPerformed(evt);
+            }
+        });
+
+        jButton16.setText("Ok");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
+
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
+
+        t_unidad.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "TIPO", "FECHA", "RECIBIÓ", "N/P", "DESCRIPCIÓN", "CANTIDAD", "MED", "C/U", "TOTAL"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        t_unidad.setFillsViewportHeight(true);
+        jScrollPane6.setViewportView(t_unidad);
+
+        jButton18.setIcon(new ImageIcon("imagenes/pdf.png"));
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
+
+        jButton19.setIcon(new ImageIcon("imagenes/exel.png"));
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton19ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 985, Short.MAX_VALUE)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(t_orden, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(t_orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton16)
+                            .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Consumible  x unidad", jPanel8);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -2093,6 +2226,160 @@ public class Reporte2 extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton15ActionPerformed
 
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        // TODO add your handling code here:
+        h=new Herramientas(usr, menu);
+        h.session(sessionPrograma);
+        buscaOrden obj = new buscaOrden(new javax.swing.JFrame(), true, this.usr,0);
+        obj.t_busca.requestFocus();
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+        obj.setVisible(true);        
+        Orden orden_act=obj.getReturnStatus();
+        if (orden_act!=null)
+        {
+            this.t_orden.setText(""+orden_act.getIdOrden());
+            consultaOrden();
+        }
+        else
+        {
+             h.desbloqueaOrden();
+            t_orden.setText("");
+            t_orden.requestFocus();
+        }
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        // TODO add your handling code here:
+        consultaOrden();
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void t_ordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_ordenActionPerformed
+        // TODO add your handling code here:
+        consultaOrden();
+    }//GEN-LAST:event_t_ordenActionPerformed
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        // TODO add your handling code here:
+        h=new Herramientas(usr, 0);
+        h.session(sessionPrograma);
+        if(t_unidad.getRowCount()>0)
+        {
+            javax.swing.JFileChooser jF1= new javax.swing.JFileChooser();
+            jF1.setFileFilter(new ExtensionFileFilter("PDF document (*.pdf)", new String[] { "pdf" }));
+            String ruta = null;
+            if(jF1.showSaveDialog(null)==jF1.APPROVE_OPTION)
+            {
+                ruta = jF1.getSelectedFile().getAbsolutePath();
+                if(ruta!=null)
+                {
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    try
+                    {
+                        session.beginTransaction().begin();
+                        BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
+                        
+                        PDF reporte = new PDF();
+                        Date fecha = new Date();
+                        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyyHH-mm-ss");//YYYY-MM-DD HH:MM:SS
+                        String valor=dateFormat.format(fecha);
+
+                        reporte.Abrir2(PageSize.LETTER, "Reporte Pedidos Consumibles", ruta+".pdf");
+                        Font font = new Font(Font.FontFamily.HELVETICA, 7, Font.NORMAL);
+                        BaseColor contenido=BaseColor.WHITE;
+                        int centro=Element.ALIGN_CENTER;
+                        int izquierda=Element.ALIGN_LEFT;
+                        int derecha=Element.ALIGN_RIGHT;
+                        float[] nuevos=new float[]{45,55,130,80,150,50,40,70,70};
+
+                        PdfPTable tabla=reporte.crearTabla(nuevos.length, nuevos, 100, Element.ALIGN_CENTER);
+                        cabecera1(reporte, bf, tabla, "Consumibles de la Unidad: "+valor, 3);
+                        for(int ren=0; ren<t_unidad.getRowCount(); ren++)
+                        {
+                            for(int col=0; col<t_unidad.getColumnCount(); col++)
+                            {
+                                try
+                                {
+                                    tabla.addCell(reporte.celda(t_unidad.getValueAt(ren, col).toString(), font, contenido, derecha, 0,1,Rectangle.RECTANGLE));
+                                }catch(Exception e)
+                                {
+                                    tabla.addCell(reporte.celda("", font, contenido, centro, 0,1,Rectangle.RECTANGLE));
+                                }
+                            }
+                        }
+                        tabla.setHeaderRows(1);
+                        reporte.agregaObjeto(tabla);
+                        reporte.cerrar();
+                        reporte.visualizar2(ruta+".pdf");
+                    }catch(Exception e)
+                    {
+                        System.out.println(e);
+                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(this, "No se pudo realizar el reporte si el archivo esta abierto.");
+                    }
+                    if(session!=null)
+                    if(session.isOpen())
+                    session.close();
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+        // TODO add your handling code here:
+        h=new Herramientas(this.usr, 0);
+        h.session(sessionPrograma);
+        javax.swing.JFileChooser jF1= new javax.swing.JFileChooser();
+        jF1.setFileFilter(new ExtensionFileFilter("Excel document (*.xls)", new String[] { "xls" }));
+        String ruta = null;
+        if(jF1.showSaveDialog(null)==jF1.APPROVE_OPTION)
+        {
+            ruta = jF1.getSelectedFile().getAbsolutePath();
+            if(ruta!=null)
+            {
+                File archivoXLS = new File(ruta+".xls");
+                try
+                {
+                    if(archivoXLS.exists())
+                    archivoXLS.delete();
+                    archivoXLS.createNewFile();
+                    Workbook libro = new HSSFWorkbook();
+                    FileOutputStream archivo = new FileOutputStream(archivoXLS);
+                    Sheet hoja = libro.createSheet("Consumibles de la unidad "+valor);
+                    for(int ren=0;ren<(t_unidad.getRowCount()+1);ren++)
+                    {
+                        Row fila = hoja.createRow(ren);
+                        for(int col=0; col<t_unidad.getColumnCount(); col++)
+                        {
+                            Cell celda = fila.createCell(col);
+                            if(ren==0)
+                            {
+                                celda.setCellValue(t_unidad.getColumnName(col));
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    celda.setCellValue(t_unidad.getValueAt(ren-1, col).toString());
+                                }catch(Exception e)
+                                {
+                                    celda.setCellValue("");
+                                }
+                            }
+                        }
+                    }
+                    libro.write(archivo);
+                    archivo.close();
+                    Desktop.getDesktop().open(archivoXLS);
+                }catch(Exception e)
+                {
+                    System.out.println(e);
+                    JOptionPane.showMessageDialog(this, "No se pudo realizar el reporte si el archivo esta abierto");
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton19ActionPerformed
+
     DefaultTableModel ModeloTablaReporte(int renglones, String columnas[], final Class[] tipos, final boolean[] edo, DefaultTableModel modelo)
     {
         modelo = new DefaultTableModel(new Object [renglones][0], columnas)
@@ -2213,10 +2500,12 @@ public void cabecera1(PDF reporte, BaseFont bf, PdfPTable tabla, String titulo1,
             
                 for(int a=0; a<tabla.getNumberOfColumns(); a++)
                 {
+                    if(op==1)
+                        tabla.addCell(reporte.celda(t_datos2.getColumnName(a), font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
                     if(op==2)
                         tabla.addCell(reporte.celda(t_surtir.getColumnName(a), font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
-                    else
-                        tabla.addCell(reporte.celda(t_datos2.getColumnName(a), font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
+                    if(op==3)
+                        tabla.addCell(reporte.celda(t_unidad.getColumnName(a), font, cabecera, centro, 0, 1, Rectangle.RECTANGLE));
                 }
        }catch(Exception e)
        {
@@ -2391,6 +2680,10 @@ public void cabecera1(PDF reporte, BaseFont bf, PdfPTable tabla, String titulo1,
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton18;
+    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -2418,12 +2711,14 @@ public void cabecera1(PDF reporte, BaseFont bf, PdfPTable tabla, String titulo1,
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JDialog muestra;
     private javax.swing.JTextField orden;
@@ -2437,6 +2732,8 @@ public void cabecera1(PDF reporte, BaseFont bf, PdfPTable tabla, String titulo1,
     private javax.swing.JTextField t_fecha2;
     private javax.swing.JTextField t_fecha5;
     private javax.swing.JTextField t_fecha6;
+    private javax.swing.JTextField t_orden;
     private javax.swing.JTable t_surtir;
+    private javax.swing.JTable t_unidad;
     // End of variables declaration//GEN-END:variables
 }
