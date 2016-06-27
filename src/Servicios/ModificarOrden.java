@@ -504,7 +504,7 @@ public class ModificarOrden extends javax.swing.JPanel {
         jPanel1.add(b_busca_orden, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 24));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(90, 66, 126), 1, true), "Datos del Cliente", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 8))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(90, 66, 126), 1, true), "Datos del Propietario", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 8))); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 0, 255));
@@ -766,7 +766,7 @@ public class ModificarOrden extends javax.swing.JPanel {
         });
 
         jLabel18.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel18.setText("Contacto:");
+        jLabel18.setText("Cliente:");
 
         jLabel31.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel31.setText("ID:");

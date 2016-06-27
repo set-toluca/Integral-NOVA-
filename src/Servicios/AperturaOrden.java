@@ -394,7 +394,7 @@ public final class AperturaOrden extends javax.swing.JPanel {
         jPanel1.add(p_foto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(90, 66, 126), 1, true), "Datos del Cliente", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 11))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(90, 66, 126), 1, true), "Datos del Propietario", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 11))); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 0, 255));
@@ -626,7 +626,7 @@ public final class AperturaOrden extends javax.swing.JPanel {
         });
 
         jLabel18.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel18.setText("Contacto:");
+        jLabel18.setText("Cliente:");
 
         t_nextel_cliente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         t_nextel_cliente.setEnabled(false);
