@@ -63,7 +63,7 @@ public class buscaOrden extends javax.swing.JDialog {
     DefaultTableModel model;
     int op=0;
     private Usuario actor=null;
-    String[] columnas = new String [] {"No orden", "Ingreso","Aseguradora", "Siniestro", "Poliza", "Reporte", "Inciso", "Fecha sin.", "Cliente", "Email", "Tel", "Tipo", "Marca", "Placas", "Motor", "Año", "Serie", "Economico", "Estatus"};
+    String[] columnas = new String [] {"No orden", "Ingreso","Aseguradora", "Siniestro", "Poliza", "Reporte", "Inciso", "Fecha sin.", "Cliente", "Email", "Tel", "Tipo", "Marca", "Placas", "Motor", "Año", "Serie", "Economico", "F.Cliente","F.Taller","Estatus"};
     
     /** Creates new form acceso */
     public buscaOrden(java.awt.Frame parent, boolean modal, Usuario User, int op) {
@@ -80,7 +80,7 @@ public class buscaOrden extends javax.swing.JDialog {
     
     DefaultTableModel ModeloTablaReporte(int renglones, String columnas[])
         {
-            model = new DefaultTableModel(new Object [renglones][11], columnas)
+            model = new DefaultTableModel(new Object [renglones][columnas.length], columnas)
             {
                 Class[] types = new Class [] {
                     java.lang.String.class, 
@@ -100,11 +100,13 @@ public class buscaOrden extends javax.swing.JDialog {
                     java.lang.String.class, 
                     java.lang.String.class, 
                     java.lang.String.class, 
-                    java.lang.String.class, 
+                    java.lang.String.class,
+                    java.lang.String.class,
+                    java.lang.String.class,
                     java.lang.String.class
                 };
                 boolean[] canEdit = new boolean [] {
-                    false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                    false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
                 };
 
                 public void setValueAt(Object value, int row, int col)
@@ -113,13 +115,6 @@ public class buscaOrden extends javax.swing.JDialog {
                         Object celda = ((Vector)this.dataVector.elementAt(row)).elementAt(col);
                         switch(col)
                         {
-                            case 0:
-                                    vector.setElementAt(value, col);
-                                    this.dataVector.setElementAt(vector, row);
-                                    fireTableCellUpdated(row, col);
-                                    //calcula_totales();
-                                    break;
-
                             default:
                                     vector.setElementAt(value, col);
                                     this.dataVector.setElementAt(vector, row);
@@ -236,14 +231,14 @@ public class buscaOrden extends javax.swing.JDialog {
 
             },
             new String [] {
-                "No orden", "Aseguradora", "Siniestro", "Poliza", "Reporte", "Inciso", "Fecha sin.", "Cliente", "Email", "Tel", "Tipo", "Marca", "Placas", "Motor", "Año", "Serie", "Economico", "Estatus"
+                "No orden", "Aseguradora", "Siniestro", "Poliza", "Reporte", "Inciso", "Fecha sin.", "Cliente", "Email", "Tel", "Tipo", "Marca", "Placas", "Motor", "Año", "Serie", "Economico", "Estatus", "F.Taller", "F.Cliente"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -449,9 +444,9 @@ public class buscaOrden extends javax.swing.JDialog {
             reporte.agregaObjeto(new Paragraph(" "));
             reporte.agregaObjeto(new Paragraph(" "));
             reporte.agregaObjeto(new Paragraph(" "));
-            float tam[]=new float[]{40,80, 150,50,50,50,50,65,180,100,80,130,130,50,80,30,80,50,90};
+            float tam[]=new float[]{40,80, 150,50,50,50,50,65,180,100,80,130,130,50,80,30,80,50,80,80,90};
             Font font = new Font(Font.FontFamily.HELVETICA, 5, Font.BOLD);
-            PdfPTable tabla=reporte.crearTabla(19, tam, 100, Element.ALIGN_LEFT);
+            PdfPTable tabla=reporte.crearTabla(21, tam, 100, Element.ALIGN_LEFT);
             BaseColor cabecera=BaseColor.GRAY;
             BaseColor contenido=BaseColor.WHITE;
             int centro=Element.ALIGN_CENTER;
@@ -475,6 +470,8 @@ public class buscaOrden extends javax.swing.JDialog {
             tabla.addCell(reporte.celda("Mod.", font, cabecera, centro, 0, 1,Rectangle.RECTANGLE));
             tabla.addCell(reporte.celda("Serie", font, cabecera, centro, 0, 1,Rectangle.RECTANGLE));
             tabla.addCell(reporte.celda("Econom.", font, cabecera, centro, 0, 1,Rectangle.RECTANGLE));
+            tabla.addCell(reporte.celda("F.Taller", font, cabecera, centro, 0, 1,Rectangle.RECTANGLE));
+            tabla.addCell(reporte.celda("F.Cliente", font, cabecera, centro, 0, 1,Rectangle.RECTANGLE));
             tabla.addCell(reporte.celda("Estatus", font, cabecera, centro, 0, 1,Rectangle.RECTANGLE));
             //for de renflones
             for(int ren=0; ren<t_datos.getRowCount(); ren++)
@@ -576,7 +573,7 @@ private void buscaDato()
 {
     //if(t_busca.getText().compareTo("")!=0)
     //{
-        String consulta="select id_orden, fecha_siniestro, compania.nombre as nom, siniestro, poliza, no_reporte, inciso, fecha, clientes.nombre, clientes.email, clientes.telefono, tipo_nombre, marca.marca_nombre, no_placas, no_motor, modelo, no_serie, no_economico, estatus_nombre \n" +
+        String consulta="select id_orden, fecha_siniestro, compania.nombre as nom, siniestro, poliza, no_reporte, inciso, fecha, clientes.nombre, clientes.email, clientes.telefono, tipo_nombre, marca.marca_nombre, no_placas, no_motor, modelo, no_serie, no_economico, estatus_nombre, fecha_taller, fecha_cliente \n" +
 "from orden left join compania on compania.id_compania=orden.id_compania \n" +
 "left join clientes on clientes.id_clientes=orden.id_cliente \n" +
 "left join marca on marca.id_marca=orden.id_marca";
@@ -660,7 +657,7 @@ private void buscaDato()
             for (Object o : resultList) 
             {
                 java.util.HashMap ord=(java.util.HashMap)o;
-                Object[] renglon=new Object[19];
+                Object[] renglon=new Object[21];
                 //Orden actor = (Orden) o;
                 renglon[0]=ord.get("id_orden");
                 renglon[1]=ord.get("fecha");
@@ -680,14 +677,16 @@ private void buscaDato()
                 renglon[15]=ord.get("modelo");
                 renglon[16]=ord.get("no_serie");
                 renglon[17]=ord.get("no_economico");
-                renglon[18]=ord.get("estatus_nombre");
+                renglon[18]=ord.get("fecha_taller");
+                renglon[19]=ord.get("fecha_cliente");
+                renglon[20]=ord.get("estatus_nombre");
                 model.addRow(renglon);
             }
             t_busca.requestFocus();
             resultList=null;
         }catch(Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
         if(session!=null)
             if(session.isOpen())
@@ -762,6 +761,12 @@ private void buscaDato()
                       break;
                   case 18:
                       column.setPreferredWidth(120);
+                      break;
+                  case 19:
+                      column.setPreferredWidth(90);
+                      break;
+                  case 20:
+                      column.setPreferredWidth(90);
                       break;
                   default:
                       column.setPreferredWidth(40);

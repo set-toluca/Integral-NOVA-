@@ -392,7 +392,7 @@ public class formatos extends javax.swing.JPanel {
             //********agregamos reparación******************************************
             reporte.texto("REPARACIÓN:", bf, BaseColor.BLACK, 13, 250, 220);
             Font font1 = new Font(Font.FontFamily.HELVETICA, 13, Font.NORMAL);
-            reporte.parrafo("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"+ord.getComentario(), font1, 0);
+            reporte.parrafo("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"+ord.getComentario(), font1, 1);
             reporte.contenido.rectangle(30, 190, 550, 0);
             reporte.contenido.rectangle(30, 170, 550, 0);
             reporte.contenido.rectangle(30, 150, 550, 0);

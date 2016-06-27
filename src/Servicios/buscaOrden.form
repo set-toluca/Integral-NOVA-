@@ -198,7 +198,7 @@
             <Component class="javax.swing.JTable" name="t_datos">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="18" rowCount="0">
+                  <Table columnCount="20" rowCount="0">
                     <Column editable="false" title="No orden" type="java.lang.String"/>
                     <Column editable="false" title="Aseguradora" type="java.lang.String"/>
                     <Column editable="false" title="Siniestro" type="java.lang.String"/>
@@ -217,6 +217,8 @@
                     <Column editable="false" title="Serie" type="java.lang.String"/>
                     <Column editable="false" title="Economico" type="java.lang.String"/>
                     <Column editable="false" title="Estatus" type="java.lang.String"/>
+                    <Column editable="false" title="F.Taller" type="java.lang.Object"/>
+                    <Column editable="false" title="F.Cliente" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="autoResizeMode" type="int" value="0"/>
