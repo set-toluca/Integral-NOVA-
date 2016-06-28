@@ -1,10 +1,12 @@
 package Almacen;
 
 import Compras.buscaPedido;
+import Empleados.buscaEmpleado;
 import Hibernate.Util.HibernateUtil;
 import Hibernate.entidades.Almacen;
 import Hibernate.entidades.Configuracion;
 import Hibernate.entidades.Ejemplar;
+import Hibernate.entidades.Empleado;
 import Hibernate.entidades.Movimiento;
 import Hibernate.entidades.Orden;
 import Hibernate.entidades.OrdenExterna;
@@ -62,6 +64,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
      */
     public nuevoAlmacen(Usuario usuario, String ses, int op) {
         initComponents();
+        buscar.setIcon(new ImageIcon("imagenes/buscar.png"));
         menu=op;
         usr=usuario;
         sessionPrograma=ses;
@@ -171,6 +174,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         t_er = new javax.swing.JTextField();
         l_er = new javax.swing.JLabel();
         cb_sin_orden = new javax.swing.JCheckBox();
+        buscar = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         t_datos = new javax.swing.JTable();
         jPanelM = new javax.swing.JPanel();
@@ -575,7 +579,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 95, Short.MAX_VALUE))
+                .addGap(0, 117, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -697,6 +701,14 @@ public class nuevoAlmacen extends javax.swing.JPanel {
             }
         });
 
+        buscar.setBackground(new java.awt.Color(2, 135, 242));
+        buscar.setPreferredSize(new java.awt.Dimension(32, 8));
+        buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelProveedorLayout = new javax.swing.GroupLayout(jPanelProveedor);
         jPanelProveedor.setLayout(jPanelProveedorLayout);
         jPanelProveedorLayout.setHorizontalGroup(
@@ -704,6 +716,10 @@ public class nuevoAlmacen extends javax.swing.JPanel {
             .addGroup(jPanelProveedorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelProveedorLayout.createSequentialGroup()
+                        .addComponent(l_er, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_er))
                     .addGroup(jPanelProveedorLayout.createSequentialGroup()
                         .addComponent(b_buscapedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -718,12 +734,10 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                         .addComponent(b_detalles)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cb_sin_orden)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanelProveedorLayout.createSequentialGroup()
-                        .addComponent(l_er, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_er, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)))
-                .addGap(24, 24, 24)
+                        .addGap(122, 122, 122)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(jPanelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanelProveedorLayout.createSequentialGroup()
                         .addComponent(r1)
@@ -745,16 +759,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
             .addGroup(jPanelProveedorLayout.createSequentialGroup()
                 .addGroup(jPanelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelProveedorLayout.createSequentialGroup()
-                        .addGroup(jPanelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(b_buscapedido, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(t_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(l_tipo_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(l_er, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(t_er, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelProveedorLayout.createSequentialGroup()
                         .addGroup(jPanelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(l_nmovimiento)
                             .addComponent(t_nmovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -768,9 +772,20 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                         .addGroup(jPanelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(t_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(l_fecha)
-                            .addComponent(t_folio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(3, 3, 3)))
-                .addContainerGap(5, Short.MAX_VALUE))
+                            .addComponent(t_folio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelProveedorLayout.createSequentialGroup()
+                            .addGroup(jPanelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(b_buscapedido, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(t_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(l_tipo_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(l_er, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(t_er, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         t_datos.setModel(new javax.swing.table.DefaultTableModel(
@@ -1025,7 +1040,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
             .addGroup(jPanelMalmacenLayout.createSequentialGroup()
                 .addComponent(jPanelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -2461,6 +2476,44 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         busca();
     }//GEN-LAST:event_cb_sin_ordenActionPerformed
 
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        // TODO add your handling code here:
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction().begin();
+            usr = (Usuario)session.get(Usuario.class, usr.getIdUsuario());
+            if(usr.getConsultaEmpleados()==true || usr.getEditaEmpleados()==true)
+            {
+                buscaEmpleado obj = new buscaEmpleado(new javax.swing.JFrame(), true, usr, this.sessionPrograma);
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+                obj.setVisible(true);
+                Empleado emp_act=obj.getReturnStatus();
+                if (emp_act!=null)
+                {
+                    t_er.setText("");
+                    emp_act=(Empleado)session.get(Empleado.class, emp_act.getIdEmpleado());
+                    usr = (Usuario)session.get(Usuario.class, usr.getIdUsuario());
+                    if(usr.getEditaEmpleados()==true)
+                    {
+                        t_er.setText(emp_act.getNombre());
+                    }
+                    else
+                    JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+                }
+            }
+            else
+            JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
+        }catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        if(session!=null)
+        if(session.isOpen())
+        session.close();
+    }//GEN-LAST:event_buscarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog autoriza;
     private javax.swing.JButton b_autorizar;
@@ -2471,6 +2524,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
     private javax.swing.JButton b_mas;
     private javax.swing.JButton b_menos;
     private javax.swing.JButton b_recargar;
+    private javax.swing.JButton buscar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox c_tmovimiento;
