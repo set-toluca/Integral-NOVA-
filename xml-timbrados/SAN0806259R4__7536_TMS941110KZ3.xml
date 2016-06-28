@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd" version="3.2" fecha="2016-06-24T17:03:33" sello="dxyNVn5OwsVVRCLI1RmXc7aIJpP13tjOStcWkWfw2AZQWV3K/vv/DYenLhxGIg/pW2J/pCwD17LQMEKq+Q/FVKDS60Yeb3F6UYNPbCpfXZweUGvj3sEPlJLaQr0f5y5K1T4zVwsts+xWdkJc3Vhu1E/LUgJY/mfRI0L3uML7h30=" formaDePago="PAGO EN UNA SOLA EXHIBICION" noCertificado="00001000000202262192" certificado="MIIEpDCCA4ygAwIBAgIUMDAwMDEwMDAwMDAyMDIyNjIxOTIwDQYJKoZIhvcNAQEFBQAwggGVMTgwNgYDVQQDDC9BLkMuIGRlbCBTZXJ2aWNpbyBkZSBBZG1pbmlzdHJhY2nDs24gVHJpYnV0YXJpYTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSEwHwYJKoZIhvcNAQkBFhJhc2lzbmV0QHNhdC5nb2IubXgxJjAkBgNVBAkMHUF2LiBIaWRhbGdvIDc3LCBDb2wuIEd1ZXJyZXJvMQ4wDAYDVQQRDAUwNjMwMDELMAkGA1UEBhMCTVgxGTAXBgNVBAgMEERpc3RyaXRvIEZlZGVyYWwxFDASBgNVBAcMC0N1YXVodMOpbW9jMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxPjA8BgkqhkiG9w0BCQIML1Jlc3BvbnNhYmxlOiBDZWNpbGlhIEd1aWxsZXJtaW5hIEdhcmPDrWEgR3VlcnJhMB4XDTEyMTEwMTE3NDAwM1oXDTE2MTEwMTE3NDAwM1owgeUxLDAqBgNVBAMUIyJTRVJWSUNJTyBBVVRPTU9UUklaIE5PVkEiIFNBIERFIENWMSwwKgYDVQQpFCMiU0VSVklDSU8gQVVUT01PVFJJWiBOT1ZBIiBTQSBERSBDVjEsMCoGA1UEChQjIlNFUlZJQ0lPIEFVVE9NT1RSSVogTk9WQSIgU0EgREUgQ1YxJTAjBgNVBC0THFNBTjA4MDYyNTlSNCAvIFBFVlY3NDAzMTlNTDExHjAcBgNVBAUTFSAvIFBFVlY3NDAzMTlITUNSTEMwNjESMBAGA1UECxMJTk8gQVBMSUNBMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDABVFWgxxOTfQ5S0KcJTXVpYqgFt1oafEtxCBJg9kHf+AAzMWzHbRgiybZvQsqa5ISgVcVVhYBejzALgYcW1qrUxPs/zYfwV30n/FPqQWG8nsd9ERLhoBIGy65nOCuMOWUI/6QGSCQf6PIAMeikjakjrk2baz7Odww38clgozKrwIDAQABox0wGzAMBgNVHRMBAf8EAjAAMAsGA1UdDwQEAwIGwDANBgkqhkiG9w0BAQUFAAOCAQEAPnFQVoV4VHDPMPila0RYO4sVsNIEFu8r1Dr/QTq5t+6u/op/ejECsTyUuBzI7a91gX8i6//rgIwEAfydvhJVF5Y+XSvyY05a+19TBHcj5SB/4A720psFxQCoT+MHQQcbvAEbcpTPQcZhKkdcs34KhPU/LR62o8giUr+vUQ3MK9PYYTu6emrWr8sO6LiWF1adeIDqltocPjgV1THdzfxG7LW/wOp/tQxc3u4vZ/xOPX1G+LPbpEY9VM6OusSEL6nm4ssQ1PEfXMpDHFypyBzNGSq4RB1gJIoqsMR6gpwDxe3zKM9pn/hDOtPsikfzNXLlM9kM82xi6YV7DDmYYqC5iw==" subTotal="2540.13" TipoCambio="1" Moneda="MXN" total="2946.55" tipoDeComprobante="ingreso" metodoDePago="03" LugarExpedicion="SAN MATEO ATENCO, ESTADO DE MEXICO" folio="7536">
+  <cfdi:Emisor rfc="SAN0806259R4" nombre="SERVICIO AUTOMOTRIZ NOVA, S.A. DE C.V.">
+    <cfdi:DomicilioFiscal calle="2a. DE LA CADENA" noExterior="25" colonia="REFORMA" municipio="SAN MATEO ATENCO" estado="MEXICO" pais="MEXICO" codigoPostal="52120" />
+    <cfdi:RegimenFiscal Regimen="REGIMEN GENERAL DE PERSONAS MORALES" />
+  </cfdi:Emisor>
+  <cfdi:Receptor rfc="TMS941110KZ3" nombre="TOKIO MARINE COMPANIA DE SEGUROS SA DE CV">
+    <cfdi:Domicilio calle="BLVD. ADOLFO LOPEZ MATEOS" noExterior="261" noInterior="5o" colonia="LOS ALPES" municipio="DELEGACION ALVARO OBREGON" estado="MEXICO DF" pais="MEXICO" codigoPostal="01010" />
+  </cfdi:Receptor>
+  <cfdi:Conceptos>
+    <cfdi:Concepto cantidad="1" unidad="N/A" descripcion="MANO DE OBRA HOJALATERIA Y PINTURA" valorUnitario="1540.13" importe="1540.13" />
+    <cfdi:Concepto cantidad="2" unidad="N/A" descripcion="TRASLADO DE GRUA" valorUnitario="500" importe="1000" />
+  </cfdi:Conceptos>
+  <cfdi:Impuestos totalImpuestosTrasladados="406.42">
+    <cfdi:Traslados>
+      <cfdi:Traslado impuesto="IVA" tasa="16" importe="406.42" />
+    </cfdi:Traslados>
+  </cfdi:Impuestos>
+  <cfdi:Complemento>
+    <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/TimbreFiscalDigital/TimbreFiscalDigital.xsd" version="1.0" UUID="4605ea36-63bd-4388-b232-9977a36f90d1" FechaTimbrado="2016-06-24T17:03:34" selloCFD="dxyNVn5OwsVVRCLI1RmXc7aIJpP13tjOStcWkWfw2AZQWV3K/vv/DYenLhxGIg/pW2J/pCwD17LQMEKq+Q/FVKDS60Yeb3F6UYNPbCpfXZweUGvj3sEPlJLaQr0f5y5K1T4zVwsts+xWdkJc3Vhu1E/LUgJY/mfRI0L3uML7h30=" noCertificadoSAT="00001000000203015571" selloSAT="ZXS2+o45sm92z10LmGlCna6zVSSeAuYsLi5v4oI0KGZj9Vb9htAj8jHgui5DzrfsU0ixjEojjadSpQZ2TmdYtD2VjZXcOat7sF3Wr6eY+/Haw9PC+ymPH+5qWwIrkPxuEJKRlmmhY3bgJ30Lvco9psr0CSWYlO9sQKbQLI23ZIM=" />
+  </cfdi:Complemento>
+  <cfdi:Addenda />
+</cfdi:Comprobante>
