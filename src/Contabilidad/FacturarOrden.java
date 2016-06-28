@@ -993,6 +993,11 @@ public class FacturarOrden extends javax.swing.JPanel {
                 t_descuentoFocusLost(evt);
             }
         });
+        t_descuento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_descuentoActionPerformed(evt);
+            }
+        });
 
         l_iva1.setFont(new java.awt.Font("Arial", 0, 9)); // NOI18N
         l_iva1.setForeground(new java.awt.Color(255, 255, 255));
@@ -2201,6 +2206,7 @@ public class FacturarOrden extends javax.swing.JPanel {
         try
         {
             t_iva1.commitEdit();
+            t_iva1.commitEdit();
         }catch(Exception e){}
         this.sumaTotales();
     }//GEN-LAST:event_t_iva1ActionPerformed
@@ -2278,6 +2284,29 @@ public class FacturarOrden extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void t_descuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_descuentoActionPerformed
+        // TODO add your handling code here:
+        try
+        {
+            t_descuento.commitEdit();
+            t_descuento.commitEdit();
+            if(((Number)t_descuento.getValue()).doubleValue()<=100.0d && ((Number)t_descuento.getValue()).doubleValue()>=0.0d)
+            {
+                for(int a=0; a<t_datos.getRowCount(); a++)
+                {
+                    t_datos.setValueAt(((Number)t_descuento.getValue()).doubleValue(), a, 5);
+                }
+            }
+            else
+                t_descuento.setValue(0);
+            this.sumaTotales();
+        }
+        catch(Exception e)
+        {
+            
+        }
+    }//GEN-LAST:event_t_descuentoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

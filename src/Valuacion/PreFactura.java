@@ -412,11 +412,16 @@ public class PreFactura extends javax.swing.JPanel {
         t_mo_directa.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         t_mo_directa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         t_mo_directa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        t_mo_directa.setText("0.00");
         t_mo_directa.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        t_mo_directa.setValue(0.00);
         t_mo_directa.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 t_mo_directaFocusLost(evt);
+            }
+        });
+        t_mo_directa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_mo_directaActionPerformed(evt);
             }
         });
         jPanel1.add(t_mo_directa, new org.netbeans.lib.awtextra.AbsoluteConstraints(733, 3, 88, -1));
@@ -606,11 +611,11 @@ public class PreFactura extends javax.swing.JPanel {
 
     private void t_mo_directaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_mo_directaFocusLost
         // TODO add your handling code here:
-        if(t_mo_directa.getText().compareTo("")==0)
+        /*if(t_mo_directa.getText().compareTo("")==0)
         {
             t_mo_directa.setText("0.00");
             t_mo_directa.setValue(0);
-        }
+        }*/
         Session session = HibernateUtil.getSessionFactory().openSession();
         try
         {
@@ -622,6 +627,7 @@ public class PreFactura extends javax.swing.JPanel {
                 h.session(sessionPrograma);
                 ord = (Orden)session.get(Orden.class, Integer.parseInt(orden));
 
+                    t_mo_directa.commitEdit();
                     t_mo_directa.commitEdit();
                     ord.setMoDirecta(((Number) t_mo_directa.getValue()).doubleValue());
                     session.update(ord);
@@ -937,6 +943,11 @@ public class PreFactura extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_t_datosKeyPressed
+
+    private void t_mo_directaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_mo_directaActionPerformed
+        // TODO add your handling code here:
+        jButton1.requestFocus();
+    }//GEN-LAST:event_t_mo_directaActionPerformed
 
     DefaultTableModel ModeloTablaReporte(int renglones, String columnas[])
         {
