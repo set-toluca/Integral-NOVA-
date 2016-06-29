@@ -84,7 +84,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         formatoTabla();
         b_buscapedido.setEnabled(true);
         b_buscaorden.setEnabled(false);
-        //b_detalles.setEnabled(false);
         cb_sin_orden.setVisible(false);
         cb_sin_orden.setSelected(false);
     }
@@ -1675,7 +1674,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                             t_er.requestFocus();
                         }
                     }
-                    if(l_tipo_pedido.getText().compareTo("Externo")==0)//chava salvador
+                    if(l_tipo_pedido.getText().compareTo("Externo")==0)
                     {
                         if(t_er.getText().compareTo("")!=0)
                         {
@@ -2128,7 +2127,6 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         h.desbloqueaOrden();
         c_tmovimiento.setSelectedIndex(0);
         c_toperacion.setSelectedIndex(0);
-        //b_detalles.setEnabled(false);
         cb_sin_orden.setVisible(false);
         cb_sin_orden.setSelected(false);
         limpiar_tabla();
@@ -3662,7 +3660,7 @@ public class nuevoAlmacen extends javax.swing.JPanel {
                         model.setValueAt(par.getCantidad(), a, 4);
                         model.setValueAt(total_cliente, a, 5);
                         model.setValueAt(total, a, 6);
-                        model.setValueAt(0.0d, a, 7);
+                        model.setValueAt(total, a, 7);
                     }
                     for(int m=model.getRowCount()-1; m>=0; m--)
                     {
@@ -4716,11 +4714,8 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         }
         
         b_buscapedido.setEnabled(buscap);
-        //b_detalles.setEnabled(buscap);
         t_nreferencia.setEditable(nreferencia);
-        b_buscaorden.setEnabled(buscao);
-        //b_detalles.setEnabled(buscao);
-            
+        b_buscaorden.setEnabled(buscao); 
         if(c_toperacion.getSelectedItem().toString().compareTo("Operarios")==0)
         {
             

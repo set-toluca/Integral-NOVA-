@@ -36,6 +36,7 @@ public class Empleado  implements java.io.Serializable {
      private Set pedidos = new HashSet(0);
      private Set ordensForRCotiza = new HashSet(0);
      private Set usuarios = new HashSet(0);
+     private Set responsivas = new HashSet(0);
 
     public Empleado() {
     }
@@ -49,7 +50,7 @@ public class Empleado  implements java.io.Serializable {
         this.importe = importe;
         this.tls = tls;
     }
-    public Empleado(Puestos puestos, String nombre, String direccion, String telefono, String email, int fomaPago, Double importe, String password, String smtp, boolean tls, Integer puerto, Boolean autentificacion, Set ordensForRSuspension, Set ordensForRElectrico, Set ordensForRRefacciones, Set ordensForRExpediente, Set ordensForRLevantamiento, Set ordensForRMecanica, Set ordensForRHojalateria, Set ordensForRValuacion, Set pedidos, Set ordensForRCotiza, Set usuarios, Set ordensForRPintura) {
+    public Empleado(Puestos puestos, String nombre, String direccion, String telefono, String email, int fomaPago, Double importe, String password, String smtp, boolean tls, Integer puerto, Boolean autentificacion, Set ordensForRSuspension, Set ordensForRElectrico, Set ordensForRRefacciones, Set ordensForRExpediente, Set ordensForRLevantamiento, Set ordensForRMecanica, Set ordensForRHojalateria, Set ordensForRValuacion, Set pedidos, Set ordensForRCotiza, Set usuarios, Set ordensForRPintura, Set responsivas) {
        this.puestos = puestos;
        this.nombre = nombre;
        this.direccion = direccion;
@@ -74,6 +75,7 @@ public class Empleado  implements java.io.Serializable {
        this.ordensForRCotiza = ordensForRCotiza;
        this.usuarios = usuarios;
        this.ordensForRPintura = ordensForRPintura;
+       this.responsivas =  responsivas;
     }
    
     public Integer getIdEmpleado() {
@@ -245,6 +247,13 @@ public class Empleado  implements java.io.Serializable {
         this.usuarios = usuarios;
     }
 
+    public Set getResponsivas() {
+        return this.responsivas;
+    }
+    
+    public void setResponsivas(Set responsivas) {
+        this.responsivas = responsivas;
+    }
     public Set getOrdensForRPintura() {
         return this.ordensForRPintura;
     }

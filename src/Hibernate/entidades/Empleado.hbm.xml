@@ -136,5 +136,11 @@
             </key>
             <one-to-many class="Hibernate.entidades.Usuario" />
         </set>
+        <set name="responsivas" table="responsiva" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_empleado" />
+            </key>
+            <one-to-many class="Hibernate.entidades.Responsiva" />
+        </set>
     </class>
 </hibernate-mapping>

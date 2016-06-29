@@ -483,7 +483,7 @@ public class formatos extends javax.swing.JPanel {
             reporte.texto("HORA:", bf, BaseColor.BLACK, 8, 455, 675);
             reporte.contenido.rectangle(485, 674, 95, 0);
             reporte.texto("NOMBRE DEL ASEGURADO:", bf, BaseColor.BLACK, 8, 35, 655);
-            try {
+            /*try {
                 String cliente = ord.getClientes().getNombre();
                 if (cliente.length() > 100) {
                     cliente = cliente.substring(0, 99);
@@ -491,7 +491,7 @@ public class formatos extends javax.swing.JPanel {
                 reporte.texto(cliente, bf, BaseColor.BLACK, 8, 148, 656);
             } catch (Exception e) {
                 reporte.texto(" ", bf, BaseColor.BLACK, 8, 148, 656);
-            }
+            }*/
             reporte.contenido.rectangle(145, 654, 439, 0);
             reporte.texto("NOMBRE DEL TERCERO:", bf, BaseColor.BLACK, 8, 35, 635);
             reporte.contenido.rectangle(135, 634, 205, 0);
@@ -888,11 +888,11 @@ public class formatos extends javax.swing.JPanel {
                 fdfDoc.setField("Siniestro","");
             }
         //NOMBRE DEL ASEGURADO
-            try{
+            /*try{
                 fdfDoc.setField("Nombre del asegurado", ord.getClientes().getNombre());
-            }catch(Exception e){
+            }catch(Exception e){*/
                 fdfDoc.setField("Nombre del asegurado", "");
-            }
+            //}
             
             //MARCA
             try{
@@ -1072,10 +1072,10 @@ public class formatos extends javax.swing.JPanel {
                     reporte.texto("Aseguradora: ", bf, BaseColor.BLACK, 10, 50, 680);
                 reporte.contenido.rectangle(113, 678, 190, 0);
                 
-                if(ord.getClientes().getNombre()!=null)
+                /*if(ord.getClientes().getNombre()!=null)
                     reporte.contenido.showTextAligned(PdfContentByte.ALIGN_CENTER, ord.getClientes().getNombre(), 300, 640, 0);
-                else
-                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_CENTER, ord.getClientes().getNombre(), 300, 640, 0);    
+                else*/
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_CENTER,"", 300, 640, 0);    
                 reporte.contenido.rectangle(180, 638, 240, 0);
                 reporte.contenido.showTextAligned(PdfContentByte.ALIGN_CENTER, "Nombre del Asgurado o Tercero", 300, 630, 0);
                 
@@ -1191,17 +1191,17 @@ public class formatos extends javax.swing.JPanel {
                 fdfDoc.setField("Placas", "");
             }
             //NOMBRE DEL ASEGURADO
-            try{
+            /*try{
                 fdfDoc.setField("Asegurado", ord.getClientes().getNombre());
-            }catch(Exception e){
+            }catch(Exception e){*/
                 fdfDoc.setField("Asegurado", "");
-            }
+            //}
             //TELEFONO ASEGURADO
-            try{
+            /*try{
                 fdfDoc.setField("Tel asegurado", ord.getClientes().getTelefono());
-            }catch(Exception e){
+            }catch(Exception e){*/
                 fdfDoc.setField("Tel asegurado", "");
-            }
+            //}
             //FECHA INGRESO
             try{
                 fdfDoc.setField("Fecha de Ingreso", ord.getFecha().toString());
@@ -1342,30 +1342,30 @@ public class formatos extends javax.swing.JPanel {
                 fdfDoc.setField("Siniestro", "");
             }
             //NOMBRE DE ASEGURADO 
-            try{
+            /*try{
                 fdfDoc.setField("Nombre", ord.getClientes().getNombre());
-            }catch(Exception e){
+            }catch(Exception e){*/
                 fdfDoc.setField("Nombre", "");
-            }
+            //}
             //DOMICILIO DE ASEGURADO
-            try{
+            /*try{
                 fdfDoc.setField("Domicilio", ord.getClientes().getDireccion());
-            }catch(Exception e){
+            }catch(Exception e){*/
                 fdfDoc.setField("Domicilio", "");
-            }
+            //}
             //TELEFONO DEL ASEGURADO
-            try{
+            /*try{
                 fdfDoc.setField("Telefono", ord.getClientes().getTelefono());
-            }catch(Exception e){
+            }catch(Exception e){*/
                 fdfDoc.setField("Telefono", "");
-            }
+            //}
             
             //EMAIL DEL ASEGURADO
-            try{
+            /*try{
                 fdfDoc.setField("Email", ord.getClientes().getEmail());
-            }catch(Exception e){
+            }catch(Exception e){*/
                 fdfDoc.setField("Email", "");
-            }
+            //}
             
             //NOMBRE DEL TALLER
             try{
@@ -1521,11 +1521,11 @@ public class formatos extends javax.swing.JPanel {
                 fdfDoc.setField("SINIESTRO", "");
             }
             //
-            try{
+            /*try{
                 fdfDoc.setField("NOMBRE DE ASEGURADO", ord.getClientes().getNombre());
-            }catch(Exception e){
+            }catch(Exception e){*/
                 fdfDoc.setField("NOMBRE DE ASEGURADO", "");
-            }
+            //}
             
             //taller
             try{
@@ -1642,18 +1642,18 @@ public class formatos extends javax.swing.JPanel {
                 }catch(Exception e){}
             }
             //Nombre
-            try{
+            /*try{
                 fdfDoc.setField("NOMBRE", ord.getClientes().getNombre());
-            }catch(Exception e){
+            }catch(Exception e){*/
                 fdfDoc.setField("NOMBRE", "");
-            }
+            //}
             
             //taller
-            try{
+            /*try{
                 fdfDoc.setField("TELEFONO", ord.getClientes().getTelefono());
-            }catch(Exception e){
+            }catch(Exception e){*/
                 fdfDoc.setField("TELEFONO", "");
-            }
+            //}
             
             fdfDoc.setField("EN TALLER","SERVICIO AUTOMOTRIZ NOVA, S.A. DE C.V.");
             

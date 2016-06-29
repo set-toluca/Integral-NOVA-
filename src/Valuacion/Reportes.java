@@ -1862,7 +1862,10 @@ public class Reportes extends javax.swing.JPanel {
 
                     if(cb_fecha_siniestro.isSelected()==true)
                     {
-                        t_datos.setValueAt(orden.getFecha(), ren, columna);
+                        if(orden.getFecha()!=null)
+                            t_datos.setValueAt(orden.getFecha().toString(), ren, columna);
+                        else
+                            t_datos.setValueAt("", ren, columna);
                         columna++;
                     }
 
@@ -1937,12 +1940,18 @@ public class Reportes extends javax.swing.JPanel {
 
                     if(cb_interna.isSelected()==true)
                     {
-                        t_datos.setValueAt(orden.getFechaTaller(), ren, columna);
+                        if(orden.getFechaTaller()!=null)
+                            t_datos.setValueAt(orden.getFechaTaller().toString(), ren, columna);
+                        else
+                            t_datos.setValueAt("", ren, columna);
                         columna++;
                     }
                     if(cb_fecha_cliente.isSelected()==true)
                     {
-                        t_datos.setValueAt(orden.getFechaCliente(), ren, columna);
+                        if(orden.getFechaCliente()!=null)
+                            t_datos.setValueAt(orden.getFechaCliente().toString(), ren, columna);
+                        else
+                            t_datos.setValueAt("", ren, columna);
                         columna++;
                     }
 
