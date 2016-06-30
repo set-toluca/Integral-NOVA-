@@ -3707,7 +3707,7 @@ public void consulta()
                     if(linea1.compareTo("")!=0)
                         cabecera.getTexto().add(linea1);
                     cabecera.getTexto().add("MARCA: "+t_marca_vehiculo.getText().trim()+"   SERIE: "+t_serie_vehiculo.getText().trim()+"    INSISO: "+t_inciso.getText().trim());
-                    cabecera.getTexto().add("MODELO: "+t_modelo_vehiculo.getText().trim()+" PLACA: "+t_placas_vehiculo.getText().trim());
+                    cabecera.getTexto().add("TIPO: "+t_modelo_vehiculo.getText().trim()+" PLACA: "+t_placas_vehiculo.getText().trim()+"        AÑO:"+this.t_anio_vehiculo);
                     String texto="";
                     if(t_contratante.getText().trim().compareTo("")!=0)
                         texto=" ASEGURADO: "+t_contratante.getText().trim()+"     ";
