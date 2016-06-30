@@ -1862,8 +1862,8 @@ public class Reportes extends javax.swing.JPanel {
 
                     if(cb_fecha_siniestro.isSelected()==true)
                     {
-                        if(orden.getFecha()!=null)
-                            t_datos.setValueAt(orden.getFecha().toString(), ren, columna);
+                        if(orden.getFechaSiniestro()!=null)
+                            t_datos.setValueAt(orden.getFechaSiniestro().toString(), ren, columna);
                         else
                             t_datos.setValueAt("", ren, columna);
                         columna++;
