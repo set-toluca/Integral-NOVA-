@@ -202,6 +202,7 @@ public class Reportes extends javax.swing.JPanel {
         cb_tot1 = new javax.swing.JCheckBox();
         cb_consumible = new javax.swing.JCheckBox();
         cb_fecha_cliente = new javax.swing.JCheckBox();
+        cb_color = new javax.swing.JCheckBox();
         jButton4 = new javax.swing.JButton();
         scroll = new javax.swing.JScrollPane();
         t_datos = new javax.swing.JTable();
@@ -714,10 +715,9 @@ public class Reportes extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -813,6 +813,9 @@ public class Reportes extends javax.swing.JPanel {
         cb_fecha_cliente.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         cb_fecha_cliente.setText("F. cliente");
 
+        cb_color.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_color.setText("Color");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -845,21 +848,20 @@ public class Reportes extends javax.swing.JPanel {
                     .addComponent(cb_estatus))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cb_compras)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cb_autorizado)
-                            .addComponent(cb_tot)
-                            .addComponent(cb_tot1)
-                            .addComponent(cb_autorizado_directo)
-                            .addComponent(cb_tot_directa))
-                        .addGap(55, 55, 55)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cb_fecha_cliente)
-                            .addComponent(cb_factura)
-                            .addComponent(cb_fecha_entrada)
-                            .addComponent(cb_tipo)
-                            .addComponent(cb_consumible))))
+                    .addComponent(cb_autorizado)
+                    .addComponent(cb_tot)
+                    .addComponent(cb_tot1)
+                    .addComponent(cb_autorizado_directo)
+                    .addComponent(cb_tot_directa)
+                    .addComponent(cb_compras))
+                .addGap(55, 55, 55)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cb_color)
+                    .addComponent(cb_fecha_cliente)
+                    .addComponent(cb_factura)
+                    .addComponent(cb_fecha_entrada)
+                    .addComponent(cb_tipo)
+                    .addComponent(cb_consumible))
                 .addGap(192, 333, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -922,7 +924,8 @@ public class Reportes extends javax.swing.JPanel {
                                 .addComponent(cb_anio)
                                 .addComponent(cb_cia)
                                 .addComponent(cb_cliente))
-                            .addComponent(cb_compras))))
+                            .addComponent(cb_compras)
+                            .addComponent(cb_color))))
                 .addGap(0, 40, Short.MAX_VALUE))
         );
 
@@ -1781,6 +1784,13 @@ public class Reportes extends javax.swing.JPanel {
                     tam.add(80);
                     tam_pdf.add(15);
                 }
+                if(cb_color.isSelected()==true)
+                {
+                    tipos.add(java.lang.String.class);
+                    col.add("Color");
+                    tam.add(80);
+                    tam_pdf.add(20);
+                }
                 if(cb_factura.isSelected()==true)
                 {
                     tipos.add(java.lang.String.class);
@@ -2086,6 +2096,11 @@ public class Reportes extends javax.swing.JPanel {
                         t_datos.setValueAt(orden.getRefAutorizadas(), ren, columna);
                         columna++;
                     }
+                    if(cb_color.isSelected()==true)
+                    {
+                        t_datos.setValueAt(orden.getColor(), ren, columna);
+                        columna++;
+                    }
                     if(cb_factura.isSelected()==true)
                     {
                         if(orden.getNoFactura()!=null)
@@ -2213,6 +2228,7 @@ public class Reportes extends javax.swing.JPanel {
         cb_consumible.setSelected(false);
         t_orden.setText("");
         cb_fecha_cliente.setSelected(false);
+        cb_color.setSelected(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void c_tipo_fechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_tipo_fechaActionPerformed
@@ -2616,6 +2632,7 @@ public class Reportes extends javax.swing.JPanel {
     private javax.swing.JCheckBox cb_autorizado_directo;
     private javax.swing.JCheckBox cb_cia;
     private javax.swing.JCheckBox cb_cliente;
+    private javax.swing.JCheckBox cb_color;
     private javax.swing.JCheckBox cb_compras;
     private javax.swing.JCheckBox cb_consumible;
     private javax.swing.JCheckBox cb_economico;
