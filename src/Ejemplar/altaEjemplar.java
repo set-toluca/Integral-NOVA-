@@ -230,7 +230,7 @@ public class altaEjemplar extends javax.swing.JDialog {
         l_tipo1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         l_tipo1.setText("Unidad:");
 
-        medida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PZAS", "LTS", "MTS", "CMS", "MMS", "GRS", "MLS", "KGS", "HRS", "MIN", "KIT", "FT", "LB", "JGO", "NA" }));
+        medida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PZAS", "GAL", "LTS", "MTS", "CMS", "MMS", "GRS", "MLS", "KGS", "HRS", "MIN", "KIT", "FT", "LB", "JGO", "NA" }));
 
         l_modelo1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         l_modelo1.setForeground(new java.awt.Color(102, 102, 255));

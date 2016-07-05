@@ -926,10 +926,13 @@ public class Formatos {
         String nomb=ped.getProveedorByIdProveedor().getNombre();
         if(nomb.length()>40)
             nomb=nomb.substring(0,39);
-        reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Proveedor: "+ped.getProveedorByIdProveedor().getIdProveedor(), 40, 715, 0);
-        reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, nomb, 40, 705, 0);
+        reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Prov: "+nomb, 40, 715, 0);
+        
+
         if(ord!=null)
         {
+            if(ord.getCompania()!=null)
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Aseg:"+ord.getCompania().getNombre(), 40, 705, 0);
             reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "O. Taller: "+ord.getIdOrden()+"    Modelo: "+ord.getModelo(), 40, 695, 0);
             reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Tipo: "+ord.getTipo().getTipoNombre(), 40, 685, 0);
             if(ord.getNoSerie()!=null)
@@ -938,10 +941,14 @@ public class Formatos {
         }
         else
         {
-            if(ped.getTipoPedido().compareTo("Inventario")==0)
+            if(ped.getTipoPedido().compareTo("Inventario")==0){
+                reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Aseg: NA", 40, 705, 0);
                 reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Inventario", 40, 695, 0);
-            else
+            }else{
+                if(ped.getOrdenExterna().getCompania()!=null)
+                    reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Aseg: NA"+ped.getOrdenExterna().getCompania().getNombre(), 40, 705, 0);
                 reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "Externo", 40, 695, 0);
+            }
         }
         
         //**********************datos de facturacion*****************************
@@ -1102,9 +1109,7 @@ public class Formatos {
             reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Siniestro:"+ord.getSiniestro(), 410, 627, 0);
         else
             reporte.contenido.showTextAligned(PdfContentByte.ALIGN_LEFT, "No Siniestro:", 410, 627, 0);
-        
         reporte.contenido.setFontAndSize(bf, 12);
-        
         reporte.finTexto();
         reporte.contenido.setFontAndSize(bf, 12);
         //agregamos renglones vacios para dejar un espacio

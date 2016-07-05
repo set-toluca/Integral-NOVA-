@@ -435,8 +435,13 @@ public class editaEjemplar extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        medida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PZAS", "LTS", "MTS", "CMS", "MMS", "GRS", "MLS", "KGS", "HRS", "MIN", "KIT", "FT", "LB", "JGO", "NA" }));
+        medida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PZAS", "GAL", "LTS", "MTS", "CMS", "MMS", "GRS", "MLS", "KGS", "HRS", "MIN", "KIT", "FT", "LB", "JGO", "NA" }));
         medida.setEnabled(false);
+        medida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                medidaActionPerformed(evt);
+            }
+        });
 
         l_tipo1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         l_tipo1.setText("Unidad:");
@@ -986,6 +991,10 @@ public class editaEjemplar extends javax.swing.JPanel {
     private void t_maximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_maximoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_t_maximoActionPerformed
+
+    private void medidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_medidaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Eliminar1;

@@ -332,7 +332,7 @@ public class nuevoPedido extends javax.swing.JPanel {
         );
 
         medida.setFont(new java.awt.Font("Dialog", 0, 9)); // NOI18N
-        medida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PZAS", "LTS", "MTS", "CMS", "MMS", "GRS", "MLS", "KGS", "HRS", "MIN", "KIT", "FT", "LB", "JGO", "NA" }));
+        medida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PZAS", "GAL", "LTS", "MTS", "CMS", "MMS", "GRS", "MLS", "KGS", "HRS", "MIN", "KIT", "FT", "LB", "JGO", "NA" }));
 
         numeros.setFont(new java.awt.Font("Dialog", 0, 9)); // NOI18N
         numeros.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -2039,7 +2039,7 @@ public class nuevoPedido extends javax.swing.JPanel {
 
     private void b_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_pedidoActionPerformed
         Formatos f1;
-        if(this.c_tipo.getSelectedItem().toString().compareTo("Externo")==0)
+        if(this.c_tipo.getSelectedItem().toString().compareTo("Externo")==0 || this.c_tipo.getSelectedItem().toString().compareTo("Inventario")==0)
             f1=new Formatos(this.usr, this.sessionPrograma, null, t_pedido.getText());
         else
             f1=new Formatos(this.usr, this.sessionPrograma, this.orden_act, t_pedido.getText());

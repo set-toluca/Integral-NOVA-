@@ -958,7 +958,7 @@ public class altaCompras extends javax.swing.JPanel {
         });
 
         medida.setFont(new java.awt.Font("Dialog", 0, 9)); // NOI18N
-        medida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PZAS", "LTS", "MTS", "CMS", "MMS", "GRS", "MLS", "KGS", "HRS", "MIN", "KIT", "FT", "LB", "JGO", "NA" }));
+        medida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PZAS", "GAL", "LTS", "MTS", "CMS", "MMS", "GRS", "MLS", "KGS", "HRS", "MIN", "KIT", "FT", "LB", "JGO", "NA" }));
 
         ventana.setModal(true);
         ventana.setModalExclusionType(null);

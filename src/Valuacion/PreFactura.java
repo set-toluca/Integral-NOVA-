@@ -129,7 +129,7 @@ public class PreFactura extends javax.swing.JPanel {
         t_datos = new javax.swing.JTable();
 
         medida.setFont(new java.awt.Font("Dialog", 0, 9)); // NOI18N
-        medida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PZAS", "LTS", "MTS", "CMS", "MMS", "GRS", "MLS", "KGS", "HRS", "MIN", "KIT", "FT", "LB", "JGO", "NA" }));
+        medida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PZAS", "GAL", "LTS", "MTS", "CMS", "MMS", "GRS", "MLS", "KGS", "HRS", "MIN", "KIT", "FT", "LB", "JGO", "NA" }));
 
         ventana.setTitle("Partidas Adicionales a facturar");
         ventana.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
