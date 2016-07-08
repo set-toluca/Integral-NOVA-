@@ -78,7 +78,7 @@ public class Formatos {
         ord=(Orden)session.get(Orden.class, ord.getIdOrden());
         try
         {
-            DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.00");
+            DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.000");
             formatoPorcentaje.setMinimumFractionDigits(2);
             BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
 
@@ -221,7 +221,7 @@ public class Formatos {
         ord=(Orden)session.get(Orden.class, ord.getIdOrden());
         try
         {
-            DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.00");
+            DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.000");
             formatoPorcentaje.setMinimumFractionDigits(2);
 
             session.beginTransaction().begin();
@@ -344,7 +344,7 @@ public class Formatos {
             Pedido ped=(Pedido)session.get(Pedido.class, pedido);
             try
             {
-                DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.00");
+                DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.000");
                 formatoPorcentaje.setMinimumFractionDigits(2);
 
                 session.beginTransaction().begin();
@@ -462,7 +462,7 @@ public class Formatos {
             ord=(Orden)session.get(Orden.class, ord.getIdOrden());
             try
             {
-                DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.00");
+                DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.000");
                 formatoPorcentaje.setMinimumFractionDigits(2);
 
                 session.beginTransaction().begin();
@@ -578,7 +578,7 @@ public class Formatos {
             ord=(Orden)session.get(Orden.class, ord.getIdOrden());
             try
             {
-                DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.00");
+                DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.000");
                 formatoPorcentaje.setMinimumFractionDigits(2);
 
                 session.beginTransaction().begin();
@@ -689,7 +689,7 @@ public class Formatos {
             session = HibernateUtil.getSessionFactory().openSession();
             try
             {
-                DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.00");
+                DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.000");
                 formatoPorcentaje.setMinimumFractionDigits(2);
 
                 session.beginTransaction().begin();
@@ -792,7 +792,7 @@ public class Formatos {
             session = HibernateUtil.getSessionFactory().openSession();
             try
             {
-                DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.00");
+                DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.000");
                 formatoPorcentaje.setMinimumFractionDigits(2);
 
                 session.beginTransaction().begin();
@@ -1825,7 +1825,7 @@ public class Formatos {
         }
         try
         {
-            DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.00");
+            DecimalFormat formatoPorcentaje = new DecimalFormat("#,##0.000");
             formatoPorcentaje.setMinimumFractionDigits(2);
             BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
 

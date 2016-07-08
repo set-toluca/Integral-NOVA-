@@ -1240,7 +1240,7 @@ public class Reporte2 extends javax.swing.JPanel {
         };
         if(t_busca.getText().compareTo("")!=0)
         {
-            String consulta="SELECT mov from Movimiento mov LEFT JOIN mov.partida par LEFT JOIN par.ordenByIdOrden ord"
+            String consulta="SELECT mov from Movimiento mov LEFT JOIN mov.partida par LEFT JOIN par.ordenByIdOrden ord "
                     + " where ord.idOrden='"+t_busca.getText();
             
             String consultaEx="SELECT mov from Movimiento mov LEFT JOIN mov.partidaExterna pex LEFT JOIN pex.pedido ped LEFT JOIN ped.orden ord "
@@ -1969,7 +1969,6 @@ public class Reporte2 extends javax.swing.JPanel {
             try
             {
              ArrayList datos = new ArrayList();
-             System.out.println(consultar);
              Query query = session.createSQLQuery(consultar);
              query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
              datos = (ArrayList) query.list();
