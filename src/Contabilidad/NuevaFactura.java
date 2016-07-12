@@ -1199,8 +1199,14 @@ public class NuevaFactura extends javax.swing.JPanel {
                                             nuevaFactura.setCorreoEmisor(con.getMail());
                                             nuevaFactura.setTelefonoEmisor(con.getTel());
                                             nuevaFactura.setTipoReceptor("COORDINADOR");
-                                            nuevaFactura.setContactoReceptor(t_receptor.getText());
-                                            nuevaFactura.setCorreoReceptor(t_email.getText());
+                                            if(t_receptor.getText().compareTo("")==0)
+                                                nuevaFactura.setContactoReceptor("ADILENE");
+                                            else
+                                                nuevaFactura.setContactoReceptor(t_receptor.getText());
+                                            if(t_email.getText().compareTo("")==0)
+                                                nuevaFactura.setCorreoReceptor("contabilidad@servicionova.com");
+                                            else
+                                                nuevaFactura.setCorreoReceptor(t_email.getText());
                                             nuevaFactura.setTelefonoReceptor("");
                                             nuevaFactura.setCodigoOficina("");
                                             nuevaFactura.setFoliosElectronicos("");

@@ -1457,11 +1457,11 @@ public class formatos extends javax.swing.JPanel {
             }
             
             //NOMBRE DEL TALLER
-            try{
+            /*try{
                 fdfDoc.setField("Aplicar", "NO APLICA");
             }catch(Exception e){
                 fdfDoc.setField("Aplicar", "");
-            }
+            }*/
             cb.endText();
 
             stamp.close();

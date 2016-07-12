@@ -6,6 +6,8 @@
 
 package Contabilidad;
 
+import Clientes.buscaCliente;
+import Compania.buscaCompania;
 import Hibernate.Util.HibernateUtil;
 import Hibernate.entidades.Adicionales;
 import Hibernate.entidades.Clientes;
@@ -134,6 +136,7 @@ public class FacturarOrden extends javax.swing.JPanel {
         c_pais = new javax.swing.JComboBox();
         jLabel23 = new javax.swing.JLabel();
         t_numero_exterior = new javax.swing.JTextField();
+        b_buscar = new javax.swing.JButton();
         p_orden = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         t_orden = new javax.swing.JTextField();
@@ -430,6 +433,14 @@ public class FacturarOrden extends javax.swing.JPanel {
             }
         });
 
+        b_buscar.setText("Buscar");
+        b_buscar.setToolTipText("Consultar datos de cliente o compañia");
+        b_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_buscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout p_clienteLayout = new javax.swing.GroupLayout(p_cliente);
         p_cliente.setLayout(p_clienteLayout);
         p_clienteLayout.setHorizontalGroup(
@@ -467,7 +478,9 @@ public class FacturarOrden extends javax.swing.JPanel {
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(c_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(109, 109, 109)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(b_buscar)
+                                .addGap(38, 38, 38)
                                 .addComponent(b_actualiza))
                             .addGroup(p_clienteLayout.createSequentialGroup()
                                 .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -501,8 +514,9 @@ public class FacturarOrden extends javax.swing.JPanel {
                     .addComponent(c_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(t_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(b_actualiza))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(b_actualiza)
+                    .addComponent(b_buscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(p_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(t_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1684,8 +1698,14 @@ public class FacturarOrden extends javax.swing.JPanel {
                                                 nuevaFactura.setCorreoEmisor(con.getMail());
                                                 nuevaFactura.setTelefonoEmisor(con.getTel());
                                                 nuevaFactura.setTipoReceptor("COORDINADOR");
-                                                nuevaFactura.setContactoReceptor(t_receptor.getText());
-                                                nuevaFactura.setCorreoReceptor(t_email.getText());
+                                                if(t_receptor.getText().compareTo("")==0)
+                                                    nuevaFactura.setContactoReceptor("ADILENE");
+                                                else
+                                                    nuevaFactura.setContactoReceptor(t_receptor.getText());
+                                                if(t_email.getText().compareTo("")==0)
+                                                    nuevaFactura.setCorreoReceptor("contabilidad@servicionova.com");
+                                                else
+                                                    nuevaFactura.setCorreoReceptor(t_email.getText());
                                                 nuevaFactura.setTelefonoReceptor("");
                                                 nuevaFactura.setCodigoOficina("");
                                                 nuevaFactura.setFoliosElectronicos("");
@@ -2308,6 +2328,157 @@ public class FacturarOrden extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_t_descuentoActionPerformed
 
+    private void b_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_buscarActionPerformed
+        // TODO add your handling code here:
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction().begin();
+            if(c_cliente.getSelectedItem().toString().compareTo("Cliente")==0)
+            {
+                h=new Herramientas(user, 0);
+                h.session(sessionPrograma);
+
+                buscaCliente obj = new buscaCliente(new javax.swing.JFrame(), true);
+                obj.t_busca.requestFocus();
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+                obj.setVisible(true);
+
+                Clientes actor=obj.getReturnStatus();
+                if(actor!=null)
+                {
+                    actor=(Clientes)session.get(Clientes.class, actor.getIdClientes());
+                    t_id.setText(""+actor.getIdClientes());
+                    t_cliente.setText(actor.getNombre());
+
+                    if(actor.getRfc()!=null)
+                    t_rfc.setText(actor.getRfc());
+                    else
+                    t_rfc.setText("");
+
+                    if(actor.getDireccion()!=null)
+                    t_direccion.setText(actor.getDireccion());
+                    else
+                    t_direccion.setText("");
+
+                    if(actor.getCp()!=null)
+                    t_cp.setText(""+actor.getCp());
+                    else
+                    t_cp.setText("");
+
+                    if(actor.getColonia()!=null)
+                    t_colonia.setText(actor.getColonia());
+                    else
+                    t_colonia.setText(actor.getColonia());
+
+                    if(actor.getMunicipio()!=null)
+                    t_municipio.setText(actor.getMunicipio());
+                    else
+                    t_municipio.setText("");
+
+                    if(actor.getEstado()!=null)
+                    c_estado.setSelectedItem(actor.getEstado());
+
+                    if(actor.getPais()!=null)
+                    c_pais.setSelectedItem(actor.getPais());
+                    else
+                    c_pais.setSelectedItem("");
+                    if(actor.getNumeroExterior()!=null)
+                    t_numero_exterior.setText(actor.getNumeroExterior());
+                    else
+                    t_numero_exterior.setText("");
+                    if(actor.getReceptor()!=null)
+                    t_receptor.setText(actor.getReceptor());
+                    else
+                    t_receptor.setText("");
+                    if(actor.getEmailReceptor()!=null)
+                    t_email.setText(actor.getEmailReceptor());
+                    else
+                    t_email.setText("");
+                    b_actualiza.setEnabled(true);
+                }
+            }
+            if(c_cliente.getSelectedItem().toString().compareTo("Compañia")==0)
+            {
+                h=new Herramientas(user, 0);
+                h.session(sessionPrograma);
+
+                buscaCompania obj = new buscaCompania(new javax.swing.JFrame(), true, this.sessionPrograma, this.user);
+                obj.t_busca.requestFocus();
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+                obj.setVisible(true);
+
+                Compania actor=obj.getReturnStatus();
+                if(actor!=null)
+                {
+                    actor=(Compania)session.get(Compania.class, actor.getIdCompania());
+                    t_id.setText(""+actor.getIdCompania());
+                    t_cliente.setText(actor.getSocial());
+
+                    if(actor.getRfc()!=null)
+                    t_rfc.setText(actor.getRfc());
+                    else
+                    t_rfc.setText("");
+
+                    if(actor.getDireccion()!=null)
+                    t_direccion.setText(actor.getDireccion());
+                    else
+                    t_direccion.setText("");
+
+                    if(actor.getCp()!=null)
+                    t_cp.setText(""+actor.getCp());
+                    else
+                    t_cp.setText("");
+
+                    if(actor.getColonia()!=null)
+                    t_colonia.setText(actor.getColonia());
+                    else
+                    t_colonia.setText(actor.getColonia());
+
+                    if(actor.getMunicipio()!=null)
+                    t_municipio.setText(actor.getMunicipio());
+                    else
+                    t_municipio.setText("");
+
+                    if(actor.getEstado()!=null)
+                    c_estado.setSelectedItem(actor.getEstado());
+
+                    if(actor.getPais()!=null)
+                    c_pais.setSelectedItem(actor.getPais());
+                    else
+                    c_pais.setSelectedItem("");
+                    if(actor.getNumeroExterior()!=null)
+                    t_numero_exterior.setText(actor.getNumeroExterior());
+                    else
+                    t_numero_exterior.setText("");
+
+                    if(actor.getRepresentante2()!=null)
+                    t_receptor.setText(actor.getRepresentante2());
+                    else
+                    t_receptor.setText("");
+
+                    if(actor.getR2Puesto()!=null)
+                    t_email.setText(actor.getR2Puesto());
+                    else
+                    t_email.setText("");
+                    b_actualiza.setEnabled(true);
+                }
+            }
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al consultar los datos");
+        }
+        finally
+        {
+            if(session!=null)
+            if(session.isOpen())
+            session.close();
+        }
+    }//GEN-LAST:event_b_buscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog addendas;
@@ -2315,6 +2486,7 @@ public class FacturarOrden extends javax.swing.JPanel {
     private javax.swing.JFileChooser aviso;
     private javax.swing.JButton b_actualiza;
     private javax.swing.JButton b_actualiza1;
+    private javax.swing.JButton b_buscar;
     private javax.swing.JButton b_guardar;
     private javax.swing.JButton b_marca;
     private javax.swing.JButton b_mas;

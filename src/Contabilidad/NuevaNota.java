@@ -1102,8 +1102,14 @@ public class NuevaNota extends javax.swing.JPanel {
                                             nuevaNota.setCorreoEmisor(con.getMail());
                                             nuevaNota.setTelefonoEmisor(con.getTel());
                                             nuevaNota.setTipoReceptor("COORDINADOR");
-                                            nuevaNota.setContactoReceptor(t_receptor.getText());
-                                            nuevaNota.setCorreoReceptor(t_email.getText());
+                                            if(t_receptor.getText().compareTo("")==0)
+                                                    nuevaNota.setContactoReceptor("ADILENE");
+                                            else
+                                                nuevaNota.setContactoReceptor(t_receptor.getText());
+                                            if(t_email.getText().compareTo("")==0)
+                                                nuevaNota.setCorreoReceptor("contabilidad@servicionova.com");
+                                            else
+                                                nuevaNota.setCorreoReceptor(t_email.getText());
                                             nuevaNota.setTelefonoReceptor("");
                                             nuevaNota.setCodigoOficina("");
                                             nuevaNota.setFoliosElectronicos("");
