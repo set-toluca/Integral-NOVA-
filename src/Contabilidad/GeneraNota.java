@@ -77,6 +77,9 @@ import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.poi.hssf.record.crypto.Biff8EncryptionKey;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -790,7 +793,7 @@ public class GeneraNota extends javax.swing.JDialog {
         jLabel20.setText("Metodo de Pago:");
 
         t_metodo_pago.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        t_metodo_pago.setText("98");
+        t_metodo_pago.setText("99");
         t_metodo_pago.setToolTipText("Metodo de pago del monto de la Nota");
         t_metodo_pago.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         t_metodo_pago.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -4376,8 +4379,11 @@ public void consulta()
                             {
                                 try
                                 {
-                                    String fecha=rtr.getRequestTransactionResult().getResponse().getTimeStamp().toXMLFormat();
-                                    File f = new File("errores/"+fecha+".txt");
+                                    Date fecha = new Date();
+                                    DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyyHH-mm-ss");//YYYY-MM-DD HH:MM:SS
+                                    String valor=dateFormat.format(fecha);
+                                    //String fecha=rtr.getRequestTransactionResult().getResponse().getTimeStamp().toXMLFormat();
+                                    File f = new File("errores/"+valor+".txt");
                                     FileWriter w = new FileWriter(f);
                                     BufferedWriter bw = new BufferedWriter(w);
                                     PrintWriter wr = new PrintWriter(bw);  

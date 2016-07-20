@@ -1687,7 +1687,7 @@ public class FacturarOrden extends javax.swing.JPanel {
                                                 if(c_cliente.getSelectedItem().toString().compareTo("Compañia")==0)
                                                     nuevaFactura.setMetodoPago("03");
                                                 else
-                                                    nuevaFactura.setMetodoPago("98");
+                                                    nuevaFactura.setMetodoPago("99");
                                                 nuevaFactura.setCuentaPago("");
                                                 nuevaFactura.setMoneda("MXN");
                                                 nuevaFactura.setFactorCambio(1.0d);

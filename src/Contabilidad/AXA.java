@@ -825,7 +825,7 @@ public class AXA extends javax.swing.JDialog {
         jLabel20.setText("Metodo de Pago:");
 
         t_metodo_pago.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        t_metodo_pago.setText("98");
+        t_metodo_pago.setText("03");
         t_metodo_pago.setToolTipText("Metodo de pago del monto de la factura");
         t_metodo_pago.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         t_metodo_pago.addActionListener(new java.awt.event.ActionListener() {

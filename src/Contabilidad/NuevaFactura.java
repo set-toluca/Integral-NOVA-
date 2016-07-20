@@ -1188,7 +1188,7 @@ public class NuevaFactura extends javax.swing.JPanel {
                                             //fecha_fiscal
                                             //serie
                                             //folio
-                                            nuevaFactura.setMetodoPago("98");
+                                            nuevaFactura.setMetodoPago("99");
                                             nuevaFactura.setCuentaPago("");
                                             nuevaFactura.setMoneda("MXN");
                                             nuevaFactura.setFactorCambio(1.0d);

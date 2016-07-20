@@ -1091,7 +1091,7 @@ public class NuevaNota extends javax.swing.JPanel {
                                             //fecha_fiscal
                                             //serie
                                             //folio
-                                            nuevaNota.setMetodoPago("98");
+                                            nuevaNota.setMetodoPago("99");
                                             nuevaNota.setCuentaPago("");
                                             nuevaNota.setMoneda("MXN");
                                             nuevaNota.setFactorCambio(1.0d);
