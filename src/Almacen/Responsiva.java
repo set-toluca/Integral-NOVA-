@@ -7,6 +7,7 @@
 package Almacen;
 
 import Empleados.buscaEmpleado;
+import Herramientas.buscaHerramienta;
 import Hibernate.Util.HibernateUtil;
 import Hibernate.entidades.Empleado;
 import Hibernate.entidades.Herramienta;
@@ -292,8 +293,6 @@ public class Responsiva extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void b_menosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_menosActionPerformed
-        /*h=new Herramientas(usr, menu);
-        h.session(sessionPrograma);
         if(t_datos.getSelectedRow()>=0)
         {
             DefaultTableModel model = (DefaultTableModel) t_datos.getModel();
@@ -302,13 +301,27 @@ public class Responsiva extends javax.swing.JPanel {
             if (JOptionPane.YES_OPTION == opt)
             {
                 for(int x=0; x<renglones.length; x++)
-                model.removeRow(t_datos.getSelectedRow());
-                sumaTotales();
-                JOptionPane.showMessageDialog(null, "¡Partida eliminada!");
+                {
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    try
+                    {
+                        session.beginTransaction().begin();
+                        Hibernate.entidades.Responsiva resp=(Hibernate.entidades.Responsiva)session.get(Hibernate.entidades.Responsiva.class, Integer.parseInt(t_datos.getValueAt(renglones[x]-x, 0).toString()));
+                        session.delete(resp);
+                        session.beginTransaction().commit();
+                       model.removeRow(renglones[x]-x);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        if(session.isOpen())
+                            session.close();
+                    }
+                }
+                JOptionPane.showMessageDialog(null, "¡Responsiva eliminada!");
             }
         }
         else
-        JOptionPane.showMessageDialog(null, "¡Selecciona la partida que desees eliminar!");*/
+            JOptionPane.showMessageDialog(null, "¡Selecciona la partida que desees eliminar!");
     }//GEN-LAST:event_b_menosActionPerformed
 
     private void b_masActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_masActionPerformed
@@ -386,10 +399,7 @@ public class Responsiva extends javax.swing.JPanel {
 
     private void b_herramientaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_herramientaActionPerformed
         // TODO add your handling code here:
-        t_id_herramienta.setText("15");
-        t_nombre_herramienta.setText("desarmador");
-        t_ubicacion.setText("caja de herramientas");
-        /*buscaHerramienta obj = new buscaHerramienta(new javax.swing.JFrame(), true, usr, this.sessionPrograma);
+        buscaHerramienta obj = new buscaHerramienta(new javax.swing.JFrame(), true, this.sessionPrograma, usr);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
         obj.setVisible(true);
@@ -403,9 +413,9 @@ public class Responsiva extends javax.swing.JPanel {
         else
         {
             t_id_herramienta.setText("");
-            t_nombre_herramienta.setText(");
+            t_nombre_herramienta.setText("");
             t_ubicacion.setText("");
-        }*/
+        }
     }//GEN-LAST:event_b_herramientaActionPerformed
 
     private void b_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_agregarActionPerformed
@@ -418,7 +428,7 @@ public class Responsiva extends javax.swing.JPanel {
             {
                 session.beginTransaction().begin();
                 Query q = session.createSQLQuery("select if(sum(cantidad) is null, 0, sum(cantidad)) as total, if(existencias is null, 0, existencias) as existencia  from responsiva " +
-                                                 "left join herramienta on responsiva.id_herramienta=herramienta.id_herramienta where responsiva.id_herramienta="+t_id_herramienta.getText());
+                                                 "inner join herramienta on responsiva.id_herramienta=herramienta.id_herramienta where responsiva.id_herramienta="+t_id_herramienta.getText());
                 q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
                 List lista = q.list();
                 if(lista.size()>0)
