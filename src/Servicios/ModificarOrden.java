@@ -2488,18 +2488,18 @@ public class ModificarOrden extends javax.swing.JPanel {
                     orden_act=(Orden)session.get(Orden.class, orden_act.getIdOrden());
                     if(usr.getConsultaValuacion()==true)
                     {
-                        if(orden_act.getRLevantamientoInicio()!=null)
-                        {
+                        /*if(orden_act.getRLevantamientoInicio()!=null)
+                        {*/
                             valuacion r1=new valuacion(t_orden.getText(), usr, estado, this.sessionPrograma, menu);
                             p_valuacion.setViewportView(r1);
                             p_valuacion.updateUI();
-                        }
+                        /*}
                         else
                         {
                             p_valuacion.getViewport().removeAll();
                             p_valuacion.updateUI();
                             JOptionPane.showMessageDialog(null, "¡Aun no esta disponible!");
-                        }
+                        }*/
                     }
                     else
                     JOptionPane.showMessageDialog(null, "¡Acceso denegado!");

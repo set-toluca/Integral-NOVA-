@@ -1975,6 +1975,8 @@ public final class AperturaOrden extends javax.swing.JPanel {
                                 }
                                 registro.setGarantia(cb_garantia.isSelected());
                                 registro.setComentario(t_comentario.getText());
+                                registro.setMPintura(0.0d);
+                                registro.setCPintura(0.0d);
 
                                 Integer respuesta=guardarOrden(registro);
 

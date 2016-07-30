@@ -210,6 +210,8 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
             t_deducible.setEnabled(false);
             t_demerito.setEnabled(false);
             t_vales.setEnabled(false);
+            t_c_pintura.setEnabled(false);
+            t_m_pintura.setEnabled(false);
             b_ok.setEnabled(false);
             b_ac.setEnabled(false);
             r_cerrar_valuacion.setEnabled(false);
@@ -412,6 +414,10 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
         bt = new javax.swing.JButton();
         t_vales = new javax.swing.JFormattedTextField();
         jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        t_c_pintura = new javax.swing.JFormattedTextField();
+        jLabel33 = new javax.swing.JLabel();
+        t_m_pintura = new javax.swing.JFormattedTextField();
 
         numeros.setFont(new java.awt.Font("Dialog", 0, 9)); // NOI18N
         numeros.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -994,7 +1000,7 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
 
         jLabel29.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(254, 254, 254));
-        jLabel29.setText("Deducible:");
+        jLabel29.setText("Deducible");
 
         t_deducible.setBackground(new java.awt.Color(204, 255, 255));
         t_deducible.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -1005,7 +1011,7 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
 
         jLabel30.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(254, 254, 254));
-        jLabel30.setText("Demerito:");
+        jLabel30.setText("Demerito");
 
         t_demerito.setBackground(new java.awt.Color(204, 255, 255));
         t_demerito.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -1023,11 +1029,11 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
 
         t_ok.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         t_ok.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                t_okKeyTyped(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 t_okKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                t_okKeyTyped(evt);
             }
         });
 
@@ -1054,7 +1060,29 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
 
         jLabel31.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(254, 254, 254));
-        jLabel31.setText("Presupuesto:");
+        jLabel31.setText("Presup.");
+
+        jLabel32.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel32.setText("Cost.Pintura");
+
+        t_c_pintura.setBackground(new java.awt.Color(204, 255, 255));
+        t_c_pintura.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_c_pintura.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        t_c_pintura.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        t_c_pintura.setText("0.00");
+        t_c_pintura.setDisabledTextColor(new java.awt.Color(2, 38, 253));
+
+        jLabel33.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel33.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel33.setText("Mat.Pintura");
+
+        t_m_pintura.setBackground(new java.awt.Color(204, 255, 255));
+        t_m_pintura.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        t_m_pintura.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        t_m_pintura.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        t_m_pintura.setText("0.00");
+        t_m_pintura.setDisabledTextColor(new java.awt.Color(2, 38, 253));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1063,40 +1091,51 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel29)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_deducible, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(t_deducible, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
                 .addComponent(jLabel30)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_demerito, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(t_demerito, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel31)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_vales, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(t_vales, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(t_c_pintura, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(t_m_pintura, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(b_ac)
-                .addGap(133, 133, 133)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(bt)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(t_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(b_ok)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addGap(47, 47, 47))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel29)
+                .addComponent(jLabel30)
+                .addComponent(t_demerito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(t_deducible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel31)
+                .addComponent(t_vales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel32)
+                .addComponent(t_c_pintura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(t_ok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(b_ok)
                 .addComponent(bt))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel31)
-                .addComponent(t_vales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(b_ac))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel29)
-                .addComponent(jLabel30)
-                .addComponent(t_deducible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(t_demerito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(b_ac)
+                .addComponent(jLabel33)
+                .addComponent(t_m_pintura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         add(jPanel3, java.awt.BorderLayout.PAGE_START);
@@ -2358,6 +2397,15 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
                 ord.setVales(((Number)t_vales.getValue()).doubleValue());
             else
                 ord.setVales(0.0d);
+            if(t_c_pintura.getText().compareTo("")!=0)
+                ord.setCPintura(((Number)t_c_pintura.getValue()).doubleValue());
+            else
+                ord.setVales(0.0d);
+            if(t_m_pintura.getText().compareTo("")!=0)
+                ord.setMPintura(((Number)t_m_pintura.getValue()).doubleValue());
+            else
+                ord.setVales(0.0d);
+            
             session.update(ord);
             session.beginTransaction().commit();
             JOptionPane.showMessageDialog(this, "Los datos han sido almacenados");
@@ -3303,6 +3351,8 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -3329,6 +3379,7 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
     private javax.swing.JFormattedTextField t_autorizado;
     private javax.swing.JFormattedTextField t_autorizado1;
     private javax.swing.JTextField t_busca;
+    private javax.swing.JFormattedTextField t_c_pintura;
     private javax.swing.JFormattedTextField t_cantidad;
     private javax.swing.JFormattedTextField t_cia_seguros;
     private javax.swing.JFormattedTextField t_costo_refacciones;
@@ -3337,6 +3388,7 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
     private javax.swing.JFormattedTextField t_demerito;
     private javax.swing.JFormattedTextField t_horas;
     private javax.swing.JFormattedTextField t_importe;
+    private javax.swing.JFormattedTextField t_m_pintura;
     private javax.swing.JFormattedTextField t_mo_directa;
     private javax.swing.JFormattedTextField t_mo_directa1;
     private javax.swing.JFormattedTextField t_num;
@@ -3421,6 +3473,26 @@ public class valuacion extends javax.swing.JPanel implements	ListSelectionListen
                 {
                     this.t_vales.setText("0.00");
                     this.t_vales.setValue(0);
+                }
+                if(ord.getMPintura()!=null)
+                {
+                    this.t_m_pintura.setText(""+ord.getMPintura());
+                    this.t_m_pintura.setValue(ord.getMPintura());
+                }
+                else
+                {
+                    this.t_m_pintura.setText("0.00");
+                    this.t_m_pintura.setValue(0);
+                }
+                if(ord.getCPintura()!=null)
+                {
+                    this.t_c_pintura.setText(""+ord.getCPintura());
+                    this.t_c_pintura.setValue(ord.getCPintura());
+                }
+                else
+                {
+                    this.t_m_pintura.setText("0.00");
+                    this.t_m_pintura.setValue(0);
                 }
                 
                 this.t_ref_autorizadas_directo.setValue(ord.getRefAutorizadas());
@@ -5325,6 +5397,8 @@ public class MyModel extends DefaultTableModel
                 this.t_deducible.setEnabled(false);
                 this.t_demerito.setEnabled(false);
                 t_vales.setEnabled(false);
+                t_c_pintura.setEnabled(false);
+                t_m_pintura.setEnabled(false);
                 this.b_ac.setEnabled(false);
             }
         }

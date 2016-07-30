@@ -464,6 +464,16 @@
         <property name="RPinturaFecha" type="timestamp">
             <column name="r_pintura_fecha" length="19" />
         </property>
+        <property name="MPintura" type="java.lang.Double">
+            <column name="m_pintura" precision="22" scale="0">
+                <comment>material de pintura aplicado a la unidad</comment>
+            </column>
+        </property>
+        <property name="CPintura" type="java.lang.Double">
+            <column name="c_pintura" precision="22" scale="0">
+                <comment>costo de pintura aplicado a la unidad</comment>
+            </column>
+        </property>
         <set name="archivos" table="archivo" inverse="true" lazy="true" fetch="select" cascade="all">
             <key>
                 <column name="id_orden" not-null="true" />

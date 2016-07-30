@@ -6,6 +6,7 @@
 
 package Valuacion;
 
+import Ajustador.buscaAjustador;
 import Clientes.buscaCliente;
 import Hibernate.entidades.Usuario;
 import java.awt.Dimension;
@@ -131,6 +132,11 @@ public class Reportes extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         t_datos2 = new javax.swing.JTable();
         t_suma = new javax.swing.JFormattedTextField();
+        jLabel14 = new javax.swing.JLabel();
+        c_estado_cliente = new javax.swing.JComboBox();
+        c_cotizacion = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        t_id_ajustador = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -142,8 +148,6 @@ public class Reportes extends javax.swing.JPanel {
         c_levantamiento = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         c_valuacion = new javax.swing.JComboBox();
-        jLabel6 = new javax.swing.JLabel();
-        c_cotizacion = new javax.swing.JComboBox();
         l_nombre_aseguradora = new javax.swing.JLabel();
         b_buscar_aseguradora = new javax.swing.JButton();
         t_aseguradora = new javax.swing.JTextField();
@@ -164,14 +168,14 @@ public class Reportes extends javax.swing.JPanel {
         t_asegurado2 = new javax.swing.JCheckBox();
         t_asegurado3 = new javax.swing.JCheckBox();
         t_asegurado4 = new javax.swing.JCheckBox();
-        c_estado_cliente = new javax.swing.JComboBox();
-        jLabel14 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         b_busca_cliente1 = new javax.swing.JButton();
         t_orden = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         c_estatus = new javax.swing.JComboBox();
+        cb_taller = new javax.swing.JCheckBox();
+        cb_proceso = new javax.swing.JCheckBox();
+        jButton5 = new javax.swing.JButton();
+        t_nombre_ajustador = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         cb_poliza = new javax.swing.JCheckBox();
         cb_siniestro = new javax.swing.JCheckBox();
@@ -203,6 +207,9 @@ public class Reportes extends javax.swing.JPanel {
         cb_consumible = new javax.swing.JCheckBox();
         cb_fecha_cliente = new javax.swing.JCheckBox();
         cb_color = new javax.swing.JCheckBox();
+        cb_ajustador = new javax.swing.JCheckBox();
+        cb_c_pintura = new javax.swing.JCheckBox();
+        cb_m_pintura = new javax.swing.JCheckBox();
         jButton4 = new javax.swing.JButton();
         scroll = new javax.swing.JScrollPane();
         t_datos = new javax.swing.JTable();
@@ -297,6 +304,15 @@ public class Reportes extends javax.swing.JPanel {
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jLabel14.setText("Edo:");
+
+        c_estado_cliente.setBackground(new java.awt.Color(204, 255, 255));
+        c_estado_cliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Chiapas", "Chihuahua", "Coahuila", "Colima", "Distrito Federal", "Durango", "Estado de México", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla", "Querétaro", "Quintana Roo", "San Luis Potosí", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas" }));
+
+        c_cotizacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todas", "Abiertas", "Cerradas" }));
+
+        jLabel6.setText("Cotización");
+
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Reportes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
         setLayout(new java.awt.BorderLayout());
@@ -340,10 +356,6 @@ public class Reportes extends javax.swing.JPanel {
         jLabel5.setText("Valuación:");
 
         c_valuacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todas", "Abiertas", "Cerradas" }));
-
-        jLabel6.setText("Cotización");
-
-        c_cotizacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todas", "Abiertas", "Cerradas" }));
 
         l_nombre_aseguradora.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         l_nombre_aseguradora.setText("Selecciones una Aseguradora");
@@ -390,11 +402,7 @@ public class Reportes extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                             .addComponent(jLabel5)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(c_valuacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(c_cotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(c_valuacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -414,23 +422,18 @@ public class Reportes extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(c_valuacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(c_cotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addGap(11, 11, 11)
+                            .addGap(5, 5, 5)
                             .addComponent(jLabel3))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(b_buscar_aseguradora, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(b_buscar_aseguradora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
+                        .addGap(3, 3, 3)
                         .addComponent(t_aseguradora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(l_nombre_aseguradora, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(l_nombre_aseguradora, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -514,7 +517,7 @@ public class Reportes extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(c_tipo_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -532,7 +535,7 @@ public class Reportes extends javax.swing.JPanel {
                                 .addGap(3, 3, 3)
                                 .addComponent(t_fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(b_fecha_siniestro1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(26, 26, 26))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -567,11 +570,6 @@ public class Reportes extends javax.swing.JPanel {
 
         t_asegurado4.setText("Particular");
 
-        c_estado_cliente.setBackground(new java.awt.Color(204, 255, 255));
-        c_estado_cliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Chiapas", "Chihuahua", "Coahuila", "Colima", "Distrito Federal", "Durango", "Estado de México", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla", "Querétaro", "Quintana Roo", "San Luis Potosí", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas" }));
-
-        jLabel14.setText("Edo:");
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -585,19 +583,14 @@ public class Reportes extends javax.swing.JPanel {
                         .addComponent(l_id_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(b_busca_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                            .addComponent(jLabel14)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(c_estado_cliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(t_asegurado1)
-                                .addComponent(t_asegurado2))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(t_asegurado4)
-                                .addComponent(t_asegurado3))))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(t_asegurado1)
+                            .addComponent(t_asegurado2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(t_asegurado4)
+                            .addComponent(t_asegurado3)))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -617,17 +610,11 @@ public class Reportes extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(t_asegurado2)
                     .addComponent(t_asegurado4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(c_estado_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel14)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "General", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Orden", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
 
         b_busca_cliente1.setBackground(new java.awt.Color(2, 135, 242));
         b_busca_cliente1.setIcon(new ImageIcon("imagenes/buscar.png"));
@@ -648,16 +635,30 @@ public class Reportes extends javax.swing.JPanel {
             }
         });
 
-        jLabel7.setText("OT:");
-
-        jLabel10.setText("Estatus:");
-
         c_estatus.setForeground(new java.awt.Color(51, 0, 255));
         c_estatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 c_estatusActionPerformed(evt);
             }
         });
+
+        cb_taller.setText("Sin entregar");
+
+        cb_proceso.setText("en proceso");
+        cb_proceso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_procesoActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Ajustador:");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        t_nombre_ajustador.setEnabled(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -667,31 +668,39 @@ public class Reportes extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t_orden, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                        .addComponent(t_orden)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(b_busca_cliente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(c_estatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(c_estatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cb_taller)
+                        .addGap(10, 10, 10)
+                        .addComponent(cb_proceso)
+                        .addGap(0, 110, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_nombre_ajustador)))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(b_busca_cliente1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(t_orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(t_orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(b_busca_cliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(c_estatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cb_taller)
+                    .addComponent(cb_proceso))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(t_nombre_ajustador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -713,11 +722,11 @@ public class Reportes extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -727,21 +736,27 @@ public class Reportes extends javax.swing.JPanel {
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         cb_poliza.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_poliza.setSelected(true);
         cb_poliza.setText("Poliza");
 
         cb_siniestro.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_siniestro.setSelected(true);
         cb_siniestro.setText("Sinisestro");
 
         cb_inciso.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_inciso.setSelected(true);
         cb_inciso.setText("Inciso");
 
         cb_reporte.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_reporte.setSelected(true);
         cb_reporte.setText("N° Rep.");
 
         cb_fecha_siniestro.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_fecha_siniestro.setSelected(true);
         cb_fecha_siniestro.setText("F. Siniestro");
 
         cb_cliente.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_cliente.setSelected(true);
         cb_cliente.setText("Cliente");
 
         cb_email.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -751,27 +766,33 @@ public class Reportes extends javax.swing.JPanel {
         cb_tipo_cliente.setText("Tipo Cliente");
 
         cb_marca.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_marca.setSelected(true);
         cb_marca.setText("Marca");
 
         cb_placas.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_placas.setSelected(true);
         cb_placas.setText("Placas");
 
         cb_motor.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         cb_motor.setText("Motor");
 
         cb_anio.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_anio.setSelected(true);
         cb_anio.setText("Año");
 
         cb_serie.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_serie.setSelected(true);
         cb_serie.setText("Serie");
 
         cb_economico.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         cb_economico.setText("N. Econom.");
 
         cb_interna.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_interna.setSelected(true);
         cb_interna.setText("F. Interna");
 
         cb_estatus.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_estatus.setSelected(true);
         cb_estatus.setText("Estatus Orden");
 
         cb_presupuestado.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -796,12 +817,15 @@ public class Reportes extends javax.swing.JPanel {
         cb_autorizado_directo.setText("Refacciones Cotizado Final");
 
         cb_fecha_entrada.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_fecha_entrada.setSelected(true);
         cb_fecha_entrada.setText("F. Entrada");
 
         cb_factura.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_factura.setSelected(true);
         cb_factura.setText("Factura");
 
         cb_tipo.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_tipo.setSelected(true);
         cb_tipo.setText("Tipo");
 
         cb_tot1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -811,10 +835,21 @@ public class Reportes extends javax.swing.JPanel {
         cb_consumible.setText("Consumible");
 
         cb_fecha_cliente.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_fecha_cliente.setSelected(true);
         cb_fecha_cliente.setText("F. cliente");
 
         cb_color.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_color.setSelected(true);
         cb_color.setText("Color");
+
+        cb_ajustador.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_ajustador.setText("Ajustador");
+
+        cb_c_pintura.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_c_pintura.setText("Costo Pintura");
+
+        cb_m_pintura.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_m_pintura.setText("Material Pintura");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -858,11 +893,18 @@ public class Reportes extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cb_color)
                     .addComponent(cb_fecha_cliente)
-                    .addComponent(cb_factura)
-                    .addComponent(cb_fecha_entrada)
-                    .addComponent(cb_tipo)
-                    .addComponent(cb_consumible))
-                .addGap(192, 333, Short.MAX_VALUE))
+                    .addComponent(cb_consumible)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cb_fecha_entrada)
+                            .addComponent(cb_factura)
+                            .addComponent(cb_tipo))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cb_m_pintura)
+                            .addComponent(cb_c_pintura)
+                            .addComponent(cb_ajustador))))
+                .addGap(192, 224, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -897,11 +939,17 @@ public class Reportes extends javax.swing.JPanel {
                                     .addComponent(cb_interna)
                                     .addComponent(cb_tot)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(cb_fecha_entrada)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cb_fecha_entrada)
+                                    .addComponent(cb_ajustador))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cb_factura)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cb_factura)
+                                    .addComponent(cb_c_pintura))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cb_tipo)))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cb_tipo)
+                                    .addComponent(cb_m_pintura))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cb_placas)
@@ -926,7 +974,7 @@ public class Reportes extends javax.swing.JPanel {
                                 .addComponent(cb_cliente))
                             .addComponent(cb_compras)
                             .addComponent(cb_color))))
-                .addGap(0, 40, Short.MAX_VALUE))
+                .addGap(0, 43, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Campos para el reporte", jPanel3);
@@ -1431,7 +1479,7 @@ public class Reportes extends javax.swing.JPanel {
             }
         }
         
-        if(c_cotizacion.getSelectedIndex()>0)
+        /*if(c_cotizacion.getSelectedIndex()>0)
         {
             if(c_cotizacion.getSelectedItem().toString().compareTo("Abiertas")==0)
             {
@@ -1451,7 +1499,7 @@ public class Reportes extends javax.swing.JPanel {
                 consulta+="com.RCotizaCierre!=null ";
                 entro=1;
             }
-        }
+        }*/
         
         if(t_aseguradora.getText().compareTo("")!=0)
         {
@@ -1518,7 +1566,7 @@ public class Reportes extends javax.swing.JPanel {
         if(t_asegurado1.isSelected()==true || t_asegurado2.isSelected()==true || t_asegurado3.isSelected()==true ||t_asegurado4.isSelected()==true)
             consulta+=") ";
        
-        if(c_estado_cliente.getSelectedIndex()>0)
+        /*if(c_estado_cliente.getSelectedIndex()>0)
         {
             if(entro==1)
                 consulta+="and ";
@@ -1526,7 +1574,7 @@ public class Reportes extends javax.swing.JPanel {
                 consulta+="where ";
             consulta+="com.clientes.estado='"+c_estado_cliente.getSelectedItem().toString()+"' ";
             entro=1;
-        }
+        }*/
         if(c_estatus.getSelectedIndex()>0)
         {
             if(entro==1)
@@ -1545,13 +1593,39 @@ public class Reportes extends javax.swing.JPanel {
             consulta+="com.idOrden='" +t_orden.getText() +"' ";
             entro=1;
         }
-        
+        if(cb_taller.isSelected()==true)
+        {
+            if(entro==1)
+                consulta+="and ";
+            else
+                consulta+="where ";
+            consulta+="com.REntregarFecha is null ";
+            entro=1;
+        }
+        if(cb_proceso.isSelected()==true)
+        {
+            if(entro==1)
+                consulta+="and ";
+            else
+                consulta+="where ";
+            consulta+="com.estatus.estatusNombre!='TERMINADO' ";
+            entro=1;
+        }
+        if(t_id_ajustador.getText().compareTo("")!=0)
+        {
+            if(entro==1)
+                consulta+="and ";
+            else
+                consulta+="where ";
+            consulta+="com.ajustador.idAjustador="+t_id_ajustador.getText();
+            entro=1;
+        }
         /*if(entro==1)
             consulta+="and ";
         else
             consulta+="where ";
         consulta+="com.ciclo.idCiclo="+periodo;*/
-        
+        System.out.println(consulta);
         TableColumnModel col_model = t_datos.getColumnModel();
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
         tcr.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -1809,6 +1883,27 @@ public class Reportes extends javax.swing.JPanel {
                 {
                     tipos.add(java.lang.Double.class);
                     col.add("Consumible");
+                    tam.add(80);
+                    tam_pdf.add(15);
+                }
+                if(cb_ajustador.isSelected()==true)
+                {
+                    tipos.add(java.lang.String.class);
+                    col.add("Ajustador");
+                    tam.add(150);
+                    tam_pdf.add(25);
+                }
+                if(cb_c_pintura.isSelected()==true)
+                {
+                    tipos.add(java.lang.Double.class);
+                    col.add("Costo Pint.");
+                    tam.add(80);
+                    tam_pdf.add(15);
+                }
+                if(cb_m_pintura.isSelected()==true)
+                {
+                    tipos.add(java.lang.Double.class);
+                    col.add("Material Pint.");
                     tam.add(80);
                     tam_pdf.add(15);
                 }
@@ -2143,6 +2238,24 @@ public class Reportes extends javax.swing.JPanel {
                         t_datos.setValueAt(con.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue(), ren, columna);
                         columna++;
                     }
+                    if(cb_ajustador.isSelected()==true)
+                    {
+                        if(orden.getAjustador()!=null)
+                            t_datos.setValueAt(orden.getAjustador().getNombreAjustador(), ren, columna);
+                        else
+                            t_datos.setValueAt("", ren, columna);
+                        columna++;
+                    }
+                    if(cb_c_pintura.isSelected()==true)
+                    {
+                        t_datos.setValueAt(orden.getCPintura(), ren, columna);
+                        columna++;
+                    }
+                    if(cb_m_pintura.isSelected()==true)
+                    {
+                        t_datos.setValueAt(orden.getMPintura(), ren, columna);
+                        columna++;
+                    }
                     ren++;
                 }
             }
@@ -2189,6 +2302,11 @@ public class Reportes extends javax.swing.JPanel {
         c_levantamiento.setSelectedIndex(0);
         c_valuacion.setSelectedIndex(0);
         c_cotizacion.setSelectedIndex(0);
+        cb_taller.setSelected(false);
+        cb_proceso.setSelected(false);
+        cb_estatus.setEnabled(true);
+        t_id_ajustador.setText("");
+        t_nombre_ajustador.setText("");
         t_aseguradora.setText("");
         l_nombre_aseguradora.setText("Selecciones una Aseguradora");
         l_id_cliente.setText("");
@@ -2197,24 +2315,24 @@ public class Reportes extends javax.swing.JPanel {
         t_asegurado3.setSelected(false);
         t_asegurado4.setSelected(false);
         c_estado_cliente.setSelectedIndex(0);
-        cb_poliza.setSelected(false);
-        cb_siniestro.setSelected(false);
-        cb_inciso.setSelected(false);
-        cb_reporte.setSelected(false);
-        cb_fecha_siniestro.setSelected(false);
-        cb_cliente.setSelected(false);
+        cb_poliza.setSelected(true);
+        cb_siniestro.setSelected(true);
+        cb_inciso.setSelected(true);
+        cb_reporte.setSelected(true);
+        cb_fecha_siniestro.setSelected(true);
+        cb_cliente.setSelected(true);
         cb_siniestro.setSelected(false);
         cb_siniestro.setSelected(false);
         cb_email.setSelected(false);
         cb_tipo_cliente.setSelected(false);
-        cb_marca.setSelected(false);
-        cb_placas.setSelected(false);
+        cb_marca.setSelected(true);
+        cb_placas.setSelected(true);
         cb_motor.setSelected(false);
-        cb_anio.setSelected(false);
-        cb_serie.setSelected(false);
+        cb_anio.setSelected(true);
+        cb_serie.setSelected(true);
         cb_economico.setSelected(false);
-        cb_interna.setSelected(false);
-        cb_estatus.setSelected(false);
+        cb_interna.setSelected(true);
+        cb_estatus.setSelected(true);
         cb_presupuestado.setSelected(false);
         cb_cia.setSelected(false);
         cb_autorizado.setSelected(false);
@@ -2222,13 +2340,16 @@ public class Reportes extends javax.swing.JPanel {
         cb_tot.setSelected(false);
         cb_tot_directa.setSelected(false);
         cb_autorizado_directo.setSelected(false);
-        cb_fecha_entrada.setSelected(false);
-        cb_factura.setSelected(false);
-        cb_tipo.setSelected(false);
+        cb_fecha_entrada.setSelected(true);
+        cb_factura.setSelected(true);
+        cb_tipo.setSelected(true);
         cb_consumible.setSelected(false);
         t_orden.setText("");
-        cb_fecha_cliente.setSelected(false);
-        cb_color.setSelected(false);
+        cb_fecha_cliente.setSelected(true);
+        cb_color.setSelected(true);
+        cb_ajustador.setSelected(false);
+        cb_c_pintura.setSelected(false);
+        cb_m_pintura.setSelected(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void c_tipo_fechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_tipo_fechaActionPerformed
@@ -2614,6 +2735,39 @@ public class Reportes extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_c_estatusActionPerformed
 
+    private void cb_procesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_procesoActionPerformed
+        // TODO add your handling code here:
+        if(cb_proceso.isSelected()==true)
+        {
+            c_estatus.setSelectedItem("Seleccionar");
+            c_estatus.setEnabled(false);
+        }
+        else
+            c_estatus.setEnabled(true);
+    }//GEN-LAST:event_cb_procesoActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        buscaAjustador obj = new buscaAjustador(new javax.swing.JFrame(), true, this.sessionPrograma, this.usr);
+        obj.t_busca.requestFocus();
+        obj.formatoTabla();
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+        obj.setVisible(true);
+
+        List actor=obj.getReturnStatus();
+        if(actor!=null)
+        {
+            t_id_ajustador.setText(actor.get(0).toString());
+            t_nombre_ajustador.setText(actor.get(1).toString());
+        }
+        else
+        {
+            t_id_ajustador.setText("");
+            t_nombre_ajustador.setText("");
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_busca_cliente;
@@ -2627,9 +2781,11 @@ public class Reportes extends javax.swing.JPanel {
     private javax.swing.JComboBox c_levantamiento;
     private javax.swing.JComboBox c_tipo_fecha;
     private javax.swing.JComboBox c_valuacion;
+    private javax.swing.JCheckBox cb_ajustador;
     private javax.swing.JCheckBox cb_anio;
     private javax.swing.JCheckBox cb_autorizado;
     private javax.swing.JCheckBox cb_autorizado_directo;
+    private javax.swing.JCheckBox cb_c_pintura;
     private javax.swing.JCheckBox cb_cia;
     private javax.swing.JCheckBox cb_cliente;
     private javax.swing.JCheckBox cb_color;
@@ -2644,14 +2800,17 @@ public class Reportes extends javax.swing.JPanel {
     private javax.swing.JCheckBox cb_fecha_siniestro;
     private javax.swing.JCheckBox cb_inciso;
     private javax.swing.JCheckBox cb_interna;
+    private javax.swing.JCheckBox cb_m_pintura;
     private javax.swing.JCheckBox cb_marca;
     private javax.swing.JCheckBox cb_motor;
     private javax.swing.JCheckBox cb_placas;
     private javax.swing.JCheckBox cb_poliza;
     private javax.swing.JCheckBox cb_presupuestado;
+    private javax.swing.JCheckBox cb_proceso;
     private javax.swing.JCheckBox cb_reporte;
     private javax.swing.JCheckBox cb_serie;
     private javax.swing.JCheckBox cb_siniestro;
+    private javax.swing.JCheckBox cb_taller;
     private javax.swing.JCheckBox cb_tipo;
     private javax.swing.JCheckBox cb_tipo_cliente;
     private javax.swing.JCheckBox cb_tot;
@@ -2662,15 +2821,14 @@ public class Reportes extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -2698,6 +2856,8 @@ public class Reportes extends javax.swing.JPanel {
     private javax.swing.JTable t_datos2;
     private javax.swing.JTextField t_fecha1;
     private javax.swing.JTextField t_fecha2;
+    private javax.swing.JTextField t_id_ajustador;
+    private javax.swing.JTextField t_nombre_ajustador;
     private javax.swing.JTextField t_orden;
     private javax.swing.JFormattedTextField t_suma;
     // End of variables declaration//GEN-END:variables

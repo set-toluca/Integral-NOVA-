@@ -1747,6 +1747,8 @@ public class FacturarOrden extends javax.swing.JPanel {
                                                 orden_act.setNoFactura(noFactura);
                                                 orden_act.setUsuarioByRFactura(user);
                                                 orden_act.setFehaFectura(nuevaFactura.getFecha());
+                                                orden_act.setFechaCierre(nuevaFactura.getFecha());
+                                                orden_act.setUsuarioByRCierre(user);
 
                                                 //orden_act.setFechaCierre(nuevaFactura.getFecha());
                                                 //orden_act.setUsuarioByRCierre(user);
