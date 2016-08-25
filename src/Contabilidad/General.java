@@ -3461,6 +3461,7 @@ public void consulta()
                     else
                         id.setLugarExpedicion("TOLUCA, ESTADO DE MEXICO");
                 }
+
             documento.setIdentificacion(id);
                 TDictionaries diccionarios = new TDictionaries();
                     TDictionary direccion = new TDictionary();

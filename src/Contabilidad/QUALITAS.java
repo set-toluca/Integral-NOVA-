@@ -3837,6 +3837,8 @@ public void consulta()
                     else
                         id.setLugarExpedicion("TOLUCA, ESTADO DE MEXICO");
                 }
+                if(t_cuenta_pago.getText().compareTo("")!=0)
+                    id.setNumCtaPago(t_cuenta_pago.getText());
             documento.setIdentificacion(id);
                 TDictionaries diccionarios = new TDictionaries();
                     TDictionary direccion = new TDictionary();
