@@ -428,7 +428,7 @@ public class Responsiva extends javax.swing.JPanel {
             {
                 session.beginTransaction().begin();
                 Query q = session.createSQLQuery("select if(sum(cantidad) is null, 0, sum(cantidad)) as total, if(existencias is null, 0, existencias) as existencia  from responsiva " +
-                                                 "inner join herramienta on responsiva.id_herramienta=herramienta.id_herramienta where responsiva.id_herramienta="+t_id_herramienta.getText());
+                                                 "inner join herramienta on responsiva.id_herramienta=herramienta.id_herramienta where responsiva.id_herramienta='"+t_id_herramienta.getText()+"'");
                 q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
                 List lista = q.list();
                 if(lista.size()>0)
@@ -442,7 +442,7 @@ public class Responsiva extends javax.swing.JPanel {
                         Hibernate.entidades.Responsiva nuevo=new Hibernate.entidades.Responsiva();
                         Empleado emp=(Empleado)session.get(Empleado.class, Integer.parseInt(t_id_empleado.getText()));
                         Herramienta her=(Herramienta)session.get(Herramienta.class, t_id_herramienta.getText());
-
+                        
                         nuevo.setHerramienta(her);
                         nuevo.setCantidad(Double.parseDouble(t_cantidad.getText()));
                         nuevo.setUbicacion(t_ubicacion.getText());
