@@ -2481,28 +2481,19 @@ public class nuevoAlmacen extends javax.swing.JPanel {
         {
             session.beginTransaction().begin();
             usr = (Usuario)session.get(Usuario.class, usr.getIdUsuario());
-            if(usr.getConsultaEmpleados()==true || usr.getEditaEmpleados()==true)
+            buscaEmpleado obj = new buscaEmpleado(new javax.swing.JFrame(), true, usr, this.sessionPrograma);
+            Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+            obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
+            obj.setVisible(true);
+            Empleado emp_act=obj.getReturnStatus();
+            if (emp_act!=null)
             {
-                buscaEmpleado obj = new buscaEmpleado(new javax.swing.JFrame(), true, usr, this.sessionPrograma);
-                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-                obj.setLocation((d.width/2)-(obj.getWidth()/2), (d.height/2)-(obj.getHeight()/2));
-                obj.setVisible(true);
-                Empleado emp_act=obj.getReturnStatus();
-                if (emp_act!=null)
-                {
-                    t_er.setText("");
-                    emp_act=(Empleado)session.get(Empleado.class, emp_act.getIdEmpleado());
-                    usr = (Usuario)session.get(Usuario.class, usr.getIdUsuario());
-                    if(usr.getEditaEmpleados()==true)
-                    {
-                        t_er.setText(emp_act.getNombre());
-                    }
-                    else
-                    JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
-                }
+                t_er.setText("");
+                emp_act=(Empleado)session.get(Empleado.class, emp_act.getIdEmpleado());
+                usr = (Usuario)session.get(Usuario.class, usr.getIdUsuario());
+                t_er.setText(emp_act.getNombre());
+                
             }
-            else
-            JOptionPane.showMessageDialog(null, "¡Acceso denegado!");
         }catch(Exception e)
         {
             System.out.println(e);
