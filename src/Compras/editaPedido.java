@@ -1882,7 +1882,9 @@ public class editaPedido extends javax.swing.JPanel {
                                     if(part_act[x].getPlazo()!=null)
                                         plazo=Integer.parseInt(part_act[x].getPlazo().toString());
                                 }
-                                catch(Exception e){}
+                                catch(Exception e){
+                                    plazo= 0;
+                                }
                                 double cantidad = 0.0d;
                                 double costo = 0.0d;
                                 if(part_act[x].getCantPcp()!=null)
@@ -1967,7 +1969,7 @@ public class editaPedido extends javax.swing.JPanel {
             if (eje!=null)
             {
                 int pos=t_datos.getRowCount()+1;
-                Object[] vector=new Object[]{""/**Interno*/,""/*#*/,""/*R_valua*/,eje.getIdParte()/*codigo*/,""+"s/f"/*folio*/,eje.getCatalogo()/*descripción*/,""+eje.getMedida()/*medida*/,""/*plazo*/,1.0/*cantidad*/,0.0/*costo c/u*/,0.0/*total*/};
+                Object[] vector=new Object[]{""/**Interno*/,""/*#*/,""/*R_valua*/,eje.getIdParte()/*codigo*/,""+"s/f"/*folio*/,eje.getCatalogo()/*descripción*/,""+eje.getMedida()/*medida*/,"0"/*plazo*/,1.0/*cantidad*/,0.0/*costo c/u*/,0.0/*total*/};
                 model.addRow(vector);
                 for(int x=0; x<t_datos.getColumnCount(); x++)
                 {
@@ -3271,12 +3273,15 @@ public class editaPedido extends javax.swing.JPanel {
                                         if(t_datos.getValueAt(ren, 7).toString().compareTo("")!=0 || t_datos.getValueAt(ren, 7).toString().compareTo("0")!=0)
                                         {
                                             String[] fecha = t_datos.getValueAt(ren, 7).toString().split("-");
-                                            Calendar calendario = Calendar.getInstance();
-                                            calendario.set(
-                                                    Integer.parseInt(fecha[0]), 
-                                                    Integer.parseInt(fecha[1])-1, 
-                                                    Integer.parseInt(fecha[2]));
-                                            px.setPlazo(calendario.getTime());
+                                            if(fecha.length>2)
+                                            {
+                                                Calendar calendario = Calendar.getInstance();
+                                                calendario.set(
+                                                        Integer.parseInt(fecha[0]), 
+                                                        Integer.parseInt(fecha[1])-1, 
+                                                        Integer.parseInt(fecha[2]));
+                                                px.setPlazo(calendario.getTime());
+                                            }
                                         }
                                         px.setCantidad((double) t_datos.getValueAt(ren, 8));
                                         px.setCosto((double) t_datos.getValueAt(ren, 9));
