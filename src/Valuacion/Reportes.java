@@ -210,6 +210,9 @@ public class Reportes extends javax.swing.JPanel {
         cb_ajustador = new javax.swing.JCheckBox();
         cb_c_pintura = new javax.swing.JCheckBox();
         cb_m_pintura = new javax.swing.JCheckBox();
+        cb_cierre = new javax.swing.JCheckBox();
+        cb_f_factura = new javax.swing.JCheckBox();
+        cb_entrega_unidad = new javax.swing.JCheckBox();
         jButton4 = new javax.swing.JButton();
         scroll = new javax.swing.JScrollPane();
         t_datos = new javax.swing.JTable();
@@ -484,7 +487,7 @@ public class Reportes extends javax.swing.JPanel {
             }
         });
 
-        c_tipo_fecha.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione", "Ingreso", "Siniestro", "Promesa Interna", "Levantamiento", "Inicio Cotizacion", "Autorizacion del cliente", "Autorizacion interna", "Inicio de valuación", "Envio a compañia", "Autoriza Compañia", "Autoriza Valuacion", "Fecturacion", "Cierre", "" }));
+        c_tipo_fecha.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione", "Ingreso", "Siniestro", "Promesa Interna", "Levantamiento", "Inicio Cotizacion", "Autorizacion del cliente", "Autorizacion interna", "Inicio de valuación", "Envio a compañia", "Autoriza Compañia", "Autoriza Valuacion", "Facturacion", "Entrega de Unidad", "Cierre" }));
         c_tipo_fecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 c_tipo_fechaActionPerformed(evt);
@@ -851,6 +854,18 @@ public class Reportes extends javax.swing.JPanel {
         cb_m_pintura.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         cb_m_pintura.setText("Material Pintura");
 
+        cb_cierre.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_cierre.setSelected(true);
+        cb_cierre.setText("F.Cierre");
+
+        cb_f_factura.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_f_factura.setSelected(true);
+        cb_f_factura.setText("F.Factura");
+
+        cb_entrega_unidad.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        cb_entrega_unidad.setSelected(true);
+        cb_entrega_unidad.setText("F.Entrega Unidad");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -891,20 +906,21 @@ public class Reportes extends javax.swing.JPanel {
                     .addComponent(cb_compras))
                 .addGap(55, 55, 55)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cb_color)
-                    .addComponent(cb_fecha_cliente)
+                    .addComponent(cb_fecha_entrada)
+                    .addComponent(cb_factura)
+                    .addComponent(cb_tipo)
                     .addComponent(cb_consumible)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cb_fecha_entrada)
-                            .addComponent(cb_factura)
-                            .addComponent(cb_tipo))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cb_m_pintura)
-                            .addComponent(cb_c_pintura)
-                            .addComponent(cb_ajustador))))
-                .addGap(192, 224, Short.MAX_VALUE))
+                    .addComponent(cb_fecha_cliente)
+                    .addComponent(cb_color))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cb_entrega_unidad)
+                    .addComponent(cb_f_factura)
+                    .addComponent(cb_cierre)
+                    .addComponent(cb_m_pintura)
+                    .addComponent(cb_c_pintura)
+                    .addComponent(cb_ajustador))
+                .addGap(192, 210, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -955,7 +971,9 @@ public class Reportes extends javax.swing.JPanel {
                             .addComponent(cb_placas)
                             .addComponent(cb_estatus)
                             .addComponent(cb_tot1)
-                            .addComponent(cb_consumible))))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cb_consumible)
+                                .addComponent(cb_cierre)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cb_fecha_siniestro)
@@ -965,7 +983,9 @@ public class Reportes extends javax.swing.JPanel {
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(cb_presupuestado)
                                 .addComponent(cb_tot_directa))
-                            .addComponent(cb_fecha_cliente))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cb_fecha_cliente)
+                                .addComponent(cb_f_factura)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -973,7 +993,8 @@ public class Reportes extends javax.swing.JPanel {
                                 .addComponent(cb_cia)
                                 .addComponent(cb_cliente))
                             .addComponent(cb_compras)
-                            .addComponent(cb_color))))
+                            .addComponent(cb_color)
+                            .addComponent(cb_entrega_unidad))))
                 .addGap(0, 43, Short.MAX_VALUE))
         );
 
@@ -1392,7 +1413,7 @@ public class Reportes extends javax.swing.JPanel {
                 }
                 break;
                 
-            case "Fecturacion":
+            case "Facturacion":
                 if(t_fecha1.getText().compareTo("AAAA-MM-DD")!=0)
                 {
                     if(entro==1)
@@ -1409,6 +1430,27 @@ public class Reportes extends javax.swing.JPanel {
                     else
                         consulta+="where ";
                     consulta+="com.fehaFectura<='" +t_fecha2.getText() +"' ";
+                    entro=1;
+                }
+                break;
+            
+            case "Entrega de Unidad":
+                if(t_fecha1.getText().compareTo("AAAA-MM-DD")!=0)
+                {
+                    if(entro==1)
+                        consulta+="and ";
+                    else
+                        consulta+="where ";
+                    consulta+="com.REntregarFecha>='" +t_fecha1.getText() +"' ";
+                    entro=1;
+                }
+                if(t_fecha2.getText().compareTo("AAAA-MM-DD")!=0)
+                {
+                    if(entro==1)
+                        consulta+="and ";
+                    else
+                        consulta+="where ";
+                    consulta+="com.REntregarFecha<='" +t_fecha2.getText() +"' ";
                     entro=1;
                 }
                 break;
@@ -1907,6 +1949,27 @@ public class Reportes extends javax.swing.JPanel {
                     tam.add(80);
                     tam_pdf.add(15);
                 }
+                if(cb_cierre.isSelected()==true)
+                {
+                    tipos.add(java.lang.String.class);
+                    col.add("F.Cierre");
+                    tam.add(80);
+                    tam_pdf.add(15);
+                }
+                if(cb_f_factura.isSelected()==true)
+                {
+                    tipos.add(java.lang.String.class);
+                    col.add("F.Factura");
+                    tam.add(80);
+                    tam_pdf.add(15);
+                }
+                if(cb_entrega_unidad.isSelected()==true)
+                {
+                    tipos.add(java.lang.String.class);
+                    col.add("F.Ent.Unidad");
+                    tam.add(80);
+                    tam_pdf.add(15);
+                }
                 
                 model=new MyModel(resultList.size(), (String[])col.toArray(new String[0]), (Class[])tipos.toArray(new Class[0]));
                 t_datos.setModel(model);
@@ -2254,6 +2317,30 @@ public class Reportes extends javax.swing.JPanel {
                     if(cb_m_pintura.isSelected()==true)
                     {
                         t_datos.setValueAt(orden.getMPintura(), ren, columna);
+                        columna++;
+                    }
+                    if(cb_cierre.isSelected()==true)
+                    {
+                        if(orden.getFechaCierre()!=null)
+                            t_datos.setValueAt(orden.getFechaCierre().toString(), ren, columna);
+                        else
+                            t_datos.setValueAt("", ren, columna);
+                        columna++;
+                    }
+                    if(cb_f_factura.isSelected()==true)
+                    {
+                        if(orden.getFehaFectura()!=null)
+                            t_datos.setValueAt(orden.getFehaFectura().toString(), ren, columna);
+                        else
+                            t_datos.setValueAt("", ren, columna);
+                        columna++;
+                    }
+                    if(cb_entrega_unidad.isSelected()==true)
+                    {
+                        if(orden.getREntregarFecha()!=null)
+                            t_datos.setValueAt(new SimpleDateFormat("yyyy-MM-dd").format(orden.getREntregarFecha()), ren, columna);
+                        else
+                            t_datos.setValueAt("", ren, columna);
                         columna++;
                     }
                     ren++;
@@ -2787,13 +2874,16 @@ public class Reportes extends javax.swing.JPanel {
     private javax.swing.JCheckBox cb_autorizado_directo;
     private javax.swing.JCheckBox cb_c_pintura;
     private javax.swing.JCheckBox cb_cia;
+    private javax.swing.JCheckBox cb_cierre;
     private javax.swing.JCheckBox cb_cliente;
     private javax.swing.JCheckBox cb_color;
     private javax.swing.JCheckBox cb_compras;
     private javax.swing.JCheckBox cb_consumible;
     private javax.swing.JCheckBox cb_economico;
     private javax.swing.JCheckBox cb_email;
+    private javax.swing.JCheckBox cb_entrega_unidad;
     private javax.swing.JCheckBox cb_estatus;
+    private javax.swing.JCheckBox cb_f_factura;
     private javax.swing.JCheckBox cb_factura;
     private javax.swing.JCheckBox cb_fecha_cliente;
     private javax.swing.JCheckBox cb_fecha_entrada;
