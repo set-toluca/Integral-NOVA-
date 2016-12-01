@@ -610,6 +610,8 @@ public class RCuentas extends javax.swing.JPanel {
                         renglon[6]=actor.getFolio();
                         Concepto[] ren=(Concepto[])actor.getConceptos().toArray(new Concepto[0]);
                         BigDecimal total=new BigDecimal("0.0");
+                        BigDecimal mo=new BigDecimal(0.0d);
+                        BigDecimal ref=new BigDecimal(0.0d);
                         for(int w=0; w<actor.getConceptos().size(); w++)
                         {
                             BigDecimal cantidad=new BigDecimal(""+ren[w].getCantidad());
@@ -619,10 +621,22 @@ public class RCuentas extends javax.swing.JPanel {
                             BigDecimal subtotal=cantidad.multiply(precio).setScale(2, BigDecimal.ROUND_HALF_UP);
                             BigDecimal resta=subtotal.multiply(descuento).setScale(2, BigDecimal.ROUND_HALF_UP);
                             total = total.add(subtotal.subtract(resta)).setScale(2, BigDecimal.ROUND_HALF_UP);
+                            if(ren[w].getDescripcion().contains("MANO DE OBRA")==true)
+                            {
+                                mo = mo.add(subtotal.subtract(resta).setScale(2, BigDecimal.ROUND_HALF_UP));
+                            }
+                            else
+                            {
+                                ref = ref.add(subtotal.subtract(resta).setScale(2, BigDecimal.ROUND_HALF_UP));
+                            }
                         }
                         BigDecimal iva=new BigDecimal(""+actor.getIva());
                         iva=iva.divide(new BigDecimal("100"));
                         total=total.add(total.multiply(iva));
+                        mo=mo.add(mo.multiply(iva));
+                        ref=ref.add(ref.multiply(iva));
+                        System.out.println("MO:"+mo.setScale(2, RoundingMode.HALF_UP).doubleValue()+" Ref:"+ref.setScale(2, RoundingMode.HALF_UP).doubleValue());
+                        
                         //Double.parseDouble(total.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
                         renglon[7]=total.setScale(2, RoundingMode.HALF_UP).doubleValue();
 
